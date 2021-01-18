@@ -13,11 +13,16 @@ struct Photo: Identifiable {
     let image: UIImage
     
     static let mock: [Photo] = [
+        Photo(image: UIImage(named: "sc1")!),
+        Photo(image: UIImage(named: "sc2")!),
+        Photo(image: UIImage(named: "sc3")!),
+        Photo(image: UIImage(named: "sc4")!),
         Photo(image: UIImage(named: "1")!),
         Photo(image: UIImage(named: "2")!),
         Photo(image: UIImage(named: "3")!),
         Photo(image: UIImage(named: "4")!),
         Photo(image: UIImage(named: "5")!)
+        
     ]
 }
 
@@ -37,6 +42,7 @@ struct CardView: View {
             .cornerRadius(12)
             .shadow(radius: 4)
         }
+        .padding()
     }
 }
 
@@ -48,7 +54,13 @@ struct MainLabelingView: View {
             direction: LeftRight.direction,
             data: data,
             onSwipe: { card, direction in
-                print("Swiped \(card.image) to \(direction)")
+                print("Swiped \(direction)")
+    
+                if direction == .right
+                {
+                    print("오른쪽 : 라벨 추가")
+                }
+                
             },
             content: { photo,_,_  in
                 CardView(photo: photo) 
@@ -56,8 +68,16 @@ struct MainLabelingView: View {
         )
         .padding()
         .scaledToFit()
-        //.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
+    
+
+//    if direction == left {
+//
+//    } else {
+//
+//    }
+    
 }
 
     
