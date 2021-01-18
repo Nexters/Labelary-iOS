@@ -1,2 +1,5 @@
-# 18th-FS-iOS
-Full Stack 팀 iOS Repository
+# 18th-FS-iOS :apple:
+
+<h3 align="center"> Team.Full Stack iOS Repository</h3>
+
+
