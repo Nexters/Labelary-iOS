@@ -13,10 +13,20 @@ struct AppView: View {
         TabView {
             MainLabelingView()
                 .tabItem {
+                    Image(systemName: "list.dash")
                     Text("라벨링")
-                    
-            
                 }
+            SearchView()
+                .tabItem {
+                    Image(systemName: "list.dash")
+                    Text("탐색")
+                }
+            AlbumView()
+                .tabItem {
+                    Image(systemName: "list.dash")
+                    Text("앨범")
+                }
+                
             
             
         }
