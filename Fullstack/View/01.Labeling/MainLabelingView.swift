@@ -1,10 +1,3 @@
-//
-//  MainLabelingView.swift
-//  Fullstack
-//
-//  Created by 우민지 on 2021/01/16.
-//
-
 import SwiftUI
 import CardStack
 
@@ -22,10 +15,8 @@ struct Photo: Identifiable {
         Photo(image: UIImage(named: "3")!),
         Photo(image: UIImage(named: "4")!),
         Photo(image: UIImage(named: "5")!)
-        
     ]
 }
-
 
 struct CardView: View {
     let photo: Photo
@@ -34,7 +25,6 @@ struct CardView: View {
         GeometryReader { geo in
             VStack {
                 Image(uiImage: self.photo.image)
-                    .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(height: geo.size.width)
                     .clipped()
@@ -49,47 +39,50 @@ struct CardView: View {
 
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
+  
     var body: some View {
-        CardStack(
-            direction: LeftRight.direction,
-            data: data,
-            onSwipe: { card, direction in
-                print("Swiped \(direction)")
-    
-                if direction == .right
-                {
-                    print("오른쪽 : 라벨 추가")
+        VStack {
+            CardStack(
+                direction: LeftRight.direction,
+                data: data,
+                onSwipe: { card, direction in
+                    print("Swiped \(direction)")
+        
+                    if direction == .right
+                    {
+                        print("오른쪽 : 라벨 추가")
+                    }
+                    
+                },
+                content: { photo,_,_  in
+                    CardView(photo: photo)
                 }
+            )
+            .padding()
+            .scaledToFit()
+            .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            
+            HStack {
+                Button(action: {
+                    
+                }, label: {
+                    Text("N")
+                }).padding(50.0)
                 
-            },
-            content: { photo,_,_  in
-                CardView(photo: photo) 
+                Button(action: {
+                    
+                }, label: {
+                    Text("Y")
+                }).padding(50.0)
+            }.padding(30)
             }
-        )
-        .padding()
-        .scaledToFit()
-        .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        }
     }
     
-
-//    if direction == left {
-//
-//    } else {
-//
-//    }
-    
-}
-
     
 struct MainLabelingView_Previews: PreviewProvider {
     static var previews: some View {
-        TabView {
-            MainLabelingView()
-                .tabItem { Image(systemName: "photo.fill")
-                Text("라벨링")
-                }
-        }
-       
+        MainLabelingView()
     }
 }
  
