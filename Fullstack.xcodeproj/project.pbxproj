@@ -14,6 +14,11 @@
 		246159EB25B2DEC100F6D730 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159EA25B2DEC100F6D730 /* Model.swift */; };
 		246159F125B2DF3100F6D730 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159F025B2DF3100F6D730 /* ViewModel.swift */; };
 		246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159F425B2E18500F6D730 /* MainLabelingView.swift */; };
+		2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD2925BA623500BE3492 /* AppViews + TabView.swift */; };
+		2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD2D25BA63E100BE3492 /* SearchView.swift */; };
+		2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3525BA648900BE3492 /* AlbumView.swift */; };
+		2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */; };
+		2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3D25BA795500BE3492 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +30,11 @@
 		246159EA25B2DEC100F6D730 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		246159F025B2DF3100F6D730 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		246159F425B2E18500F6D730 /* MainLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabelingView.swift; sourceTree = "<group>"; };
+		2464AD2925BA623500BE3492 /* AppViews + TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppViews + TabView.swift"; sourceTree = "<group>"; };
+		2464AD2D25BA63E100BE3492 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2464AD3525BA648900BE3492 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelingView.swift; sourceTree = "<group>"; };
+		2464AD3D25BA795500BE3492 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,7 +103,10 @@
 		246159E325B2DE7200F6D730 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				246159F425B2E18500F6D730 /* MainLabelingView.swift */,
+				2464AD2925BA623500BE3492 /* AppViews + TabView.swift */,
+				2464AD3025BA63F300BE3492 /* 01.Labeling */,
+				2464AD3125BA640500BE3492 /* 02.Search */,
+				2464AD3425BA646900BE3492 /* 03.Album */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,6 +125,32 @@
 				246159F025B2DF3100F6D730 /* ViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2464AD3025BA63F300BE3492 /* 01.Labeling */ = {
+			isa = PBXGroup;
+			children = (
+				246159F425B2E18500F6D730 /* MainLabelingView.swift */,
+				2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */,
+			);
+			path = 01.Labeling;
+			sourceTree = "<group>";
+		};
+		2464AD3125BA640500BE3492 /* 02.Search */ = {
+			isa = PBXGroup;
+			children = (
+				2464AD3D25BA795500BE3492 /* SearchBar.swift */,
+				2464AD2D25BA63E100BE3492 /* SearchView.swift */,
+			);
+			path = 02.Search;
+			sourceTree = "<group>";
+		};
+		2464AD3425BA646900BE3492 /* 03.Album */ = {
+			isa = PBXGroup;
+			children = (
+				2464AD3525BA648900BE3492 /* AlbumView.swift */,
+			);
+			path = 03.Album;
 			sourceTree = "<group>";
 		};
 		C70C3EE485C3D48D8335E43D /* Pods */ = {
@@ -238,7 +277,12 @@
 			files = (
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				246159F125B2DF3100F6D730 /* ViewModel.swift in Sources */,
+				2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */,
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
+				2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */,
+				2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */,
+				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
+				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
