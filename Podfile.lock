@@ -1,16 +1,30 @@
 PODS:
+  - OpenCombine (0.11.0)
+  - OpenCombineDispatch (0.11.0):
+    - OpenCombine (>= 0.10.2)
+  - OpenCombineFoundation (0.11.0):
+    - OpenCombine (>= 0.10.2)
   - SwiftUICardStack (0.0.5)
 
 DEPENDENCIES:
+  - OpenCombine (~> 0.11.0)
+  - OpenCombineDispatch (~> 0.11.0)
+  - OpenCombineFoundation (~> 0.11.0)
   - SwiftUICardStack
 
 SPEC REPOS:
   trunk:
+    - OpenCombine
+    - OpenCombineDispatch
+    - OpenCombineFoundation
     - SwiftUICardStack
 
 SPEC CHECKSUMS:
+  OpenCombine: 819bfcd0bdf70a2929073c661953514cb4d757d4
+  OpenCombineDispatch: d6df618e05cf4321dac2479093cc4586e3ceb5c3
+  OpenCombineFoundation: 2e33e68cc4f74256731dc7db6ecfe509356e0076
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
 
-PODFILE CHECKSUM: 6bb68809308446b0a686e533372a53fbc092c489
+PODFILE CHECKSUM: 591b4c4465a6a252f917abc8c3508facac8a719a
 
 COCOAPODS: 1.10.1
