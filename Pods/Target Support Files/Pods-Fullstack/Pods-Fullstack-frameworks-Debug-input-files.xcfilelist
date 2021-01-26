@@ -1,2 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Fullstack/Pods-Fullstack-frameworks.sh
+${BUILT_PRODUCTS_DIR}/OpenCombine/OpenCombine.framework
+${BUILT_PRODUCTS_DIR}/OpenCombineDispatch/OpenCombineDispatch.framework
+${BUILT_PRODUCTS_DIR}/OpenCombineFoundation/OpenCombineFoundation.framework
 ${BUILT_PRODUCTS_DIR}/SwiftUICardStack/CardStack.framework
