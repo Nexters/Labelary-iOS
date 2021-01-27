@@ -1,7 +1,7 @@
 
 import Combine
 
-public struct GenericSubscriber<Value>: Subscriber {  // swiftlint:disable:this final_class
+public struct GenericSubscriber<Value>: Subscriber { // swiftlint:disable:this final_class
     public var combineIdentifier = CombineIdentifier()
     private let _subscribing: (Value) -> Void
     
@@ -19,9 +19,7 @@ public struct GenericSubscriber<Value>: Subscriber {  // swiftlint:disable:this 
         subscription.request(.max(1))
     }
     
-    public func receive(completion: Subscribers.Completion<Never>) {
-        
-    }
+    public func receive(completion: Subscribers.Completion<Never>) {}
     
     public func receive(_ input: Value) -> Subscribers.Demand {
         _subscribing(input)

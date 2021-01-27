@@ -7,6 +7,4 @@
 
 import Foundation
 
-struct ImageMetadataEntity : VO {
-    
-}
+struct ImageMetadataEntity: VO {}

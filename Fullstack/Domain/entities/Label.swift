@@ -7,12 +7,11 @@
 
 import Foundation
 
-struct LabelEntity : Entity {
-    
-    let id : String
-    var name : String
-    var color : ColorSet
-    var images : Array<ImageEntity>
-    let createdAt : Date
-    var lastSearchedAt : Date
+struct LabelEntity: Entity {
+    let id: String
+    var name: String
+    var color: ColorSet
+    var images: [ImageEntity]
+    let createdAt: Date
+    var lastSearchedAt: Date
 }

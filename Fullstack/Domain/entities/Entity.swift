@@ -7,15 +7,12 @@
 
 import Foundation
 
-protocol Entity : Equatable {
-    
-    var id : String
-        { get }
+protocol Entity: Equatable {
+    var id: String
+    { get }
 }
 
-
 extension Entity {
-    
     static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }

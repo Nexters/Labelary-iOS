@@ -7,7 +7,6 @@
 
 import Foundation
 
-enum ColorSet : VO {
-        
-    case RED(value : Int)
+enum ColorSet: VO {
+    case RED(value: Int)
 }

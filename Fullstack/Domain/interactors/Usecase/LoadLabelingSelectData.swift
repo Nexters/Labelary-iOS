@@ -5,17 +5,16 @@
 //  Created by 김범준 on 2021/01/26.
 //
 
-import Foundation
 import Combine
+import Foundation
 
-struct LoadLabelingSelectData : Usecase {
- 
+struct LoadLabelingSelectData: Usecase {
     typealias Param = Void
-    typealias Result = Array<LabelEntity>
-    
-    let labelRepository : LabelRepository
-    
-    func get(param : Param) -> Observable<Result> {
+    typealias Result = [LabelEntity]
+
+    let labelRepository: LabelRepository
+
+    func get(param: Param) -> Observable<Result> {
         return labelRepository.getAllLabels()
     }
 }
