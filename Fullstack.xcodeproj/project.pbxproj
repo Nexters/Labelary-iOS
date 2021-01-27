@@ -18,6 +18,13 @@
 		2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3525BA648900BE3492 /* AlbumView.swift */; };
 		2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */; };
 		2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3D25BA795500BE3492 /* SearchBar.swift */; };
+		56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966925C1393F00E441EC /* SearchImageByLabel.swift */; };
+		56C1966D25C13AD300E441EC /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966C25C13AD300E441EC /* SearchResponse.swift */; };
+		56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966F25C13D9600E441EC /* DeleteImages.swift */; };
+		56C1967325C13EAB00E441EC /* DeleteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967225C13EAB00E441EC /* DeleteLabel.swift */; };
+		56C1967625C13F0600E441EC /* UpdateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967525C13F0600E441EC /* UpdateLabel.swift */; };
+		56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */; };
+		56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967B25C1430600E441EC /* BookmarkImage.swift */; };
 		56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B62E25BD71C8008EEF2F /* Usecase.swift */; };
 		56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
 		56D1B63725BD7391008EEF2F /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
@@ -61,6 +68,13 @@
 		2464AD3D25BA795500BE3492 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C1966925C1393F00E441EC /* SearchImageByLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageByLabel.swift; sourceTree = "<group>"; };
+		56C1966C25C13AD300E441EC /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		56C1966F25C13D9600E441EC /* DeleteImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImages.swift; sourceTree = "<group>"; };
+		56C1967225C13EAB00E441EC /* DeleteLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLabel.swift; sourceTree = "<group>"; };
+		56C1967525C13F0600E441EC /* UpdateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLabel.swift; sourceTree = "<group>"; };
+		56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChagneLabelOnImage.swift; sourceTree = "<group>"; };
+		56C1967B25C1430600E441EC /* BookmarkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkImage.swift; sourceTree = "<group>"; };
 		56D1B62E25BD71C8008EEF2F /* Usecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usecase.swift; sourceTree = "<group>"; };
 		56D1B63225BD7313008EEF2F /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		56D1B63625BD7391008EEF2F /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -266,6 +280,12 @@
 				56D1B68A25C05203008EEF2F /* RequestLabeling.swift */,
 				56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */,
 				56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */,
+				56C1966925C1393F00E441EC /* SearchImageByLabel.swift */,
+				56C1966F25C13D9600E441EC /* DeleteImages.swift */,
+				56C1967225C13EAB00E441EC /* DeleteLabel.swift */,
+				56C1967525C13F0600E441EC /* UpdateLabel.swift */,
+				56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */,
+				56C1967B25C1430600E441EC /* BookmarkImage.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -288,6 +308,7 @@
 				56D1B64225BD75B7008EEF2F /* Label.swift */,
 				56D1B64525BD7680008EEF2F /* Color.swift */,
 				56D1B68125C0502C008EEF2F /* VO.swift */,
+				56C1966C25C13AD300E441EC /* SearchResponse.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -430,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */,
 				56D1B67725BFE215008EEF2F /* Publisher+.swift in Sources */,
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
@@ -437,6 +459,7 @@
 				56D1B64025BD7557008EEF2F /* ImageMetadata.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
+				56C1966D25C13AD300E441EC /* SearchResponse.swift in Sources */,
 				56D1B68E25C0540D008EEF2F /* LoadAlbumData.swift in Sources */,
 				56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */,
 				2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */,
@@ -445,6 +468,8 @@
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
+				56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */,
+				56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */,
 				56D1B67425BFE215008EEF2F /* Observable.swift in Sources */,
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
 				2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */,
@@ -453,11 +478,14 @@
 				56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */,
 				56D1B63C25BD7406008EEF2F /* Image.swift in Sources */,
 				56D1B64325BD75B7008EEF2F /* Label.swift in Sources */,
+				56C1967625C13F0600E441EC /* UpdateLabel.swift in Sources */,
 				2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */,
+				56C1967325C13EAB00E441EC /* DeleteLabel.swift in Sources */,
 				56D1B67F25C04F5B008EEF2F /* LoadLabelingSelectData.swift in Sources */,
 				56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */,
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
+				56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */,
 				56D1B63725BD7391008EEF2F /* Entity.swift in Sources */,
 				56D1B66E25BFE215008EEF2F /* ErrorTracker.swift in Sources */,
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,

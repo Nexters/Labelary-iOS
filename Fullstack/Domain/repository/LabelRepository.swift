@@ -15,6 +15,6 @@ protocol LabelRepository {
     func getRecentCreatedLabels(count: Int?) -> Observable<[LabelEntity]>
 
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity>
-    func deleteLabel(label: LabelEntity) -> Observable<Void>
-    func updateLabel(label: LabelEntity) -> Observable<Void>
+    func deleteLabel(label: LabelEntity) -> Observable<String>
+    func updateLabel(label: LabelEntity) -> Observable<LabelEntity>
 }

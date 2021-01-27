@@ -10,14 +10,14 @@ import Foundation
 
 struct RequestLabeling: Usecase {
     typealias Param = RequestData
-    typealias Result = ImageEntity
-    
+    typealias Result = [ImageEntity]
+
     let imageRepository: ImageRepository
-    
+
     func get(param: Param) -> Observable<Result> {
         return imageRepository.requestLabeling(labels: param.labels, images: param.images)
     }
-    
+
     struct RequestData {
         let labels: [LabelEntity]
         let images: [ImageEntity]

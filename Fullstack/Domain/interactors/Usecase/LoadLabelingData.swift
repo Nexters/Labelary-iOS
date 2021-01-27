@@ -15,8 +15,7 @@ struct LoadLabelingData: Usecase {
     let imageRepository: ImageRepository
 
     func get(param: Param) -> Observable<Result> {
-        return imageRepository.getUnLabeledImages()
-            .map { $0.execlude(filter: param) }
+        return imageRepository.getUnLabeledImages(filtered: param)
             .eraseToAnyPublisher()
     }
 }

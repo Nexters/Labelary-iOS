@@ -8,22 +8,23 @@
 import Combine
 import Foundation
 
-struct LoadAlbumData: Usecase {
+struct LoadSearchMainData: Usecase {
     typealias Param = Void
     typealias Result = ResultData
-    
+
     let imageRepository: ImageRepository
-    
+
     func get(param: Param) -> Observable<Result> {
         return Publishers.Zip(
             imageRepository.getBookmarkImages(),
             imageRepository.getAllImages()
-        ).map { ResultData(bookmarkedImages: $0, recentlyImages: $1) }
-            .eraseToAnyPublisher()
+        ).map {
+            ResultData(bookmarkedImages: $0, recentlyImages: $1)
+        }.eraseToAnyPublisher()
     }
-    
+
     struct ResultData {
-        let bookmarkedImages: [ImageEntity]
-        let recentlyImages: [ImageEntity]
+        let bookmarkedImages: SearchResponse
+        let recentlyImages: SearchResponse
     }
 }
