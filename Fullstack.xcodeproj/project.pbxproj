@@ -19,12 +19,18 @@
 		2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */; };
 		2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3D25BA795500BE3492 /* SearchBar.swift */; };
 		56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966925C1393F00E441EC /* SearchImageByLabel.swift */; };
-		56C1966D25C13AD300E441EC /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966C25C13AD300E441EC /* SearchResponse.swift */; };
+		56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966C25C13AD300E441EC /* SearchResult.swift */; };
 		56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966F25C13D9600E441EC /* DeleteImages.swift */; };
 		56C1967325C13EAB00E441EC /* DeleteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967225C13EAB00E441EC /* DeleteLabel.swift */; };
 		56C1967625C13F0600E441EC /* UpdateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967525C13F0600E441EC /* UpdateLabel.swift */; };
 		56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */; };
 		56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1967B25C1430600E441EC /* BookmarkImage.swift */; };
+		56C1968925C1681900E441EC /* CachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968825C1681900E441EC /* CachedData.swift */; };
+		56C1968D25C1694D00E441EC /* LabelRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968C25C1694D00E441EC /* LabelRealmModel.swift */; };
+		56C1969025C1695800E441EC /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968F25C1695800E441EC /* ImageRealmModel.swift */; };
+		56C1969B25C1737E00E441EC /* CachedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1969A25C1737E00E441EC /* CachedDataSource.swift */; };
+		56C196A825C1B8D800E441EC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196A725C1B8D800E441EC /* Array+.swift */; };
+		56C196AD25C2F2A500E441EC /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196AC25C2F2A500E441EC /* DomainError.swift */; };
 		56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B62E25BD71C8008EEF2F /* Usecase.swift */; };
 		56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
 		56D1B63725BD7391008EEF2F /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
@@ -69,12 +75,18 @@
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C1966925C1393F00E441EC /* SearchImageByLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageByLabel.swift; sourceTree = "<group>"; };
-		56C1966C25C13AD300E441EC /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		56C1966C25C13AD300E441EC /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		56C1966F25C13D9600E441EC /* DeleteImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImages.swift; sourceTree = "<group>"; };
 		56C1967225C13EAB00E441EC /* DeleteLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLabel.swift; sourceTree = "<group>"; };
 		56C1967525C13F0600E441EC /* UpdateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLabel.swift; sourceTree = "<group>"; };
 		56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChagneLabelOnImage.swift; sourceTree = "<group>"; };
 		56C1967B25C1430600E441EC /* BookmarkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkImage.swift; sourceTree = "<group>"; };
+		56C1968825C1681900E441EC /* CachedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedData.swift; sourceTree = "<group>"; };
+		56C1968C25C1694D00E441EC /* LabelRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRealmModel.swift; sourceTree = "<group>"; };
+		56C1968F25C1695800E441EC /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
+		56C1969A25C1737E00E441EC /* CachedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedDataSource.swift; sourceTree = "<group>"; };
+		56C196A725C1B8D800E441EC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		56C196AC25C2F2A500E441EC /* DomainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainError.swift; sourceTree = "<group>"; };
 		56D1B62E25BD71C8008EEF2F /* Usecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usecase.swift; sourceTree = "<group>"; };
 		56D1B63225BD7313008EEF2F /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		56D1B63625BD7391008EEF2F /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -145,6 +157,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
+				56C1967E25C143F100E441EC /* Cache */,
 				56D1B65925BFE0D3008EEF2F /* Foundation */,
 				56D1B62225BD6CA8008EEF2F /* Remote */,
 				56D1B62125BD6C95008EEF2F /* Domain */,
@@ -221,6 +234,55 @@
 			path = 03.Album;
 			sourceTree = "<group>";
 		};
+		56C1967E25C143F100E441EC /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				56C1968B25C1693200E441EC /* Model */,
+				56C1968725C167EA00E441EC /* Interactors */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		56C1968725C167EA00E441EC /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				56C1968825C1681900E441EC /* CachedData.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		56C1968B25C1693200E441EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				56C1968C25C1694D00E441EC /* LabelRealmModel.swift */,
+				56C1968F25C1695800E441EC /* ImageRealmModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		56C1969325C172F900E441EC /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				56C1969425C1731100E441EC /* Repository */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		56C1969425C1731100E441EC /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		56C1969925C1736000E441EC /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				56C1969A25C1737E00E441EC /* CachedDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		56D1B61E25BD6C0C008EEF2F /* Ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +302,8 @@
 		56D1B62025BD6C5E008EEF2F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				56C1969925C1736000E441EC /* DataSource */,
+				56C1969325C172F900E441EC /* Interactors */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -247,9 +311,10 @@
 		56D1B62125BD6C95008EEF2F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				56D1B63525BD7383008EEF2F /* entities */,
-				56D1B63125BD72E5008EEF2F /* repository */,
-				56D1B62325BD6CD2008EEF2F /* interactors */,
+				56D1B63525BD7383008EEF2F /* Entities */,
+				56D1B63125BD72E5008EEF2F /* Repository */,
+				56D1B62325BD6CD2008EEF2F /* Interactors */,
+				56C196AC25C2F2A500E441EC /* DomainError.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -261,13 +326,13 @@
 			path = Remote;
 			sourceTree = "<group>";
 		};
-		56D1B62325BD6CD2008EEF2F /* interactors */ = {
+		56D1B62325BD6CD2008EEF2F /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
 				56D1B62425BD6CD9008EEF2F /* Usecase */,
 				56D1B62E25BD71C8008EEF2F /* Usecase.swift */,
 			);
-			path = interactors;
+			path = Interactors;
 			sourceTree = "<group>";
 		};
 		56D1B62425BD6CD9008EEF2F /* Usecase */ = {
@@ -290,16 +355,16 @@
 			path = Usecase;
 			sourceTree = "<group>";
 		};
-		56D1B63125BD72E5008EEF2F /* repository */ = {
+		56D1B63125BD72E5008EEF2F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				56D1B63225BD7313008EEF2F /* ImageRepository.swift */,
 				56D1B64C25BD7922008EEF2F /* LabelRepository.swift */,
 			);
-			path = repository;
+			path = Repository;
 			sourceTree = "<group>";
 		};
-		56D1B63525BD7383008EEF2F /* entities */ = {
+		56D1B63525BD7383008EEF2F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				56D1B63625BD7391008EEF2F /* Entity.swift */,
@@ -308,9 +373,9 @@
 				56D1B64225BD75B7008EEF2F /* Label.swift */,
 				56D1B64525BD7680008EEF2F /* Color.swift */,
 				56D1B68125C0502C008EEF2F /* VO.swift */,
-				56C1966C25C13AD300E441EC /* SearchResponse.swift */,
+				56C1966C25C13AD300E441EC /* SearchResult.swift */,
 			);
-			path = entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		56D1B65925BFE0D3008EEF2F /* Foundation */ = {
@@ -325,6 +390,7 @@
 				56D1B66725BFE215008EEF2F /* Observable.swift */,
 				56D1B66A25BFE215008EEF2F /* Publisher+.swift */,
 				56D1B66625BFE215008EEF2F /* ScreenLoadingType.swift */,
+				56C196A725C1B8D800E441EC /* Array+.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -459,10 +525,14 @@
 				56D1B64025BD7557008EEF2F /* ImageMetadata.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
-				56C1966D25C13AD300E441EC /* SearchResponse.swift in Sources */,
+				56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */,
+				56C196AD25C2F2A500E441EC /* DomainError.swift in Sources */,
+				56C1968D25C1694D00E441EC /* LabelRealmModel.swift in Sources */,
 				56D1B68E25C0540D008EEF2F /* LoadAlbumData.swift in Sources */,
 				56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */,
+				56C196A825C1B8D800E441EC /* Array+.swift in Sources */,
 				2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */,
+				56C1969025C1695800E441EC /* ImageRealmModel.swift in Sources */,
 				56D1B67925BFE215008EEF2F /* ViewModel.swift in Sources */,
 				56D1B66F25BFE215008EEF2F /* CancelBag.swift in Sources */,
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
@@ -470,6 +540,7 @@
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */,
 				56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */,
+				56C1969B25C1737E00E441EC /* CachedDataSource.swift in Sources */,
 				56D1B67425BFE215008EEF2F /* Observable.swift in Sources */,
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
 				2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */,
@@ -491,6 +562,7 @@
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
+				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
