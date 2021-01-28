@@ -13,5 +13,6 @@ struct LabelEntity: Entity {
     var color: ColorSet
     var images: [ImageEntity]
     let createdAt: Date
-    var lastSearchedAt: Date
+    var lastSearchedAt: Date?
+    var isCached: Bool = false
 }

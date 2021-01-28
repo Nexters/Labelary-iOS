@@ -12,7 +12,8 @@ struct ImageEntity: Entity {
     var id: String
     let metaData: ImageMetadataEntity
     var labels: [LabelEntity]
-    var isBookmark: Bool
+    var isBookmark: Bool = false
+    var isCached: Bool = false
 
     enum Source {
         case Remote(url: String)

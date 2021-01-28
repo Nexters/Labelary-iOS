@@ -24,7 +24,7 @@ struct LoadSearchMainData: Usecase {
     }
 
     struct ResultData {
-        let bookmarkedImages: SearchResponse
-        let recentlyImages: SearchResponse
+        let bookmarkedImages: SearchResult
+        let recentlyImages: SearchResult
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchResult: VO {
-    let lastPageId: Int
+    let lastPageId: Int?
     let totalCount: Int
     let images: [ImageEntity]
 }
