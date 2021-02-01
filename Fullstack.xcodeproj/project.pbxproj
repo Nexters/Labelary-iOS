@@ -35,7 +35,6 @@
 		56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
 		56D1B63725BD7391008EEF2F /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
 		56D1B63C25BD7406008EEF2F /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63B25BD7406008EEF2F /* Image.swift */; };
-		56D1B64025BD7557008EEF2F /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63F25BD7557008EEF2F /* ImageMetadata.swift */; };
 		56D1B64325BD75B7008EEF2F /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64225BD75B7008EEF2F /* Label.swift */; };
 		56D1B64625BD7680008EEF2F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64525BD7680008EEF2F /* Color.swift */; };
 		56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64C25BD7922008EEF2F /* LabelRepository.swift */; };
@@ -91,7 +90,6 @@
 		56D1B63225BD7313008EEF2F /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		56D1B63625BD7391008EEF2F /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		56D1B63B25BD7406008EEF2F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		56D1B63F25BD7557008EEF2F /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
 		56D1B64225BD75B7008EEF2F /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		56D1B64525BD7680008EEF2F /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		56D1B64C25BD7922008EEF2F /* LabelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepository.swift; sourceTree = "<group>"; };
@@ -369,7 +367,6 @@
 			children = (
 				56D1B63625BD7391008EEF2F /* Entity.swift */,
 				56D1B63B25BD7406008EEF2F /* Image.swift */,
-				56D1B63F25BD7557008EEF2F /* ImageMetadata.swift */,
 				56D1B64225BD75B7008EEF2F /* Label.swift */,
 				56D1B64525BD7680008EEF2F /* Color.swift */,
 				56D1B68125C0502C008EEF2F /* VO.swift */,
@@ -522,7 +519,6 @@
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
-				56D1B64025BD7557008EEF2F /* ImageMetadata.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
 				56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */,
@@ -694,7 +690,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Fullstack/Preview Content\"";
-				DEVELOPMENT_TEAM = L88FL78593;
+				DEVELOPMENT_TEAM = G298UQ6Q8A;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Fullstack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -702,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = freemjstudio.Fullstack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omjoonkim.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -717,7 +713,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Fullstack/Preview Content\"";
-				DEVELOPMENT_TEAM = L88FL78593;
+				DEVELOPMENT_TEAM = G298UQ6Q8A;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Fullstack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -725,7 +721,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = freemjstudio.Fullstack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omjoonkim.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

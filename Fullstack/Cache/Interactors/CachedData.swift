@@ -7,22 +7,40 @@
 
 import Combine
 import Foundation
+import Photos
 import RealmSwift
 
 struct CachedData: CachedDataSource {
     let realm: Realm = try! Realm()
 
-    // 얘도 수정되어야 함
     func getAllImages() -> Observable<[ImageEntity]> {
-        return Just(realm.objects(ImageRealmModel.self)).asObservable()
-            .map { results in results.mapNotNull { $0.convertToEntity() }}.eraseToAnyPublisher()
+        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+        var results: [ImageEntity] = []
+        if let album = screenShotAlbum {
+            let assets = PHAsset.fetchAssets(in: album, options: nil)
+            for index in 0 ..< assets.count {
+                results.append(assets.object(at: index).toEntity())
+            }
+        }
+        return Just(realm.objects(ImageRealmModel.self))
+            .map { results in results.mapNotNull { $0.convertToEntity() }}
+            .map { entities in entities + results.filter { item in entities.contains(where: { $0.id == item.id }) } }
+            .asObservable()
     }
 
-    // 수정되야 함
     func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]> {
-        return Just(realm.objects(ImageRealmModel.self)).asObservable()
-            .map { results in results.mapNotNull { $0.convertToEntity() } }
-            .eraseToAnyPublisher()
+        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+        var results: [ImageEntity] = []
+        if let album = screenShotAlbum {
+            let assets = PHAsset.fetchAssets(in: album, options: nil)
+            for index in 0 ..< assets.count {
+                results.append(assets.object(at: index).toEntity())
+            }
+        }
+        return Just(realm.objects(ImageRealmModel.self))
+            .map { results in results.mapNotNull { $0.convertToEntity() }}
+            .map { entities in results.filter { item in entities.contains(where: { $0.id == item.id }) } }
+            .asObservable()
     }
 
     func getLabeldImages() -> Observable<[ImageEntity]> {
@@ -74,7 +92,6 @@ struct CachedData: CachedDataSource {
             let model = realm.create(ImageRealmModel.self)
             model.source = entity.source
             model.isBookmark = entity.isBookmark
-            model.metaData = entity.metaData
         }
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.id }}
