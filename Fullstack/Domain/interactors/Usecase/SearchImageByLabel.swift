@@ -10,7 +10,7 @@ import Foundation
 
 struct SearchImageByLabel: Usecase {
     typealias Param = RequestData
-    typealias Result = SearchResponse
+    typealias Result = SearchResult
 
     let imageRepository: ImageRepository
 

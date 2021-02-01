@@ -15,6 +15,6 @@ struct SearchLabel: Usecase {
     let labelRepository: LabelRepository
 
     func get(param: Param) -> Observable<Result> {
-        return labelRepository.getLabel(name: param)
+        return labelRepository.searchLabel(keyword: param)
     }
 }

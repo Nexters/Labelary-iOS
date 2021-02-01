@@ -4,12 +4,18 @@ PODS:
     - OpenCombine (>= 0.10.2)
   - OpenCombineFoundation (0.11.0):
     - OpenCombine (>= 0.10.2)
+  - Realm (10.5.1):
+    - Realm/Headers (= 10.5.1)
+  - Realm/Headers (10.5.1)
+  - RealmSwift (10.5.1):
+    - Realm (= 10.5.1)
   - SwiftUICardStack (0.0.5)
 
 DEPENDENCIES:
   - OpenCombine (~> 0.11.0)
   - OpenCombineDispatch (~> 0.11.0)
   - OpenCombineFoundation (~> 0.11.0)
+  - RealmSwift (~> 10.5.1)
   - SwiftUICardStack
 
 SPEC REPOS:
@@ -17,14 +23,18 @@ SPEC REPOS:
     - OpenCombine
     - OpenCombineDispatch
     - OpenCombineFoundation
+    - Realm
+    - RealmSwift
     - SwiftUICardStack
 
 SPEC CHECKSUMS:
   OpenCombine: 819bfcd0bdf70a2929073c661953514cb4d757d4
   OpenCombineDispatch: d6df618e05cf4321dac2479093cc4586e3ceb5c3
   OpenCombineFoundation: 2e33e68cc4f74256731dc7db6ecfe509356e0076
+  Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
+  RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
 
-PODFILE CHECKSUM: 591b4c4465a6a252f917abc8c3508facac8a719a
+PODFILE CHECKSUM: f140995fa5317b6299ca2351c3d38b0b4b8dbb9f
 
 COCOAPODS: 1.10.1

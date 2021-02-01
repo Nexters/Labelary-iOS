@@ -9,7 +9,7 @@ import Foundation
 
 protocol LabelRepository {
     func getAllLabels() -> Observable<[LabelEntity]>
-    func getLabel(name: String) -> Observable<[LabelEntity]>
+    func searchLabel(keyword: String) -> Observable<[LabelEntity]>
     func getLabel(id: String) -> Observable<LabelEntity>
     func getRecentSearcheLabels(count: Int?) -> Observable<[LabelEntity]>
     func getRecentCreatedLabels(count: Int?) -> Observable<[LabelEntity]>

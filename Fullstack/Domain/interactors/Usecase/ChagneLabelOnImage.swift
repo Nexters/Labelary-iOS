@@ -16,7 +16,7 @@ struct ChangeLabelOnImage: Usecase {
     let imageRepository: ImageRepository
 
     func get(param: Param) -> Observable<Result> {
-        return imageRepository.deleteLabel(label: param.beforeLabel, images: param.images)
+        return imageRepository.deleteLabel(labels: [param.beforeLabel], images: param.images)
             .flatMap { _ in imageRepository.requestLabeling(labels: [param.afterLabel], images: param.images) }
             .eraseToAnyPublisher()
     }
