@@ -66,15 +66,18 @@ struct MainLabelingView: View {
                 Button(action: {
                     
                 }, label: {
-                    Text("N")
+                    Text("NO")
                 }).padding(50.0)
                 
-                Button(action: {
-                    
-                }, label: {
-                    Text("Y")
-                }).padding(50.0)
+                NavigationLink(
+                    destination: AddLabelingView(),
+                    label: {
+                        Text("YES")
+                    }).padding(50)
+                
+            
             }.padding(30)
+            
             }
         }
     }
