@@ -72,7 +72,8 @@ struct MainLabelingView: View {
                     self.isShowingAddLabelingView = true
                 }, label: {
                     NavigationLink(
-                        destination: AddLabelingView(), isActive: $isShowingAddLabelingView){
+                        destination: AddLabelingView()
+                        , isActive: $isShowingAddLabelingView){
                         Text("YES")
                     }
                 })

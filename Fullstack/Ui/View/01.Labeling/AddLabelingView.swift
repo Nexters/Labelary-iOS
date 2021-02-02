@@ -32,7 +32,7 @@ struct SelectedLabelView: View {
 }
 
 struct AddLabelingView: View {
-    
+    @Environment(\.presentationMode) var presentationMode
     @State var labels = [
         Label(label: "UX/UI 디자인"),
         Label(label: "카톡캡쳐"),
@@ -44,8 +44,9 @@ struct AddLabelingView: View {
         Label(label: "UX/UI 디자인")
         ]
     
+ 
     var body: some View {
-       
+        
             VStack() {
                 HStack() {
                 Text("라벨 들 넣을 공간")
@@ -57,10 +58,24 @@ struct AddLabelingView: View {
                 })
                 }
             }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading:
+                                    
+                Button(action: onclickedBackButton) {
+                Image(systemName: "arrow.left")
+                }
+                                
+            )
         
-        
-        }
+       
     }
+    
+    func onclickedBackButton(){
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    }
+
+    
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {
         AddLabelingView()
