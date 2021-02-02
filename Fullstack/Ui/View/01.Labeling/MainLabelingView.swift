@@ -1,5 +1,5 @@
-import SwiftUI
 import CardStack
+import SwiftUI
 
 struct Photo: Identifiable {
     let id = UUID()
@@ -31,61 +31,54 @@ struct CardView: View {
     }
 }
 
-
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
     @State private var isShowingAddLabelingView = false
   
     var body: some View {
+        NavigationView {
+            VStack {
+                CardStack(
+                    direction: LeftRight.direction,
+                    data: data,
+                    onSwipe: { _, direction in
+                        print("Swiped \(direction)")
         
-    NavigationView{
-        VStack {
-            CardStack(
-                direction: LeftRight.direction,
-                data: data,
-                onSwipe: { card, direction in
-                    print("Swiped \(direction)")
-        
-                    if direction == .right
-                    {
-                        print("오른쪽 : 라벨 추가")
-                        self.isShowingAddLabelingView = true
+                        if direction == .right {
+                            print("오른쪽 : 라벨 추가")
+                            self.isShowingAddLabelingView = true
+                        }
+                    
+                    },
+                    content: { photo, _, _ in
+                        CardView(photo: photo)
                     }
-                    
-                },
-                content: { photo,_,_  in
-                    CardView(photo: photo)
-                }
-            )
-            .padding()
-            .scaledToFit()
-            .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
+                .scaledToFit()
+                .frame(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
             
-            HStack {
-                Button(action: {
-                    
-                }, label: {
-                    Text("NO")
-                })
+                HStack {
+                    Button(action: {}, label: {
+                        Text("NO")
+                    })
                             
-                Button(action: {
-                    self.isShowingAddLabelingView = true
-                }, label: {
-                    NavigationLink(
-                        destination: AddLabelingView()
-                        , isActive: $isShowingAddLabelingView){
-                        Text("YES")
-                    }
-                })
+                    Button(action: {
+                        self.isShowingAddLabelingView = true
+                    }, label: {
+                        NavigationLink(
+                            destination: AddLabelingView(),
+                            isActive: $isShowingAddLabelingView
+                        ) {
+                            Text("YES")
+                        }
+                    })
                 
-            
-            }.padding(30)
-            
+                }.padding(30)
             }
         }
     }
-    }
-    
+}
     
 struct MainLabelingView_Previews: PreviewProvider {
     static var previews: some View {
