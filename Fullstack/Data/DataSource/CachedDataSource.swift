@@ -13,7 +13,7 @@ protocol CachedDataSource {
     func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]>
     func getLabeldImages() -> Observable<[ImageEntity]>
 
-    func getImages(labels: [LabelEntity], pageId: Int) -> Observable<[ImageEntity]>
+    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]>
     func getBookmarkImages() -> Observable<[ImageEntity]>
     func getImage(id: String) -> Observable<ImageEntity?>
 

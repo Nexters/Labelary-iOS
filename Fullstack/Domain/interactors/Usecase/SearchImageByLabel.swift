@@ -9,17 +9,12 @@ import Combine
 import Foundation
 
 struct SearchImageByLabel: Usecase {
-    typealias Param = RequestData
-    typealias Result = SearchResult
+    typealias Param = [LabelEntity]
+    typealias Result = [ImageEntity]
 
     let imageRepository: ImageRepository
 
     func get(param: Param) -> Observable<Result> {
-        return imageRepository.getImages(labels: param.labels, pageId: param.pageId)
-    }
-
-    struct RequestData {
-        let labels: [LabelEntity]
-        let pageId: Int
+        return imageRepository.getImages(labels: param)
     }
 }

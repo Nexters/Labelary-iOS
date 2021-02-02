@@ -8,13 +8,13 @@
 import Foundation
 
 protocol ImageRepository {
-    func getAllImages() -> Observable<SearchResult>
+    func getAllImages() -> Observable<[ImageEntity]>
     func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]>
-    func getLabeldImages() -> Observable<SearchResult>
+    func getLabeldImages() -> Observable<[ImageEntity]>
 
-    func getImages(labels: [LabelEntity], pageId: Int) -> Observable<SearchResult>
-    func getBookmarkImages() -> Observable<SearchResult>
-    func getImage(id: String) -> Observable<ImageEntity>
+    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]>
+    func getBookmarkImages() -> Observable<[ImageEntity]>
+    func getImage(id: String) -> Observable<ImageEntity?>
 
     func changeBookmark(isActive: Bool, image: ImageEntity) -> Observable<ImageEntity>
 

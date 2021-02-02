@@ -49,7 +49,7 @@ struct CachedData: CachedDataSource {
             .eraseToAnyPublisher()
     }
 
-    func getImages(labels: [LabelEntity], pageId: Int) -> Observable<[ImageEntity]> {
+    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
         let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in item.labels.contains { label in labels.contains { $0.id == label.id } } }
         return Just(query).asObservable()

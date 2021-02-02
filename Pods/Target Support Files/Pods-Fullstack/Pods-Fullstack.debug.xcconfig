@@ -1,11 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombine" "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftUICardStack" "${PODS_ROOT}/Realm/core"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombine" "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombineDispatch" "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombineFoundation" "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftUICardStack" "${PODS_ROOT}/Realm/core"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombine/OpenCombine.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Realm/Realm.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftUICardStack/CardStack.framework/Headers" "${PODS_XCFRAMEWORKS_BUILD_DIR}/realm-monorepo/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombine/OpenCombine.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombineDispatch/OpenCombineDispatch.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OpenCombineFoundation/OpenCombineFoundation.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Realm/Realm.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftUICardStack/CardStack.framework/Headers" "${PODS_XCFRAMEWORKS_BUILD_DIR}/realm-monorepo/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_XCFRAMEWORKS_BUILD_DIR}/realm-monorepo"
-OTHER_LDFLAGS = $(inherited) -l"c++" -l"z" -framework "CardStack" -framework "OpenCombine" -framework "Realm" -framework "RealmSwift" -framework "Security"
+OTHER_LDFLAGS = $(inherited) -l"c++" -l"z" -framework "CardStack" -framework "OpenCombine" -framework "OpenCombineDispatch" -framework "OpenCombineFoundation" -framework "Realm" -framework "RealmSwift" -framework "Security"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
