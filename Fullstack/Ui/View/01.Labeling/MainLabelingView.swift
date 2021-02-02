@@ -9,12 +9,7 @@ struct Photo: Identifiable {
         Photo(image: UIImage(named: "sc1")!),
         Photo(image: UIImage(named: "sc2")!),
         Photo(image: UIImage(named: "sc3")!),
-        Photo(image: UIImage(named: "sc4")!),
-        Photo(image: UIImage(named: "1")!),
-        Photo(image: UIImage(named: "2")!),
-        Photo(image: UIImage(named: "3")!),
-        Photo(image: UIImage(named: "4")!),
-        Photo(image: UIImage(named: "5")!)
+        Photo(image: UIImage(named: "sc4")!)
     ]
 }
 
@@ -39,8 +34,11 @@ struct CardView: View {
 
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
+    @State private var isShowingAddLabelingView = false
   
     var body: some View {
+        
+    NavigationView{
         VStack {
             CardStack(
                 direction: LeftRight.direction,
@@ -51,6 +49,7 @@ struct MainLabelingView: View {
                     if direction == .right
                     {
                         print("오른쪽 : 라벨 추가")
+                        self.isShowingAddLabelingView = true
                     }
                     
                 },
@@ -67,19 +66,23 @@ struct MainLabelingView: View {
                     
                 }, label: {
                     Text("NO")
-                }).padding(50.0)
-                
-                NavigationLink(
-                    destination: AddLabelingView(),
-                    label: {
+                })
+                            
+                Button(action: {
+                    self.isShowingAddLabelingView = true
+                }, label: {
+                    NavigationLink(
+                        destination: AddLabelingView(), isActive: $isShowingAddLabelingView){
                         Text("YES")
-                    }).padding(50)
+                    }
+                })
                 
             
             }.padding(30)
             
             }
         }
+    }
     }
     
     
