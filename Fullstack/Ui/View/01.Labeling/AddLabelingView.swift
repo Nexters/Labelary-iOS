@@ -10,7 +10,6 @@ struct Badge: View {
         case removable(() -> ())
     }
 
-
     var body: some View {
         HStack {
             Text(name)
@@ -31,8 +30,6 @@ struct Badge: View {
     }
 }
 
-
-
 struct Label: Identifiable {
     var id = UUID()
     var label: String
@@ -48,12 +45,16 @@ struct AddLabelingView: View {
         Label(label: "게임스샷"),
         Label(label: "UX/UI 디자인")
     ]
-
+    @State var isSelected: Bool = false
+    @State var showNewView = false
 
     var body: some View {
         VStack {
             VStack {
-                Text("선택된 라벨 \(filters.count)")
+                if filters.count > 0 {
+                    Text("선택된 라벨 \(filters.count)")
+                }
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(filters, id: \.self) { filter in
@@ -67,19 +68,17 @@ struct AddLabelingView: View {
                     }
                 }
             }
-                
-            List(labels) { label in
-                Button(action: {
-                    filters.append(label.label)
-                    print(filters)
 
-                }, label: {
+            List(labels) { label in
+
+                Button(action: {}, label: {
                     Text(label.label)
                         .padding()
                         .frame(width: 252, height: 50, alignment: .trailing)
                         .foregroundColor(.white)
                         .background(Color(red: 197/255, green: 197/255, blue: 197/255))
                         .cornerRadius(8)
+
                 })
             }
         }
@@ -87,39 +86,49 @@ struct AddLabelingView: View {
         .navigationBarItems(trailing:
 
             HStack {
-                Button(action: onclickedBackBtn) {
+                Button(action: onClickedBackBtn) {
                     Image(systemName: "arrow.left")
                     Text("라벨 추가")
                 }
                 Spacer(minLength: 220)
-                Button(action: onclickedBackBtn) {
+                Button(action: onClickedSearchBtn) {
                     Image(systemName: "magnifyingglass")
+                    NavigationLink(
+                        destination: SearchLabelView(),
+                        isActive: $showNewView
+                    ) {}
                 }
 
-                Button(action: onclickedBackBtn) {
+                Button(action: onClickedSearchBtn) {
                     Image(systemName: "plus")
+                    NavigationLink(
+                        destination: AddNewLabelView(),
+                        isActive: $showNewView
+                    ) {}
                 }
-
-        
             }
         )
     }
 
-    func onclickedBackBtn() {
+    func selectLabel() {
+        self.isSelected = true
+    }
+
+    func onClickedBackBtn() {
         self.presentationMode.wrappedValue.dismiss()
     }
 
-    func onClickedSearchBtn() {}
+    func onClickedSearchBtn() {
+        self.showNewView = true
+    }
 
-    func onClickedAddBtn() {}
-
+    func onClickedAddBtn() {
+        self.showNewView = true
+    }
 }
-
-
 
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {
         AddLabelingView()
     }
 }
- 
