@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-=======
-//
-//  AddLabelingView.swift
-//  Fullstack
-//
-//  Created by 우민지 on 2021/01/22.
-// 라벨링 -> 추가
-
->>>>>>> f7ca2482de74d5f5fce47d667586be2be0eef0e0
 import SwiftUI
 
 struct Badge: View {
@@ -20,7 +10,7 @@ struct Badge: View {
         case removable(() -> ())
     }
 
-<<<<<<< HEAD
+
     var body: some View {
         HStack {
             Text(name)
@@ -36,25 +26,12 @@ struct Badge: View {
                     }
             default:
                 AddLabelingView()
-=======
-struct SelectedLabelView: View {
-    var body: some View {
-        HStack {
-            List {
-                Button(action: {
-                    // Deselect the label
-                }, label: {
-                    Text("카톡대화")
-                })
->>>>>>> f7ca2482de74d5f5fce47d667586be2be0eef0e0
             }
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 5)
-        .background(color)
-        .cornerRadius(8)
     }
 }
+
+
 
 struct Label: Identifiable {
     var id = UUID()
@@ -63,20 +40,15 @@ struct Label: Identifiable {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var filters: [String] = [
-    ]
-
+    @State var filters: [String] = []
     @State var labels = [
         Label(label: "UX/UI 디자인"),
-        Label(label: "카톡캡쳐"),
         Label(label: "헤어스타일"),
         Label(label: "엽사"),
         Label(label: "게임스샷"),
         Label(label: "UX/UI 디자인")
     ]
-<<<<<<< HEAD
 
-    @State var selectedLabels = [Label]()
 
     var body: some View {
         VStack {
@@ -95,16 +67,7 @@ struct AddLabelingView: View {
                     }
                 }
             }
-
-=======
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("라벨 들 넣을 공간")
-            }
                 
->>>>>>> f7ca2482de74d5f5fce47d667586be2be0eef0e0
             List(labels) { label in
                 Button(action: {
                     filters.append(label.label)
@@ -120,9 +83,10 @@ struct AddLabelingView: View {
                 })
             }
         }
+        
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading:
-<<<<<<< HEAD
+        .navigationBarItems(leading: )
+
             HStack {
                 Button(action: onclickedBackBtn) {
                     Image(systemName: "arrow.left")
@@ -136,33 +100,26 @@ struct AddLabelingView: View {
                 Button(action: onclickedBackBtn) {
                     Image(systemName: "plus")
                 }
-=======
-                                    
-            Button(action: onclickedBackButton) {
-                Image(systemName: "arrow.left")
->>>>>>> f7ca2482de74d5f5fce47d667586be2be0eef0e0
-            }
-        )
+
+        
     }
-    
-<<<<<<< HEAD
+    }
+
     func onclickedBackBtn() {
         self.presentationMode.wrappedValue.dismiss()
     }
+
+    func onClickedSearchBtn() {}
+
+    func onClickedAddBtn() {}
+
 }
 
-func onClickedSearchBtn() {}
 
-func onClickedAddBtn() {}
-=======
-    func onclickedBackButton() {
-        self.presentationMode.wrappedValue.dismiss()
-    }
-}
->>>>>>> f7ca2482de74d5f5fce47d667586be2be0eef0e0
 
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {
         AddLabelingView()
     }
 }
+ 
