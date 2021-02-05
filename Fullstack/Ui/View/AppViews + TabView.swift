@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AppView: View {
     var body: some View {
-        
         TabView {
             MainLabelingView()
                 .tabItem {
@@ -26,12 +25,7 @@ struct AppView: View {
                     Image(systemName: "list.dash")
                     Text("앨범")
                 }
-                
-            
-            
         }
-        
-       
     }
 }
 

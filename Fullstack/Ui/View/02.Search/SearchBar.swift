@@ -23,9 +23,8 @@ struct SearchBar: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                             .padding(.leading, 8)
- 
                     }
                     .padding(.horizontal, 10)
                 )
@@ -33,9 +32,6 @@ struct SearchBar: View {
                 .onTapGesture {
                     self.isEditing = true
                 }
-          
-            
-            
         }
     }
 }

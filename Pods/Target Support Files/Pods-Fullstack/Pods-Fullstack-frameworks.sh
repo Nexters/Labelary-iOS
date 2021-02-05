@@ -176,12 +176,16 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/OpenCombine/OpenCombine.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OpenCombineDispatch/OpenCombineDispatch.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OpenCombineFoundation/OpenCombineFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftUICardStack/CardStack.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/OpenCombine/OpenCombine.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OpenCombineDispatch/OpenCombineDispatch.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OpenCombineFoundation/OpenCombineFoundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftUICardStack/CardStack.framework"
