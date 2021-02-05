@@ -98,7 +98,7 @@ struct AddLabelingView: View {
                         isActive: $showNewView
                     ) {}
                 }
-
+                Spacer(minLength: 20)
                 Button(action: onClickedSearchBtn) {
                     Image(systemName: "plus")
                     NavigationLink(

@@ -9,11 +9,20 @@ import SwiftUI
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
-        
         SearchBar(text: .constant(""))
-     
+
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(trailing:
+                Button(action: onClickedBackBtn) {
+                    Image(systemName: "arrow.left")
+                }
+            )
+    }
+
+    func onClickedBackBtn() {
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 
