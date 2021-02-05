@@ -83,9 +83,8 @@ struct AddLabelingView: View {
                 })
             }
         }
-        
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: )
+        .navigationBarItems(trailing:
 
             HStack {
                 Button(action: onclickedBackBtn) {
@@ -102,7 +101,8 @@ struct AddLabelingView: View {
                 }
 
         
-    }
+            }
+        )
     }
 
     func onclickedBackBtn() {
