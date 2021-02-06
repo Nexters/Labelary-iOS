@@ -77,7 +77,8 @@ struct AddLabelingView: View {
                         .frame(width: 252, height: 50, alignment: .trailing)
                         .foregroundColor(.white)
                         .background(Color(red: 197/255, green: 197/255, blue: 197/255))
-                        .cornerRadius(8)
+                        .cornerRadius(4)
+                        .edgesIgnoringSafeArea(.horizontal)
 
                 })
             }
