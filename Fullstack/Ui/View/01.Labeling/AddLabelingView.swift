@@ -46,7 +46,8 @@ struct AddLabelingView: View {
         Label(label: "UX/UI 디자인")
     ]
     @State var isSelected: Bool = false
-    @State var showNewView = false
+    @State var showAddLabelingView = false
+    @State var showSearchLabelView = false
 
     var body: some View {
         VStack {
@@ -96,15 +97,15 @@ struct AddLabelingView: View {
                     Image(systemName: "magnifyingglass")
                     NavigationLink(
                         destination: SearchLabelView(),
-                        isActive: $showNewView
+                        isActive: $showSearchLabelView
                     ) {}
                 }
                 Spacer(minLength: 20)
-                Button(action: onClickedSearchBtn) {
+                Button(action: onClickedAddBtn) { 
                     Image(systemName: "plus")
                     NavigationLink(
                         destination: AddNewLabelView(),
-                        isActive: $showNewView
+                        isActive: $showAddLabelingView
                     ) {}
                 }
             }
@@ -120,11 +121,11 @@ struct AddLabelingView: View {
     }
 
     func onClickedSearchBtn() {
-        self.showNewView = true
+        self.showSearchLabelView = true
     }
 
     func onClickedAddBtn() {
-        self.showNewView = true
+        self.showAddLabelingView = true
     }
 }
 

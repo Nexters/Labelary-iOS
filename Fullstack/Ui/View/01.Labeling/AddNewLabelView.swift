@@ -7,20 +7,52 @@
 
 import SwiftUI
 
+struct FirstResponderTextField: UIViewRepresentable {
+    @Binding var text: String
+    let placeholder: String
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        @Binding var text: String
+        var becameFirstResponder = true
+
+        init(text: Binding<String>) {
+            self._text = text
+        }
+
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            text = textField.text ?? ""
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text)
+    }
+
+    func makeUIView(context: Context) -> some UIView {
+        let textField = UITextField()
+        textField.delegate = context.coordinator
+        textField.placeholder = placeholder
+        return textField
+    }
+
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        if context.coordinator.becameFirstResponder {
+            uiView.becomeFirstResponder()
+            context.coordinator.becameFirstResponder = true
+        }
+    }
+}
+
 struct AddNewLabelView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var name: String = ""
-
-    @State var keyboardHeight: CGFloat = 0
-    @State var keyboardAnimationDuration: TimeInterval = 0
-    
+    @State var text: String = ""
 
     var body: some View {
         VStack {
-            TextField("새 라벨 이름 입력", text: $name)
+            FirstResponderTextField(text: $text, placeholder: "새 라벨 이름 입력")
                 .padding(60)
                 .frame(width: 252, height: 50, alignment: .trailing)
-                .foregroundColor(.white)
+                
                 .background(Color(red: 197/255, green: 197/255, blue: 197/255))
                 .cornerRadius(8)
                 .overlay(
@@ -32,37 +64,17 @@ struct AddNewLabelView: View {
                     }
                 )
         }
-        .animation(.easeOut(duration: keyboardAnimationDuration))
-            .onReceive(
-              NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
-                .receive(on: RunLoop.main),
-              perform: updateKeyboardHeight
-            )
-        
+
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
             Button(action: onClickedBackBtn) {
                 Image(systemName: "arrow.left")
             }
-        
         )
     }
 
     func onClickedBackBtn() {
-        self.presentationMode.wrappedValue.dismiss()
-    }
-
-    func updateKeyboardHeight(_ notification: Notification) {
-        guard let info = notification.userInfo else { return }
-        keyboardAnimationDuration = (info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) ?? 0
-        
-        guard let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        
-        if keyboardFrame.origin.y == UIScreen.main.bounds.height {
-            keyboardHeight = 0
-        } else {
-            keyboardHeight = keyboardFrame.height
-        }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

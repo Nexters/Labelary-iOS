@@ -59,7 +59,9 @@ struct MainLabelingView: View {
                 .frame(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
             
                 HStack {
-                    Button(action: {}, label: {
+                    Button(action: {
+                        
+                    }, label: {
                         Text("NO")
                     })
                             
