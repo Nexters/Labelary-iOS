@@ -8,5 +8,5 @@ target 'Fullstack' do
   pod 'OpenCombineDispatch', '~> 0.11.0'
   pod 'OpenCombineFoundation', '~> 0.11.0'
   pod 'RealmSwift', '~> 10.5.1'
-
+  pod "Resolver"
 end
