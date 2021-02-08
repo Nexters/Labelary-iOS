@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 struct Badge: View {
@@ -30,7 +31,7 @@ struct Badge: View {
     }
 }
 
-struct Label: Identifiable {
+struct Label: Hashable {
     var id = UUID()
     var label: String
 }
@@ -45,13 +46,9 @@ struct AddLabelingView: View {
         Label(label: "게임스샷"),
         Label(label: "UX/UI 디자인")
     ]
-    @State var isSelected: Bool = false
+
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
-
-    func selectLabel() {
-        self.isSelected = true
-    }
 
     func onClickedBackBtn() {
         self.presentationMode.wrappedValue.dismiss()
@@ -86,18 +83,20 @@ struct AddLabelingView: View {
                 }
             }
 
-            List(labels) { label in
-
-                Button(action: {}, label: {
-                    Text(label.label)
-                        .padding()
-                        .frame(width: 252, height: 50, alignment: .trailing)
-                        .foregroundColor(.white)
-                        .background(Color(red: 197/255, green: 197/255, blue: 197/255))
-                        .cornerRadius(4)
-                        .edgesIgnoringSafeArea(.horizontal)
-
-                })
+            ScrollView {
+                LazyVStack {
+                    ForEach(labels, id: \.self) { label in
+                        Button(action: {}, label: {
+                            Text(label.label)
+                                .padding()
+                                .frame(width: 252, height: 50, alignment: .trailing)
+                                .foregroundColor(.white)
+                                .cornerRadius(4)
+                                .edgesIgnoringSafeArea(.horizontal)
+                                .background(Color(red: 197/255, green: 197/255, blue: 197/255))
+                        })
+                    }
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -109,7 +108,7 @@ struct AddLabelingView: View {
                     Text("라벨 추가")
                 }
                 Spacer(minLength: 220)
-             
+
                 Button(action: onClickedSearchBtn) {
                     Image(systemName: "magnifyingglass")
                     NavigationLink(
@@ -127,6 +126,22 @@ struct AddLabelingView: View {
                 }
             }
         )
+    }
+}
+
+public struct ListSeparatorStyleNoneModifier: ViewModifier {
+    public func body(content: Content) -> some View {
+        content.onAppear {
+            UITableView.appearance().separatorStyle = .none
+        }.onDisappear {
+            UITableView.appearance().separatorStyle = .singleLine
+        }
+    }
+}
+
+public extension View {
+    func listSeparatorStyleNone() -> some View {
+        modifier(ListSeparatorStyleNoneModifier())
     }
 }
 
