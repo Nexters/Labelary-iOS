@@ -49,6 +49,22 @@ struct AddLabelingView: View {
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
 
+    func selectLabel() {
+        self.isSelected = true
+    }
+
+    func onClickedBackBtn() {
+        self.presentationMode.wrappedValue.dismiss()
+    }
+
+    func onClickedSearchBtn() {
+        self.showSearchLabelView = true
+    }
+
+    func onClickedAddBtn() {
+        self.showAddLabelingView = true
+    }
+
     var body: some View {
         VStack {
             VStack {
@@ -93,15 +109,16 @@ struct AddLabelingView: View {
                     Text("라벨 추가")
                 }
                 Spacer(minLength: 220)
+             
                 Button(action: onClickedSearchBtn) {
                     Image(systemName: "magnifyingglass")
                     NavigationLink(
-                        destination: SearchLabelView(),
-                        isActive: $showSearchLabelView
+                        destination: AddNewLabelView(),
+                        isActive: $showAddLabelingView
                     ) {}
                 }
                 Spacer(minLength: 20)
-                Button(action: onClickedAddBtn) { 
+                Button(action: onClickedAddBtn) {
                     Image(systemName: "plus")
                     NavigationLink(
                         destination: AddNewLabelView(),
@@ -110,22 +127,6 @@ struct AddLabelingView: View {
                 }
             }
         )
-    }
-
-    func selectLabel() {
-        self.isSelected = true
-    }
-
-    func onClickedBackBtn() {
-        self.presentationMode.wrappedValue.dismiss()
-    }
-
-    func onClickedSearchBtn() {
-        self.showSearchLabelView = true
-    }
-
-    func onClickedAddBtn() {
-        self.showAddLabelingView = true
     }
 }
 

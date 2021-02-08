@@ -12,18 +12,15 @@ struct AppView: View {
         TabView {
             MainLabelingView()
                 .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("라벨링")
+                    Image("tabbar_add")
                 }
             SearchView()
                 .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("탐색")
+                    Image("tabbar_home")
                 }
             AlbumView()
                 .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("앨범")
+                    Image("tabbar_album")
                 }
         }
     }

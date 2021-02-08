@@ -17,54 +17,58 @@ struct CardView: View {
     let photo: Photo
     
     var body: some View {
-        GeometryReader { geo in
-            VStack {
+        GeometryReader { _ in
+            VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
                 Image(uiImage: self.photo.image)
+                    .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(height: geo.size.width)
-                    .clipped()
+                    .frame(width: 248, height: 535)
             }
-            .cornerRadius(12)
-            .shadow(radius: 4)
+            .cornerRadius(1.5)
         }
-        .padding()
     }
 }
 
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
     @State private var isShowingAddLabelingView = false
-  
+    
     var body: some View {
         NavigationView {
-            VStack {
-                CardStack(
-                    direction: LeftRight.direction,
-                    data: data,
-                    onSwipe: { _, direction in
-                        print("Swiped \(direction)")
-        
-                        if direction == .right {
-                            print("오른쪽 : 라벨 추가")
-                            self.isShowingAddLabelingView = true
-                        }
+            ZStack {
+                VStack(alignment: .center, spacing: 30) {
+                    Text("스크린샷 라벨링")
+                        .offset(y: -50)
+                    ZStack {
+                        Image("shadow_img")
+                            .offset(y: 82)
+                        CardStack(
+                            direction: LeftRight.direction,
+                            data: data,
+                            onSwipe: { _, direction in
+                       
+                                if direction == .right {
+                                    print("오른쪽 : 라벨 추가")
+                                    self.isShowingAddLabelingView = true
+                                }
+                        
+                            },
+                            content: { photo, _, _ in
+                                CardView(photo: photo)
+                            }
+                        )
+                        .scaledToFit()
+                        .offset(x: 65)
+                    }.offset(y: -140)
+                }
                     
-                    },
-                    content: { photo, _, _ in
-                        CardView(photo: photo)
-                    }
-                )
-                .padding()
-                .scaledToFit()
-                .frame(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-            
                 HStack {
                     Button(action: {
-                        
+                        self.data.removeFirst()
                     }, label: {
-                        Text("NO")
+                        Image("main_skip_btn")
                     })
-                            
+                    Spacer(minLength: 35)
                     Button(action: {
                         self.isShowingAddLabelingView = true
                     }, label: {
@@ -72,11 +76,12 @@ struct MainLabelingView: View {
                             destination: AddLabelingView(),
                             isActive: $isShowingAddLabelingView
                         ) {
-                            Text("YES")
+                            Image("main_add_btn")
                         }
                     })
-                
-                }.padding(30)
+                        
+                }.padding(40)
+                    .offset(y: 150)
             }
         }
     }
