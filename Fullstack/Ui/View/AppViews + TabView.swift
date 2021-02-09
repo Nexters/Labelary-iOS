@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct AppView: View {
+    @State private var selection = 0
+
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor(Color.DEPTH_4_BG)
+    }
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection, content: {
             MainLabelingView()
                 .tabItem {
+
                     Image("tabbar_add")
                 }
             SearchView()
@@ -23,6 +30,20 @@ struct AppView: View {
                     Image("tabbar_album")
                 }
         }
+
+                    Image(selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
+                }.tag(0)
+            SearchView()
+                .tabItem {
+                    Image(selection == 1 ? "ico_home_on" : "ico_home_off")
+                }.tag(1)
+            AlbumView()
+                .tabItem {
+                    Image(selection == 2 ? "ico_album_on" : "ico_album_off")
+                }.tag(2)
+
+        })
+
     }
 }
 
