@@ -1,10 +1,3 @@
-//
-//  AddNewLabelView.swift
-//  Fullstack
-//
-//  Created by 우민지 on 2021/02/02.
-// 1_라벨링_라벨추가 화면
-
 import SwiftUI
 
 struct FirstResponderTextField: UIViewRepresentable {
@@ -32,7 +25,7 @@ struct FirstResponderTextField: UIViewRepresentable {
         let textField = UITextField()
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
-        let doneButton = UIBarButtonItem(title: "저장완료", style: .done, target: self, action: #selector(textField.doneButtonTapped(button:)))
+        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: self, action: #selector(textField.doneButtonTapped(button:)))
         toolBar.items = [doneButton]
         toolBar.setItems([doneButton], animated: true)
 
@@ -66,34 +59,98 @@ struct ColorPaletteModalView: View {
 }
 
 struct AddNewLabelView: View {
+    let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     @Environment(\.presentationMode) var presentationMode
     @State var text: String = ""
+    @State var selectedIndex: Int? = -1
+    @State var isSelected: Bool = false
 
+    @State var defaultColor = [
+        "Label_middle_dark_Yellow"
+    ]
+    @State var activeColor = [
+        "Label_middle_Selected_Yellow"
+    ]
     var body: some View {
-        VStack {
-            FirstResponderTextField(text: $text, placeholder: "새 라벨 이름 입력")
-                .padding(60)
-                .frame(width: 252, height: 50, alignment: .trailing)
+        VStack(alignment: .leading) {
+            Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
+                .frame(width: 37, height: 20, alignment: .leading)
+                .padding(7)
+
+            FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
+                .frame(width: 350, height: 40, alignment: .trailing)
                 .foregroundColor(.white)
-                .background(Color(red: 197/255, green: 197/255, blue: 197/255))
-                .cornerRadius(8)
-                .overlay(
-                    HStack {
-                        RoundedRectangle(cornerRadius: 3)
-                            .fill(Color.black)
-                            .frame(width: 20, height: 20, alignment: .leading)
-                            .padding(.leading, -100)
+                .padding(7)
+
+            Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                .frame(width: 81, height: 20, alignment: .leading)
+                .padding(7)
+            HStack(alignment: .center) {
+                VStack(alignment: .center) {
+                    ForEach(0 ..< labelButtons.count / 2) {
+                        button in
+
+                        Button(action: {
+                            self.selectedIndex = button
+                            self.isSelected = true
+                        }) {
+                            if selectedIndex == button {
+                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+
+                            } else {
+                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                            }
+                        }
+                        .padding([.top, .leading], 10)
                     }
-                )
+                }
+
+                VStack(alignment: .center) {
+                    ForEach(5 ..< labelButtons.count) {
+                        button in
+
+                        Button(action: {
+                            self.selectedIndex = button
+                            print(button)
+                            self.isSelected = true
+                        }) {
+                            if selectedIndex == button {
+                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+
+                            } else {
+                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                            }
+                        }
+                        .padding([.top, .leading], 10)
+                    }
+                }
+            }
+            Spacer()
+            Button(action: {
+                // 값 전달
+            }, label: {
+                if self.isSelected {
+                    Image("Label_add_complete_active")
+                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                } else {
+                    Image("Label_add_complete_default")
+                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                }
+
+            })
+            Spacer()
         }
 
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("라벨 엘범 추가")
-        .navigationBarItems(trailing:
-            Button(action: onClickedBackBtn) {
-                Image(systemName: "arrow.left")
-            }
-        )
+        .navigationBarItems(leading:
+            HStack {
+                Button(action: onClickedBackBtn) {
+                    Image("navigation_back_btn")
+                }
+                Spacer(minLength: 80)
+                Text("라벨 엘범 추가")
+                Spacer()
+            })
     }
 
     func onClickedBackBtn() {

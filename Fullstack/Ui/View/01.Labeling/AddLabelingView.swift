@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct Badge: View {
@@ -19,7 +18,7 @@ struct Badge: View {
             case .removable(let callback):
                 Image(systemName: "xmark")
                     .resizable()
-                    .frame(width: 8, height: 8, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 8, height: 8, alignment:  .center)
                     .font(Font.caption.bold())
                     .onTapGesture {
                         callback()
@@ -34,6 +33,39 @@ struct Badge: View {
 struct Label: Hashable {
     var id = UUID()
     var label: String
+    var color: String = "yellow"
+}
+
+struct LabelRowItemView: View {
+    var label: Label
+    var selectedLabel: String {
+        print(self.label.label)
+        return self.label.label
+    }
+
+    @State var isSelected = false
+    @State var filter: [String] = []
+    var body: some View {
+        Button(action: {
+            self.isSelected.toggle()
+
+            if isSelected {
+                selectedLabel
+            } else {}
+
+        }, label: {
+            Text(label.label)
+                .padding()
+                .frame(width: 252, height: 50, alignment: .trailing)
+                .foregroundColor(.white)
+                .cornerRadius(5)
+                .edgesIgnoringSafeArea(.horizontal)
+                .offset(x: -20)
+                .background(isSelected ? Image("Label_large_Selected_Yellow") : Image("Label_large_default_Yellow"))
+                .offset(x: -80)
+
+        })
+    }
 }
 
 struct AddLabelingView: View {
@@ -44,11 +76,12 @@ struct AddLabelingView: View {
         Label(label: "헤어스타일"),
         Label(label: "엽사"),
         Label(label: "게임스샷"),
-        Label(label: "UX/UI 디자인")
+        Label(label: "OOTD")
     ]
 
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
+    @State var isSelected = false
 
     func onClickedBackBtn() {
         self.presentationMode.wrappedValue.dismiss()
@@ -86,15 +119,7 @@ struct AddLabelingView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(labels, id: \.self) { label in
-                        Button(action: {}, label: {
-                            Text(label.label)
-                                .padding()
-                                .frame(width: 252, height: 50, alignment: .trailing)
-                                .foregroundColor(.white)
-                                .cornerRadius(4)
-                                .edgesIgnoringSafeArea(.horizontal)
-                                .background(Color(red: 197/255, green: 197/255, blue: 197/255))
-                        })
+                        LabelRowItemView(label: label)
                     }
                 }
             }
@@ -104,21 +129,21 @@ struct AddLabelingView: View {
 
             HStack {
                 Button(action: onClickedBackBtn) {
-                    Image(systemName: "arrow.left")
-                    Text("라벨 추가")
+                    Image("navigation_back_btn")
                 }
-                Spacer(minLength: 220)
-
+                Spacer(minLength: 110)
+                Text("라벨 선택")
+                Spacer(minLength: 35)
                 Button(action: onClickedSearchBtn) {
-                    Image(systemName: "magnifyingglass")
+                    Image("navigation_bar_search_btn")
                     NavigationLink(
                         destination: AddNewLabelView(),
                         isActive: $showAddLabelingView
                     ) {}
                 }
-                Spacer(minLength: 20)
+                Spacer(minLength: 10)
                 Button(action: onClickedAddBtn) {
-                    Image(systemName: "plus")
+                    Image("navigation_bar_plus_btn")
                     NavigationLink(
                         destination: AddNewLabelView(),
                         isActive: $showAddLabelingView
