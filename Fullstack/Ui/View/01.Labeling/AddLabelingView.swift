@@ -36,16 +36,21 @@ struct Label: Hashable {
     var color: String
 }
 
+//Child view
 struct LabelRowItemView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     var label: Label
 
     @State var isSelected = false
-    @State var filter: [String] = []
+    @Binding var selectedLabels:[Label]
+
     var body: some View {
         Button(action: {
             self.isSelected.toggle()
-
+            if isSelected {
+                selectedLabels.append(label)
+              
+            } else {}
         }, label: {
             Text(label.label)
                 .padding(20)
@@ -63,7 +68,6 @@ struct LabelRowItemView: View {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var filters: [String] = []
     @State var labels = [
         Label(label: "UX/UI 디자인", color: "Yellow"),
         Label(label: "헤어스타일", color: "Red"),
@@ -71,7 +75,9 @@ struct AddLabelingView: View {
         Label(label: "게임스샷", color: "Blue"),
         Label(label: "OOTD", color: "Orange")
     ]
-
+    
+    @State var filters:[Label] = []
+    
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
     @State var isSelected = false
@@ -94,13 +100,12 @@ struct AddLabelingView: View {
                 if filters.count > 0 {
                     Text("선택된 라벨 \(filters.count)")
                 }
-
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(filters, id: \.self) { filter in
-                            Badge(name: filter, color: Color(red: 255/255, green: 255/255, blue: 255/255), type: .removable {
+                            Badge(name: filter.label, color: Color(red: 255/255, green: 255/255, blue: 255/255), type: .removable {
                                 withAnimation {
-                                    self.filters.removeAll { $0 == filter }
+                                    filters.removeAll { $0 == filter }
                                 }
                             })
                                 .transition(.opacity)
@@ -112,7 +117,7 @@ struct AddLabelingView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(labels, id: \.self) { label in
-                        LabelRowItemView(label: label)
+                        LabelRowItemView(label: label, selectedLabels: $filters)
                     }
                 }
             }
@@ -131,7 +136,7 @@ struct AddLabelingView: View {
                     Image("navigation_bar_search_btn")
                     NavigationLink(
                         destination: AddNewLabelView(),
-                        isActive: $showAddLabelingView
+                        isActive: $showSearchLabelView
                     ) {}
                 }
                 Spacer(minLength: 10)
