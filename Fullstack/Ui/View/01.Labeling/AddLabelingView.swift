@@ -18,7 +18,7 @@ struct Badge: View {
             case .removable(let callback):
                 Image(systemName: "xmark")
                     .resizable()
-                    .frame(width: 8, height: 8, alignment:  .center)
+                    .frame(width: 8, height: 8, alignment: .center)
                     .font(Font.caption.bold())
                     .onTapGesture {
                         callback()
@@ -33,15 +33,12 @@ struct Badge: View {
 struct Label: Hashable {
     var id = UUID()
     var label: String
-    var color: String = "yellow"
+    var color: String
 }
 
 struct LabelRowItemView: View {
+    let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     var label: Label
-    var selectedLabel: String {
-        print(self.label.label)
-        return self.label.label
-    }
 
     @State var isSelected = false
     @State var filter: [String] = []
@@ -49,20 +46,16 @@ struct LabelRowItemView: View {
         Button(action: {
             self.isSelected.toggle()
 
-            if isSelected {
-                selectedLabel
-            } else {}
-
         }, label: {
             Text(label.label)
-                .padding()
+                .padding(20)
                 .frame(width: 252, height: 50, alignment: .trailing)
                 .foregroundColor(.white)
                 .cornerRadius(5)
                 .edgesIgnoringSafeArea(.horizontal)
                 .offset(x: -20)
-                .background(isSelected ? Image("Label_large_Selected_Yellow") : Image("Label_large_default_Yellow"))
-                .offset(x: -80)
+                .background(isSelected ? Image("Label_large_Selected_\(label.color)") : Image("Label_large_default_\(label.color)"))
+                .offset(x: isSelected ? -80 : -100)
 
         })
     }
@@ -72,11 +65,11 @@ struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var filters: [String] = []
     @State var labels = [
-        Label(label: "UX/UI 디자인"),
-        Label(label: "헤어스타일"),
-        Label(label: "엽사"),
-        Label(label: "게임스샷"),
-        Label(label: "OOTD")
+        Label(label: "UX/UI 디자인", color: "Yellow"),
+        Label(label: "헤어스타일", color: "Red"),
+        Label(label: "엽사", color: "Violet"),
+        Label(label: "게임스샷", color: "Blue"),
+        Label(label: "OOTD", color: "Orange")
     ]
 
     @State var showAddLabelingView = false
