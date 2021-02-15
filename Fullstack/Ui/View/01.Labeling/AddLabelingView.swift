@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 func giveLabelBackgroundColor(color: String) -> Color {
@@ -71,7 +72,7 @@ struct Badge: View {
                 Text(name).foregroundColor(textColor)
 
                 switch type {
-                case .removable(let callback):
+                case .removable(var callback):
                     Image(systemName: "xmark")
                         .resizable()
                         .frame(width: 8, height: 8, alignment: .center)
@@ -79,7 +80,9 @@ struct Badge: View {
                         .onTapGesture {
                             callback()
                         }
+
                 default:
+
                     AddLabelingView()
                 }
             }
@@ -110,12 +113,12 @@ struct LabelRowItemView: View {
             self.isSelected.toggle()
             if isSelected {
                 selectedLabels.append(label)
-
             } else {
                 if let firstIndex = selectedLabels.firstIndex(of: label) {
                     selectedLabels.remove(at: firstIndex)
                 }
             }
+
         }, label: {
             Text(label.label)
                 .padding(20)
@@ -131,28 +134,29 @@ struct LabelRowItemView: View {
     }
 }
 
+var labelEntities = [
+    Label(label: "OOTD", color: "Cobalt_Blue"),
+    Label(label: "컬러 팔레트", color: "Yellow"),
+    Label(label: "UI 레퍼런스", color: "Red"),
+    Label(label: "편집디자인", color: "Violet"),
+    Label(label: "채팅", color: "Blue"),
+    Label(label: "meme 모음", color: "Cobalt_Blue"),
+    Label(label: "글귀", color: "Pink"),
+    Label(label: "장소(공연, 전시 등)", color: "Orange"),
+    Label(label: "영화", color: "Gray"),
+    Label(label: "네일", color: "Green"),
+    Label(label: "맛집", color: "Peacock_Green"),
+    Label(label: "인테리어", color: "Cobalt_Blue")
+]
+
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var labels = [
-        Label(label: "OOTD", color: "Cobalt_Blue"),
-        Label(label: "컬러 팔레트", color: "Yellow"),
-        Label(label: "UI 레퍼런스", color: "Red"),
-        Label(label: "편집디자인", color: "Violet"),
-        Label(label: "채팅", color: "Blue"),
-        Label(label: "meme 모음", color: "Cobalt_Blue"),
-        Label(label: "글귀", color: "Pink"),
-        Label(label: "장소(공연, 전시 등)", color: "Orange"),
-        Label(label: "영화", color: "Gray"),
-        Label(label: "네일", color: "Green"),
-        Label(label: "맛집", color: "Peacock_Green"),
-        Label(label: "인테리어", color: "Cobalt_Blue")
-    ]
+    @State var labels = labelEntities
 
     @State var filters: [Label] = []
 
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
-    @State var isSelected: Bool = false
 
     func onClickedBackBtn() {
         self.presentationMode.wrappedValue.dismiss()
@@ -181,13 +185,10 @@ struct AddLabelingView: View {
                         ForEach(filters, id: \.self) { filter in
                             Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
                                 withAnimation {
-                                    filters.removeAll { $0 == filter }
                                     if let firstIndex = filters.firstIndex(of: filter) {
                                         filters.remove(at: firstIndex)
-                                        self.isSelected.toggle()
                                     }
                                 }
-                                print("remove \(filter.label)")
 
                             })
                                 .transition(.opacity)
@@ -199,7 +200,8 @@ struct AddLabelingView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(labels, id: \.self) { label in
-                        LabelRowItemView(label: label, selectedLabels: $filters)
+                        LabelRowItemView(label: label,
+                                         selectedLabels: $filters)
                     }
                 }
             }
@@ -214,13 +216,18 @@ struct AddLabelingView: View {
                 Spacer(minLength: 110)
                 Text("라벨 선택")
                 Spacer(minLength: 35)
-                Button(action: onClickedSearchBtn) {
-                    Image("navigation_bar_search_btn")
-                    NavigationLink(
-                        destination: AddNewLabelView(),
-                        isActive: $showSearchLabelView
-                    ) {}
+                Button(action: {
+                    showSearchLabelView = true
+                }) {
+                    ZStack {
+                        Image("navigation_bar_search_btn")
+                        NavigationLink(
+                            destination: SearchLabelView(),
+                            isActive: $showSearchLabelView
+                        ) {}
+                    }
                 }
+
                 Spacer(minLength: 10)
                 Button(action: onClickedAddBtn) {
                     Image("navigation_bar_plus_btn")

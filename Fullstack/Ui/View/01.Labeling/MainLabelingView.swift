@@ -1,6 +1,16 @@
 import CardStack
 import SwiftUI
 
+// struct LabelEntity: Entity {
+//    let id: String
+//    var name: String
+//    var color: ColorSet
+//    var images: [ImageEntity]
+//    let createdAt: Date
+//    var lastSearchedAt: Date?
+//    var isCached: Bool = false
+// }
+
 struct Photo: Identifiable {
     let id = UUID()
     let image: UIImage
@@ -14,7 +24,7 @@ struct Photo: Identifiable {
 }
 
 struct CardView: View {
-    let photo: Photo
+    var photo: Photo
     
     var body: some View {
         GeometryReader { _ in
@@ -32,6 +42,7 @@ struct CardView: View {
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
     @State private var isShowingAddLabelingView = false
+    // @State var image: UIImage
     
     var body: some View {
         NavigationView {
@@ -51,7 +62,8 @@ struct MainLabelingView: View {
                                     print("오른쪽 : 라벨 추가")
                                     self.isShowingAddLabelingView = true
                                 }
-                        
+                                print(data)
+                                
                             },
                             content: { photo, _, _ in
                                 CardView(photo: photo)
@@ -69,6 +81,7 @@ struct MainLabelingView: View {
                         Image("main_skip_btn")
                     })
                     Spacer(minLength: 35)
+                    
                     Button(action: {
                         self.isShowingAddLabelingView = true
                     }, label: {
