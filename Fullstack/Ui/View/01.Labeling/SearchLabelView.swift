@@ -50,11 +50,9 @@ struct SearchBarTextField: UIViewRepresentable {
 struct BadgeView: View {
     var label: Label
     @Binding var selectedLabel: String
-    @Binding var letters: Int
     var body: some View {
         Button(action: {
             self.selectedLabel = self.label.label
-            letters = self.label.label.count
         }) {
             Text(label.label).foregroundColor(giveTextForegroundColor(color: label.color))
         }
@@ -68,15 +66,10 @@ struct BadgeView: View {
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var letters: Int = 0
     @State private var isEditing = false
     @State private var keyword: String = ""
     @State var selectedLabel: String = ""
     @State private var numberOfLabels: Int = labelEntities.count
-
-    var rows: [GridItem] {
-        [GridItem(.adaptive(minimum: CGFloat(letters * 100), maximum: 100))]
-    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -86,24 +79,21 @@ struct SearchLabelView: View {
                 Text("선택할 수 있는 라벨")
                 Text("\(numberOfLabels)").foregroundColor(Color(red: 37/255, green: 124/255, blue: 204/255))
             }
-            
+
             ScrollView {
                 FlexibleView(data: labelEntities, spacing: 8, alignment: HorizontalAlignment.leading) {
-                    label in Text(verbatim: label.label)
-                        .padding(8)
-                        .background(giveLabelBackgroundColor(color: label.color))
-                        .foregroundColor(giveTextForegroundColor(color: label.color))
+                    label in Button(action: {
+                        self.keyword = label.label
+                        print(keyword)
+                    }) {
+                        Text(verbatim: label.label)
+                            .padding(8)
+                            .background(giveLabelBackgroundColor(color: label.color))
+                            .foregroundColor(giveTextForegroundColor(color: label.color))
+                    }
                 }
-                
             }
-
-//            LazyHGrid(rows: rows, content: {
-//                ForEach(labelEntities, id: \.self) {
-//                    label in
-//                    BadgeView(label: label, selectedLabel: $selectedLabel, letters: $letters)
-//                }
-//            })
-        }
+        }.padding(12)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
             HStack {
