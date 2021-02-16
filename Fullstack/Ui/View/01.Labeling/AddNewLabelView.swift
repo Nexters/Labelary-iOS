@@ -1,5 +1,7 @@
 import SwiftUI
 
+// MARK: - ADD Keyboard Animation
+
 struct FirstResponderTextField: UIViewRepresentable {
     @Binding var text: String
     let placeholder: String
@@ -25,8 +27,9 @@ struct FirstResponderTextField: UIViewRepresentable {
         let textField = UITextField()
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
-        let doneButton = UIBarButtonItem(title: "입력완료", style: .done, target: self, action: #selector(textField.doneButtonTapped(button:)))
-        toolBar.items = [doneButton]
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "입력완료", style: UIBarButtonItem.Style.plain, target: self, action: #selector(textField.doneButtonTapped(button:)))
+        toolBar.items = [flexibleSpace, doneButton]
         toolBar.setItems([doneButton], animated: true)
 
         textField.delegate = context.coordinator
@@ -49,15 +52,6 @@ extension UITextField {
     }
 }
 
-struct ColorPaletteModalView: View {
-    var body: some View {
-        VStack {
-            Text("라벨 색 선택하기")
-                .foregroundColor(.white)
-        }
-    }
-}
-
 struct AddNewLabelView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     @Environment(\.presentationMode) var presentationMode
@@ -72,21 +66,23 @@ struct AddNewLabelView: View {
         "Label_middle_Selected_Yellow"
     ]
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
-                .frame(width: 37, height: 20, alignment: .leading)
-                .padding(7)
+        VStack {
+            VStack(alignment: .leading) {
+                Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
+                    .frame(width: 37, height: 20, alignment: .leading)
+                    .padding(7)
 
-            FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
-                .frame(width: 350, height: 40, alignment: .trailing)
-                .foregroundColor(.white)
-                .padding(7)
+                FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
+                    .frame(width: 350, height: 40, alignment: .trailing)
+                    .foregroundColor(.white)
+                    .padding(7)
 
-            Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
-                .frame(width: 81, height: 20, alignment: .leading)
-                .padding(7)
+                Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                    .frame(width: 81, height: 20, alignment: .leading)
+                    .padding(7)
+            }
             HStack(alignment: .center) {
-                VStack(alignment: .center) {
+                VStack {
                     ForEach(0 ..< labelButtons.count / 2) {
                         button in
 
@@ -105,7 +101,7 @@ struct AddNewLabelView: View {
                     }
                 }
 
-                VStack(alignment: .center) {
+                VStack {
                     ForEach(5 ..< labelButtons.count) {
                         button in
 
@@ -126,9 +122,7 @@ struct AddNewLabelView: View {
                 }
             }
             Spacer()
-            Button(action: {
-                // 값 전달
-            }, label: {
+            Button(action: {}, label: {
                 if self.isSelected {
                     Image("Label_add_complete_active")
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
