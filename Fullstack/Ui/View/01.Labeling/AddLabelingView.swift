@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+// import ToastSwiftUI
 
 // MARK: - functions to give color for GUI
 
@@ -124,8 +125,7 @@ struct AddLabelingView: View {
     @State var filters: [Label] = []
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
-
-
+    @State var isEdited = false
 
     // MARK: - NavigationLink Action funtions
 
@@ -139,6 +139,10 @@ struct AddLabelingView: View {
 
     func onClickedAddBtn() {
         showAddLabelingView = true
+    }
+
+    func onCLickedConfirmBtn() {
+        isEdited = true
     }
 
     var body: some View {
@@ -182,14 +186,21 @@ struct AddLabelingView: View {
                     }
                 }
 
-                Button("확인") {}
-                    .foregroundColor(Color.white)
-                    .frame(width: 70, height: 52)
-                    .background(Color(red: 56/255, green: 124/255, blue: 255/255))
-                    .padding(21)
-                    .cornerRadius(2)
-                    .offset(x: 89, y: 239)
-                    .opacity(filters.count > 0 ? 1 : 0)
+                Button("확인") {
+                    onCLickedConfirmBtn()
+                    NavigationLink(
+                        destination: MainLabelingView(),
+                        isActive: $isEdited
+                    ) {}
+                    print("ok")
+                }
+                .foregroundColor(Color.white)
+                .frame(width: 70, height: 52)
+                .background(Color(red: 56/255, green: 124/255, blue: 255/255))
+                .padding(21)
+                .cornerRadius(2)
+                .offset(x: 89, y: 219)
+                .opacity(filters.count > 0 ? 1 : 0)
             }
         }
 
@@ -227,7 +238,6 @@ struct AddLabelingView: View {
         )
     }
 }
-
 
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {
