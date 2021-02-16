@@ -22,7 +22,7 @@ class ShareViewController: UIViewController {
         container.addSubview(vc.view)
         vc.didMove(toParent: self)
         
-        // 1: Set the background and call the function to create the navigation bar
+        
         self.view.backgroundColor = .systemGray6
         
         self.setupNavBar()

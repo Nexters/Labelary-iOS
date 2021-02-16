@@ -47,27 +47,14 @@ struct SearchBarTextField: UIViewRepresentable {
     }
 }
 
-// var labelEntities = [
-//    Label(label: "OOTD", color: "Cobalt_Blue"),
-//    Label(label: "컬러 팔레트", color: "Yellow"),
-//    Label(label: "UI 레퍼런스", color: "Red"),
-//    Label(label: "편집디자인", color: "Violet"),
-//    Label(label: "채팅", color: "Blue"),
-//    Label(label: "meme 모음", color: "Cobalt_Blue"),
-//    Label(label: "글귀", color: "Pink"),
-//    Label(label: "장소(공연, 전시 등)", color: "Orange"),
-//    Label(label: "영화", color: "Gray"),
-//    Label(label: "네일", color: "Green"),
-//    Label(label: "맛집", color: "Peacock_Green"),
-//    Label(label: "인테리어", color: "Cobalt_Blue")
-// ]
-
 struct BadgeView: View {
     var label: Label
     @Binding var selectedLabel: String
+    @Binding var letters: Int
     var body: some View {
         Button(action: {
             self.selectedLabel = self.label.label
+            letters = self.label.label.count
         }) {
             Text(label.label).foregroundColor(giveTextForegroundColor(color: label.color))
         }
@@ -81,35 +68,41 @@ struct BadgeView: View {
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
-
+    @State var letters: Int = 0
     @State private var isEditing = false
     @State private var keyword: String = ""
     @State var selectedLabel: String = ""
     @State private var numberOfLabels: Int = labelEntities.count
+
+    var rows: [GridItem] {
+        [GridItem(.adaptive(minimum: CGFloat(letters * 100), maximum: 100))]
+    }
+
     var body: some View {
         VStack(alignment: .leading) {
-            List {
-//                ForEach(labelEntities.filter {
-//
-//                }, id: \.self) {
-//                    label in BadgeView(label: label, selectedLabel: $selectedLabel)
-//                }
-            }
             Text("최근에 검색한 라벨")
 
-            Spacer()
             HStack {
                 Text("선택할 수 있는 라벨")
                 Text("\(numberOfLabels)").foregroundColor(Color(red: 37/255, green: 124/255, blue: 204/255))
             }
-            HStack {
-                VStack(alignment: .leading) {
-                    ForEach(labelEntities, id: \.self) {
-                        label in
-                        BadgeView(label: label, selectedLabel: $selectedLabel)
-                    }
+            
+            ScrollView {
+                FlexibleView(data: labelEntities, spacing: 8, alignment: HorizontalAlignment.leading) {
+                    label in Text(verbatim: label.label)
+                        .padding(8)
+                        .background(giveLabelBackgroundColor(color: label.color))
+                        .foregroundColor(giveTextForegroundColor(color: label.color))
                 }
+                
             }
+
+//            LazyHGrid(rows: rows, content: {
+//                ForEach(labelEntities, id: \.self) {
+//                    label in
+//                    BadgeView(label: label, selectedLabel: $selectedLabel, letters: $letters)
+//                }
+//            })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:

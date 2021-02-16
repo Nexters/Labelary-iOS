@@ -1,16 +1,6 @@
 import CardStack
 import SwiftUI
 
-// struct LabelEntity: Entity {
-//    let id: String
-//    var name: String
-//    var color: ColorSet
-//    var images: [ImageEntity]
-//    let createdAt: Date
-//    var lastSearchedAt: Date?
-//    var isCached: Bool = false
-// }
-
 struct Photo: Identifiable {
     let id = UUID()
     let image: UIImage
