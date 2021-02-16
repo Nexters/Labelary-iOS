@@ -26,6 +26,11 @@
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
+		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
+		567766D925DC1C4A00038DC6 /* Album_Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D825DC1C4A00038DC6 /* Album_Components.swift */; };
+		567766DD25DC1C5300038DC6 /* Label_Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766DC25DC1C5300038DC6 /* Label_Components.swift */; };
+		567766E125DC1C5800038DC6 /* CustomWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766E025DC1C5800038DC6 /* CustomWidget.swift */; };
+		567766E525DC1C6200038DC6 /* Screenshot_Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766E425DC1C6200038DC6 /* Screenshot_Components.swift */; };
 		56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
 		56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2925C98990008D2941 /* DIContainer.swift */; };
@@ -119,6 +124,11 @@
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		567766D325DC1C2C00038DC6 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		567766D825DC1C4A00038DC6 /* Album_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_Components.swift; sourceTree = "<group>"; };
+		567766DC25DC1C5300038DC6 /* Label_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label_Components.swift; sourceTree = "<group>"; };
+		567766E025DC1C5800038DC6 /* CustomWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidget.swift; sourceTree = "<group>"; };
+		567766E425DC1C6200038DC6 /* Screenshot_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot_Components.swift; sourceTree = "<group>"; };
 		56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2925C98990008D2941 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -243,7 +253,10 @@
 		246159E325B2DE7200F6D730 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				567766D725DC1C4000038DC6 /* Components */,
 				2464AD2925BA623500BE3492 /* AppViews + TabView.swift */,
+				56BD4D2C25C9AF07008D2941 /* Typography.swift */,
+				567766D325DC1C2C00038DC6 /* HexColor.swift */,
 				2464AD3025BA63F300BE3492 /* 01.Labeling */,
 				2464AD3125BA640500BE3492 /* 02.Search */,
 				2464AD3425BA646900BE3492 /* 03.Album */,
@@ -308,6 +321,17 @@
 			path = ShareSheet;
 			sourceTree = "<group>";
 		};
+		567766D725DC1C4000038DC6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				567766D825DC1C4A00038DC6 /* Album_Components.swift */,
+				567766DC25DC1C5300038DC6 /* Label_Components.swift */,
+				567766E025DC1C5800038DC6 /* CustomWidget.swift */,
+				567766E425DC1C6200038DC6 /* Screenshot_Components.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		56C1967E25C143F100E441EC /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,7 +387,6 @@
 			isa = PBXGroup;
 			children = (
 				246159E325B2DE7200F6D730 /* View */,
-				56BD4D2C25C9AF07008D2941 /* Typography.swift */,
 				56BD4D2F25CC2276008D2941 /* SColor.swift */,
 			);
 			path = Ui;
@@ -630,6 +653,7 @@
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
+				567766D925DC1C4A00038DC6 /* Album_Components.swift in Sources */,
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
@@ -641,11 +665,13 @@
 				56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */,
 				241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */,
 				56C196A825C1B8D800E441EC /* Array+.swift in Sources */,
+				567766E525DC1C6200038DC6 /* Screenshot_Components.swift in Sources */,
 				2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */,
 				56C1969025C1695800E441EC /* ImageRealmModel.swift in Sources */,
 				56D1B67925BFE215008EEF2F /* ViewModel.swift in Sources */,
 				56D1B66F25BFE215008EEF2F /* CancelBag.swift in Sources */,
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
+				567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */,
@@ -656,6 +682,7 @@
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
 				2464AD3625BA648900BE3492 /* AlbumView.swift in Sources */,
 				56D1B67125BFE215008EEF2F /* Driver.swift in Sources */,
+				567766E125DC1C5800038DC6 /* CustomWidget.swift in Sources */,
 				56D1B67525BFE215008EEF2F /* ActivityTracker.swift in Sources */,
 				2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */,
 				56BD4D2D25C9AF07008D2941 /* Typography.swift in Sources */,
@@ -677,6 +704,7 @@
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,
 				56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */,
+				567766DD25DC1C5300038DC6 /* Label_Components.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
