@@ -1,6 +1,6 @@
 import Combine
 import SwiftUI
-// import ToastSwiftUI
+import ToastUI
 
 // MARK: - functions to give color for GUI
 
@@ -126,6 +126,7 @@ struct AddLabelingView: View {
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
     @State var isEdited = false
+    @State var presentingToast: Bool = false
 
     // MARK: - NavigationLink Action funtions
 
@@ -141,7 +142,7 @@ struct AddLabelingView: View {
         showAddLabelingView = true
     }
 
-    func onCLickedConfirmBtn() {
+    func onClickedConfirmBtn() {
         isEdited = true
     }
 
@@ -186,13 +187,11 @@ struct AddLabelingView: View {
                     }
                 }
 
-                Button("확인") {
-                    onCLickedConfirmBtn()
-                    NavigationLink(
-                        destination: MainLabelingView(),
-                        isActive: $isEdited
-                    ) {}
-                    print("ok")
+                Button(action: {
+                    self.presentingToast = true
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("확인")
                 }
                 .foregroundColor(Color.white)
                 .frame(width: 70, height: 52)
@@ -200,10 +199,13 @@ struct AddLabelingView: View {
                 .padding(21)
                 .cornerRadius(2)
                 .offset(x: 89, y: 219)
+                .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
+                    ToastView("스크린샷에 라벨이 추가되었습니다.") {}
+                }
                 .opacity(filters.count > 0 ? 1 : 0)
+                
             }
         }
-
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
 

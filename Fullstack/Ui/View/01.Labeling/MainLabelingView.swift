@@ -1,5 +1,6 @@
 import CardStack
 import SwiftUI
+import ToastUI
 
 struct Photo: Identifiable {
     let id = UUID()
@@ -79,20 +80,14 @@ struct MainLabelingView: View {
                             isActive: $isShowingAddLabelingView
                         ) {
                             Image("main_add_btn")
-                        }.isDetailLink(false)
+                        }
                     })
                         
                 }.padding(40)
                     .offset(y: 150)
             }
         }
-        
     }
 }
     
-struct MainLabelingView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainLabelingView()
-    }
-}
- 
+

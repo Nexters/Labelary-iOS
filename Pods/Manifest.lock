@@ -1,5 +1,4 @@
 PODS:
-  - Introspect (0.1.2)
   - OpenCombine (0.11.0)
   - OpenCombineDispatch (0.11.0):
     - OpenCombine (>= 0.10.2)
@@ -12,19 +11,19 @@ PODS:
     - Realm (= 10.5.1)
   - Resolver (1.4.0)
   - SwiftUICardStack (0.0.5)
+  - ToastUI (1.3.2)
 
 DEPENDENCIES:
-  - Introspect
   - OpenCombine (~> 0.11.0)
   - OpenCombineDispatch (~> 0.11.0)
   - OpenCombineFoundation (~> 0.11.0)
   - RealmSwift (~> 10.5.1)
   - Resolver
   - SwiftUICardStack
+  - ToastUI
 
 SPEC REPOS:
   trunk:
-    - Introspect
     - OpenCombine
     - OpenCombineDispatch
     - OpenCombineFoundation
@@ -32,9 +31,9 @@ SPEC REPOS:
     - RealmSwift
     - Resolver
     - SwiftUICardStack
+    - ToastUI
 
 SPEC CHECKSUMS:
-  Introspect: 85a29d2c5ee4d3d15469ad0b75fd8839f3e72674
   OpenCombine: 819bfcd0bdf70a2929073c661953514cb4d757d4
   OpenCombineDispatch: d6df618e05cf4321dac2479093cc4586e3ceb5c3
   OpenCombineFoundation: 2e33e68cc4f74256731dc7db6ecfe509356e0076
@@ -42,7 +41,8 @@ SPEC CHECKSUMS:
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
   Resolver: 9371a9c561477b2ff76408114fa3ba7e94d17afe
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
+  ToastUI: 2baa7f9c7badae7bd83a9ab87a21bc88983010bd
 
-PODFILE CHECKSUM: 38fec953020d35acaed71959769dd088a1b32df3
+PODFILE CHECKSUM: 0f1d2bfb3e2277c7259d6b97da07f0f6a3ce4382
 
 COCOAPODS: 1.10.1
