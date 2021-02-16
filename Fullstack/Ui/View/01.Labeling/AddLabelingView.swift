@@ -1,6 +1,8 @@
 import Combine
 import SwiftUI
 
+// MARK: - functions to give color for GUI
+
 func giveLabelBackgroundColor(color: String) -> Color {
     switch color {
     case "Yellow":
@@ -55,46 +57,7 @@ func giveTextForegroundColor(color: String) -> Color {
     }
 }
 
-// MARK: - Custom small label badge view
-
-struct Badge: View {
-    var name: String
-    var color: Color
-    var textColor: Color
-    var type: BadgeType = .normal
-
-    enum BadgeType {
-        case normal
-        case removable(() -> ())
-    }
-
-    var body: some View {
-        ZStack {
-            HStack {
-                Text(name).foregroundColor(textColor)
-
-                switch type {
-                case .removable(var callback):
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .frame(width: 8, height: 8, alignment: .center)
-                        .font(Font.caption.bold())
-                        .onTapGesture {
-                            callback()
-                        }
-
-                default:
-
-                    AddLabelingView()
-                }
-            }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(color)
-            .cornerRadius(2)
-        }
-    }
-}
+// MARK: - Label (for label entities list)
 
 struct Label: Hashable {
     var id = UUID()
@@ -102,7 +65,24 @@ struct Label: Hashable {
     var color: String
 }
 
-// MARK: - Each Customed Post-it Label View  [ChildView sending selected Labels' value
+// MARK: - list of label data
+
+var labelEntities = [
+    Label(label: "OOTD", color: "Cobalt_Blue"),
+    Label(label: "컬러 팔레트", color: "Yellow"),
+    Label(label: "UI 레퍼런스", color: "Red"),
+    Label(label: "편집디자인", color: "Violet"),
+    Label(label: "채팅", color: "Blue"),
+    Label(label: "meme 모음", color: "Cobalt_Blue"),
+    Label(label: "글귀", color: "Pink"),
+    Label(label: "장소(공연, 전시 등)", color: "Orange"),
+    Label(label: "영화", color: "Gray"),
+    Label(label: "네일", color: "Green"),
+    Label(label: "맛집", color: "Peacock_Green"),
+    Label(label: "인테리어", color: "Cobalt_Blue")
+]
+
+// MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
@@ -124,12 +104,11 @@ struct LabelRowItemView: View {
 
         }, label: {
             Text(label.label)
-                .padding(20)
+                .padding(40)
                 .frame(width: 252, height: 50, alignment: .trailing)
                 .foregroundColor(.white)
                 .cornerRadius(5)
                 .edgesIgnoringSafeArea(.horizontal)
-                .offset(x: -20)
                 .background(isSelected ? Image("Label_large_Selected_\(label.color)") : Image("Label_large_default_\(label.color)"))
                 .offset(x: isSelected ? -80 : -100)
 
@@ -137,54 +116,43 @@ struct LabelRowItemView: View {
     }
 }
 
-var labelEntities = [
-    Label(label: "OOTD", color: "Cobalt_Blue"),
-    Label(label: "컬러 팔레트", color: "Yellow"),
-    Label(label: "UI 레퍼런스", color: "Red"),
-    Label(label: "편집디자인", color: "Violet"),
-    Label(label: "채팅", color: "Blue"),
-    Label(label: "meme 모음", color: "Cobalt_Blue"),
-    Label(label: "글귀", color: "Pink"),
-    Label(label: "장소(공연, 전시 등)", color: "Orange"),
-    Label(label: "영화", color: "Gray"),
-    Label(label: "네일", color: "Green"),
-    Label(label: "맛집", color: "Peacock_Green"),
-    Label(label: "인테리어", color: "Cobalt_Blue")
-]
-
 // MARK: - Parent View
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var labels = labelEntities
-
     @State var filters: [Label] = []
-
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
 
+
+
+    // MARK: - NavigationLink Action funtions
+
     func onClickedBackBtn() {
-        self.presentationMode.wrappedValue.dismiss()
+        presentationMode.wrappedValue.dismiss()
     }
 
     func onClickedSearchBtn() {
-        self.showSearchLabelView = true
+        showSearchLabelView = true
     }
 
     func onClickedAddBtn() {
-        self.showAddLabelingView = true
+        showAddLabelingView = true
     }
 
     var body: some View {
         VStack {
+            // MARK: - List of Badge Views of selected labels
+
             VStack(alignment: .leading) {
                 if filters.count > 0 {
                     HStack {
                         Text("선택한 라벨")
                         Text("\(filters.count)").foregroundColor(Color(red: 56/255, green: 124/255, blue: 255/255))
+
                     }.padding(.leading, 15)
                 }
-
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(filters, id: \.self) { filter in
@@ -202,24 +170,38 @@ struct AddLabelingView: View {
                 }.padding(15)
             }
 
-            ScrollView {
-                LazyVStack {
-                    ForEach(labels, id: \.self) { label in
-                        LabelRowItemView(label: label,
-                                         selectedLabels: $filters)
+            // MARK: - List of the Labels
+
+            ZStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack {
+                        ForEach(labels, id: \.self) { label in
+                            LabelRowItemView(label: label,
+                                             selectedLabels: $filters)
+                        }
                     }
                 }
+
+                Button("확인") {}
+                    .foregroundColor(Color.white)
+                    .frame(width: 70, height: 52)
+                    .background(Color(red: 56/255, green: 124/255, blue: 255/255))
+                    .padding(21)
+                    .cornerRadius(2)
+                    .offset(x: 89, y: 239)
+                    .opacity(filters.count > 0 ? 1 : 0)
             }
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
 
             HStack {
                 Button(action: onClickedBackBtn) {
                     Image("navigation_back_btn")
-                }
+                }.offset(x: 20)
                 Spacer(minLength: 110)
-                Text("라벨 선택")
+                Text("스크린샷 라벨 추가")
                 Spacer(minLength: 35)
                 Button(action: {
                     showSearchLabelView = true
@@ -245,6 +227,7 @@ struct AddLabelingView: View {
         )
     }
 }
+
 
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {

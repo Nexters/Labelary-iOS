@@ -79,13 +79,14 @@ struct MainLabelingView: View {
                             isActive: $isShowingAddLabelingView
                         ) {
                             Image("main_add_btn")
-                        }
+                        }.isDetailLink(false)
                     })
                         
                 }.padding(40)
                     .offset(y: 150)
             }
         }
+        
     }
 }
     

@@ -89,6 +89,7 @@ struct AddNewLabelView: View {
                         Button(action: {
                             self.selectedIndex = button
                             self.isSelected = true
+                            
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
