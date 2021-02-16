@@ -1,5 +1,7 @@
 import SwiftUI
 
+//MARK: - ADD Keyboard Animation
+
 struct FirstResponderTextField: UIViewRepresentable {
     @Binding var text: String
     let placeholder: String
@@ -50,14 +52,6 @@ extension UITextField {
     }
 }
 
-struct ColorPaletteModalView: View {
-    var body: some View {
-        VStack {
-            Text("라벨 색 선택하기")
-                .foregroundColor(.white)
-        }
-    }
-}
 
 struct AddNewLabelView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
@@ -130,7 +124,7 @@ struct AddNewLabelView: View {
             }
             Spacer()
             Button(action: {
-                // 값 전달
+ 
             }, label: {
                 if self.isSelected {
                     Image("Label_add_complete_active")

@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+//MARK: - Size Reader
+
 extension View {
   func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
     background(

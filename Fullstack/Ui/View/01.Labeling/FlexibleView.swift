@@ -1,5 +1,7 @@
 import SwiftUI
 
+//MARK: - FlexibleView Custom
+
 struct _FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
     let availableWidth: CGFloat
     let data: Data

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - SearchBarTextField
+
 struct SearchBarTextField: UIViewRepresentable {
     @Binding var text: String
     @State private var showCancelButton: Bool = false
@@ -47,22 +49,7 @@ struct SearchBarTextField: UIViewRepresentable {
     }
 }
 
-struct BadgeView: View {
-    var label: Label
-    @Binding var selectedLabel: String
-    var body: some View {
-        Button(action: {
-            self.selectedLabel = self.label.label
-        }) {
-            Text(label.label).foregroundColor(giveTextForegroundColor(color: label.color))
-        }
-        .lineSpacing(5)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 5)
-        .cornerRadius(2)
-        .background(giveLabelBackgroundColor(color: label.color))
-    }
-}
+//MARK: - Search Label View Parent View
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -80,6 +67,8 @@ struct SearchLabelView: View {
                 Text("\(numberOfLabels)").foregroundColor(Color(red: 37/255, green: 124/255, blue: 204/255))
             }
 
+//MARK: - FlexibleView of the labels
+            
             ScrollView {
                 FlexibleView(data: labelEntities, spacing: 8, alignment: HorizontalAlignment.leading) {
                     label in Button(action: {
