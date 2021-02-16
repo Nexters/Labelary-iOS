@@ -1,6 +1,6 @@
 import SwiftUI
 
-//MARK: - FlexibleView Custom
+// MARK: - FlexibleView Custom
 
 struct _FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
     let availableWidth: CGFloat
@@ -50,27 +50,27 @@ struct _FlexibleView<Data: Collection, Content: View>: View where Data.Element: 
 }
 
 struct FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
-  let data: Data
-  let spacing: CGFloat
-  let alignment: HorizontalAlignment
-  let content: (Data.Element) -> Content
-  @State private var availableWidth: CGFloat = 0
+    let data: Data
+    let spacing: CGFloat
+    let alignment: HorizontalAlignment
+    let content: (Data.Element) -> Content
+    @State private var availableWidth: CGFloat = 0
 
-  var body: some View {
-    ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
-      Color.clear
-        .frame(height: 1)
-        .readSize { size in
-          availableWidth = size.width
+    var body: some View {
+        ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
+            Color.clear
+                .frame(height: 1)
+                .readSize { size in
+                    availableWidth = size.width
+                }
+
+            _FlexibleView(
+                availableWidth: availableWidth,
+                data: data,
+                spacing: spacing,
+                alignment: alignment,
+                content: content
+            )
         }
-
-      _FlexibleView(
-        availableWidth: availableWidth,
-        data: data,
-        spacing: spacing,
-        alignment: alignment,
-        content: content
-      )
     }
-  }
 }

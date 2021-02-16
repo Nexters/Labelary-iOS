@@ -54,7 +54,8 @@ func giveTextForegroundColor(color: String) -> Color {
         return Color(red: 255/255, green: 255/255, blue: 255/255)
     }
 }
-//MARK: - Custom small label badge view
+
+// MARK: - Custom small label badge view
 
 struct Badge: View {
     var name: String
@@ -101,7 +102,7 @@ struct Label: Hashable {
     var color: String
 }
 
-//MARK: - Each Customed Post-it Label View  [ChildView sending selected Labels' value
+// MARK: - Each Customed Post-it Label View  [ChildView sending selected Labels' value
 
 struct LabelRowItemView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
@@ -151,7 +152,7 @@ var labelEntities = [
     Label(label: "인테리어", color: "Cobalt_Blue")
 ]
 
-//MARK: - Parent View
+// MARK: - Parent View
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -244,9 +245,6 @@ struct AddLabelingView: View {
         )
     }
 }
-
-
-
 
 struct AddLabelingView_Previews: PreviewProvider {
     static var previews: some View {

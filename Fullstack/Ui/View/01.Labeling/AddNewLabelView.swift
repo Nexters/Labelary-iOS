@@ -1,6 +1,6 @@
 import SwiftUI
 
-//MARK: - ADD Keyboard Animation
+// MARK: - ADD Keyboard Animation
 
 struct FirstResponderTextField: UIViewRepresentable {
     @Binding var text: String
@@ -51,7 +51,6 @@ extension UITextField {
         resignFirstResponder()
     }
 }
-
 
 struct AddNewLabelView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
@@ -123,9 +122,7 @@ struct AddNewLabelView: View {
                 }
             }
             Spacer()
-            Button(action: {
- 
-            }, label: {
+            Button(action: {}, label: {
                 if self.isSelected {
                     Image("Label_add_complete_active")
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)

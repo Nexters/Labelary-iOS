@@ -32,7 +32,6 @@ struct CardView: View {
 struct MainLabelingView: View {
     @State var data: [Photo] = Photo.mock
     @State private var isShowingAddLabelingView = false
-    // @State var image: UIImage
     
     var body: some View {
         NavigationView {
