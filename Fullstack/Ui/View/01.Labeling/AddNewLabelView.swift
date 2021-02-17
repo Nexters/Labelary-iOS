@@ -1,5 +1,5 @@
 import SwiftUI
-
+import UIKit
 // MARK: - ADD Keyboard Animation
 
 struct FirstResponderTextField: UIViewRepresentable {
@@ -25,13 +25,15 @@ struct FirstResponderTextField: UIViewRepresentable {
 
     func makeUIView(context: Context) -> some UIView {
         let textField = UITextField()
+        let customFont:UIFont = UIFont.init(name: (textField.font?.fontName)!, size: 28.0)!
+        
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "입력완료", style: UIBarButtonItem.Style.plain, target: self, action: #selector(textField.doneButtonTapped(button:)))
         toolBar.items = [flexibleSpace, doneButton]
         toolBar.setItems([doneButton], animated: true)
-
+        textField.font = customFont
         textField.delegate = context.coordinator
         textField.placeholder = placeholder
         textField.inputAccessoryView = toolBar
@@ -143,7 +145,7 @@ struct AddNewLabelView: View {
                     Image("navigation_back_btn")
                 }
                 Spacer(minLength: 80)
-                Text("라벨 엘범 추가")
+                Text("라벨 생성")
                 Spacer()
             })
     }
