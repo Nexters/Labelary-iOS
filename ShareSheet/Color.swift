@@ -1,8 +1,8 @@
 //
 //  Color.swift
-//  Fullstack
+//  ShareSheet
 //
-//  Created by 김범준 on 2021/02/04.
+//  Created by 우민지 on 2021/02/17.
 //
 
 import Foundation
@@ -73,11 +73,6 @@ extension Color {
     static let LABEL_GRAY_DEACTIVE = Color(hex: "267B8399")
     static let TEXT_GRAY = Color(hex: "CCDAFF")
     static let TEXT_GRAY_DARK = Color(hex: "282A2F")
-    
-    static let darkBackgroundColor = Color(white: 0.0)
-    static func backgroundColor(for colorScheme: ColorScheme) -> Color {
-        return darkBackgroundColor
-    }
     
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

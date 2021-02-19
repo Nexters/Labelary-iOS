@@ -26,6 +26,11 @@
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
+		24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66425DCF99E0042CAD4 /* Color.swift */; };
+		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
+		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
+		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
+		24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
@@ -118,6 +123,11 @@
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
+		24A8E66425DCF99E0042CAD4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
+		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
+		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
+		24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetBadgeView.swift; sourceTree = "<group>"; };
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,8 +284,8 @@
 			children = (
 				246159F425B2E18500F6D730 /* MainLabelingView.swift */,
 				2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */,
-				245A663A25DBDE6F00A8DAF8 /* Badge.swift */,
 				241882DB25C95C8D00B062CF /* SearchLabelView.swift */,
+				245A663A25DBDE6F00A8DAF8 /* Badge.swift */,
 				2437675225DB3BB1003A51AB /* FlexibleView.swift */,
 				249E81DD25DB6FF100423791 /* SizeReader.swift */,
 				241882E525C95CC400B062CF /* AddNewLabelView.swift */,
@@ -307,6 +317,11 @@
 				2475AB2525D8FABD0086B24D /* MainInterface.storyboard */,
 				2475AB2825D8FABD0086B24D /* Info.plist */,
 				24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */,
+				24A8E66425DCF99E0042CAD4 /* Color.swift */,
+				24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */,
+				24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */,
+				24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */,
+				24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */,
 			);
 			path = ShareSheet;
 			sourceTree = "<group>";
@@ -691,8 +706,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
+				24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */,
+				24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */,
 				24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */,
+				24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */,
+				24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

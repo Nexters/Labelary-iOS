@@ -121,6 +121,7 @@ struct LabelRowItemView: View {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State var labels = labelEntities
     @State var filters: [Label] = []
     @State var showAddLabelingView = false
@@ -201,11 +202,10 @@ struct AddLabelingView: View {
                 .offset(x: 89, y: 219)
                 .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
                     ToastView("스크린샷에 라벨이 추가되었습니다.") {}
-                        .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .padding(20)
                 }
                 .opacity(filters.count > 0 ? 1 : 0)
-                
             }
         }
         .navigationBarBackButtonHidden(true)

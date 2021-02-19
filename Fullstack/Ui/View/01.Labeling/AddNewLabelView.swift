@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+
 // MARK: - ADD Keyboard Animation
 
 struct FirstResponderTextField: UIViewRepresentable {
@@ -25,8 +26,7 @@ struct FirstResponderTextField: UIViewRepresentable {
 
     func makeUIView(context: Context) -> some UIView {
         let textField = UITextField()
-        let customFont:UIFont = UIFont.init(name: (textField.font?.fontName)!, size: 28.0)!
-        
+        let customFont = UIFont(name: (textField.font?.fontName)!, size: 28.0)!
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
