@@ -127,13 +127,13 @@ struct AddNewLabelView: View {
             Spacer()
             NavigationLink(
                 destination: AddLabelingView()) {
-                if self.isSelected {
-                    Image("Label_add_complete_active")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                } else {
-                    Image("Label_add_complete_default")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                }
+                    if self.isSelected {
+                        Image("Label_add_complete_active")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    } else {
+                        Image("Label_add_complete_default")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    }
             }
             Spacer()
         }

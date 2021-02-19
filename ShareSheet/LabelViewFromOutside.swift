@@ -91,64 +91,74 @@ struct LabelViewFromOutside: View {
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [Label] = []
     var body: some View {
-        ZStack {
-            Color.DEPTH_3.edgesIgnoringSafeArea(.all)
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        Spacer(minLength: 80)
-                        Rectangle()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 131)
-                        ShareSheetSearchBarView(text: $keyword)
+        NavigationView {
+            ZStack {
+                Color.DEPTH_3.edgesIgnoringSafeArea(.all)
+                VStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 20) {
+                            Spacer(minLength: 80)
+                            Rectangle()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 60, height: 131)
+                            ShareSheetSearchBarView(text: $keyword)
 
-                        HStack {
-                            Text("내 라벨")
-                            Text(" \(labelEntities.count)").foregroundColor(Color.KEY_ACTIVE)
-                        }.padding([.leading, .top], 20)
-                        
-                        FlexibleView(data: labelEntities.filter { keyword.isEmpty ?  true: $0.label.contains(keyword)}, spacing: 8, alignment: HorizontalAlignment.leading) {
-                            label in Button(action: {
-                                selectedLabels.append(label)
-                                print(label)
-                                print(selectedLabels.count)
-                            }) {
-                                Text(verbatim: label.label)
-                                    .padding(8)
-                                    .background(giveLabelBackgroundColor(color: label.color))
-                                    .foregroundColor(giveTextForegroundColor(color: label.color))
-                            }
-                        }.padding([.leading], 20)
-                    }
-                }
+                            HStack {
+                                Text("내 라벨")
+                                Text(" \(labelEntities.count)").foregroundColor(Color.KEY_ACTIVE)
+                            }.padding([.leading, .top], 20)
 
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("선택한 라벨")
-                        Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
-                    }.padding([.leading, .top], 20)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(selectedLabels, id: \.self) { filter in
-                                Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
-                                    withAnimation {
-                                        if let firstIndex = selectedLabels.firstIndex(of: filter) {
-                                            selectedLabels.remove(at: firstIndex)
-                                        }
-                                    }
-
-                                })
-                                    .transition(.opacity)
-                            }
+                            FlexibleView(data: labelEntities.filter { keyword.isEmpty ? true : $0.label.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                                label in Button(action: {
+                                    selectedLabels.append(label)
+                                    print(label)
+                                    print(selectedLabels.count)
+                                }) {
+                                    Text(verbatim: label.label)
+                                        .padding(8)
+                                        .background(giveLabelBackgroundColor(color: label.color))
+                                        .foregroundColor(giveTextForegroundColor(color: label.color))
+                                }
+                            }.padding([.leading], 20)
                         }
-                    }.padding(20)
+                    }
 
-                }.background(Color.DEPTH_4_BG)
-                    .frame(width: UIScreen.main.bounds.width, height: 101)
-                    .opacity(selectedLabels.count > 0 ? 1 : 0)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("선택한 라벨")
+                            Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
+                        }.padding([.leading, .top], 20)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(selectedLabels, id: \.self) { filter in
+                                    Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                        withAnimation {
+                                            if let firstIndex = selectedLabels.firstIndex(of: filter) {
+                                                selectedLabels.remove(at: firstIndex)
+                                            }
+                                        }
+
+                                    })
+                                        .transition(.opacity)
+                                }
+                            }
+                        }.padding(20)
+
+                    }.background(Color.DEPTH_4_BG)
+                        .frame(width: UIScreen.main.bounds.width, height: 101)
+                        .opacity(selectedLabels.count > 0 ? 1 : 0)
+                }
             }
-        }
+        }.navigationBarItems(leading:
+            HStack {
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text("X")
+                })
+                Text("스크린샷 라벨 추가")
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text("완료")
+                })
+            })
     }
 }
 

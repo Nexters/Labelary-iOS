@@ -122,6 +122,7 @@
 		2475AB2325D8FABD0086B24D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		249365EA25DF925D00A54875 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		24A8E66425DCF99E0042CAD4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
@@ -313,6 +314,7 @@
 		2475AB2225D8FABD0086B24D /* ShareSheet */ = {
 			isa = PBXGroup;
 			children = (
+				249365EA25DF925D00A54875 /* ShareSheet.entitlements */,
 				2475AB2325D8FABD0086B24D /* ShareViewController.swift */,
 				2475AB2525D8FABD0086B24D /* MainInterface.storyboard */,
 				2475AB2825D8FABD0086B24D /* Info.plist */,
@@ -905,6 +907,7 @@
 		2475AB2D25D8FABD0086B24D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L88FL78593;
 				INFOPLIST_FILE = ShareSheet/Info.plist;
@@ -924,6 +927,7 @@
 		2475AB2E25D8FABD0086B24D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L88FL78593;
 				INFOPLIST_FILE = ShareSheet/Info.plist;
