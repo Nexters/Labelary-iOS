@@ -121,7 +121,6 @@ struct LabelRowItemView: View {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State var labels = labelEntities
     @State var filters: [Label] = []
     @State var showAddLabelingView = false
@@ -231,6 +230,7 @@ struct AddLabelingView: View {
                 }
 
                 Spacer(minLength: 10)
+
                 Button(action: onClickedAddBtn) {
                     Image("navigation_bar_plus_btn")
                     NavigationLink(

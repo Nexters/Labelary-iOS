@@ -1,7 +1,12 @@
-import SwiftUI
-import UIKit
+//
+//  ShareSheetAddNewLabel.swift
+//  ShareSheet
+//
+//  Created by 우민지 on 2021/02/20.
+//
 
-// MARK: - ADD Keyboard Animation
+import SwiftUI
+//import ToastUI
 
 struct FirstResponderTextField: UIViewRepresentable {
     @Binding var text: String
@@ -54,7 +59,7 @@ extension UITextField {
     }
 }
 
-struct AddNewLabelView: View {
+struct ShareSheetAddNewLabel: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     @Environment(\.presentationMode) var presentationMode
     @State var text: String = ""
@@ -126,16 +131,20 @@ struct AddNewLabelView: View {
             }
             Spacer()
 
-            NavigationLink(
-                destination: AddLabelingView()) {
-                    if self.isSelected {
-                        Image("Label_add_complete_active")
-                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                    } else {
-                        Image("Label_add_complete_default")
-                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                    }
+            Button(action: {}) {
+                if self.isSelected {
+                    Image("Label_add_complete_active")
+                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                } else {
+                    Image("Label_add_complete_default")
+                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                }
             }
+//                .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
+//                ToastView("스크린샷에 라벨이 추가되었습니다.") {}
+//                    .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+//                    .padding(20)
+//            }
             Spacer()
         }
         .navigationBarBackButtonHidden(true)
@@ -155,8 +164,8 @@ struct AddNewLabelView: View {
     }
 }
 
- struct AddNewLabelView_Previews: PreviewProvider {
+struct ShareSheetAddNewLabel_Previews: PreviewProvider {
     static var previews: some View {
-        AddNewLabelView()
+        ShareSheetAddNewLabel()
     }
- }
+}

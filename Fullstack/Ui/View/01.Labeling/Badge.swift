@@ -14,6 +14,7 @@ struct Badge: View {
     var color: Color
     var textColor: Color
     var type: BadgeType = .normal
+    @State var showSelf: Bool = false
 
     enum BadgeType {
         case normal
