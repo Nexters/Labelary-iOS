@@ -34,7 +34,6 @@ struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     
     var body: some View {
-        NavigationView {
             ZStack {
                 VStack(alignment: .center, spacing: 30) {
                     Text("스크린샷 라벨링")
@@ -86,7 +85,6 @@ struct MainLabelingView: View {
                     .offset(y: 150)
             }
         }
-    }
 }
     
 struct MainLabelingView_Previews: PreviewProvider {

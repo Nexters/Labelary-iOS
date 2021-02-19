@@ -119,9 +119,3 @@ struct SearchLabelView: View {
         presentationMode.wrappedValue.dismiss()
     }
 }
-
-struct SearchLabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchLabelView()
-    }
-}
