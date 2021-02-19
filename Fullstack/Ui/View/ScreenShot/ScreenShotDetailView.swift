@@ -45,6 +45,7 @@ struct ScreenShotDetailView: View {
                             Text("스크린샷에 추가된 라벨이 없습니다.")
                                 .font(Font.B1_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_3)
+                                .padding(.leading, 16)
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {

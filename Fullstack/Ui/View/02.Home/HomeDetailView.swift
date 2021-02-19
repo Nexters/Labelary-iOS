@@ -50,7 +50,7 @@ struct HomeDeatilView: View {
                         Image("ico_delete_active")
                             .padding(.top, 14)
                             .onTapGesture {
-                                self.output.items = self.output.items.filter { $0.status != .SELECTING }
+                                output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
                             }
                     } else {
                         Text("선택")
@@ -119,6 +119,10 @@ struct HomeDeatilView: View {
 
         init(images: [ImageEntity]) {
             items = images.map { ImageWrapper(imageEntity: $0, status: .IDLE) }
+        }
+
+        func changeItems(items: [ImageWrapper]) {
+            self.items = items
         }
     }
 }
