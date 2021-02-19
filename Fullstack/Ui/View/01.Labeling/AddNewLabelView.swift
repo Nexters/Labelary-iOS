@@ -93,12 +93,12 @@ struct AddNewLabelView: View {
                             self.isSelected = true
 
                         }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
-                            }
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                         }
                         .padding([.top, .leading], 10)
                     }
@@ -113,19 +113,20 @@ struct AddNewLabelView: View {
                             print(button)
                             self.isSelected = true
                         }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
-                            }
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                         }
                         .padding([.top, .leading], 10)
                     }
                 }
             }
             Spacer()
-            Button(action: {}, label: {
+            NavigationLink(
+                destination: AddLabelingView()) {
                 if self.isSelected {
                     Image("Label_add_complete_active")
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
@@ -133,8 +134,7 @@ struct AddNewLabelView: View {
                     Image("Label_add_complete_default")
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                 }
-
-            })
+            }
             Spacer()
         }
 
