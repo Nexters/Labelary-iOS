@@ -1,5 +1,6 @@
 import CardStack
 import SwiftUI
+import ToastUI
 
 struct Photo: Identifiable {
     let id = UUID()
@@ -18,7 +19,7 @@ struct CardView: View {
     
     var body: some View {
         GeometryReader { _ in
-            VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
+            VStack(alignment: .center) {
                 Image(uiImage: self.photo.image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -36,6 +37,7 @@ struct MainLabelingView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: 30) {
                     Text("스크린샷 라벨링")
                         .offset(y: -50)
@@ -61,7 +63,7 @@ struct MainLabelingView: View {
                         .scaledToFit()
                         .offset(x: 65)
                     }.offset(y: -140)
-                }
+                }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                     
                 HStack {
                     Button(action: {
@@ -89,9 +91,3 @@ struct MainLabelingView: View {
     }
 }
     
-struct MainLabelingView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainLabelingView()
-    }
-}
- 

@@ -25,12 +25,23 @@ class ShareViewController: UIViewController {
         
         self.view.backgroundColor = .systemGray6
         
-        self.setupNavBar()
+       // self.setupNavBar()
+        self.setUpConstraints()
     }
+    
+    func setUpConstraints() {
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        vc.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
+    
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
-        self.navigationItem.title = "My app"
+        self.navigationItem.title = "스크린샷 라벨 추가"
 
         let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
         self.navigationItem.setLeftBarButton(itemCancel, animated: false)
