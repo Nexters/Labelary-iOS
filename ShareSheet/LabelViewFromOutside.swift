@@ -91,6 +91,7 @@ struct LabelViewFromOutside: View {
     @State private var keyword: String = ""
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [Label] = []
+    @State var showAddLabelView: Bool = false
     var body: some View {
         NavigationView {
             ZStack {
@@ -116,19 +117,19 @@ struct LabelViewFromOutside: View {
                                     }
                                 } else {
                                     VStack(alignment: .leading) {
-                                        Text("검색결과가 없습니다 ").offset(x:10)
+                                        Text("검색결과가 없습니다 ").offset(x: 10)
                                         Spacer(minLength: 10)
                                         HStack {
                                             Text("\(keyword)")
-                                            Button(action: {}) {
-                                                Text("생성").foregroundColor(Color.KEY)
-                                            }
-                                        }
-                                        .padding(8)
+                                            Button("생성") {
+                                                self.showAddLabelView = true
+                                                NavigationLink(destination: ShareSheetAddNewLabel(), isActive: $showAddLabelView) {}
+                                            }.foregroundColor(Color.KEY)
+                                        }.padding(8)
                                         .background(Color.DEPTH_3)
                                         .cornerRadius(2)
                                         .border(Color.PRIMARY_4)
-                                    }.offset(x:10)
+                                    }
                                 }
                             }
                             FlexibleView(data: labelEntities.filter { keyword.isEmpty ? true : $0.label.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
