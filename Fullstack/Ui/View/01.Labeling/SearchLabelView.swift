@@ -67,7 +67,7 @@ struct SearchLabelView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 if self.keyword.isEmpty {
-                    Text("최근에 검색한 라벨")
+                    Text("최근에 검색한 라벨").offset(x:-120)
                     FlexibleView(data: recentKeywords, spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
                             self.keyword = label.label
@@ -78,16 +78,17 @@ struct SearchLabelView: View {
                                 .foregroundColor(giveTextForegroundColor(color: label.color))
                         }
                     }
+                    Spacer()
                     HStack {
                         Text("내 라벨")
                         Text("\(numberOfLabels)").foregroundColor(Color.KEY_ACTIVE)
-                    }
+                    }.offset(x: -140)
                 } else {
                     if labelEntities.filter { $0.label.contains(keyword) }.count > 0 {
                         HStack {
                             Text("검색 결과")
                             Text("\(labelEntities.filter { $0.label.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
-                        }
+                        }.offset(x: -140)
                     } else {
                         VStack(alignment: .center) {
                             Spacer(minLength: 143)
