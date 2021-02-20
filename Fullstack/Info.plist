@@ -33,6 +33,8 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>Image Name</key>
+	<string>onboarding</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

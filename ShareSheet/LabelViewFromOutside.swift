@@ -177,7 +177,7 @@ struct LabelViewFromOutside: View {
                     Button(action: {}, label: {
                         Image("navigation_back_btn")
                     })
-                    Spacer(minLength: 20)
+                    Spacer(minLength: 100)
                     Text("스크린샷 라벨 추가")
                     Spacer(minLength: 20)
                     Button(action: {}, label: {
