@@ -22,9 +22,10 @@ struct CachedData: CachedDataSource {
                 results.append(assets.object(at: index).toEntity())
             }
         }
+
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
-            .map { entities in entities + results.filter { item in entities.contains(where: { $0.id == item.id }) } }
+            .map { entities in entities + results.suffix(20).filter { item in !entities.contains(where: { $0.id == item.id }) } }
             .asObservable()
     }
 

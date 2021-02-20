@@ -7,6 +7,7 @@
 
 import Foundation
 import Photos
+import SwiftUI
 
 struct ImageEntity: Entity {
     let source: Source

@@ -246,9 +246,3 @@ struct AddLabelingView: View {
         )
     }
 }
-
-struct AddLabelingView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddLabelingView()
-    }
-}

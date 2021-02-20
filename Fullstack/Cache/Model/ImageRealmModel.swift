@@ -9,12 +9,12 @@ import Foundation
 import RealmSwift
 
 class ImageRealmModel: Object {
-    dynamic var id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     dynamic var source: ImageEntity.Source?
     dynamic var labels: List<LabelRealmModel> = List()
     dynamic var isBookmark: Bool = false
 
-    override static func primaryKey() -> String? {
+    override static func primaryKey() -> String {
         return "id"
     }
 }

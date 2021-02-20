@@ -9,14 +9,14 @@ import Foundation
 import RealmSwift
 
 class LabelRealmModel: Object {
-    dynamic var id: String = UUID().uuidString
+    @objc dynamic var id: String = UUID().uuidString
     dynamic var name: String = ""
     dynamic var color = ColorSet.RED()
     dynamic var images: List<ImageRealmModel> = List()
     dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
 
-    override static func primaryKey() -> String? {
+    override static func primaryKey() -> String {
         return "id"
     }
 }

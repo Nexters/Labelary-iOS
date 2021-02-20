@@ -38,7 +38,6 @@ struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: 30) {
@@ -91,6 +90,5 @@ struct MainLabelingView: View {
                     .offset(y: 150)
             }
         }
-    }
 }
     

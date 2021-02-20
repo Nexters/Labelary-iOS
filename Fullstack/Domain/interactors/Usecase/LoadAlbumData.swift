@@ -14,12 +14,12 @@ struct LoadSearchMainData: Usecase {
 
     let imageRepository: ImageRepository
 
-    func get(param: Param) -> Observable<Result> {
+    func get(param: Param = ()) -> Observable<Result> {
         return Publishers.Zip(
             imageRepository.getBookmarkImages(),
             imageRepository.getAllImages()
-        ).map {
-            ResultData(bookmarkedImages: $0, recentlyImages: $1)
+        ).map { bookmarks, all in
+            ResultData(bookmarkedImages: bookmarks, recentlyImages: all)
         }.eraseToAnyPublisher()
     }
 

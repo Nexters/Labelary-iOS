@@ -66,10 +66,10 @@ struct SearchLabelView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 if self.keyword.isEmpty {
-                    Text("최근에 검색한 라벨").offset(x: -100)
+                    Text("최근에 검색한 라벨").offset(x: -80)
                         .font(.custom("Apple SD Gothic Neo", size: 14))
                         .foregroundColor(Color.PRIMARY_2)
-                    FlexibleView(data: recentKeywords, spacing: 8, alignment: HorizontalAlignment.leading) {
+                    FlexibleView(data: labelEntities.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
                             self.keyword = label.label
                         }) {
@@ -88,11 +88,9 @@ struct SearchLabelView: View {
                         Text("\(numberOfLabels)").foregroundColor(Color.KEY_ACTIVE)
                             .font(.custom("Apple SD Gothic Neo", size: 14))
 
-                    }.offset(x: -120)
-                    
-                    FlexibleView(data: labelEntities.filter {
-                        keyword.isEmpty ? true : $0.label.contains(keyword)
-                    }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                    }.offset(x: -80)
+
+                    FlexibleView(data: labelEntities, spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
                             print(label)
                         }) {
@@ -113,6 +111,19 @@ struct SearchLabelView: View {
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
                         }.offset(x: -140)
 
+                        FlexibleView(data: labelEntities.filter {
+                            keyword.isEmpty ? true : $0.label.contains(keyword)
+                        }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                            label in Button(action: {
+                                print(label)
+                            }) {
+                                Text(verbatim: label.label)
+                                    .padding(8)
+                                    .font(.custom("AppleSDGothicNeo-Regular", size: 16))
+                                    .background(giveLabelBackgroundColor(color: label.color))
+                                    .foregroundColor(giveTextForegroundColor(color: label.color))
+                            }
+                        }
                     } else {
                         VStack(alignment: .center) {
                             Spacer(minLength: 143)
@@ -140,20 +151,7 @@ struct SearchLabelView: View {
                                     .cornerRadius(2)
                             }
                         }
-                    }
 
-                    FlexibleView(data: labelEntities.filter {
-                        keyword.isEmpty ? true : $0.label.contains(keyword)
-                    }, spacing: 8, alignment: HorizontalAlignment.leading) {
-                        label in Button(action: {
-                            print(label)
-                        }) {
-                            Text(verbatim: label.label)
-                                .padding(8)
-                                .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                .background(giveLabelBackgroundColor(color: label.color))
-                                .foregroundColor(giveTextForegroundColor(color: label.color))
-                        }
                     }
                 }
             }.padding(12)
@@ -193,11 +191,5 @@ struct SearchLabelView: View {
 
     func onClickedBackBtn() {
         presentationMode.wrappedValue.dismiss()
-    }
-}
-
-struct SearchLabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchLabelView()
     }
 }

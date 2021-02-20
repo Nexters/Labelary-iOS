@@ -121,10 +121,10 @@ struct LabelViewFromOutside: View {
                                         Spacer(minLength: 10)
                                         HStack {
                                             Text("\(keyword)")
-                                            Button("생성") {
-                                                self.showAddLabelView = true
-                                                NavigationLink(destination: ShareSheetAddNewLabel(), isActive: $showAddLabelView) {}
-                                            }.foregroundColor(Color.KEY)
+//                                            Button("생성") {
+//                                                self.showAddLabelView = true
+//                                                NavigationLink(destination:, isActive: $showAddLabelView) {}
+//                                            }.foregroundColor(Color.KEY)
                                         }.padding(8)
                                         .background(Color.DEPTH_3)
                                         .cornerRadius(2)

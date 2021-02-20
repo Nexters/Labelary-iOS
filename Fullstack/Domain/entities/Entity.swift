@@ -7,9 +7,13 @@
 
 import Foundation
 
-protocol Entity: Equatable, Identifiable {
+protocol Entity: Equatable, Identifiable, Hashable {
     var id: String
     { get }
+}
+
+extension Entity {
+    var hashValue: Int { self.id.hash }
 }
 
 extension Entity {
