@@ -87,67 +87,103 @@ var labelEntities = [
 ]
 
 struct LabelViewFromOutside: View {
-    @State var keyword: String = ""
+    @Environment(\.presentationMode) var presentationMode
+    @State private var keyword: String = ""
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [Label] = []
+    @State var showAddLabelView: Bool = false
     var body: some View {
-        ZStack {
-            Color.DEPTH_3.edgesIgnoringSafeArea(.all)
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        Spacer(minLength: 80)
-                        Rectangle()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 131)
-                        ShareSheetSearchBarView(text: $keyword)
-
-                        HStack {
-                            Text("내 라벨")
-                            Text(" \(labelEntities.count)").foregroundColor(Color.KEY_ACTIVE)
-                        }.padding([.leading, .top], 20)
-                        
-                        FlexibleView(data: labelEntities.filter { keyword.isEmpty ?  true: $0.label.contains(keyword)}, spacing: 8, alignment: HorizontalAlignment.leading) {
-                            label in Button(action: {
-                                selectedLabels.append(label)
-                                print(label)
-                                print(selectedLabels.count)
-                            }) {
-                                Text(verbatim: label.label)
-                                    .padding(8)
-                                    .background(giveLabelBackgroundColor(color: label.color))
-                                    .foregroundColor(giveTextForegroundColor(color: label.color))
+        NavigationView {
+            ZStack {
+                Color.DEPTH_3.edgesIgnoringSafeArea(.all)
+                VStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 20) {
+                            Spacer(minLength: 80)
+                            Rectangle()
+                                .frame(width: 60, height: 131)
+                                .padding()
+                            ShareSheetSearchBarView(text: $keyword)
+                            if self.keyword.isEmpty {
+                                HStack {
+                                    Text("내 라벨")
+                                    Text(" \(labelEntities.count)").foregroundColor(Color.KEY_ACTIVE)
+                                }.padding([.leading, .top], 20)
+                            } else {
+                                if labelEntities.filter { $0.label.contains(keyword) }.count > 0 {
+                                    HStack {
+                                        Text("검색 결과")
+                                        Text("\(labelEntities.filter { $0.label.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                                    }
+                                } else {
+                                    VStack(alignment: .leading) {
+                                        Text("검색결과가 없습니다 ").offset(x: 10)
+                                        Spacer(minLength: 10)
+                                        HStack {
+                                            Text("\(keyword)")
+//                                            Button("생성") {
+//                                                self.showAddLabelView = true
+//                                                NavigationLink(destination:, isActive: $showAddLabelView) {}
+//                                            }.foregroundColor(Color.KEY)
+                                        }.padding(8)
+                                        .background(Color.DEPTH_3)
+                                        .cornerRadius(2)
+                                        .border(Color.PRIMARY_4)
+                                    }
+                                }
                             }
-                        }.padding([.leading], 20)
+                            FlexibleView(data: labelEntities.filter { keyword.isEmpty ? true : $0.label.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                                label in Button(action: {
+                                    selectedLabels.append(label)
+                                    print(label)
+                                    print(selectedLabels.count)
+                                }) {
+                                    Text(verbatim: label.label)
+                                        .padding(8)
+                                        .background(giveLabelBackgroundColor(color: label.color))
+                                        .foregroundColor(giveTextForegroundColor(color: label.color))
+                                }
+                            }.padding([.leading], 20)
+                        }
+                        Spacer(minLength: 20)
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("선택한 라벨")
+                                Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
+                            }.padding([.leading, .top], 20)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(selectedLabels, id: \.self) { filter in
+                                        Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                            withAnimation {
+                                                if let firstIndex = selectedLabels.firstIndex(of: filter) {
+                                                    selectedLabels.remove(at: firstIndex)
+                                                }
+                                            }
+
+                                        })
+                                            .transition(.opacity)
+                                    }
+                                }
+                            }.padding(20)
+
+                        }.background(Color.DEPTH_4_BG)
+                            .frame(width: UIScreen.main.bounds.width, height: 101)
+                            .opacity(selectedLabels.count > 0 ? 1 : 0)
                     }
                 }
-
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("선택한 라벨")
-                        Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
-                    }.padding([.leading, .top], 20)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(selectedLabels, id: \.self) { filter in
-                                Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
-                                    withAnimation {
-                                        if let firstIndex = selectedLabels.firstIndex(of: filter) {
-                                            selectedLabels.remove(at: firstIndex)
-                                        }
-                                    }
-
-                                })
-                                    .transition(.opacity)
-                            }
-                        }
-                    }.padding(20)
-
-                }.background(Color.DEPTH_4_BG)
-                    .frame(width: UIScreen.main.bounds.width, height: 101)
-                    .opacity(selectedLabels.count > 0 ? 1 : 0)
-            }
+            }.navigationBarItems(leading:
+                HStack {
+                    Button(action: {}, label: {
+                        Image("navigation_back_btn")
+                    })
+                    Spacer(minLength: 100)
+                    Text("스크린샷 라벨 추가")
+                    Spacer(minLength: 20)
+                    Button(action: {}, label: {
+                        Text("완료")
+                    })
+                })
         }
     }
 }

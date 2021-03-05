@@ -7,10 +7,13 @@ struct Photo: Identifiable {
     let image: UIImage
     
     static let mock: [Photo] = [
+        Photo(image: UIImage(named: "sc0")!),
         Photo(image: UIImage(named: "sc1")!),
         Photo(image: UIImage(named: "sc2")!),
         Photo(image: UIImage(named: "sc3")!),
-        Photo(image: UIImage(named: "sc4")!)
+        Photo(image: UIImage(named: "sc4")!),
+        Photo(image: UIImage(named: "sc5")!),
+        Photo(image: UIImage(named: "sc6")!)
     ]
 }
 

@@ -22,3 +22,7 @@ post_install do |installer|
 end
 
 end
+
+target 'ShareSheet' do
+  pod 'ToastUI'
+end

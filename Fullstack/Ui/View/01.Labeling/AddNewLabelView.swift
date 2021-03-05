@@ -125,19 +125,19 @@ struct AddNewLabelView: View {
                 }
             }
             Spacer()
-            Button(action: {}, label: {
-                if self.isSelected {
-                    Image("Label_add_complete_active")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                } else {
-                    Image("Label_add_complete_default")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                }
 
-            })
+            NavigationLink(
+                destination: AddLabelingView()) {
+                    if self.isSelected {
+                        Image("Label_add_complete_active")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    } else {
+                        Image("Label_add_complete_default")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    }
+            }
             Spacer()
         }
-
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
             HStack {
@@ -155,8 +155,8 @@ struct AddNewLabelView: View {
     }
 }
 
-struct AddNewLabelView_Previews: PreviewProvider {
+ struct AddNewLabelView_Previews: PreviewProvider {
     static var previews: some View {
         AddNewLabelView()
     }
-}
+ }

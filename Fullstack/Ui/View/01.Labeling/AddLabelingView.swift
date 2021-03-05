@@ -105,6 +105,7 @@ struct LabelRowItemView: View {
 
         }, label: {
             Text(label.label)
+                .font(isSelected ? .custom("AppleSDGothicNeo-Bold", size: 16) : .custom("AppleSDGothicNeo-Medium", size: 16))
                 .padding(40)
                 .frame(width: 252, height: 50, alignment: .trailing)
                 .foregroundColor(.white)
@@ -121,7 +122,6 @@ struct LabelRowItemView: View {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State var labels = labelEntities
     @State var filters: [Label] = []
     @State var showAddLabelingView = false
@@ -155,7 +155,8 @@ struct AddLabelingView: View {
                 if filters.count > 0 {
                     HStack {
                         Text("선택한 라벨")
-                        Text("\(filters.count)").foregroundColor(Color(red: 56/255, green: 124/255, blue: 255/255))
+                        Text("\(filters.count)").foregroundColor(Color.PRIMARY_2)
+                            .font(.custom("Apple SD Gothic Neo", size: 14))
 
                     }.padding(.leading, 15)
                 }
@@ -192,7 +193,7 @@ struct AddLabelingView: View {
                     self.presentingToast = true
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("확인")
+                    Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
                 }
                 .foregroundColor(Color.white)
                 .frame(width: 70, height: 52)
@@ -215,9 +216,11 @@ struct AddLabelingView: View {
                 Button(action: onClickedBackBtn) {
                     Image("navigation_back_btn")
                 }.offset(x: 20)
-                Spacer(minLength: 110)
+                Spacer(minLength: 100)
                 Text("스크린샷 라벨 추가")
-                Spacer(minLength: 35)
+                    .font(.custom("Apple SD Gothic Neo", size: 16))
+                    .font(Font.body.bold())
+                Spacer(minLength: 30)
                 Button(action: {
                     showSearchLabelView = true
                 }) {
@@ -230,8 +233,9 @@ struct AddLabelingView: View {
                     }
                 }
 
-                Spacer(minLength: 10)
-                Button(action: onClickedAddBtn) {
+                Button(action: {
+                    showAddLabelingView = true
+                }) {
                     Image("navigation_bar_plus_btn")
                     NavigationLink(
                         destination: AddNewLabelView(),

@@ -10,6 +10,7 @@
         <!--Share View Controller-->
         <scene sceneID="ceB-am-kn3">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="j1y-V4-xli" customClass="ShareViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="wbc-yd-nQP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -21,9 +22,8 @@
                         <outlet property="container" destination="wbc-yd-nQP" id="whx-B0-nqZ"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57" y="48"/>
+            <point key="canvasLocation" x="-474" y="9"/>
         </scene>
     </scenes>
 </document>
