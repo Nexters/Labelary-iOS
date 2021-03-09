@@ -25,6 +25,9 @@
 		2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475AB2325D8FABD0086B24D /* ShareViewController.swift */; };
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		248CE62925F747C300FA7892 /* AddLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CE62825F747C300FA7892 /* AddLabelViewController.swift */; };
+		248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CE63025F74B1C00FA7892 /* AddLabelView.swift */; };
+		248CE63925F7624300FA7892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D425B2DCC700F6D730 /* Assets.xcassets */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66425DCF99E0042CAD4 /* Color.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
@@ -130,6 +133,9 @@
 		2475AB2325D8FABD0086B24D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		248CE62825F747C300FA7892 /* AddLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelViewController.swift; sourceTree = "<group>"; };
+		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
+		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		24A8E66425DCF99E0042CAD4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
@@ -339,10 +345,13 @@
 		2475AB2225D8FABD0086B24D /* ShareSheet */ = {
 			isa = PBXGroup;
 			children = (
+				248CE63625F7607500FA7892 /* ShareSheet.entitlements */,
 				2475AB2325D8FABD0086B24D /* ShareViewController.swift */,
+				248CE62825F747C300FA7892 /* AddLabelViewController.swift */,
 				2475AB2525D8FABD0086B24D /* MainInterface.storyboard */,
 				2475AB2825D8FABD0086B24D /* Info.plist */,
 				24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */,
+				248CE63025F74B1C00FA7892 /* AddLabelView.swift */,
 				24A8E66425DCF99E0042CAD4 /* Color.swift */,
 				24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */,
 				24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */,
@@ -638,6 +647,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248CE63925F7624300FA7892 /* Assets.xcassets in Resources */,
 				2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,11 +774,13 @@
 			files = (
 				24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
+				248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */,
 				24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */,
 				24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */,
 				24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */,
 				24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */,
 				24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */,
+				248CE62925F747C300FA7892 /* AddLabelViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,6 +973,7 @@
 		2475AB2D25D8FABD0086B24D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G298UQ6Q8A;
 				INFOPLIST_FILE = ShareSheet/Info.plist;
@@ -980,6 +993,7 @@
 		2475AB2E25D8FABD0086B24D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L88FL78593;
 				INFOPLIST_FILE = ShareSheet/Info.plist;

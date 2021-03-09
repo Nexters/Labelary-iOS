@@ -23,6 +23,3 @@ end
 
 end
 
-target 'ShareSheet' do
-  pod 'ToastUI'
-end

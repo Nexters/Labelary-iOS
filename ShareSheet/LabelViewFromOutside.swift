@@ -121,14 +121,18 @@ struct LabelViewFromOutside: View {
                                         Spacer(minLength: 10)
                                         HStack {
                                             Text("\(keyword)")
-//                                            Button("생성") {
-//                                                self.showAddLabelView = true
-//                                                NavigationLink(destination:, isActive: $showAddLabelView) {}
-//                                            }.foregroundColor(Color.KEY)
+                                            NavigationLink(destination: AddLabelView(), isActive: $showAddLabelView) {
+                                                Text("생성")
+                                                    .onTapGesture {
+                                                        self.showAddLabelView = true
+                                                        print("생성")
+                                                    }
+
+                                            }.foregroundColor(Color.KEY)
                                         }.padding(8)
-                                        .background(Color.DEPTH_3)
-                                        .cornerRadius(2)
-                                        .border(Color.PRIMARY_4)
+                                            .background(Color.DEPTH_3)
+                                            .cornerRadius(2)
+                                            .border(Color.PRIMARY_4)
                                     }
                                 }
                             }
