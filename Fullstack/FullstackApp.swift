@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct FullstackApp: App {
@@ -13,5 +14,10 @@ struct FullstackApp: App {
         WindowGroup {
             AppView()
         }
+    }
+
+    init() {
+        FirebaseApp.configure()
+        Analytics.logEvent("hot_or_cold_switch",parameters: nil)
     }
 }

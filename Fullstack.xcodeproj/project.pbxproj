@@ -40,6 +40,11 @@
 		567766E525DC1C6200038DC6 /* Screenshot_Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766E425DC1C6200038DC6 /* Screenshot_Components.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
 		5677671225DF854D00038DC6 /* View_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677671125DF854D00038DC6 /* View_Model.swift */; };
+		5677677725DFB79A00038DC6 /* splash_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677425DFB79A00038DC6 /* splash_3.json */; };
+		5677677825DFB79A00038DC6 /* splash_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677525DFB79A00038DC6 /* splash_2.json */; };
+		5677677925DFB79A00038DC6 /* splash_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677625DFB79A00038DC6 /* splash_1.json */; };
+		5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677677D25DFC69F00038DC6 /* OnboardingView.swift */; };
+		568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 568DE3DD25E0269700A9822A /* GoogleService-Info.plist */; };
 		56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
 		56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2925C98990008D2941 /* DIContainer.swift */; };
@@ -151,6 +156,11 @@
 		567766E425DC1C6200038DC6 /* Screenshot_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot_Components.swift; sourceTree = "<group>"; };
 		5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotDetailView.swift; sourceTree = "<group>"; };
 		5677671125DF854D00038DC6 /* View_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View_Model.swift; sourceTree = "<group>"; };
+		5677677425DFB79A00038DC6 /* splash_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_3.json; sourceTree = "<group>"; };
+		5677677525DFB79A00038DC6 /* splash_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_2.json; sourceTree = "<group>"; };
+		5677677625DFB79A00038DC6 /* splash_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_1.json; sourceTree = "<group>"; };
+		5677677D25DFC69F00038DC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		568DE3DD25E0269700A9822A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2925C98990008D2941 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -227,6 +237,9 @@
 		246159C425B2DCC100F6D730 = {
 			isa = PBXGroup;
 			children = (
+				5677677625DFB79A00038DC6 /* splash_1.json */,
+				5677677525DFB79A00038DC6 /* splash_2.json */,
+				5677677425DFB79A00038DC6 /* splash_3.json */,
 				246159CF25B2DCC100F6D730 /* Fullstack */,
 				2475AB2225D8FABD0086B24D /* ShareSheet */,
 				246159CE25B2DCC100F6D730 /* Products */,
@@ -247,6 +260,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
+				568DE3DD25E0269700A9822A /* GoogleService-Info.plist */,
 				56C1967E25C143F100E441EC /* Cache */,
 				56D1B65925BFE0D3008EEF2F /* Foundation */,
 				56D1B62225BD6CA8008EEF2F /* Remote */,
@@ -279,6 +293,7 @@
 				2464AD2925BA623500BE3492 /* AppViews + TabView.swift */,
 				56BD4D2C25C9AF07008D2941 /* Typography.swift */,
 				567766D325DC1C2C00038DC6 /* HexColor.swift */,
+				5677677C25DFC69500038DC6 /* Onboarding */,
 				2464AD3025BA63F300BE3492 /* 01.Labeling */,
 				2464AD3125BA640500BE3492 /* 02.Home */,
 				2464AD3425BA646900BE3492 /* 03.Label */,
@@ -373,6 +388,14 @@
 				5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */,
 			);
 			path = ScreenShot;
+			sourceTree = "<group>";
+		};
+		5677677C25DFC69500038DC6 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				5677677D25DFC69F00038DC6 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		56C1967E25C143F100E441EC /* Cache */ = {
@@ -630,7 +653,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				246159D825B2DCC700F6D730 /* Preview Assets.xcassets in Resources */,
+				5677677925DFB79A00038DC6 /* splash_1.json in Resources */,
+				5677677825DFB79A00038DC6 /* splash_2.json in Resources */,
+				5677677725DFB79A00038DC6 /* splash_3.json in Resources */,
 				246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */,
+				568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,6 +781,7 @@
 				567766DD25DC1C5300038DC6 /* Label_Components.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
+				5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -927,7 +955,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemjstudio.Fullstack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -951,7 +979,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemjstudio.Fullstack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -969,7 +997,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemjstudio.Fullstack.ShareSheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack.ShareSheet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -981,14 +1009,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L88FL78593;
+				DEVELOPMENT_TEAM = G298UQ6Q8A;
 				INFOPLIST_FILE = ShareSheet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemjstudio.Fullstack.ShareSheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack.ShareSheet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

@@ -24,6 +24,7 @@ extension Font {
     static let B1_REGULAR: Font = .system(size: 16, weight: .regular, design: .default)
 
     static let B2_MEDIUM: Font = .system(size: 14, weight: .medium, design: .default)
+    static let B2_REGULAR: Font = .system(size: 14, weight: .regular, design: .default)
 
     static let B3_MEDIUM: Font = .system(size: 12, weight: .medium, design: .default)
 }

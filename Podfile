@@ -9,9 +9,9 @@ target 'Fullstack' do
   pod 'OpenCombineFoundation', '~> 0.11.0'
   pod 'RealmSwift', '~> 10.5.1'
   pod 'ToastUI'
-
-
+  pod 'lottie-ios'
   pod "Resolver"
+  pod 'Firebase/Analytics'
 
 post_install do |installer|
  installer.pods_project.targets.each do |target|

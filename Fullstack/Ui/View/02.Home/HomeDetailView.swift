@@ -69,7 +69,7 @@ struct HomeDeatilView: View {
 
                 ScrollView {
                     LazyVGrid(columns: columns) {
-                        ForEach(output.items.indices, id: \.self) { index in
+                        List(output.items.indices, id: \.self) { index in
                             let screenshot = $output.items[index]
                             CScreenShotView(screenshot: screenshot, nextView: ScreenShotDetailView(screenShot: screenshot.image), width: 102, height: 221)
                         }

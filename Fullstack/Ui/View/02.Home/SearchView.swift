@@ -70,7 +70,7 @@ struct SearchView: View {
 
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(images.indices, id: \.self) { i in
+                List(images.indices, id: \.self) { i in
                     if isRecently {
                         let screenShot = $output.recentlyImages[i]
                         CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image), width: 90, height: 195)
