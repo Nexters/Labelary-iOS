@@ -91,7 +91,7 @@ struct SearchView: View {
                     .font(Font.B2_MEDIUM)
                     .foregroundColor(Color.PRIMARY_2)
 
-                FlexibleView(data: output.labels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
+                FlexibleView(data: output.labels.prefix(5), spacing: 10, alignment: HorizontalAlignment.leading) { label in
                     Text(label.name)
                         .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                         .font(Font.B1_REGULAR)
@@ -169,6 +169,8 @@ struct SearchView: View {
             }.padding(20)
         }
     }
+    
+    
 
     private func onChangeBookMark(id: String, isBookmark: Bool) {
         var item = output.recentlyImages.filter { $0.image.id == id }.first!
@@ -193,14 +195,18 @@ struct SearchView: View {
         @Published var isEditing: Bool = false
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "안녕", color: ColorSet.RED(), images: [], createdAt: Date()),
-            LabelEntity(id: "2", name: "안녕1", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "3", name: "안녕2", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-            LabelEntity(id: "4", name: "안녕3", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "5", name: "간녕", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "6", name: "간녕1", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "7", name: "간녕2", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "8", name: "간녕3", color: ColorSet.GRAY(), images: [], createdAt: Date())
+            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
+            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
+            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
         ]
 
         @Published var selectedLabels: [LabelEntity] = []

@@ -61,12 +61,6 @@ struct AddNewLabelView: View {
     @State var selectedIndex: Int? = -1
     @State var isSelected: Bool = false
 
-    @State var defaultColor = [
-        "Label_middle_dark_Yellow"
-    ]
-    @State var activeColor = [
-        "Label_middle_Selected_Yellow"
-    ]
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -93,12 +87,12 @@ struct AddNewLabelView: View {
                             self.isSelected = true
 
                         }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
-                            }
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                         }
                         .padding([.top, .leading], 10)
                     }
@@ -113,31 +107,31 @@ struct AddNewLabelView: View {
                             print(button)
                             self.isSelected = true
                         }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
-                            }
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                         }
                         .padding([.top, .leading], 10)
                     }
                 }
             }
             Spacer()
-            Button(action: {}, label: {
-                if self.isSelected {
-                    Image("Label_add_complete_active")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                } else {
-                    Image("Label_add_complete_default")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                }
 
-            })
+            NavigationLink(
+                destination: AddLabelingView()) {
+                    if self.isSelected {
+                        Image("Label_add_complete_active")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    } else {
+                        Image("Label_add_complete_default")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                    }
+            }
             Spacer()
         }
-
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading:
             HStack {

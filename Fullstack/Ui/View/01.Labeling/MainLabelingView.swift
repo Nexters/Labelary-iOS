@@ -7,10 +7,13 @@ struct Photo: Identifiable {
     let image: UIImage
     
     static let mock: [Photo] = [
+        Photo(image: UIImage(named: "sc0")!),
         Photo(image: UIImage(named: "sc1")!),
         Photo(image: UIImage(named: "sc2")!),
         Photo(image: UIImage(named: "sc3")!),
-        Photo(image: UIImage(named: "sc4")!)
+        Photo(image: UIImage(named: "sc4")!),
+        Photo(image: UIImage(named: "sc5")!),
+        Photo(image: UIImage(named: "sc6")!)
     ]
 }
 
@@ -35,57 +38,61 @@ struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     
     var body: some View {
-            ZStack {
-                Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-                VStack(alignment: .center, spacing: 30) {
-                    Text("스크린샷 라벨링")
-                        .offset(y: -50)
-                    ZStack {
-                        Image("shadow_img")
-                            .offset(y: 82)
-                        CardStack(
-                            direction: LeftRight.direction,
-                            data: data,
-                            onSwipe: { _, direction in
+        ZStack {
+            Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 30) {
+                Text("스크린샷 라벨링")
+                    .offset(y: -50)
+                ZStack {
+                    Image("shadow_img")
+                        .offset(y: 82)
+                    CardStack(
+                        direction: LeftRight.direction,
+                        data: data,
+                        onSwipe: { _, direction in
                        
-                                if direction == .right {
-                                    print("오른쪽 : 라벨 추가")
-                                    self.isShowingAddLabelingView = true
+                            if direction == .right {
+                                print("오른쪽 : 라벨 추가")
+                                ZStack {
+                                    Image("shadow_blue")
                                 }
-                                print(data)
-                                
-                            },
-                            content: { photo, _, _ in
-                                CardView(photo: photo)
+                                self.isShowingAddLabelingView = true
                             }
-                        )
-                        .scaledToFit()
-                        .offset(x: 65)
-                    }.offset(y: -140)
-                }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-                    
-                HStack {
-                    Button(action: {
-                        self.data.removeFirst()
-                    }, label: {
-                        Image("main_skip_btn")
-                    })
-                    Spacer(minLength: 35)
-                    
-                    Button(action: {
-                        self.isShowingAddLabelingView = true
-                    }, label: {
-                        NavigationLink(
-                            destination: AddLabelingView(),
-                            isActive: $isShowingAddLabelingView
-                        ) {
-                            Image("main_add_btn")
+                            print(data)
+                                
+                        },
+                        content: { photo, _, _ in
+                           
+                            CardView(photo: photo)
                         }
-                    })
+                    )
+                    .scaledToFit()
+                    .offset(x: 65)
+                }.offset(y: -140)
+            }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
+                    
+            HStack {
+                Button(action: {
+                    self.data.removeFirst()
+                }, label: {
+                    Image("main_skip_btn")
+                })
+                Spacer(minLength: 35)
+                    
+                Button(action: {
+                    self.isShowingAddLabelingView = true
+                }, label: {
+                    NavigationLink(
+                        destination: AddLabelingView(),
+                        isActive: $isShowingAddLabelingView
+                    ) {
+                        Image("main_add_btn")
+                    }
+                })
                         
-                }.padding(40)
-                    .offset(y: 150)
-            }
+            }.padding(40)
+                .offset(y: 150)
         }
+    }
 }
     

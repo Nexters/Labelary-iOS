@@ -16,7 +16,7 @@ class ShareViewController: UIViewController {
     var vc = UIHostingController(rootView: LabelViewFromOutside())
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupNavBar()
         addChild(vc)
         vc.view.frame = container.bounds
         container.addSubview(vc.view)
@@ -41,7 +41,7 @@ class ShareViewController: UIViewController {
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
-        self.navigationItem.title = "스크린샷 라벨 추가"
+        self.navigationItem.title = "???"
 
         let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
         self.navigationItem.setLeftBarButton(itemCancel, animated: false)
