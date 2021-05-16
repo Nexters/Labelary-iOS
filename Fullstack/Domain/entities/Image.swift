@@ -10,7 +10,7 @@ import Photos
 import SwiftUI
 
 struct ImageEntity: Entity {
-    let source: Source
+    let source: String
     var id: String
     var labels: [LabelEntity]
     var isBookmark: Bool = false
@@ -19,7 +19,7 @@ struct ImageEntity: Entity {
 
     enum Source {
         case Remote(url: String)
-        case Cache(asset: PHAsset)
+        case Cache(localIdentifier: String)
     }
 }
 
@@ -32,10 +32,10 @@ extension Array where Element == ImageEntity {
 extension PHAsset {
     func toEntity() -> ImageEntity {
         return ImageEntity(
-            source: ImageEntity.Source.Cache(asset: self),
+            source: localIdentifier,
             id: localIdentifier,
             labels: [],
-            isBookmark: isFavorite,
+            isBookmark: false,
             createdAt: creationDate
         )
     }

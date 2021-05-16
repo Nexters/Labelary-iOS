@@ -66,12 +66,13 @@ struct HomeDeatilView: View {
                     }
                 }.padding(.trailing, 20)
                     .frame(minHeight: 60)
-
+                Spacer()
                 ScrollView {
                     LazyVGrid(columns: columns) {
-                        List(output.items.indices, id: \.self) { index in
+                        ForEach(output.items.indices, id: \.self) { index in
                             let screenshot = $output.items[index]
-                            CScreenShotView(screenshot: screenshot, nextView: ScreenShotDetailView(screenShot: screenshot.image), width: 102, height: 221)
+                            CScreenShotView(screenshot: screenshot, nextView: ScreenShotDetailView(screenShot: screenshot.image, onChangeBookMark: { onChangeBookMark(index: index, isBookmark: $0)
+                            }, onDeleteImage: { _ in onDeleteImage(index: index) }), width: 102, height: 221)
                         }
                     }.padding(EdgeInsets(top: 20, leading: 13, bottom: 20, trailing: 13))
                 }
@@ -79,6 +80,14 @@ struct HomeDeatilView: View {
             }
         }.navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+    }
+
+    private func onChangeBookMark(index: Int, isBookmark: Bool) {
+        output.items[index].image.isBookmark = isBookmark
+    }
+
+    private func onDeleteImage(index: Int) {
+        output.items.remove(at: index)
     }
 
     private func getRow(count: Int) -> Int {

@@ -10,9 +10,9 @@ import RealmSwift
 
 class ImageRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
-    dynamic var source: ImageEntity.Source?
+    @objc dynamic var source: String?
     dynamic var labels: List<LabelRealmModel> = List()
-    dynamic var isBookmark: Bool = false
+    @objc dynamic var isBookmark: Bool = false
 
     override static func primaryKey() -> String {
         return "id"
@@ -21,6 +21,7 @@ class ImageRealmModel: Object {
 
 extension ImageRealmModel {
     func convertToEntity() -> ImageEntity? {
+        print("id \(self.id) : source : \(self.source)")
         guard !self.id.isEmpty, let source = self.source else {
             return nil
         }

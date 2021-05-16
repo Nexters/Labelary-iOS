@@ -73,19 +73,23 @@ struct ImageView: View {
     }
 
     private func loadImage() {
-        switch img.source {
-        case .Cache(let asset):
-            let options = PHImageRequestOptions()
-            options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
-            options.resizeMode = PHImageRequestOptionsResizeMode.fast
-
-            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
+//        switch img.source {
+//        case .Cache(let localIdentifier):
+        let options = PHImageRequestOptions()
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
+        options.resizeMode = PHImageRequestOptionsResizeMode.fast
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [img.source], options: nil).firstObject
+        if asset == nil {
+        } else {
+            PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
                 if result != nil {
                     self.displayedImage = result!
                 }
             })
-        case .Remote: break
         }
+
+//        case .Remote: break
+//        }
     }
 }
 
@@ -94,44 +98,71 @@ struct LottieView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-  
+
     // json파일명을 받을 프로퍼티
     var filename: String
-  
+
     // lottie View
     var animationView = AnimationView()
-  
+
     class Coordinator: NSObject {
         var parent: LottieView
-    
+
         init(_ animationView: LottieView) {
             // frame을 LottieView로 할당합니다.
             self.parent = animationView
             super.init()
         }
     }
-  
+
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let view = UIView()
-    
+
         // lottie 구현뷰
         animationView.animation = Animation.named(filename)
         animationView.contentMode = .scaleAspectFit
         animationView.translatesAutoresizingMaskIntoConstraints = false
-    
+
         view.addSubview(animationView)
-    
+
         NSLayoutConstraint.activate([
             animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
             animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
-    
+
         // 애니메이션이 계속 반복되게합니다.
         animationView.loopMode = .loop
         animationView.play()
         return view
     }
-  
+
     // updateView가 구현되어있지않습니다.
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {}
+}
+
+extension Int: Identifiable {
+    public var id: Self {
+        self
+    }
+}
+
+struct HList<C: RandomAccessCollection, V: View>: View where C.Element: Identifiable {
+    var data: C
+    var content: (C.Element) -> V
+
+    var body: some View {
+        GeometryReader { geo in
+            List(self.data) { i in
+                HStack {
+                    Spacer()
+                    self.content(i)
+                        .rotationEffect(.degrees(90))
+                    Spacer()
+                }
+            }
+            .frame(width: geo.frame(in: .local).height,
+                   height: geo.frame(in: .local).width)
+            .rotationEffect(.degrees(-90))
+        }
+    }
 }

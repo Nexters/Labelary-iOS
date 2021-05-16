@@ -37,6 +37,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     .frame(width: self.width, height: self.height)
                     .padding(.leading, 2)
                     .padding(.trailing, 2)
+                    .blur(radius: 3.0)
             }
 
             switch screenshot.status {
@@ -44,7 +45,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                 Group {}
             case .EDITING:
                 Image("btn_check")
-                    .padding(.leading, 76)
+                    .padding(.leading, 72)
                     .padding(.bottom, 191)
                     .onTapGesture {
                         screenshot.status = .SELECTING

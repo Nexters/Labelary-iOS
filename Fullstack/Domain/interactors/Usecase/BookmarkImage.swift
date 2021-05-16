@@ -16,6 +16,7 @@ struct BookmarkImage: Usecase {
 
     func get(param: Param) -> Observable<Result> {
         return imageRepository.changeBookmark(isActive: param.isActive, image: param.image)
+            .eraseToAnyPublisher()
     }
 
     struct RequestData {

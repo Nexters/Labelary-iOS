@@ -21,4 +21,7 @@ protocol ImageRepository {
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]>
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]>
     func deleteImages(images: [ImageEntity]) -> Observable<[String]>
+
+    func isExistOnRealm(image: ImageEntity) -> Observable<Bool>
+    func createImageRealModel(image: ImageEntity) -> Observable<ImageEntity?>
 }

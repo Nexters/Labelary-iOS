@@ -49,4 +49,12 @@ struct ImageRepositoryImpl: ImageRepository {
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
         return cachedDataSource.deleteImages(images: images)
     }
+    
+    func isExistOnRealm(image: ImageEntity) -> Observable<Bool> {
+        return cachedDataSource.isExistOnRealm(image: image)
+    }
+    
+    func createImageRealModel(image: ImageEntity) -> Observable<ImageEntity?> {
+        return cachedDataSource.createImageRealModel(image: image)
+    }
 }

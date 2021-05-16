@@ -25,7 +25,7 @@ struct CachedData: CachedDataSource {
 
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
-            .map { entities in entities + results.suffix(20).filter { item in !entities.contains(where: { $0.id == item.id }) } }
+            .map { entities in entities + results.filter { item in !entities.contains(where: { $0.id == item.id }) } }
             .asObservable()
     }
 
@@ -75,16 +75,33 @@ struct CachedData: CachedDataSource {
     }
 
     func changeBookmark(isActive: Bool, image: ImageEntity) -> Observable<ImageEntity> {
+        do {
+            try realm.write {
+                let check: ImageRealmModel? = realm.objects(ImageRealmModel.self)
+                    .first { $0.id == image.id }
+                if check == nil {
+                    let model = ImageRealmModel()
+                    model.id = image.id
+                    model.source = image.source
+                    model.isBookmark = isActive
+                    realm.add(model)
+                } else {
+                    check!.isBookmark = isActive
+                }
+            }
+        } catch {}
+
         let query: ImageRealmModel? = realm.objects(ImageRealmModel.self)
             .first { $0.id == image.id }
+
         return Just(query).asObservable()
             .tryMap {
-                $0?.isBookmark = isActive
                 guard let entity = $0?.convertToEntity() else {
                     throw DomainError.DoNotFoundEntity
                 }
                 return entity
-            }.eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
 
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
@@ -139,12 +156,37 @@ struct CachedData: CachedDataSource {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.id }}
 
+        var ids = imageQuery.map { $0.id }
+        do {
+            try realm.write {
+                realm.delete(imageQuery)
+            }
+        } catch {
+            ids = []
+        }
+
+        return Just(ids)
+            .asObservable()
+            .eraseToAnyPublisher()
+    }
+
+    func isExistOnRealm(image: ImageEntity) -> Observable<Bool> {
+        let imageQuery: ImageRealmModel? = realm.object(ofType: ImageRealmModel.self, forPrimaryKey: image.id)
+
         return Just(imageQuery).asObservable()
             .map { imageQuery in
-                let ids = imageQuery.map { $0.id }
-                realm.delete(imageQuery)
-                return ids
+                imageQuery != nil
             }.eraseToAnyPublisher()
+    }
+
+    func createImageRealModel(image: ImageEntity) -> Observable<ImageEntity?> {
+        let model = realm.create(ImageRealmModel.self)
+        model.source = image.source
+        model.isBookmark = image.isBookmark
+
+        return Just(model).asObservable()
+            .map { $0.convertToEntity() }
+            .eraseToAnyPublisher()
     }
 
     // Label

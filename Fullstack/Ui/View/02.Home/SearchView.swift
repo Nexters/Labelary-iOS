@@ -69,14 +69,14 @@ struct SearchView: View {
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
 
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                List(images.indices, id: \.self) { i in
+            LazyHStack {
+                ForEach(images.indices, id: \.self) { i in
                     if isRecently {
                         let screenShot = $output.recentlyImages[i]
-                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image), width: 90, height: 195)
+                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image, onChangeBookMark: { onChangeBookMark(id: output.recentlyImages[i].image.id, isBookmark: $0) }, onDeleteImage: onDeleteImage), width: 90, height: 195)
                     } else {
                         let screenShot = $output.bookmarkImages[i]
-                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image), width: 90, height: 195)
+                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image, onChangeBookMark: { onChangeBookMark(id: output.recentlyImages[i].image.id, isBookmark: $0) }, onDeleteImage: onDeleteImage), width: 90, height: 195)
                     }
                 }
             }.padding(.leading, 16).padding(.trailing, 16)
@@ -168,6 +168,23 @@ struct SearchView: View {
                 }
             }.padding(20)
         }
+    }
+
+    private func onChangeBookMark(id: String, isBookmark: Bool) {
+        var item = output.recentlyImages.filter { $0.image.id == id }.first!
+        item.image.isBookmark = isBookmark
+        if output.bookmarkImages.contains(where: { $0.image.id == item.image.id }) {
+            if !isBookmark {
+                output.bookmarkImages = output.bookmarkImages.filter { $0.image.id != item.image.id }
+            }
+        } else {
+            output.bookmarkImages.append(item)
+        }
+    }
+
+    private func onDeleteImage(id: String) {
+        output.recentlyImages = output.recentlyImages.filter { $0.image.id != id }
+        output.bookmarkImages = output.bookmarkImages.filter { $0.image.id != id }
     }
 
     class Output: ObservableObject {
