@@ -33,6 +33,8 @@
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
 		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
 		24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */; };
+		24C9D0ED2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */; };
+		24C9D0EE2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
@@ -46,7 +48,6 @@
 		5677677825DFB79A00038DC6 /* splash_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677525DFB79A00038DC6 /* splash_2.json */; };
 		5677677925DFB79A00038DC6 /* splash_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677625DFB79A00038DC6 /* splash_1.json */; };
 		5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677677D25DFC69F00038DC6 /* OnboardingView.swift */; };
-		568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 568DE3DD25E0269700A9822A /* GoogleService-Info.plist */; };
 		56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
 		56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2925C98990008D2941 /* DIContainer.swift */; };
@@ -145,6 +146,7 @@
 		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
 		24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetBadgeView.swift; sourceTree = "<group>"; };
+		24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../colary2-iOS/Colendar/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +166,6 @@
 		5677677525DFB79A00038DC6 /* splash_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_2.json; sourceTree = "<group>"; };
 		5677677625DFB79A00038DC6 /* splash_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_1.json; sourceTree = "<group>"; };
 		5677677D25DFC69F00038DC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		568DE3DD25E0269700A9822A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2925C98990008D2941 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -264,7 +265,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
-				568DE3DD25E0269700A9822A /* GoogleService-Info.plist */,
+				24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */,
 				56C1967E25C143F100E441EC /* Cache */,
 				56D1B65925BFE0D3008EEF2F /* Foundation */,
 				56D1B62225BD6CA8008EEF2F /* Remote */,
@@ -663,7 +664,7 @@
 				5677677825DFB79A00038DC6 /* splash_2.json in Resources */,
 				5677677725DFB79A00038DC6 /* splash_3.json in Resources */,
 				246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */,
-				568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */,
+				24C9D0ED2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +674,7 @@
 			files = (
 				248CE63925F7624300FA7892 /* Assets.xcassets in Resources */,
 				2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */,
+				24C9D0EE2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
