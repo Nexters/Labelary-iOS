@@ -28,35 +28,22 @@ class ShareViewController: UIViewController {
     // view will appear 에 할지 didload에 할지 고민..
     override func viewDidLoad() {
         super.viewDidLoad()
-        // getImage()
 
-        //   setupNavBar()
-
-        //  vc.view.frame = container.bounds
-        //  container.addSubview(vc.view)
-        //  vc.didMove(toParent: self)
-
-        //  setUpConstraints()
     }
 
-//    func setUpConstraints() {
-//        vc.view.translatesAutoresizingMaskIntoConstraints = false
-//        vc.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-//        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-//    }
+
 
     // MARK: - Get Image file from share extension
 
     func getImage() {
         if let inputItem = extensionContext!.inputItems.first as? NSExtensionItem {
             if let itemProvider = inputItem.attachments?.first as? NSItemProvider {
-                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeJPEG as String) {
+                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeData as String) {
                     itemProvider.loadItem(forTypeIdentifier: kUTTypeData as String, options: [:]) { [self]
                         data, _ in
 
                         var image: UIImage?
+ 
                         if let someURL = data as? URL {
                             image = UIImage(contentsOfFile: someURL.path)
                             print("이미지 데이터1 : \(image)") // 콘솔에서 확인
@@ -70,15 +57,6 @@ class ShareViewController: UIViewController {
                             image = someImage
                         }
 
-                        /*
-                         if let someImage = image {
-                             print("이미지 데이터2 : \(someImage)") // 콘솔에서 확인
-                             self.sharedImage?.imageData = someImage
-                         } else {
-                             print("Bad share data \n")
-                         }
-
-                         */
                     }
                 }
             }
