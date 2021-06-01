@@ -92,6 +92,9 @@ struct LabelViewFromOutside: View {
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [Label] = []
     @State var showAddLabelView: Bool = false
+
+    @ObservedObject var sharedImage: model // 전달 받은 객체
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -100,9 +103,12 @@ struct LabelViewFromOutside: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             Spacer(minLength: 80)
-                            Rectangle()
+
+                            Image(uiImage: sharedImage.imageData ?? UIImage())
+                                .resizable()
                                 .frame(width: 60, height: 131)
                                 .padding()
+
                             ShareSheetSearchBarView(text: $keyword)
                             if self.keyword.isEmpty {
                                 HStack {
@@ -189,11 +195,5 @@ struct LabelViewFromOutside: View {
                     })
                 })
         }
-    }
-}
-
-struct LabelViewFromOutside_Previews: PreviewProvider {
-    static var previews: some View {
-        LabelViewFromOutside()
     }
 }
