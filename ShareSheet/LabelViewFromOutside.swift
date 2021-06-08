@@ -94,7 +94,8 @@ struct LabelViewFromOutside: View {
     @State var showAddLabelView: Bool = false
 
     @ObservedObject var sharedImage: model // 전달 받은 객체
-
+    
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -103,11 +104,13 @@ struct LabelViewFromOutside: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             Spacer(minLength: 80)
-
-                            Image(uiImage: sharedImage.imageData ?? UIImage())
-                                .resizable()
-                                .frame(width: 60, height: 131)
-                                .padding()
+                            HStack {
+                                Spacer()
+                                Image(uiImage: sharedImage.imageData ?? UIImage())
+                                    .resizable()
+                                    .frame(width: 60, height: 131, alignment: .leading)
+                                Spacer()
+                            }
 
                             ShareSheetSearchBarView(text: $keyword)
                             if self.keyword.isEmpty {
@@ -158,7 +161,7 @@ struct LabelViewFromOutside: View {
                         Spacer(minLength: 20)
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("선택한 라벨")
+                                Text("추가한 라벨")
                                 Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
                             }.padding([.leading, .top], 20)
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -190,7 +193,10 @@ struct LabelViewFromOutside: View {
                     Spacer(minLength: 100)
                     Text("스크린샷 라벨 추가")
                     Spacer(minLength: 20)
-                    Button(action: {}, label: {
+                    Button(action: {
+                        // 사진, label 묶어서 저장
+                        //newLabelData.name =
+                    }, label: {
                         Text("완료")
                     })
                 })

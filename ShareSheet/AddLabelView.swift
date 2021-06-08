@@ -67,6 +67,7 @@ struct AddLabelView: View {
     @State var text: String = ""
     @State var selectedIndex: Int? = -1
     @State var isSelected: Bool = false
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
@@ -84,12 +85,14 @@ struct AddLabelView: View {
 
             HStack(alignment: .center) {
                 VStack {
+                    // ForEach 부하걸리니까 수정해야함
                     ForEach(0 ..< labelButtons.count / 2) {
                         button in
 
                         Button(action: {
                             self.selectedIndex = button
                             self.isSelected = true
+
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")

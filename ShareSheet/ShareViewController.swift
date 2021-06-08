@@ -16,10 +16,12 @@ class ShareViewController: UIViewController {
     var tempImage = UIImage()
     private var sharedImage = model(imageData: UIImage())
 
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         var input = model(imageData: UIImage())
         getImage()
-        let childView = UIHostingController(rootView: LabelViewFromOutside(sharedImage: self.sharedImage))
+        let childView = UIHostingController(rootView: LabelViewFromOutside(sharedImage: sharedImage))
         addChild(childView)
         childView.view.frame = container.bounds
         container.addSubview(childView.view)
@@ -28,10 +30,7 @@ class ShareViewController: UIViewController {
     // view will appear 에 할지 didload에 할지 고민..
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
-
 
     // MARK: - Get Image file from share extension
 
@@ -43,10 +42,10 @@ class ShareViewController: UIViewController {
                         data, _ in
 
                         var image: UIImage?
- 
+
                         if let someURL = data as? URL {
                             image = UIImage(contentsOfFile: someURL.path)
-                            print("이미지 데이터1 : \(image)") // 콘솔에서 확인
+
                             if let someImage = image {
                                 print("이미지 데이터 2 : \(someImage)")
                                 self.sharedImage.imageData = someImage
@@ -56,7 +55,6 @@ class ShareViewController: UIViewController {
                         } else if let someImage = data as? UIImage {
                             image = someImage
                         }
-
                     }
                 }
             }
