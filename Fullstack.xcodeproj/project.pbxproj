@@ -39,6 +39,7 @@
 		248A04A626661AAC007EE062 /* Usecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B62E25BD71C8008EEF2F /* Usecase.swift */; };
 		248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CE63025F74B1C00FA7892 /* AddLabelView.swift */; };
 		248CE63925F7624300FA7892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D425B2DCC700F6D730 /* Assets.xcassets */; };
+		2491A88D26845861006451D0 /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491A88C26845861006451D0 /* DefaultView.swift */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
@@ -151,6 +152,7 @@
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
 		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
+		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
 		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				2437675225DB3BB1003A51AB /* FlexibleView.swift */,
 				249E81DD25DB6FF100423791 /* SizeReader.swift */,
 				241882E525C95CC400B062CF /* AddNewLabelView.swift */,
+				2491A88C26845861006451D0 /* DefaultView.swift */,
 			);
 			path = 01.Labeling;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
 				567766D925DC1C4A00038DC6 /* Album_Components.swift in Sources */,
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
+				2491A88D26845861006451D0 /* DefaultView.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
 				56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */,

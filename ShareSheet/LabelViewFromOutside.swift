@@ -186,20 +186,14 @@ struct LabelViewFromOutside: View {
                 }
                 .navigationBarTitle("스크린샷 라벨 추가", displayMode: .inline)
                 .navigationBarItems(leading:
-                    HStack {
-                        Button(action: {}, label: {
-                            Image("navigation_back_btn")
-                        })
-
-                        Text("스크린샷 라벨 추가")
-
-                        Button(action: {
-                            // 사진, label 묶어서 저장
-
-                        }, label: {
-                            Text("완료")
-                        })
-                    })
+                    Button(action: {}, label: {
+                        Image("btn_cancel")
+                    }),
+                    trailing: Button(action: {
+                        // 사진, label 묶어서 저장
+                    }, label: {
+                        Text("완료")
+                    }))
             }
         }
     }
