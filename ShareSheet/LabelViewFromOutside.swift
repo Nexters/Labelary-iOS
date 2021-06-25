@@ -92,6 +92,9 @@ struct LabelViewFromOutside: View {
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [Label] = []
     @State var showAddLabelView: Bool = false
+
+    @ObservedObject var sharedImage: model // 전달 받은 객체
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -100,9 +103,14 @@ struct LabelViewFromOutside: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             Spacer(minLength: 80)
-                            Rectangle()
-                                .frame(width: 60, height: 131)
-                                .padding()
+                            HStack {
+                                Spacer()
+                                Image(uiImage: sharedImage.imageData ?? UIImage())
+                                    .resizable()
+                                    .frame(width: 60, height: 131, alignment: .leading)
+                                Spacer()
+                            }
+
                             ShareSheetSearchBarView(text: $keyword)
                             if self.keyword.isEmpty {
                                 HStack {
@@ -150,50 +158,43 @@ struct LabelViewFromOutside: View {
                             }.padding([.leading], 20)
                         }
                         Spacer(minLength: 20)
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text("선택한 라벨")
-                                Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
-                            }.padding([.leading, .top], 20)
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(selectedLabels, id: \.self) { filter in
-                                        Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
-                                            withAnimation {
-                                                if let firstIndex = selectedLabels.firstIndex(of: filter) {
-                                                    selectedLabels.remove(at: firstIndex)
-                                                }
-                                            }
-
-                                        })
-                                            .transition(.opacity)
-                                    }
-                                }
-                            }.padding(20)
-
-                        }.background(Color.DEPTH_4_BG)
-                            .frame(width: UIScreen.main.bounds.width, height: 101)
-                            .opacity(selectedLabels.count > 0 ? 1 : 0)
                     }
-                }
-            }.navigationBarItems(leading:
-                HStack {
-                    Button(action: {}, label: {
-                        Image("navigation_back_btn")
-                    })
-                    Spacer(minLength: 100)
-                    Text("스크린샷 라벨 추가")
-                    Spacer(minLength: 20)
-                    Button(action: {}, label: {
-                        Text("완료")
-                    })
-                })
-        }
-    }
-}
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("추가한 라벨")
+                            Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
+                        }.padding([.leading, .top], 20)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(selectedLabels, id: \.self) { filter in
+                                    Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                        withAnimation {
+                                            if let firstIndex = selectedLabels.firstIndex(of: filter) {
+                                                selectedLabels.remove(at: firstIndex)
+                                            }
+                                        }
 
-struct LabelViewFromOutside_Previews: PreviewProvider {
-    static var previews: some View {
-        LabelViewFromOutside()
+                                    })
+                                        .transition(.opacity)
+                                }
+                            }
+                        }.padding(20)
+
+                    }.frame(width: UIScreen.main.bounds.width, height: 101)
+                        .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
+                        .opacity(selectedLabels.count > 0 ? 1 : 0)
+                }
+                .navigationBarTitle("스크린샷 라벨 추가", displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {}, label: {
+                        Image("btn_cancel")
+                    }),
+                    trailing: Button(action: {
+                        // 사진, label 묶어서 저장
+                    }, label: {
+                        Text("완료")
+                    }))
+            }
+        }
     }
 }

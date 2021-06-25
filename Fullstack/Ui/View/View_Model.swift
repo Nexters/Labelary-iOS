@@ -22,3 +22,11 @@ struct ImageWrapper {
         case SELECTING
     }
 }
+
+struct ImageHasher: Hashable {
+    var image: ImageEntity
+    
+    init(imageEntity: ImageEntity) {
+        self.image = imageEntity
+    }
+}

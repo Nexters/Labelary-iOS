@@ -11,43 +11,65 @@ import UIKit
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
-    @IBOutlet weak var container: UIView!
+    @IBOutlet var container: UIView!
+
+    var tempImage = UIImage()
+    private var sharedImage = model(imageData: UIImage())
+
     
-    var vc = UIHostingController(rootView: LabelViewFromOutside())
+    
+    override func viewWillAppear(_ animated: Bool) {
+        var input = model(imageData: UIImage())
+        getImage()
+        let childView = UIHostingController(rootView: LabelViewFromOutside(sharedImage: sharedImage))
+        addChild(childView)
+        childView.view.frame = container.bounds
+        container.addSubview(childView.view)
+    }
+
+    // view will appear 에 할지 didload에 할지 고민..
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavBar()
-        addChild(vc)
-        vc.view.frame = container.bounds
-        container.addSubview(vc.view)
-        vc.didMove(toParent: self)
-        
-        
-        self.view.backgroundColor = .systemGray6
-        
-       // self.setupNavBar()
-        self.setUpConstraints()
     }
-    
-    func setUpConstraints() {
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        vc.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+
+    // MARK: - Get Image file from share extension
+
+    func getImage() {
+        if let inputItem = extensionContext!.inputItems.first as? NSExtensionItem {
+            if let itemProvider = inputItem.attachments?.first as? NSItemProvider {
+                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeData as String) {
+                    itemProvider.loadItem(forTypeIdentifier: kUTTypeData as String, options: [:]) { [self]
+                        data, _ in
+
+                        var image: UIImage?
+
+                        if let someURL = data as? URL {
+                            image = UIImage(contentsOfFile: someURL.path)
+
+                            if let someImage = image {
+                                print("이미지 데이터 2 : \(someImage)")
+                                self.sharedImage.imageData = someImage
+                            } else {
+                                print("Bad share data \n")
+                            }
+                        } else if let someImage = data as? UIImage {
+                            image = someImage
+                        }
+                    }
+                }
+            }
+        }
     }
-    
-    
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
-        self.navigationItem.title = "???"
+        navigationItem.title = "???"
 
-        let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
-        self.navigationItem.setLeftBarButton(itemCancel, animated: false)
+        let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
+        navigationItem.setLeftBarButton(itemCancel, animated: false)
 
-        let itemDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneAction))
-        self.navigationItem.setRightBarButton(itemDone, animated: false)
+        let itemDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
+        navigationItem.setRightBarButton(itemDone, animated: false)
     }
 
     // 3: Define the actions for the navigation items
@@ -63,16 +85,22 @@ class ShareViewController: UIViewController {
 
 @objc(ShareNavigationController)
 class ShareNavigationController: UINavigationController {
-
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
         // 2: set the ViewControllers
-        self.setViewControllers([ShareViewController()], animated: false)
+        setViewControllers([ShareViewController()], animated: false)
     }
 
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+}
+
+class model: ObservableObject {
+    @Published var imageData: UIImage?
+    init(imageData: UIImage) {
+        self.imageData = imageData // imageData from the url
     }
 }

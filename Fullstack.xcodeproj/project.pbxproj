@@ -11,6 +11,11 @@
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
+		24534F8F266F701600E77669 /* SColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2F25CC2276008D2941 /* SColor.swift */; };
+		24534F94266F708F00E77669 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
+		24534F97266F709200E77669 /* LabelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64C25BD7922008EEF2F /* LabelRepository.swift */; };
+		24534FCD266F70F700E77669 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B66725BFE215008EEF2F /* Observable.swift */; };
+		24534FEB266F71BE00E77669 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2C25C9AF07008D2941 /* Typography.swift */; };
 		245A663B25DBDE6F00A8DAF8 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245A663A25DBDE6F00A8DAF8 /* Badge.swift */; };
 		246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159D025B2DCC100F6D730 /* FullstackApp.swift */; };
 		246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D425B2DCC700F6D730 /* Assets.xcassets */; };
@@ -25,14 +30,23 @@
 		2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475AB2325D8FABD0086B24D /* ShareViewController.swift */; };
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		248A048326661A81007EE062 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
+		248A049A26661A86007EE062 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63B25BD7406008EEF2F /* Image.swift */; };
+		248A049B26661A8A007EE062 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64225BD75B7008EEF2F /* Label.swift */; };
+		248A049C26661A8D007EE062 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64525BD7680008EEF2F /* Color.swift */; };
+		248A049D26661A90007EE062 /* VO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68125C0502C008EEF2F /* VO.swift */; };
+		248A04A026661A93007EE062 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1966C25C13AD300E441EC /* SearchResult.swift */; };
+		248A04A626661AAC007EE062 /* Usecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B62E25BD71C8008EEF2F /* Usecase.swift */; };
 		248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CE63025F74B1C00FA7892 /* AddLabelView.swift */; };
 		248CE63925F7624300FA7892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D425B2DCC700F6D730 /* Assets.xcassets */; };
+		2491A88D26845861006451D0 /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491A88C26845861006451D0 /* DefaultView.swift */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
-		24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66425DCF99E0042CAD4 /* Color.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
 		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
 		24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */; };
+		24C9D0ED2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */; };
+		24C9D0EE2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
@@ -46,7 +60,6 @@
 		5677677825DFB79A00038DC6 /* splash_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677525DFB79A00038DC6 /* splash_2.json */; };
 		5677677925DFB79A00038DC6 /* splash_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677625DFB79A00038DC6 /* splash_1.json */; };
 		5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677677D25DFC69F00038DC6 /* OnboardingView.swift */; };
-		568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 568DE3DD25E0269700A9822A /* GoogleService-Info.plist */; };
 		56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
 		56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2925C98990008D2941 /* DIContainer.swift */; };
@@ -139,12 +152,13 @@
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
 		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
+		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
-		24A8E66425DCF99E0042CAD4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
 		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
 		24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetBadgeView.swift; sourceTree = "<group>"; };
+		24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../colary2-iOS/Colendar/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +178,6 @@
 		5677677525DFB79A00038DC6 /* splash_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_2.json; sourceTree = "<group>"; };
 		5677677625DFB79A00038DC6 /* splash_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_1.json; sourceTree = "<group>"; };
 		5677677D25DFC69F00038DC6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		568DE3DD25E0269700A9822A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		56BD4D2925C98990008D2941 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -264,7 +277,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
-				568DE3DD25E0269700A9822A /* GoogleService-Info.plist */,
+				24C9D0EC2653E0B000DDBCEE /* GoogleService-Info.plist */,
 				56C1967E25C143F100E441EC /* Cache */,
 				56D1B65925BFE0D3008EEF2F /* Foundation */,
 				56D1B62225BD6CA8008EEF2F /* Remote */,
@@ -333,6 +346,7 @@
 				2437675225DB3BB1003A51AB /* FlexibleView.swift */,
 				249E81DD25DB6FF100423791 /* SizeReader.swift */,
 				241882E525C95CC400B062CF /* AddNewLabelView.swift */,
+				2491A88C26845861006451D0 /* DefaultView.swift */,
 			);
 			path = 01.Labeling;
 			sourceTree = "<group>";
@@ -364,7 +378,6 @@
 				2475AB2825D8FABD0086B24D /* Info.plist */,
 				24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */,
 				248CE63025F74B1C00FA7892 /* AddLabelView.swift */,
-				24A8E66425DCF99E0042CAD4 /* Color.swift */,
 				24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */,
 				24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */,
 				24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */,
@@ -663,7 +676,7 @@
 				5677677825DFB79A00038DC6 /* splash_2.json in Resources */,
 				5677677725DFB79A00038DC6 /* splash_3.json in Resources */,
 				246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */,
-				568DE3DE25E0269700A9822A /* GoogleService-Info.plist in Resources */,
+				24C9D0ED2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +686,7 @@
 			files = (
 				248CE63925F7624300FA7892 /* Assets.xcassets in Resources */,
 				2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */,
+				24C9D0EE2653E0B000DDBCEE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +747,7 @@
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
 				567766D925DC1C4A00038DC6 /* Album_Components.swift in Sources */,
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
+				2491A88D26845861006451D0 /* DefaultView.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
 				56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */,
@@ -797,14 +812,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24534F97266F709200E77669 /* LabelRepository.swift in Sources */,
 				24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */,
+				24534FCD266F70F700E77669 /* Observable.swift in Sources */,
+				248A04A626661AAC007EE062 /* Usecase.swift in Sources */,
+				24534FEB266F71BE00E77669 /* Typography.swift in Sources */,
+				248A049D26661A90007EE062 /* VO.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
 				248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */,
 				24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */,
+				248A049B26661A8A007EE062 /* Label.swift in Sources */,
+				24534F8F266F701600E77669 /* SColor.swift in Sources */,
+				248A049C26661A8D007EE062 /* Color.swift in Sources */,
 				24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */,
+				248A04A026661A93007EE062 /* SearchResult.swift in Sources */,
+				24534F94266F708F00E77669 /* ImageRepository.swift in Sources */,
+				248A048326661A81007EE062 /* Entity.swift in Sources */,
 				24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */,
 				24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */,
-				24A8E66525DCF99E0042CAD4 /* Color.swift in Sources */,
+				248A049A26661A86007EE062 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,7 +907,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -936,7 +962,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

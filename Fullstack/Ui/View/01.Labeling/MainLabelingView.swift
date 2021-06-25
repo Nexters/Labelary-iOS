@@ -2,30 +2,28 @@ import CardStack
 import SwiftUI
 import ToastUI
 
-struct Photo: Identifiable {
-    let id = UUID()
-    let image: UIImage
-    
-    static let mock: [Photo] = [
-        Photo(image: UIImage(named: "sc0")!),
-        Photo(image: UIImage(named: "sc1")!),
-        Photo(image: UIImage(named: "sc2")!),
-        Photo(image: UIImage(named: "sc3")!),
-        Photo(image: UIImage(named: "sc4")!),
-        Photo(image: UIImage(named: "sc5")!),
-        Photo(image: UIImage(named: "sc6")!)
-    ]
-}
+// struct Photo: Identifiable {
+//    let id = UUID()
+//    let image: UIImage
+//
+//    static let mock: [Photo] = [
+//        Photo(image: UIImage(named: "sc0")!),
+//        Photo(image: UIImage(named: "sc1")!),
+//        Photo(image: UIImage(named: "sc2")!),
+//        Photo(image: UIImage(named: "sc3")!),
+//        Photo(image: UIImage(named: "sc4")!),
+//        Photo(image: UIImage(named: "sc5")!),
+//        Photo(image: UIImage(named: "sc6")!)
+//    ]
+// }
 
 struct CardView: View {
-    var photo: Photo
+    var photo: ImageHasher
     
     var body: some View {
         GeometryReader { _ in
             VStack(alignment: .center) {
-                Image(uiImage: self.photo.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+                ImageView(img: self.photo.image)
                     .frame(width: 248, height: 535)
             }
             .cornerRadius(1.5)
@@ -34,8 +32,26 @@ struct CardView: View {
 }
 
 struct MainLabelingView: View {
-    @State var data: [Photo] = Photo.mock
+    
     @State private var isShowingAddLabelingView = false
+    @State private var screenshotCounter = 0
+    @ObservedObject var output = Output()
+    
+    let loadScreenshots = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+
+    init() {
+        let cancelbag = CancelBag()
+        loadScreenshots.get()
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [self] data in
+                    output.setImages(recentScreenshots: data.recentlyImages)
+                }
+                  
+            ).store(in: cancelbag)
+    }
+    
+   
     
     var body: some View {
         ZStack {
@@ -43,12 +59,13 @@ struct MainLabelingView: View {
             VStack(alignment: .center, spacing: 30) {
                 Text("스크린샷 라벨링")
                     .offset(y: -50)
+                Text("+\(screenshotCounter)")
                 ZStack {
                     Image("shadow_img")
                         .offset(y: 82)
                     CardStack(
                         direction: LeftRight.direction,
-                        data: data,
+                        data: output.screenshots,
                         onSwipe: { _, direction in
                        
                             if direction == .right {
@@ -58,11 +75,9 @@ struct MainLabelingView: View {
                                 }
                                 self.isShowingAddLabelingView = true
                             }
-                            print(data)
                                 
                         },
                         content: { photo, _, _ in
-                           
                             CardView(photo: photo)
                         }
                     )
@@ -73,7 +88,7 @@ struct MainLabelingView: View {
                     
             HStack {
                 Button(action: {
-                    self.data.removeFirst()
+                    self.output.screenshots.removeFirst()
                 }, label: {
                     Image("main_skip_btn")
                 })
@@ -92,6 +107,20 @@ struct MainLabelingView: View {
                         
             }.padding(40)
                 .offset(y: 150)
+        }
+    }
+    
+    class Output: ObservableObject {
+        @Published var screenshots: [ImageHasher] = []
+        
+        func setImages(recentScreenshots: [ImageEntity]) {
+            self.screenshots = recentScreenshots.map {
+                ImageHasher(imageEntity: $0)
+            }
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.screenshots)
         }
     }
 }
