@@ -34,7 +34,6 @@ struct CardView: View {
 struct MainLabelingView: View {
     
     @State private var isShowingAddLabelingView = false
-    @State private var screenshotCounter = 0
     @ObservedObject var output = Output()
     
     let loadScreenshots = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
@@ -57,9 +56,14 @@ struct MainLabelingView: View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 30) {
-                Text("스크린샷 라벨링")
-                    .offset(y: -50)
-                Text("+\(screenshotCounter)")
+                HStack {
+                    Text("스크린샷 라벨링")
+                    Text("+\(output.screenshots.count)")
+                        .font(.system(size: 14))
+                        .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .background(Color.KEY_ACTIVE)
+                }.offset(y: -50)
+          
                 ZStack {
                     Image("shadow_img")
                         .offset(y: 82)
@@ -88,7 +92,7 @@ struct MainLabelingView: View {
                     
             HStack {
                 Button(action: {
-                    self.output.screenshots.removeFirst()
+                    self.output.screenshots.removeLast()
                 }, label: {
                     Image("main_skip_btn")
                 })
