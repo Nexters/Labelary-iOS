@@ -76,7 +76,8 @@ struct LabelRowItemView: View {
 
     @State var isSelected: Bool = false
     @Binding var selectedLabels: [LabelEntity]
-
+    @ObservedObject var output = Output()
+    
     var body: some View {
         Button(action: {
             self.isSelected.toggle()
@@ -96,10 +97,38 @@ struct LabelRowItemView: View {
                 .foregroundColor(.white)
                 .cornerRadius(5)
                 .edgesIgnoringSafeArea(.horizontal)
-                .background(isSelected ? Image("Label_large_Selected_\(label.color)") : Image("Label_large_default_\(label.color)"))
+                .background(isSelected ? Image("Label_large_Selected_\(output.colorSetToString(color: label.color))") : Image("Label_large_default_\(output.colorSetToString(color: label.color))")) 
                 .offset(x: isSelected ? -80 : -100)
 
         })
+    }
+    
+    class Output: ObservableObject {
+        // swtich 문 active label large 로 바꾸는거 하나랑
+        func colorSetToString(color: ColorSet) -> String {
+            switch color {
+            case .YELLOW:
+                return "Yellow"
+            case .RED:
+                return "Red"
+            case .VIOLET:
+                return "Violet"
+            case .BLUE:
+                return "Blue"
+            case .GREEN:
+                return "Green"
+            case .ORANGE:
+                return "Orange"
+            case .PINK:
+                return "Pink"
+            case .CONBALT_BLUE:
+                return "Cobalt_Blue"
+            case .PEACOCK_GREEN:
+                return "Peacock_Green"
+            case .GRAY:
+                return "Gray"
+            }
+        }
     }
 }
 
@@ -250,5 +279,8 @@ struct AddLabelingView: View {
         ]
 
         @Published var selectedLabels: [LabelEntity] = []
+        
+       
+
     }
 }

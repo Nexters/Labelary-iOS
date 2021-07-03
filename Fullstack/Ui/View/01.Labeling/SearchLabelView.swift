@@ -210,6 +210,5 @@ struct SearchLabelView: View {
 
         @Published var selectedLabels: [LabelEntity] = []
 
-        // colorset -> color string으로 변환하는 switch문 작성하기
     }
 }
