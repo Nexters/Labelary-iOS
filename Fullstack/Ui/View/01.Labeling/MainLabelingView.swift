@@ -2,20 +2,6 @@ import CardStack
 import SwiftUI
 import ToastUI
 
-// struct Photo: Identifiable {
-//    let id = UUID()
-//    let image: UIImage
-//
-//    static let mock: [Photo] = [
-//        Photo(image: UIImage(named: "sc0")!),
-//        Photo(image: UIImage(named: "sc1")!),
-//        Photo(image: UIImage(named: "sc2")!),
-//        Photo(image: UIImage(named: "sc3")!),
-//        Photo(image: UIImage(named: "sc4")!),
-//        Photo(image: UIImage(named: "sc5")!),
-//        Photo(image: UIImage(named: "sc6")!)
-//    ]
-// }
 
 struct CardView: View {
     var photo: ImageHasher
@@ -32,8 +18,8 @@ struct CardView: View {
 }
 
 struct MainLabelingView: View {
-    
     @State private var isShowingAddLabelingView = false
+    @State private var isSwipe = false // 왼쪽으로 swipe하는 경우만 있음
     @ObservedObject var output = Output()
     
     let loadScreenshots = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
@@ -50,8 +36,6 @@ struct MainLabelingView: View {
             ).store(in: cancelbag)
     }
     
-   
-    
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
@@ -60,8 +44,10 @@ struct MainLabelingView: View {
                     Text("스크린샷 라벨링")
                     Text("+\(output.screenshots.count)")
                         .font(.system(size: 14))
-                        .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
+                        .cornerRadius(2.0)
+                        
                 }.offset(y: -50)
           
                 ZStack {
@@ -69,15 +55,20 @@ struct MainLabelingView: View {
                         .offset(y: 82)
                     CardStack(
                         direction: LeftRight.direction,
-                        data: output.screenshots,
+                        data: self.output.screenshots,
                         onSwipe: { _, direction in
-                       
+                            
                             if direction == .right {
-                                print("오른쪽 : 라벨 추가")
+                                // shadow ui 넣기
                                 ZStack {
                                     Image("shadow_blue")
                                 }
                                 self.isShowingAddLabelingView = true
+                            }
+
+                            if direction == .left {
+                                
+                                self.output.screenshots.removeFirst()
                             }
                                 
                         },
@@ -91,13 +82,17 @@ struct MainLabelingView: View {
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                     
             HStack {
+                // skip button
                 Button(action: {
-                    self.output.screenshots.removeLast()
+                    self.isSwipe = true
+                    self.output.screenshots.removeFirst()
+                   
                 }, label: {
                     Image("main_skip_btn")
                 })
                 Spacer(minLength: 35)
-                    
+                
+                // add button
                 Button(action: {
                     self.isShowingAddLabelingView = true
                 }, label: {

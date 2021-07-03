@@ -4,54 +4,54 @@ import ToastUI
 
 // MARK: - functions to give color for GUI
 
-func giveLabelBackgroundColor(color: String) -> Color {
+func giveLabelBackgroundColor(color: ColorSet) -> Color {
     switch color {
-    case "Yellow":
+    case .YELLOW:
         return Color(red: 232/255, green: 194/255, blue: 93/255).opacity(0.15)
-    case "Red":
+    case .RED:
         return Color(red: 199/255, green: 103/255, blue: 97/255).opacity(0.15)
-    case "Violet":
+    case .VIOLET:
         return Color(red: 160/255, green: 110/255, blue: 229/255).opacity(0.15)
-    case "Blue":
+    case .BLUE:
         return Color(red: 76/255, green: 166/255, blue: 255/255).opacity(0.15)
-    case "Green":
+    case .GREEN:
         return Color(red: 62/255, green: 168/255, blue: 122/255).opacity(0.15)
-    case "Orange":
+    case .ORANGE:
         return Color(red: 236/255, green: 145/255, blue: 71/255).opacity(0.15)
-    case "Pink":
+    case .PINK:
         return Color(red: 224/255, green: 137/255, blue: 181/255).opacity(0.15)
-    case "Cobalt_Blue":
+    case .CONBALT_BLUE:
         return Color(red: 101/255, green: 101/255, blue: 229/255).opacity(0.15)
-    case "Peacock_Green":
+    case .PEACOCK_GREEN:
         return Color(red: 82/255, green: 204/255, blue: 204/255).opacity(0.15)
-    case "Gray":
+    case .GRAY: 
         return Color(red: 123/255, green: 131/255, blue: 153/255).opacity(0.15)
     default:
         return Color(red: 255/255, green: 255/255, blue: 255/255).opacity(0.15)
     }
 }
 
-func giveTextForegroundColor(color: String) -> Color {
+func giveTextForegroundColor(color: ColorSet) -> Color {
     switch color {
-    case "Yellow":
+    case .YELLOW:
         return Color(red: 255/255, green: 226/255, blue: 153/255)
-    case "Red":
+    case .RED:
         return Color(red: 255/255, green: 167/255, blue: 153/255)
-    case "Violet":
+    case .VIOLET:
         return Color(red: 217/255, green: 194/255, blue: 255/255)
-    case "Blue":
+    case .BLUE:
         return Color(red: 178/255, green: 217/255, blue: 255/255)
-    case "Green":
+    case .GREEN:
         return Color(red: 177/255, green: 229/255, blue: 207/255)
-    case "Orange":
+    case .ORANGE:
         return Color(red: 255/255, green: 203/255, blue: 161/255)
-    case "Pink":
+    case .PINK:
         return Color(red: 255/255, green: 199/255, blue: 227/255)
-    case "Cobalt_Blue":
+    case .CONBALT_BLUE:
         return Color(red: 191/255, green: 191/255, blue: 255/255)
-    case "Peacock_Green":
+    case .PEACOCK_GREEN:
         return Color(red: 161/255, green: 229/255, blue: 229/255)
-    case "Gray":
+    case .GRAY:
         return Color(red: 204/255, green: 218/255, blue: 255/255)
     default:
         return Color(red: 255/255, green: 255/255, blue: 255/255)
@@ -68,29 +68,14 @@ struct Label: Hashable {
 
 // MARK: - list of label data
 
-var labelEntities = [
-    Label(label: "OOTD", color: "Cobalt_Blue"),
-    Label(label: "컬러 팔레트", color: "Yellow"),
-    Label(label: "UI 레퍼런스", color: "Red"),
-    Label(label: "편집디자인", color: "Violet"),
-    Label(label: "채팅", color: "Blue"),
-    Label(label: "meme 모음", color: "Cobalt_Blue"),
-    Label(label: "글귀", color: "Pink"),
-    Label(label: "장소(공연, 전시 등)", color: "Orange"),
-    Label(label: "영화", color: "Gray"),
-    Label(label: "네일", color: "Green"),
-    Label(label: "맛집", color: "Peacock_Green"),
-    Label(label: "인테리어", color: "Cobalt_Blue")
-]
-
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
-    var label: Label
+    var label: LabelEntity
 
     @State var isSelected: Bool = false
-    @Binding var selectedLabels: [Label]
+    @Binding var selectedLabels: [LabelEntity]
 
     var body: some View {
         Button(action: {
@@ -104,7 +89,7 @@ struct LabelRowItemView: View {
             }
 
         }, label: {
-            Text(label.label)
+            Text(label.name)
                 .font(isSelected ? .custom("AppleSDGothicNeo-Bold", size: 16) : .custom("AppleSDGothicNeo-Medium", size: 16))
                 .padding(40)
                 .frame(width: 252, height: 50, alignment: .trailing)
@@ -122,8 +107,8 @@ struct LabelRowItemView: View {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var labels = labelEntities
-    @State var filters: [Label] = []
+    @ObservedObject var output = Output()
+    @State var filters: [LabelEntity] = []
     @State var showAddLabelingView = false
     @State var showSearchLabelView = false
     @State var isEdited = false
@@ -163,7 +148,7 @@ struct AddLabelingView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(filters, id: \.self) { filter in
-                            Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                            Badge(name: filter.name, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
                                 withAnimation {
                                     if let firstIndex = filters.firstIndex(of: filter) {
                                         filters.remove(at: firstIndex)
@@ -182,7 +167,7 @@ struct AddLabelingView: View {
             ZStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack {
-                        ForEach(labels, id: \.self) { label in
+                        ForEach(output.labels, id: \.self) { label in
                             LabelRowItemView(label: label,
                                              selectedLabels: $filters)
                         }
@@ -236,13 +221,34 @@ struct AddLabelingView: View {
                 Button(action: {
                     showAddLabelingView = true
                 }) {
-                    Image("navigation_bar_plus_btn")
-                    NavigationLink(
-                        destination: AddNewLabelView(),
-                        isActive: $showAddLabelingView
-                    ) {}
+                    ZStack {
+                        Image("navigation_bar_plus_btn")
+                        NavigationLink(
+                            destination: AddNewLabelView(),
+                            isActive: $showAddLabelingView
+                        ) {}
+                    }
                 }
             }
         )
+    }
+
+    class Output: ObservableObject {
+        @Published var labels: [LabelEntity] = [
+            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
+            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
+            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
+        ]
+
+        @Published var selectedLabels: [LabelEntity] = []
     }
 }

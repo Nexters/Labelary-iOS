@@ -56,11 +56,11 @@ struct SearchLabelView: View {
     @State private var isEditing: Bool = false
     @State private var keyword: String = ""
     @State var selectedLabel: String = ""
-    @State private var numberOfLabels: Int = labelEntities.count
-    @State private var recentKeywords: [Label] = [Label(label: "OOTD", color: "Cobalt_Blue"),
-                                                  Label(label: "컬러 팔레트", color: "Yellow"),
-                                                  Label(label: "UI 레퍼런스", color: "Red"),
-                                                  Label(label: "편집디자인", color: "Violet")]
+    @ObservedObject var output = Output()
+    @State private var recentKeywords: [LabelEntity] = [LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
+                                                        LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
+                                                        LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
+                                                        LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date())]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -69,11 +69,11 @@ struct SearchLabelView: View {
                     Text("최근에 검색한 라벨").offset(x: -80)
                         .font(.custom("Apple SD Gothic Neo", size: 14))
                         .foregroundColor(Color.PRIMARY_2)
-                    FlexibleView(data: labelEntities.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
+                    FlexibleView(data: output.labels.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
-                            self.keyword = label.label
+                            self.keyword = label.name
                         }) {
-                            Text(verbatim: label.label)
+                            Text(verbatim: label.name)
                                 .padding(8)
                                 .font(.custom("AppleSDGothicNeo-Regular", size: 16))
                                 .background(giveLabelBackgroundColor(color: label.color))
@@ -85,42 +85,42 @@ struct SearchLabelView: View {
                         Text("내 라벨")
                             .font(.custom("Apple SD Gothic Neo", size: 14))
                             .foregroundColor(Color.PRIMARY_2)
-                        Text("\(numberOfLabels)").foregroundColor(Color.KEY_ACTIVE)
+                        Text("\(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                             .font(.custom("Apple SD Gothic Neo", size: 14))
 
                     }.offset(x: -80)
 
-                    FlexibleView(data: labelEntities, spacing: 8, alignment: HorizontalAlignment.leading) {
+                    FlexibleView(data: output.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
                             print(label)
                         }) {
-                            Text(verbatim: label.label)
+                            Text(verbatim: label.name)
                                 .padding(8)
                                 .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                .background(giveLabelBackgroundColor(color: label.color))
+                                .background(giveLabelBackgroundColor(color: label.color)) 
                                 .foregroundColor(giveTextForegroundColor(color: label.color))
                         }
                     }
                 } else {
-                    if labelEntities.filter { $0.label.contains(keyword) }.count > 0 {
+                    if output.labels.filter { $0.name.contains(keyword) }.count > 0 {
                         HStack {
                             Text("검색 결과")
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
                                 .foregroundColor(Color.PRIMARY_2)
-                            Text("\(labelEntities.filter { $0.label.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                            Text("\(output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
                         }.offset(x: -140)
 
-                        FlexibleView(data: labelEntities.filter {
-                            keyword.isEmpty ? true : $0.label.contains(keyword)
+                        FlexibleView(data: output.labels.filter {
+                            keyword.isEmpty ? true : $0.name.contains(keyword)
                         }, spacing: 8, alignment: HorizontalAlignment.leading) {
                             label in Button(action: {
                                 print(label)
                             }) {
-                                Text(verbatim: label.label)
+                                Text(verbatim: label.name)
                                     .padding(8)
                                     .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                    .background(giveLabelBackgroundColor(color: label.color))
+                                    .background(giveLabelBackgroundColor(color: label.color)) 
                                     .foregroundColor(giveTextForegroundColor(color: label.color))
                             }
                         }
@@ -141,17 +141,16 @@ struct SearchLabelView: View {
                                 .font(.custom("AppleSDGothicNeo-Bold", size: 18))
                                 .foregroundColor(Color.PRIMARY_2)
                             Spacer(minLength: 30)
-                            NavigationLink(
-                                destination: AddNewLabelView()) {
-                                Text("라벨 생성하기")
-                                    .foregroundColor(Color.PRIMARY_1)
-                                    .font(.system(size: 16, weight: .bold, design: .default))
-                                    .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                    .background(Color.KEY_ACTIVE)
-                                    .cornerRadius(2)
-                            }
+//                            NavigationLink(
+//                                destination: AddNewLabelView()) {
+//                                Text("라벨 생성하기")
+//                                    .foregroundColor(Color.PRIMARY_1)
+//                                    .font(.system(size: 16, weight: .bold, design: .default))
+//                                    .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+//                                    .background(Color.KEY_ACTIVE)
+//                                    .cornerRadius(2)
+//                            }
                         }
-
                     }
                 }
             }.padding(12)
@@ -191,5 +190,26 @@ struct SearchLabelView: View {
 
     func onClickedBackBtn() {
         presentationMode.wrappedValue.dismiss()
+    }
+
+    class Output: ObservableObject {
+        @Published var labels: [LabelEntity] = [
+            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
+            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
+            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
+        ]
+
+        @Published var selectedLabels: [LabelEntity] = []
+
+        // colorset -> color string으로 변환하는 switch문 작성하기
     }
 }
