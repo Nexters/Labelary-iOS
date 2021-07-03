@@ -1,3 +1,4 @@
+import RealmSwift
 import SwiftUI
 import UIKit
 
@@ -16,7 +17,7 @@ struct FirstResponderTextField: UIViewRepresentable {
         }
 
         func textFieldDidChangeSelection(_ textField: UITextField) {
-            text = textField.text ?? ""
+            self.text = textField.text ?? ""
         }
     }
 
@@ -35,7 +36,7 @@ struct FirstResponderTextField: UIViewRepresentable {
         toolBar.setItems([doneButton], animated: true)
         textField.font = customFont
         textField.delegate = context.coordinator
-        textField.placeholder = placeholder
+        textField.placeholder = self.placeholder
         textField.inputAccessoryView = toolBar
         return textField
     }
@@ -60,7 +61,12 @@ struct AddNewLabelView: View {
     @State var text: String = ""
     @State var selectedIndex: Int? = -1
     @State var isSelected: Bool = false
+    @State private var selectedColor: String = ""
+    @State private var color: ColorSet = .RED()
+    @State private var action: Bool = false
+    let realm = try! Realm()
 
+    let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -85,14 +91,15 @@ struct AddNewLabelView: View {
                         Button(action: {
                             self.selectedIndex = button
                             self.isSelected = true
+                            self.selectedColor = self.labelButtons[button]
 
                         }) {
-                                if selectedIndex == button {
-                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
+                            if selectedIndex == button {
+                                Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                                } else {
-                                    Image("Label_middle_dark_\(self.labelButtons[button])")
-                                }
+                            } else {
+                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                            }
                         }
                         .padding([.top, .leading], 10)
                     }
@@ -104,15 +111,15 @@ struct AddNewLabelView: View {
 
                         Button(action: {
                             self.selectedIndex = button
-                            print(button)
                             self.isSelected = true
+                            self.selectedColor = self.labelButtons[button]
                         }) {
-                                if selectedIndex == button {
-                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
+                            if selectedIndex == button {
+                                Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                                } else {
-                                    Image("Label_middle_dark_\(self.labelButtons[button])")
-                                }
+                            } else {
+                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                            }
                         }
                         .padding([.top, .leading], 10)
                     }
@@ -120,37 +127,75 @@ struct AddNewLabelView: View {
             }
             Spacer()
 
-            NavigationLink(
-                destination: AddLabelingView()) {
-                    if self.isSelected {
-                        Image("Label_add_complete_active")
-                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                    } else {
-                        Image("Label_add_complete_default")
-                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                    }
-            }
-            Spacer()
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading:
-            HStack {
-                Button(action: onClickedBackBtn) {
-                    Image("navigation_back_btn")
+            Button(action: {
+                if self.isSelected {
+                    print("make label")
                 }
-                Spacer(minLength: 80)
-                Text("라벨 생성")
-                Spacer()
-            })
+
+            }) {
+                ZStack {
+                    Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
+                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                        .onTapGesture {
+                            if self.isSelected {
+                                self.action = true
+
+                                // create label
+
+                                color = setLabelColor(_color: selectedColor)
+
+//                                try! realm.write {
+//                                    realm.create(createLabel.get(param: CreateLabel.RequestData(text: text, color: color)))
+//                                }
+                            }
+                        }
+                }
+                NavigationLink(
+                    destination: AddLabelingView(),
+                    isActive: self.$action
+                ) {}
+            }
+        }
+
+        Spacer()
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading:
+                HStack {
+                    Button(action: onClickedBackBtn) {
+                        Image("navigation_back_btn")
+                    }
+                    Spacer(minLength: 80)
+                    Text("라벨 생성")
+                    Spacer()
+                })
     }
 
     func onClickedBackBtn() {
-        presentationMode.wrappedValue.dismiss()
+        self.presentationMode.wrappedValue.dismiss()
     }
-}
 
-struct AddNewLabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNewLabelView()
+    func setLabelColor(_color: String) -> ColorSet {
+        switch _color {
+        case "Red":
+            return .RED()
+        case "Orange":
+            return .ORANGE()
+        case "Yellow":
+            return .YELLOW()
+        case "Green":
+            return .GREEN()
+        case "Peacock_Green":
+            return .PEACOCK_GREEN()
+        case "Blue":
+            return .BLUE()
+        case "Cobalt_Blue":
+            return .CONBALT_BLUE()
+        case "Pink":
+            return .PINK()
+        case "Gray":
+            return .GRAY()
+        default:
+            return .RED()
+        }
     }
 }

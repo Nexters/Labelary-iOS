@@ -62,6 +62,12 @@ enum ColorSet: VO {
         text: Color = Color.TEXT_GRAY,
         textDark: Color = Color.TEXT_GREEN_DARK
     )
+    case VIOLET(
+            active: Color = Color.LABEL_VIOLET_ACTIVE,
+            deactive: Color = Color.LABEL_VIOLET_DEACTIVE,
+            text: Color = Color.TEXT_VIOLET,
+            textDark: Color = Color.TEXT_VIOLET_DARK
+    )
 }
 
 extension ColorSet {
@@ -77,6 +83,7 @@ extension ColorSet {
         case .CONBALT_BLUE(let active, _, _, _): color = active
         case .PINK(let active, _, _, _): color = active
         case .GRAY(let active, _, _, _): color = active
+        case .VIOLET(let active, _, _, _): color = active
         }
         return color
     }
@@ -93,6 +100,7 @@ extension ColorSet {
         case .CONBALT_BLUE(_, let deactive, _, _): color = deactive
         case .PINK(_, let deactive, _, _): color = deactive
         case .GRAY(_, let deactive, _, _): color = deactive
+        case .VIOLET(_, let deactive, _, _): color = deactive
         }
         return color
     }
@@ -109,6 +117,7 @@ extension ColorSet {
         case .CONBALT_BLUE(_, _, let text, _): color = text
         case .PINK(_, _, let text, _): color = text
         case .GRAY(_, _, let text, _): color = text
+        case .VIOLET(_, _, let text, _): color = text
         }
         return color
     }
@@ -125,6 +134,7 @@ extension ColorSet {
         case .CONBALT_BLUE(_, _, _, let textDark): color = textDark
         case .PINK(_, _, _, let textDark): color = textDark
         case .GRAY(_, _, _, let textDark): color = textDark
+        case .VIOLET(_, _, _, let textDark): color = textDark
         }
         return color
     }
