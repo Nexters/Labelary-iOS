@@ -26,9 +26,7 @@ func giveLabelBackgroundColor(color: ColorSet) -> Color {
         return Color(red: 82/255, green: 204/255, blue: 204/255).opacity(0.15)
     case .GRAY: 
         return Color(red: 123/255, green: 131/255, blue: 153/255).opacity(0.15)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255).opacity(0.15)
-    }
+    } 
 }
 
 func giveTextForegroundColor(color: ColorSet) -> Color {
@@ -53,8 +51,6 @@ func giveTextForegroundColor(color: ColorSet) -> Color {
         return Color(red: 161/255, green: 229/255, blue: 229/255)
     case .GRAY:
         return Color(red: 204/255, green: 218/255, blue: 255/255)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255)
     }
 }
 
@@ -67,6 +63,8 @@ struct Label: Hashable {
 }
 
 // MARK: - list of label data
+
+
 
 // MARK: - Each Customed Post-it Label View
 
@@ -88,7 +86,6 @@ struct LabelRowItemView: View {
                     selectedLabels.remove(at: firstIndex)
                 }
             }
-
         }, label: {
             Text(label.name)
                 .font(isSelected ? .custom("AppleSDGothicNeo-Bold", size: 16) : .custom("AppleSDGothicNeo-Medium", size: 16))
@@ -97,7 +94,7 @@ struct LabelRowItemView: View {
                 .foregroundColor(.white)
                 .cornerRadius(5)
                 .edgesIgnoringSafeArea(.horizontal)
-                .background(isSelected ? Image("Label_large_Selected_\(output.colorSetToString(color: label.color))") : Image("Label_large_default_\(output.colorSetToString(color: label.color))")) 
+                .background(isSelected ? Image("Label_large_Selected_\(output.colorSetToString(color: label.color))") : Image("Label_large_default_\(output.colorSetToString(color: label.color))"))
                 .offset(x: isSelected ? -80 : -100)
 
         })
@@ -280,7 +277,5 @@ struct AddLabelingView: View {
 
         @Published var selectedLabels: [LabelEntity] = []
         
-       
-
     }
 }

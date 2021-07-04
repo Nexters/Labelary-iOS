@@ -141,33 +141,29 @@ struct AddNewLabelView: View {
                                 self.action = true
 
                                 // create label
-
                                 color = setLabelColor(_color: selectedColor)
-
-//                                try! realm.write {
-//                                    realm.create(createLabel.get(param: CreateLabel.RequestData(text: text, color: color)))
-//                                }
+                                createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
                             }
                         }
+                    NavigationLink(
+                        destination: AddLabelingView(),
+                        isActive: self.$action
+                    ) {}
                 }
-                NavigationLink(
-                    destination: AddLabelingView(),
-                    isActive: self.$action
-                ) {}
             }
-        }
 
-        Spacer()
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading:
-                HStack {
-                    Button(action: onClickedBackBtn) {
-                        Image("navigation_back_btn")
-                    }
-                    Spacer(minLength: 80)
-                    Text("라벨 생성")
-                    Spacer()
-                })
+            Spacer()
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading:
+                    HStack {
+                        Button(action: onClickedBackBtn) {
+                            Image("navigation_back_btn")
+                        }
+                        Spacer(minLength: 80)
+                        Text("라벨 생성")
+                        Spacer()
+                    })
+        }
     }
 
     func onClickedBackBtn() {

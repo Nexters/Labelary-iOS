@@ -47,17 +47,15 @@ struct SearchBarTextField: UIViewRepresentable {
     }
 }
 
-
-
 struct ShareSheetSearchBarView: View {
     @Binding var text: String
     @State private var isEditing = false
-    
+
     var body: some View {
         HStack {
-            TextField("  라벨을 검색하거나 추가해 보세요.", text: $text)
-                .padding(10)
-                .padding(.horizontal, 25)
+            TextField("라벨을 검색하거나 추가해 보세요.", text: $text)
+                .padding(.leading, 30)
+                .frame(height: 40, alignment: .center)
                 .background(Color.DEPTH_2)
                 .cornerRadius(2)
                 .overlay(
@@ -66,23 +64,29 @@ struct ShareSheetSearchBarView: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
+                           
 
                         if isEditing {
                             Button(action: {
                                 self.text = ""
                             }) {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
+                                if self.text != nil {
+                                    Image(systemName: "multiply.circle.fill")
+                                        .foregroundColor(.gray)
+                                        .padding(.trailing, 8)
+                                }
                             }
                         }
                     }
                 )
-                .padding(.horizontal, 10)
+              
                 .onTapGesture {
                     self.isEditing = true
                 }
         }
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
+        
     }
 }
 

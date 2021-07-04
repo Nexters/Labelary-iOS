@@ -111,7 +111,8 @@ struct LabelViewFromOutside: View {
                                 Spacer()
                             }
 
-                            ShareSheetSearchBarView(text: $keyword)
+                            ShareSheetSearchBarView(text: $keyword) // search bar
+                                
                             if self.keyword.isEmpty {
                                 HStack {
                                     Text("내 라벨")
