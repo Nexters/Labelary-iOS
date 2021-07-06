@@ -64,9 +64,17 @@ struct AddNewLabelView: View {
     @State private var selectedColor: String = ""
     @State private var color: ColorSet = .RED()
     @State private var action: Bool = false
-    let realm = try! Realm()
+
 
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+  
+    
+    init() {
+        let cancelBag = CancelBag()
+        createLabel.get(param: CreateLabel.RequestData(text: text, color: color)).sink(receiveCompletion: {_ in }, receiveValue: {_ in }).store(in: cancelBag)
+    }
+    
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -142,7 +150,7 @@ struct AddNewLabelView: View {
 
                                 // create label
                                 color = setLabelColor(_color: selectedColor)
-                                createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                createLabel.get(param: CreateLabel.RequestData.init(text: text, color: color))
                             }
                         }
                     NavigationLink(
@@ -194,4 +202,5 @@ struct AddNewLabelView: View {
             return .RED()
         }
     }
+    
 }

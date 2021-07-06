@@ -60,33 +60,29 @@ struct ShareSheetSearchBarView: View {
                 .cornerRadius(2)
                 .overlay(
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                        Image("Icon_search")
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                           
 
                         if isEditing {
                             Button(action: {
                                 self.text = ""
                             }) {
-                                if self.text != nil {
-                                    Image(systemName: "multiply.circle.fill")
-                                        .foregroundColor(.gray)
+                                if self.text != "" {
+                                    Image("btn_Icon_cancel")
                                         .padding(.trailing, 8)
                                 }
                             }
                         }
                     }
                 )
-              
+
                 .onTapGesture {
                     self.isEditing = true
                 }
         }
         .padding(.leading, 20)
         .padding(.trailing, 20)
-        
     }
 }
 

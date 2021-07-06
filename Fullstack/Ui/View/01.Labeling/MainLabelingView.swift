@@ -60,9 +60,7 @@ struct MainLabelingView: View {
                             
                             if direction == .right {
                                 // shadow ui 넣기
-                                ZStack {
-                                    Image("shadow_blue")
-                                }
+                                
                                 self.isShowingAddLabelingView = true
                             }
 

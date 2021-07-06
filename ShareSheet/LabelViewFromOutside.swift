@@ -61,38 +61,13 @@ func giveTextForegroundColor(color: String) -> Color {
     }
 }
 
-// MARK: - Lable
-
-struct Label: Hashable {
-    var id = UUID()
-    var label: String
-    var color: String
-}
-
-// MARK: - list of label data
-
-var labelEntities = [
-    Label(label: "OOTD", color: "Cobalt_Blue"),
-    Label(label: "컬러 팔레트", color: "Yellow"),
-    Label(label: "UI 레퍼런스", color: "Red"),
-    Label(label: "편집디자인", color: "Violet"),
-    Label(label: "채팅", color: "Blue"),
-    Label(label: "meme 모음", color: "Cobalt_Blue"),
-    Label(label: "글귀", color: "Pink"),
-    Label(label: "장소(공연, 전시 등)", color: "Orange"),
-    Label(label: "영화", color: "Gray"),
-    Label(label: "네일", color: "Green"),
-    Label(label: "맛집", color: "Peacock_Green"),
-    Label(label: "인테리어", color: "Cobalt_Blue")
-]
-
 struct LabelViewFromOutside: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var keyword: String = ""
     @State private var numberOfMyLables: Int = 0
-    @State var selectedLabels: [Label] = []
+    @State var selectedLabels: [LabelEntity] = []
     @State var showAddLabelView: Bool = false
-
+    @ObservedObject var output = Output()
     @ObservedObject var sharedImage: model // 전달 받은 객체
 
     var body: some View {
@@ -101,8 +76,8 @@ struct LabelViewFromOutside: View {
                 Color.DEPTH_3.edgesIgnoringSafeArea(.all)
                 VStack {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 20) {
-                            Spacer(minLength: 80)
+                        VStack(alignment: .leading) {
+                            Spacer(minLength: 70)
                             HStack {
                                 Spacer()
                                 Image(uiImage: sharedImage.imageData ?? UIImage())
@@ -110,51 +85,60 @@ struct LabelViewFromOutside: View {
                                     .frame(width: 60, height: 131, alignment: .leading)
                                 Spacer()
                             }
+                            .padding(.bottom, 20)
+                            HStack {
+                                Spacer(minLength: 20)
+                                ShareSheetSearchBarView(text: $keyword).font(Font.system(size: 16)).foregroundColor(Color.primary) // search bar
+                                Spacer(minLength: 20)
+                            }
 
-                            ShareSheetSearchBarView(text: $keyword) // search bar
-                                
+                            Spacer(minLength: 40)
                             if self.keyword.isEmpty {
                                 HStack {
-                                    Text("내 라벨")
-                                    Text(" \(labelEntities.count)").foregroundColor(Color.KEY_ACTIVE)
-                                }.padding([.leading, .top], 20)
+                                    Text("내 라벨").font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                    Text(" \(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
+                                }.padding(.leading, 20)
                             } else {
-                                if labelEntities.filter { $0.label.contains(keyword) }.count > 0 {
+                                if self.output.labels.filter { $0.name.contains(keyword) }.count > 0 {
                                     HStack {
-                                        Text("검색 결과")
-                                        Text("\(labelEntities.filter { $0.label.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                                        Text("검색 결과").font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                        Text("\(self.output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
                                     }
                                 } else {
                                     VStack(alignment: .leading) {
-                                        Text("검색결과가 없습니다 ").offset(x: 10)
+                                        Text("검색결과가 없습니다 ")
+                                            .font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                            .padding(.leading, 20)
                                         Spacer(minLength: 10)
+
                                         HStack {
-                                            Text("\(keyword)")
+                                            Text("\(keyword)").font(Font.system(size: 16)).foregroundColor(Color.secondary).offset(x: 8)
                                             NavigationLink(destination: AddLabelView(), isActive: $showAddLabelView) {
                                                 Text("생성")
                                                     .onTapGesture {
                                                         self.showAddLabelView = true
-                                                        print("생성")
                                                     }
 
                                             }.foregroundColor(Color.KEY)
-                                        }.padding(8)
-                                            .background(Color.DEPTH_3)
-                                            .cornerRadius(2)
-                                            .border(Color.PRIMARY_4)
+                                                .font(Font.system(size: 14))
+                                                .padding(8)
+                                        }
+                                        .background(Color.DEPTH_3)
+                                        .cornerRadius(2)
+                                        .border(Color.PRIMARY_4)
+                                        .offset(x: 20)
                                     }
                                 }
                             }
-                            FlexibleView(data: labelEntities.filter { keyword.isEmpty ? true : $0.label.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                            FlexibleView(data: self.output.labels.filter { keyword.isEmpty ? true : $0.name.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
                                 label in Button(action: {
-                                    selectedLabels.append(label)
-                                    print(label)
-                                    print(selectedLabels.count)
+                                    selectedLabels.insert(label, at: 0)
+
                                 }) {
-                                    Text(verbatim: label.label)
+                                    Text(verbatim: label.name)
                                         .padding(8)
-                                        .background(giveLabelBackgroundColor(color: label.color))
-                                        .foregroundColor(giveTextForegroundColor(color: label.color))
+                                        .background(giveLabelBackgroundColor(color: self.output.colorSetToString(color: label.color)))
+                                        .foregroundColor(giveTextForegroundColor(color: self.output.colorSetToString(color: label.color)))
                                 }
                             }.padding([.leading], 20)
                         }
@@ -168,7 +152,7 @@ struct LabelViewFromOutside: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(selectedLabels, id: \.self) { filter in
-                                    Badge(name: filter.label, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                    Badge(name: filter.name, color: giveLabelBackgroundColor(color: self.output.colorSetToString(color: filter.color)), textColor: giveTextForegroundColor(color: self.output.colorSetToString(color: filter.color)), type: .removable {
                                         withAnimation {
                                             if let firstIndex = selectedLabels.firstIndex(of: filter) {
                                                 selectedLabels.remove(at: firstIndex)
@@ -185,7 +169,7 @@ struct LabelViewFromOutside: View {
                         .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                         .opacity(selectedLabels.count > 0 ? 1 : 0)
                 }
-                .navigationBarTitle("스크린샷 라벨 추가", displayMode: .inline)
+                .navigationBarTitle(Text("스크린샷 라벨 추가").font(Font.system(size: 16, weight: .heavy)), displayMode: .inline)
                 .navigationBarItems(leading:
                     Button(action: {}, label: {
                         Image("btn_cancel")
@@ -193,8 +177,51 @@ struct LabelViewFromOutside: View {
                     trailing: Button(action: {
                         // 사진, label 묶어서 저장
                     }, label: {
-                        Text("완료")
+                        Text("완료").font(Font.system(size: 16))
+                            .foregroundColor(Color.KEY_ACTIVE)
                     }))
+            }
+        }
+    }
+
+    class Output: ObservableObject {
+        @Published var labels: [LabelEntity] = [
+            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
+            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
+            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
+            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
+            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
+            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
+            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
+        ]
+
+        func colorSetToString(color: ColorSet) -> String {
+            switch color {
+            case .YELLOW:
+                return "Yellow"
+            case .RED:
+                return "Red"
+            case .VIOLET:
+                return "Violet"
+            case .BLUE:
+                return "Blue"
+            case .GREEN:
+                return "Green"
+            case .ORANGE:
+                return "Orange"
+            case .PINK:
+                return "Pink"
+            case .CONBALT_BLUE:
+                return "Cobalt_Blue"
+            case .PEACOCK_GREEN:
+                return "Peacock_Green"
+            case .GRAY:
+                return "Gray"
             }
         }
     }

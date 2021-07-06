@@ -47,7 +47,6 @@ class ShareViewController: UIViewController {
                             image = UIImage(contentsOfFile: someURL.path)
 
                             if let someImage = image {
-                                print("이미지 데이터 2 : \(someImage)")
                                 self.sharedImage.imageData = someImage
                             } else {
                                 print("Bad share data \n")
