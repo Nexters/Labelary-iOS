@@ -65,16 +65,10 @@ struct AddNewLabelView: View {
     @State private var color: ColorSet = .RED()
     @State private var action: Bool = false
 
-
+    let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-  
-    
-    init() {
-        let cancelBag = CancelBag()
-        createLabel.get(param: CreateLabel.RequestData(text: text, color: color)).sink(receiveCompletion: {_ in }, receiveValue: {_ in }).store(in: cancelBag)
-    }
-    
-    
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
+
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -150,28 +144,42 @@ struct AddNewLabelView: View {
 
                                 // create label
                                 color = setLabelColor(_color: selectedColor)
-                                createLabel.get(param: CreateLabel.RequestData.init(text: text, color: color))
+
+                                do {
+                                    try realm.write {
+                                        createLabel.get(param: CreateLabel.Param(text: text, color: color)).sink(receiveCompletion: {_ in
+                                            print("complete create label")
+                                        }, receiveValue: {
+                                            value in
+                                            print(value)
+                                        })
+                                     
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                                
+                                print(Realm.Configuration.defaultConfiguration.fileURL!)
                             }
                         }
-                    NavigationLink(
-                        destination: AddLabelingView(),
-                        isActive: self.$action
-                    ) {}
                 }
+                NavigationLink(
+                    destination: AddLabelingView(),
+                    isActive: self.$action
+                ) {}
             }
-
-            Spacer()
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading:
-                    HStack {
-                        Button(action: onClickedBackBtn) {
-                            Image("navigation_back_btn")
-                        }
-                        Spacer(minLength: 80)
-                        Text("라벨 생성")
-                        Spacer()
-                    })
         }
+        Spacer()
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading:
+                HStack {
+                    Button(action: onClickedBackBtn) {
+                        Image("navigation_back_btn")
+                    }
+                    Spacer(minLength: 80)
+                    Text("라벨 생성")
+                    Spacer()
+                })
     }
 
     func onClickedBackBtn() {
@@ -202,5 +210,4 @@ struct AddNewLabelView: View {
             return .RED()
         }
     }
-    
 }

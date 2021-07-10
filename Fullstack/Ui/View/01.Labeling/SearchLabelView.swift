@@ -166,8 +166,7 @@ struct SearchLabelView: View {
                                 .cornerRadius(2)
                                 .overlay(
                                     HStack {
-                                        Image(systemName: "magnifyingglass")
-                                            .foregroundColor(.gray)
+                                        Image("Icon_search")
                                             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                                             .padding(.leading, 5)
                                     }
