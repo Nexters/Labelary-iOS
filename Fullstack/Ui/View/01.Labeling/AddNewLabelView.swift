@@ -67,8 +67,10 @@ struct AddNewLabelView: View {
 
     let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
 
+
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
+    let cancelbag = CancelBag()
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -118,7 +120,6 @@ struct AddNewLabelView: View {
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
-
                             } else {
                                 Image("Label_middle_dark_\(self.labelButtons[button])")
                             }
@@ -130,9 +131,10 @@ struct AddNewLabelView: View {
             Spacer()
 
             Button(action: {
-                if self.isSelected {
-                    print("make label")
-                }
+                // create label
+              
+
+                print(Realm.Configuration.defaultConfiguration.fileURL!)
 
             }) {
                 ZStack {
@@ -140,26 +142,30 @@ struct AddNewLabelView: View {
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                         .onTapGesture {
                             if self.isSelected {
-                                self.action = true
-
-                                // create label
+                               
+                                
                                 color = setLabelColor(_color: selectedColor)
 
                                 do {
                                     try realm.write {
-                                        createLabel.get(param: CreateLabel.Param(text: text, color: color)).sink(receiveCompletion: {_ in
-                                            print("complete create label")
-                                        }, receiveValue: {
-                                            value in
-                                            print(value)
-                                        })
-                                     
+                                        createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                            .sink(receiveCompletion: { _ in
+                                                print("complete create label")
+                                            }, receiveValue: {
+                                                value in
+                                                print(value)
+                                                // 여기에 넣어야 될듯 ? labelrepository 이런거에..
+
+                                                print("newlabel = ")
+
+                                            }).store(in: cancelbag)
                                     }
+
                                 } catch {
                                     print(error)
                                 }
                                 
-                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                                self.action = true
                             }
                         }
                 }
@@ -208,6 +214,13 @@ struct AddNewLabelView: View {
             return .GRAY()
         default:
             return .RED()
+        }
+    }
+
+    class Output: ObservableObject {
+        @Published var newLabel: LabelEntity?
+        init(newLabel: LabelEntity) {
+            self.newLabel = newLabel // imageData from the url
         }
     }
 }

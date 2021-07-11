@@ -30,3 +30,12 @@ struct ImageHasher: Hashable {
         self.image = imageEntity
     }
 }
+
+struct LabelWrapper {
+    var label: LabelEntity
+    init(labelEntity: LabelEntity){
+        self.label = labelEntity
+    }
+    
+
+}

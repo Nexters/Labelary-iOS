@@ -23,6 +23,7 @@ class LabelRealmModel: Object {
 
 extension LabelRealmModel {
     func convertToEntity() -> LabelEntity? {
+        print("Label:: id \(self.id) : name : \(self.name)")
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
