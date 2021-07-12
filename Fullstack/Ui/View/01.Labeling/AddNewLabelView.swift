@@ -68,7 +68,6 @@ struct AddNewLabelView: View {
     let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
-
     let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
     let cancelbag = CancelBag()
     var body: some View {
@@ -96,7 +95,7 @@ struct AddNewLabelView: View {
                             self.selectedIndex = button
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
-
+                            color = setLabelColor(_color: selectedColor)
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
@@ -117,6 +116,7 @@ struct AddNewLabelView: View {
                             self.selectedIndex = button
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
+                            color = setLabelColor(_color: selectedColor)
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
@@ -132,9 +132,6 @@ struct AddNewLabelView: View {
 
             Button(action: {
                 // create label
-              
-
-                print(Realm.Configuration.defaultConfiguration.fileURL!)
 
             }) {
                 ZStack {
@@ -142,29 +139,24 @@ struct AddNewLabelView: View {
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                         .onTapGesture {
                             if self.isSelected {
-                               
-                                
-                                color = setLabelColor(_color: selectedColor)
-
                                 do {
                                     try realm.write {
                                         createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
                                             .sink(receiveCompletion: { _ in
                                                 print("complete create label")
-                                            }, receiveValue: {
-                                                value in
-                                                print(value)
-                                                // 여기에 넣어야 될듯 ? labelrepository 이런거에..
 
-                                                print("newlabel = ")
-
+                                            }, receiveValue: { data in
+                                                
+                                                print("AddNewLabelView에서 데이타 : ")
+                                                print(data)
+                                                
                                             }).store(in: cancelbag)
                                     }
 
                                 } catch {
                                     print(error)
                                 }
-                                
+
                                 self.action = true
                             }
                         }

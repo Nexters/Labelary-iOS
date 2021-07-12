@@ -192,7 +192,10 @@ struct CachedData: CachedDataSource {
     // Label
     func getAllLabels() -> Observable<[LabelEntity]> {
         return Just(realm.objects(LabelRealmModel.self)).asObservable()
-            .map { results in results.mapNotNull { $0.convertToEntity() } }
+            .map { results in
+                print("results: ", results)
+                return results.mapNotNull { $0.convertToEntity() }
+            }
             .eraseToAnyPublisher()
     }
 
@@ -249,9 +252,11 @@ struct CachedData: CachedDataSource {
     }
 
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity> {
-        let needToAddModel: LabelRealmModel = realm.create(LabelRealmModel.self)
+        let needToAddModel: LabelRealmModel = LabelRealmModel()
         needToAddModel.name = name
         needToAddModel.color = color
+        needToAddModel.createdAt = Date()
+
         return Just(needToAddModel).asObservable()
             .tryMap { item in
                 guard let entity = item.convertToEntity() else {

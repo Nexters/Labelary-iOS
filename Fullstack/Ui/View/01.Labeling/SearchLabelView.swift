@@ -49,6 +49,8 @@ struct SearchBarTextField: UIViewRepresentable {
     }
 }
 
+// MARK: - 라벨 없을때 화면
+
 // MARK: - Search Label View Parent View
 
 struct SearchLabelView: View {
@@ -66,7 +68,7 @@ struct SearchLabelView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 if self.keyword.isEmpty {
-                    Text("최근에 검색한 라벨").offset(x: -80)
+                    Text("최근에 검색한 라벨")
                         .font(.custom("Apple SD Gothic Neo", size: 14))
                         .foregroundColor(Color.PRIMARY_2)
                     FlexibleView(data: output.labels.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
@@ -87,8 +89,7 @@ struct SearchLabelView: View {
                             .foregroundColor(Color.PRIMARY_2)
                         Text("\(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                             .font(.custom("Apple SD Gothic Neo", size: 14))
-
-                    }.offset(x: -80)
+                    }
 
                     FlexibleView(data: output.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                         label in Button(action: {
@@ -97,7 +98,7 @@ struct SearchLabelView: View {
                             Text(verbatim: label.name)
                                 .padding(8)
                                 .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                .background(giveLabelBackgroundColor(color: label.color)) 
+                                .background(giveLabelBackgroundColor(color: label.color))
                                 .foregroundColor(giveTextForegroundColor(color: label.color))
                         }
                     }
@@ -120,7 +121,7 @@ struct SearchLabelView: View {
                                 Text(verbatim: label.name)
                                     .padding(8)
                                     .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                    .background(giveLabelBackgroundColor(color: label.color)) 
+                                    .background(giveLabelBackgroundColor(color: label.color))
                                     .foregroundColor(giveTextForegroundColor(color: label.color))
                             }
                         }
@@ -137,54 +138,57 @@ struct SearchLabelView: View {
                                 .foregroundColor(Color.PRIMARY_1)
 
                             Spacer(minLength: 10)
-                            Text("라벨을 생성하여 스크린샷에 라벨을 추가해보세요.")
+                            Text("라벨을 생성하여 스크린샷에\n라벨을 추가해보세요.")
                                 .font(.custom("AppleSDGothicNeo-Bold", size: 18))
                                 .foregroundColor(Color.PRIMARY_2)
                             Spacer(minLength: 30)
-//                            NavigationLink(
-//                                destination: AddNewLabelView()) {
-//                                Text("라벨 생성하기")
-//                                    .foregroundColor(Color.PRIMARY_1)
-//                                    .font(.system(size: 16, weight: .bold, design: .default))
-//                                    .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-//                                    .background(Color.KEY_ACTIVE)
-//                                    .cornerRadius(2)
-//                            }
+
+                            NavigationLink(
+                                destination: AddNewLabelView()) {
+                                Text("라벨 생성하기")
+                                    .foregroundColor(Color.PRIMARY_1)
+                                    .font(.system(size: 16, weight: .bold, design: .default))
+                                    .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                    .background(Color.KEY_ACTIVE)
+                                    .cornerRadius(2)
+                            }.isDetailLink(false)
+
+                            Spacer()
                         }
                     }
                 }
-            }.padding(12)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading:
+            }
+        }.padding(12)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading:
+                HStack {
                     HStack {
-                        HStack {
-                            SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요")
-                                .frame(width: 240, height: 20)
-                                .padding(10)
-                                .padding(.horizontal, 25)
-                                .background(Color.DEPTH_4_BG)
-                                .cornerRadius(2)
-                                .overlay(
-                                    HStack {
-                                        Image("Icon_search")
-                                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                            .padding(.leading, 5)
-                                    }
-                                    .padding(5)
-                                )
-                                .padding(.horizontal, 10)
-                                .onTapGesture {
-                                    self.isEditing = true
+                        SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요")
+                            .frame(width: 240, height: 20)
+                            .padding(10)
+                            .padding(.horizontal, 25)
+                            .background(Color.DEPTH_4_BG)
+                            .cornerRadius(2)
+                            .overlay(
+                                HStack {
+                                    Image("Icon_search")
+                                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                        .padding(.leading, 5)
                                 }
-                        }
+                                .padding(5)
+                            )
+                            .padding(.horizontal, 10)
+                            .onTapGesture {
+                                self.isEditing = true
+                            }
+                    }
 
-                        Button(action: onClickedBackBtn) {
-                            Text("취소").foregroundColor(Color.PRIMARY_1)
-                                .font(.custom("AppleSDGothicNeo-Medium", size: 16))
-                        }
-                    }.padding(5)
-                )
-        }
+                    Button(action: onClickedBackBtn) {
+                        Text("취소").foregroundColor(Color.PRIMARY_1)
+                            .font(.custom("AppleSDGothicNeo-Medium", size: 16))
+                    }
+                }.padding(5)
+            )
     }
 
     func onClickedBackBtn() {
@@ -208,6 +212,5 @@ struct SearchLabelView: View {
         ]
 
         @Published var selectedLabels: [LabelEntity] = []
-
     }
 }

@@ -36,7 +36,6 @@ struct MainLabelingView: View {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center) {
                 HStack {
-               
                     Text("스크린샷 라벨링")
                         .font(.system(size: 18, weight: .heavy))
                     Text("+\(output.screenshots.count)")
@@ -44,9 +43,8 @@ struct MainLabelingView: View {
                         .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
-                }.offset(y:-30)
-              //  .padding(.bottom, 40)
-                
+                }.offset(y: -30)
+
                 ZStack(alignment: .center) {
                     Image("shadow")
                         .resizable()
@@ -76,7 +74,6 @@ struct MainLabelingView: View {
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
                             maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .linear
                         ))
-                       
                     }
                 }
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
@@ -102,6 +99,7 @@ struct MainLabelingView: View {
                     ) {
                         Image("main_add_btn")
                     }
+                    
                 })
                         
             }.padding(40)

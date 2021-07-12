@@ -54,16 +54,6 @@ func giveTextForegroundColor(color: ColorSet) -> Color {
     }
 }
 
-// MARK: - Label (for label entities list)
-
-struct Label: Hashable {
-    var id = UUID()
-    var label: String
-    var color: String
-}
-
-// MARK: - list of label data
-
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
@@ -142,13 +132,11 @@ struct AddLabelingView: View {
     init() {
         let cancelBag = CancelBag()
         loadLabelingSelectData.get()
-            .sink(receiveCompletion: { _ in
-                print("load complete")
+            .sink(receiveCompletion: {
+                print("received completion ", $0)
             }, receiveValue: { [self] data in
+                print("하나씩 : ", data)
                 output.labels = data
-               // output.setLabels(storedLabels: data)
-                print(output.labels)
-                print(data)
             }).store(in: cancelBag)
     }
 
@@ -168,6 +156,17 @@ struct AddLabelingView: View {
 
     func onClickedConfirmBtn() {
         isEdited = true
+    }
+
+    var backBtn: some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+                Image("navigation_back_btn")
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
     }
 
     var body: some View {
@@ -192,7 +191,6 @@ struct AddLabelingView: View {
                                         filters.remove(at: firstIndex)
                                     }
                                 }
-
                             })
                                 .transition(.opacity)
                         }
@@ -241,6 +239,7 @@ struct AddLabelingView: View {
                 Button(action: onClickedBackBtn) {
                     Image("navigation_back_btn")
                 }.offset(x: 20)
+
                 Spacer(minLength: 100)
                 Text("스크린샷 라벨 추가")
                     .font(.custom("Apple SD Gothic Neo", size: 16))
@@ -255,6 +254,7 @@ struct AddLabelingView: View {
                             destination: SearchLabelView(),
                             isActive: $showSearchLabelView
                         ) {}
+                          //  .isDetailLink(false)
                     }
                 }
 
@@ -267,6 +267,7 @@ struct AddLabelingView: View {
                             destination: AddNewLabelView(),
                             isActive: $showAddLabelingView
                         ) {}
+                           // .isDetailLink(false)
                     }
                 }
             }
@@ -277,9 +278,5 @@ struct AddLabelingView: View {
         @Published var labels: [LabelEntity] = []
 
         @Published var selectedLabels: [LabelEntity] = []
-
-        func setLabels(storedLabels: [LabelEntity]) {
-            labels = storedLabels
-        }
     }
 }

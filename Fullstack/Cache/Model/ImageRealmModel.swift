@@ -29,7 +29,7 @@ extension ImageRealmModel {
         return ImageEntity(
             source: source,
             id: self.id,
-            labels: self.labels.mapNotNull { $0.convertToEntity() },
+            labels: self.labels.mapNotNull { $0.convertToEntity() }, 
             isBookmark: self.isBookmark,
             isCached: true
         )

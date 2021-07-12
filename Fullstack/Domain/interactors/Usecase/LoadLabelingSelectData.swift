@@ -15,6 +15,7 @@ struct LoadLabelingSelectData: Usecase {
     let labelRepository: LabelRepository
 
     func get(param: Param = ()) -> Observable<Result> {
-        return labelRepository.getAllLabels()
+        
+       return labelRepository.getAllLabels()
     }
 }
