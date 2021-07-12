@@ -59,6 +59,43 @@ struct CLabelSearchField: View {
     }
 }
 
+
+struct CardStackView: View {
+    var img: ImageEntity
+    @State var displayedImage: UIImage? = nil
+
+    var body: some View {
+        Image(uiImage: displayedImage ?? UIImage())
+            .resizable()
+            .frame(width: 248, height: 535, alignment: .center)
+            .aspectRatio(contentMode: .fit)
+            .cornerRadius(2.0)
+            .onAppear(perform: {
+                self.loadImage()
+            })
+    }
+
+    private func loadImage() {
+//        switch img.source {
+//        case .Cache(let localIdentifier):
+        let options = PHImageRequestOptions()
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
+        options.resizeMode = PHImageRequestOptionsResizeMode.fast
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [img.source], options: nil).firstObject
+        if asset == nil {
+        } else {
+            PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
+                if result != nil {
+                    self.displayedImage = result!
+                }
+            })
+        }
+
+//        case .Remote: break
+//        }
+    }
+}
+
 struct ImageView: View {
     var img: ImageEntity
     @State var displayedImage: UIImage? = nil

@@ -24,10 +24,8 @@ func giveLabelBackgroundColor(color: ColorSet) -> Color {
         return Color(red: 101/255, green: 101/255, blue: 229/255).opacity(0.15)
     case .PEACOCK_GREEN:
         return Color(red: 82/255, green: 204/255, blue: 204/255).opacity(0.15)
-    case .GRAY: 
+    case .GRAY:
         return Color(red: 123/255, green: 131/255, blue: 153/255).opacity(0.15)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255).opacity(0.15)
     }
 }
 
@@ -53,20 +51,8 @@ func giveTextForegroundColor(color: ColorSet) -> Color {
         return Color(red: 161/255, green: 229/255, blue: 229/255)
     case .GRAY:
         return Color(red: 204/255, green: 218/255, blue: 255/255)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255)
     }
 }
-
-// MARK: - Label (for label entities list)
-
-struct Label: Hashable {
-    var id = UUID()
-    var label: String
-    var color: String
-}
-
-// MARK: - list of label data
 
 // MARK: - Each Customed Post-it Label View
 
@@ -76,6 +62,7 @@ struct LabelRowItemView: View {
 
     @State var isSelected: Bool = false
     @Binding var selectedLabels: [LabelEntity]
+    @ObservedObject var output = Output()
 
     var body: some View {
         Button(action: {
@@ -87,7 +74,6 @@ struct LabelRowItemView: View {
                     selectedLabels.remove(at: firstIndex)
                 }
             }
-
         }, label: {
             Text(label.name)
                 .font(isSelected ? .custom("AppleSDGothicNeo-Bold", size: 16) : .custom("AppleSDGothicNeo-Medium", size: 16))
@@ -96,10 +82,38 @@ struct LabelRowItemView: View {
                 .foregroundColor(.white)
                 .cornerRadius(5)
                 .edgesIgnoringSafeArea(.horizontal)
-                .background(isSelected ? Image("Label_large_Selected_\(label.color)") : Image("Label_large_default_\(label.color)"))
+                .background(isSelected ? Image("Label_large_Selected_\(output.colorSetToString(color: label.color))") : Image("Label_large_default_\(output.colorSetToString(color: label.color))"))
                 .offset(x: isSelected ? -80 : -100)
 
         })
+    }
+
+    class Output: ObservableObject {
+        // swtich 문 active label large 로 바꾸는거 하나랑
+        func colorSetToString(color: ColorSet) -> String {
+            switch color {
+            case .YELLOW:
+                return "Yellow"
+            case .RED:
+                return "Red"
+            case .VIOLET:
+                return "Violet"
+            case .BLUE:
+                return "Blue"
+            case .GREEN:
+                return "Green"
+            case .ORANGE:
+                return "Orange"
+            case .PINK:
+                return "Pink"
+            case .CONBALT_BLUE:
+                return "Cobalt_Blue"
+            case .PEACOCK_GREEN:
+                return "Peacock_Green"
+            case .GRAY:
+                return "Gray"
+            }
+        }
     }
 }
 
@@ -113,6 +127,18 @@ struct AddLabelingView: View {
     @State var showSearchLabelView = false
     @State var isEdited = false
     @State var presentingToast: Bool = false
+    let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+    init() {
+        let cancelBag = CancelBag()
+        loadLabelingSelectData.get()
+            .sink(receiveCompletion: {
+                print("received completion ", $0)
+            }, receiveValue: { [self] data in
+                print("하나씩 : ", data)
+                output.labels = data
+            }).store(in: cancelBag)
+    }
 
     // MARK: - NavigationLink Action funtions
 
@@ -130,6 +156,17 @@ struct AddLabelingView: View {
 
     func onClickedConfirmBtn() {
         isEdited = true
+    }
+
+    var backBtn: some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+                Image("navigation_back_btn")
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
     }
 
     var body: some View {
@@ -154,7 +191,6 @@ struct AddLabelingView: View {
                                         filters.remove(at: firstIndex)
                                     }
                                 }
-
                             })
                                 .transition(.opacity)
                         }
@@ -187,9 +223,11 @@ struct AddLabelingView: View {
                 .cornerRadius(2)
                 .offset(x: 89, y: 219)
                 .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
-                    ToastView("스크린샷에 라벨이 추가되었습니다.") {}
-                        .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                        .padding(20)
+                    ToastView("스크린샷에 라벨이 추가되었습니다.") {
+                        // labeling logic
+                    }
+                    .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                    .padding(20)
                 }
                 .opacity(filters.count > 0 ? 1 : 0)
             }
@@ -201,6 +239,7 @@ struct AddLabelingView: View {
                 Button(action: onClickedBackBtn) {
                     Image("navigation_back_btn")
                 }.offset(x: 20)
+
                 Spacer(minLength: 100)
                 Text("스크린샷 라벨 추가")
                     .font(.custom("Apple SD Gothic Neo", size: 16))
@@ -215,6 +254,7 @@ struct AddLabelingView: View {
                             destination: SearchLabelView(),
                             isActive: $showSearchLabelView
                         ) {}
+                          //  .isDetailLink(false)
                     }
                 }
 
@@ -227,6 +267,7 @@ struct AddLabelingView: View {
                             destination: AddNewLabelView(),
                             isActive: $showAddLabelingView
                         ) {}
+                           // .isDetailLink(false)
                     }
                 }
             }
@@ -234,20 +275,7 @@ struct AddLabelingView: View {
     }
 
     class Output: ObservableObject {
-        @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
-        ]
+        @Published var labels: [LabelEntity] = []
 
         @Published var selectedLabels: [LabelEntity] = []
     }

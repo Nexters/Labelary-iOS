@@ -64,9 +64,12 @@ struct AddNewLabelView: View {
     @State private var selectedColor: String = ""
     @State private var color: ColorSet = .RED()
     @State private var action: Bool = false
-    let realm = try! Realm()
 
+    let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
+    let cancelbag = CancelBag()
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -92,7 +95,7 @@ struct AddNewLabelView: View {
                             self.selectedIndex = button
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
-
+                            color = setLabelColor(_color: selectedColor)
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
@@ -113,10 +116,10 @@ struct AddNewLabelView: View {
                             self.selectedIndex = button
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
+                            color = setLabelColor(_color: selectedColor)
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
-
                             } else {
                                 Image("Label_middle_dark_\(self.labelButtons[button])")
                             }
@@ -128,9 +131,7 @@ struct AddNewLabelView: View {
             Spacer()
 
             Button(action: {
-                if self.isSelected {
-                    print("make label")
-                }
+                // create label
 
             }) {
                 ZStack {
@@ -138,15 +139,25 @@ struct AddNewLabelView: View {
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                         .onTapGesture {
                             if self.isSelected {
+                                do {
+                                    try realm.write {
+                                        createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                            .sink(receiveCompletion: { _ in
+                                                print("complete create label")
+
+                                            }, receiveValue: { data in
+                                                
+                                                print("AddNewLabelView에서 데이타 : ")
+                                                print(data)
+                                                
+                                            }).store(in: cancelbag)
+                                    }
+
+                                } catch {
+                                    print(error)
+                                }
+
                                 self.action = true
-
-                                // create label
-
-                                color = setLabelColor(_color: selectedColor)
-
-//                                try! realm.write {
-//                                    realm.create(createLabel.get(param: CreateLabel.RequestData(text: text, color: color)))
-//                                }
                             }
                         }
                 }
@@ -156,7 +167,6 @@ struct AddNewLabelView: View {
                 ) {}
             }
         }
-
         Spacer()
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
@@ -196,6 +206,13 @@ struct AddNewLabelView: View {
             return .GRAY()
         default:
             return .RED()
+        }
+    }
+
+    class Output: ObservableObject {
+        @Published var newLabel: LabelEntity?
+        init(newLabel: LabelEntity) {
+            self.newLabel = newLabel // imageData from the url
         }
     }
 }

@@ -23,6 +23,7 @@ class LabelRealmModel: Object {
 
 extension LabelRealmModel {
     func convertToEntity() -> LabelEntity? {
+        print("id",id)
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
@@ -30,7 +31,7 @@ extension LabelRealmModel {
         return LabelEntity(
             id: self.id,
             name: self.name,
-            color: self.color,
+            color: self.color, // 여기서 RED..?
             images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,
