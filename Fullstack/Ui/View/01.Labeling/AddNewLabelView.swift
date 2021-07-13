@@ -139,8 +139,6 @@ struct AddNewLabelView: View {
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                         .onTapGesture {
                             if self.isSelected {
-                                do {
-                                    try realm.write {
                                         createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
                                             .sink(receiveCompletion: { _ in
                                                 print("complete create label")
@@ -151,13 +149,9 @@ struct AddNewLabelView: View {
                                                 print(data)
                                                 
                                             }).store(in: cancelbag)
-                                    }
-
-                                } catch {
-                                    print(error)
-                                }
 
                                 self.action = true
+                                print(Realm.Configuration.defaultConfiguration.fileURL!)
                             }
                         }
                 }

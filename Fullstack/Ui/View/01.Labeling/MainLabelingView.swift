@@ -82,7 +82,7 @@ struct MainLabelingView: View {
                 // skip button
                 Button(action: {
                     self.isSwipe = true
-                    self.output.screenshots.removeFirst()
+                  //  self.output.screenshots.removeFirst()
                    
                 }, label: {
                     Image("main_skip_btn")

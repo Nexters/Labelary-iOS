@@ -252,14 +252,22 @@ struct CachedData: CachedDataSource {
     }
 
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity> {
-        let needToAddModel: LabelRealmModel = LabelRealmModel()
-        needToAddModel.name = name
-        needToAddModel.color = color
-        needToAddModel.createdAt = Date()
-
-        return Just(needToAddModel).asObservable()
+        var id = ""
+        print("name", name, "color", color)
+        do {
+            try realm.write {
+                let needToAddModel = LabelRealmModel()
+                id = needToAddModel.id
+                needToAddModel.name = name
+                needToAddModel.color = color.rawValue
+                needToAddModel.createdAt = Date()
+                realm.add(needToAddModel)
+                print("needToAddModel:", needToAddModel)
+            }
+        } catch {}
+        return Just(realm.objects(LabelRealmModel.self).first(where: { $0.id == id })).asObservable()
             .tryMap { item in
-                guard let entity = item.convertToEntity() else {
+                guard let entity = item!.convertToEntity() else {
                     throw DomainError.DoNotFoundEntity
                 }
 
@@ -287,7 +295,7 @@ struct CachedData: CachedDataSource {
                 guard let unwrappedItem = item else {
                     throw DomainError.DoNotFoundEntity
                 }
-                unwrappedItem.color = label.color
+                unwrappedItem.color = label.color.rawValue
                 unwrappedItem.name = label.name
                 guard let entity = unwrappedItem.convertToEntity() else {
                     throw DomainError.ConvertError
