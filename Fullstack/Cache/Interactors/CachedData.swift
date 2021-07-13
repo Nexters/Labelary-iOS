@@ -264,7 +264,9 @@ struct CachedData: CachedDataSource {
                 realm.add(needToAddModel)
                 print("needToAddModel:", needToAddModel)
             }
-        } catch {}
+        } catch let error as NSError {
+            fatalError("Error opening realm : \(error)")
+        }
         return Just(realm.objects(LabelRealmModel.self).first(where: { $0.id == id })).asObservable()
             .tryMap { item in
                 guard let entity = item!.convertToEntity() else {

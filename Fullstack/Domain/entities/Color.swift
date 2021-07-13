@@ -185,30 +185,3 @@ extension ColorSet: RawRepresentable {
         }
     }
 }
-
-extension ColorSet: CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .RED:
-            return "Red"
-        case .ORANGE:
-            return "Orange"
-        case .YELLOW:
-            return "Yellow"
-        case .GREEN:
-            return "Green"
-        case .PEACOCK_GREEN:
-            return "Peacock_Green"
-        case .BLUE:
-            return "Blue"
-        case .CONBALT_BLUE:
-            return "Cobalt_Blue"
-        case .PINK:
-            return "Pink"
-        case .GRAY:
-            return "Gray"
-        case .VIOLET:
-            return "Violet"
-        }
-    }
-}
