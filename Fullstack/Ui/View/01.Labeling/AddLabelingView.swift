@@ -127,7 +127,10 @@ struct AddLabelingView: View {
     @State var showSearchLabelView = false
     @State var isEdited = false
     @State var presentingToast: Bool = false
+    @ObservedObject var needToLabelingData = NeedToLabelingData()
     let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+    let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
     init() {
         let cancelBag = CancelBag()
@@ -211,8 +214,21 @@ struct AddLabelingView: View {
                 }
 
                 Button(action: {
-                    self.presentingToast = true
+                    let cancelBag = CancelBag()
+                   // self.presentingToast = true
+                    // labeling request
+                   // self.needToLabelingData.labelData = self.output.selectedLabels
+                    self.output.selectedLabels = filters
+                    neededData.labelData = self.output.selectedLabels
+                    print("궁금해서 찍어봄 마지막:",neededData.imageData)
+                    print("2", neededData.labelData)
+                    
+                    requestLabeling.get(param: RequestLabeling.RequestData(labels: neededData.labelData, images: neededData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: { data in
+                        print("이미지 라벨링 데이터", data)
+                    }).store(in: cancelBag)
+         
                     presentationMode.wrappedValue.dismiss()
+                    self.presentingToast = true
                 }) {
                     Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
                 }
@@ -254,7 +270,7 @@ struct AddLabelingView: View {
                             destination: SearchLabelView(),
                             isActive: $showSearchLabelView
                         ) {}
-                          //  .isDetailLink(false)
+                
                     }
                 }
 
@@ -267,7 +283,7 @@ struct AddLabelingView: View {
                             destination: AddNewLabelView(),
                             isActive: $showAddLabelingView
                         ) {}
-                           // .isDetailLink(false)
+                    
                     }
                 }
             }
@@ -276,7 +292,6 @@ struct AddLabelingView: View {
 
     class Output: ObservableObject {
         @Published var labels: [LabelEntity] = []
-
         @Published var selectedLabels: [LabelEntity] = []
     }
 }

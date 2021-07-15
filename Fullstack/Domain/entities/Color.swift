@@ -169,9 +169,9 @@ extension ColorSet: RawRepresentable {
         case .YELLOW:
             return "YELLOW"
         case .GREEN:
-            return "Green"
-        case .PEACOCK_GREEN:
             return "GREEN"
+        case .PEACOCK_GREEN:
+            return "PEACOCK_GREEN"
         case .BLUE:
             return "BLUE"
         case .CONBALT_BLUE:

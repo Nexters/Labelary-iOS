@@ -12,22 +12,30 @@ struct CardView: View {
     }
 }
 
+class NeedToLabelingData: ObservableObject {
+    @Published var imageData: [ImageEntity] = []
+    @Published var labelData: [LabelEntity] = []
+}
+
+var neededData = NeedToLabelingData()
+
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
-    @State private var isSwipe = false // 왼쪽으로 swipe하는 경우만 있음
+    @State private var isSwipe = false
     @ObservedObject var output = Output()
-    
-    let loadScreenshots = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+    @ State var imageData: ImageEntity?
 
+    let loadAllImageData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+    let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
     init() {
         let cancelbag = CancelBag()
-        loadScreenshots.get()
+        loadAllImageData.get()
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [self] data in
                     output.setImages(recentScreenshots: data.recentlyImages)
+                    output.labeledImages = data.recentlyImages
                 }
-                  
             ).store(in: cancelbag)
     }
     
@@ -58,8 +66,10 @@ struct MainLabelingView: View {
                                 
                                 if direction == .right {
                                     // shadow ui 넣기
-                                    
+                                    self.imageData = output.labeledImages.first!
+                                    neededData.imageData.append(output.labeledImages.first!)
                                     self.isShowingAddLabelingView = true
+                                
                                 }
 
                                 if direction == .left {
@@ -79,19 +89,20 @@ struct MainLabelingView: View {
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                     
             HStack {
-                // skip button
+                // skip button (왼쪽 swipe)
                 Button(action: {
                     self.isSwipe = true
-                  //  self.output.screenshots.removeFirst()
-                   
                 }, label: {
                     Image("main_skip_btn")
                 })
                 Spacer(minLength: 35)
                 
-                // add button
+                // add button (오른쪽 swipe)
                 Button(action: {
+               //     self.labelingData.imageData.append(output.labeledImages.first!)
+               //    imageData = output.labeledImages.first
                     self.isShowingAddLabelingView = true
+                    
                 }, label: {
                     NavigationLink(
                         destination: AddLabelingView(),
@@ -109,15 +120,16 @@ struct MainLabelingView: View {
     
     class Output: ObservableObject {
         @Published var screenshots: [ImageHasher] = []
+        @Published var labeledImages: [ImageEntity] = []
         
         func setImages(recentScreenshots: [ImageEntity]) {
-            self.screenshots = recentScreenshots.map {
+            screenshots = recentScreenshots.map {
                 ImageHasher(imageEntity: $0)
             }
         }
         
         func hash(into hasher: inout Hasher) {
-            hasher.combine(self.screenshots)
+            hasher.combine(screenshots)
         }
     }
 }

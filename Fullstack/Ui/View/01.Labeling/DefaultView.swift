@@ -31,11 +31,3 @@ struct DefaultView: View {
     }
 }
 
-struct DefaultView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            DefaultView()
-            DefaultView()
-        }
-    }
-}

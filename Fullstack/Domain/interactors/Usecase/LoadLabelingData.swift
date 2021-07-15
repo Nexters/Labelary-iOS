@@ -9,13 +9,13 @@ import Combine
 import Foundation
 
 struct LoadLabelingData: Usecase {
-    typealias Param = [ImageEntity]
+    typealias Param = Void
     typealias Result = [ImageEntity]
 
     let imageRepository: ImageRepository
 
-    func get(param: Param) -> Observable<Result> {
-        return imageRepository.getUnLabeledImages(filtered: param)
+    func get(param: Param = ()) -> Observable<Result> {   
+        return imageRepository.getUnLabeledImages()
             .eraseToAnyPublisher()
     }
 }

@@ -15,7 +15,7 @@ class LabelRealmModel: Object {
 
     var colorType: ColorSet {
         get {
-            return ColorSet(rawValue: color)!
+            return ColorSet(rawValue: color) ?? ColorSet.RED()
         }
         set {
             color = newValue.rawValue
@@ -40,7 +40,7 @@ extension LabelRealmModel {
         return LabelEntity(
             id: self.id,
             name: self.name,
-            color: ColorSet(rawValue: self.color)!, // 여기서 RED..?
+            color: ColorSet(rawValue: self.color)!, 
             images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,
