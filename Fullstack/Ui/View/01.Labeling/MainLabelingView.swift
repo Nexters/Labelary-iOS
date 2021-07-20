@@ -25,7 +25,12 @@ class NeedToLabelingData: ObservableObject {
 
 var neededData = NeedToLabelingData()
 
+class ShowAddLabelingView: ObservableObject {
+    @Published var pushed = false
+}
+
 struct MainLabelingView: View {
+    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
     @State private var isShowingAddLabelingView = false
     @State private var isSwipe = false
     @ObservedObject var output = Output()
@@ -73,8 +78,8 @@ struct MainLabelingView: View {
                                 if direction == .right {
                                     // shadow ui 넣기
                                     neededData.imageData.append(neededData.convertToEntity(hashTypeImage: card))
-                                    self.isShowingAddLabelingView = true
-                                    
+                                    //      self.isShowingAddLabelingView = true
+                                    self.showAddLabelingView.pushed = true
                                 }
 
                             },
@@ -103,23 +108,23 @@ struct MainLabelingView: View {
                 Button(action: {
                     neededData.imageData.append(output.labeledImages.first!)
                     output.labeledImages.removeFirst()
+                    self.showAddLabelingView.pushed = true // push view
+                    
                     self.isShowingAddLabelingView = true
                     
                 }, label: {
-                    NavigationLink(
-                        destination: AddLabelingView(),
-                        isActive: $isShowingAddLabelingView
-                    ) {
-                        Image("main_add_btn")
-                    }
-                    
+                    Image("main_add_btn")
                 })
-                        
+                    
             }.padding(40)
                 .offset(y: 150)
+            NavigationLink(
+                destination: AddLabelingView(),
+                isActive: $isShowingAddLabelingView
+            ) {}
         }
     }
-    
+
     class Output: ObservableObject {
         @Published var screenshots: [ImageHasher] = []
         @Published var labeledImages: [ImageEntity] = []
@@ -135,4 +140,3 @@ struct MainLabelingView: View {
         }
     }
 }
-    

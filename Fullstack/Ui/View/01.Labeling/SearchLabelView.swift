@@ -55,6 +55,7 @@ struct SearchBarTextField: UIViewRepresentable {
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var model = ShowAddNewLabelView()
     @State private var isEditing: Bool = false
     @State private var keyword: String = ""
     @State var selectedLabel: String = ""

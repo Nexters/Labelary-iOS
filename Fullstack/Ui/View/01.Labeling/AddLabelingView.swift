@@ -117,13 +117,19 @@ struct LabelRowItemView: View {
     }
 }
 
+class ShowAddNewLabelView: ObservableObject {
+    @Published var pushed = false
+}
+
 // MARK: - Parent View
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
+    @ObservedObject var model = ShowAddNewLabelView()
     @ObservedObject var output = Output()
     @State var filters: [LabelEntity] = []
-    @State var showAddLabelingView = false
+    @State var showNewAddLabelingView = false
     @State var showSearchLabelView = false
     @State var isEdited = false
     @State var presentingToast: Bool = false
@@ -153,9 +159,9 @@ struct AddLabelingView: View {
         showSearchLabelView = true
     }
 
-    func onClickedAddBtn() {
-        showAddLabelingView = true
-    }
+//    func onClickedAddBtn() {
+//        showAddLabelingView = true
+//    }
 
     func onClickedConfirmBtn() {
         isEdited = true
@@ -242,9 +248,7 @@ struct AddLabelingView: View {
                     .cornerRadius(2)
                     .offset(x: 89, y: 219)
                     .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
-                        ToastView("스크린샷에 라벨이 추가되었습니다.") {
-                            
-                        }
+                        ToastView("스크린샷에 라벨이 추가되었습니다.") {}
                             .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                             .padding(20)
                     }
@@ -257,7 +261,9 @@ struct AddLabelingView: View {
 
             HStack {
                 // 뒤로가기버튼
-                Button(action: onClickedBackBtn) {
+                Button(action: {
+                    self.onClickedBackBtn()
+                }) {
                     Image("navigation_back_btn")
                 }.offset(x: 20)
 
@@ -272,23 +278,24 @@ struct AddLabelingView: View {
                     showSearchLabelView = true
                 }) {
                     ZStack {
-                        Image("navigation_bar_search_btn")
                         NavigationLink(
                             destination: SearchLabelView(),
                             isActive: $showSearchLabelView
-                        ) {}
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_search_btn")
                     }
                 }
 
                 Button(action: {
-                    showAddLabelingView = true
+                    // showNewAddLabelingView = true
+                    self.model.pushed = true
                 }) {
                     ZStack {
-                        Image("navigation_bar_plus_btn")
                         NavigationLink(
                             destination: AddNewLabelView(),
-                            isActive: $showAddLabelingView
-                        ) {}
+                            isActive: $model.pushed
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_plus_btn")
                     }
                 }
             }

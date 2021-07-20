@@ -63,12 +63,9 @@ struct AddNewLabelView: View {
     @State var isSelected: Bool = false
     @State private var selectedColor: String = ""
     @State private var color: ColorSet = .RED()
-    @State private var action: Bool = false
 
     let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-
-    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
     let cancelbag = CancelBag()
     var body: some View {
         VStack {
@@ -117,6 +114,7 @@ struct AddNewLabelView: View {
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
                             color = setLabelColor(_color: selectedColor)
+
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
@@ -146,22 +144,20 @@ struct AddNewLabelView: View {
                                     }, receiveValue: { _ in
                                     }).store(in: cancelbag)
 
-                                self.action = true
-                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                                onClickedBackBtn()
                             }
                         }
                 }
-                NavigationLink(
-                    destination: AddLabelingView(),
-                    isActive: self.$action
-                ) {}
             }
         }
         Spacer()
+
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                 HStack {
-                    Button(action: onClickedBackBtn) {
+                    Button(action: {
+                        onClickedBackBtn()
+                    }) {
                         Image("navigation_back_btn")
                     }
                     Spacer(minLength: 80)
