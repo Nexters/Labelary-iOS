@@ -20,8 +20,7 @@ class ImageRealmModel: Object {
 }
 
 extension ImageRealmModel {
-    func convertToEntity() -> ImageEntity? {
-        print("id \(self.id) : source : \(self.source)")
+    func convertToEntity() -> ImageEntity? {        
         guard !self.id.isEmpty, let source = self.source else {
             return nil
         }

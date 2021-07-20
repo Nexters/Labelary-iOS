@@ -62,10 +62,10 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
-  - OpenCombine (0.11.0)
-  - OpenCombineDispatch (0.11.0):
+  - OpenCombine (0.12.0)
+  - OpenCombineDispatch (0.12.0):
     - OpenCombine (>= 0.10.2)
-  - OpenCombineFoundation (0.11.0):
+  - OpenCombineFoundation (0.12.0):
     - OpenCombine (>= 0.10.2)
   - PromisesObjC (1.2.12)
   - Realm (10.5.1):
@@ -80,9 +80,9 @@ PODS:
 DEPENDENCIES:
   - Firebase/Analytics
   - lottie-ios
-  - OpenCombine (~> 0.11.0)
-  - OpenCombineDispatch (~> 0.11.0)
-  - OpenCombineFoundation (~> 0.11.0)
+  - OpenCombine (~> 0.12.0)
+  - OpenCombineDispatch (~> 0.12.0)
+  - OpenCombineFoundation (~> 0.12.0)
   - RealmSwift (~> 10.5.1)
   - Resolver
   - SwiftUICardStack
@@ -121,9 +121,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  OpenCombine: 819bfcd0bdf70a2929073c661953514cb4d757d4
-  OpenCombineDispatch: d6df618e05cf4321dac2479093cc4586e3ceb5c3
-  OpenCombineFoundation: 2e33e68cc4f74256731dc7db6ecfe509356e0076
+  OpenCombine: a8c52f249bc3c7e2bd5ffb75e8653e57a8e33d27
+  OpenCombineDispatch: 68ed85ae5255d558a14434a802f65fb833b50d39
+  OpenCombineFoundation: b279f27ca5a5a165f0c06e2beb266fc068967bb8
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
@@ -131,6 +131,6 @@ SPEC CHECKSUMS:
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
   ToastUI: 2baa7f9c7badae7bd83a9ab87a21bc88983010bd
 
-PODFILE CHECKSUM: c86f2427a7f81fce62472d2318640b3c98a3e35f
+PODFILE CHECKSUM: 75e95466c925ae7111edfe3cc53b8d91c4468f3f
 
 COCOAPODS: 1.10.1

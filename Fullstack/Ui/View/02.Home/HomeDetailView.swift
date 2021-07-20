@@ -70,9 +70,8 @@ struct HomeDeatilView: View {
                 ScrollView {
                     LazyVGrid(columns: columns) {
                         ForEach(output.items.indices, id: \.self) { index in
-                            let screenshot = $output.items[index]
-                            CScreenShotView(screenshot: screenshot, nextView: ScreenShotDetailView(screenShot: screenshot.image, onChangeBookMark: { onChangeBookMark(index: index, isBookmark: $0)
-                            }, onDeleteImage: { _ in onDeleteImage(index: index) }), width: 102, height: 221)
+                            let screenshot = output.items[index]
+//                            CScreenShotView(screenshot: screenshot, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(screenShot: output.items[index].image), onChangeBookMark: onChangeBookMark, onDeleteImage: { _ in onDeleteImage(index: index) }), width: 102, height: 221)
                         }
                     }.padding(EdgeInsets(top: 20, leading: 13, bottom: 20, trailing: 13))
                 }
@@ -82,8 +81,11 @@ struct HomeDeatilView: View {
             .navigationBarHidden(true)
     }
 
-    private func onChangeBookMark(index: Int, isBookmark: Bool) {
-        output.items[index].image.isBookmark = isBookmark
+    private func onChangeBookMark(entity: ImageEntity) {
+        let item = output.items.first(where: { $0.image.id == entity.id })
+        if var items = item {
+            items.image.isBookmark = entity.isBookmark
+        }
     }
 
     private func onDeleteImage(index: Int) {
@@ -124,13 +126,13 @@ struct HomeDeatilView: View {
         @Published var isReloading = false
         @Published var isLoadingMore = false
         @Published var isEditing = false
-        @Published var items: [ImageWrapper]
+        @Published var items: [ImageViewModel]
 
         init(images: [ImageEntity]) {
-            items = images.map { ImageWrapper(imageEntity: $0, status: .IDLE) }
+            items = images.map { ImageViewModel(image: $0) }
         }
 
-        func changeItems(items: [ImageWrapper]) {
+        func changeItems(items: [ImageViewModel]) {
             self.items = items
         }
     }

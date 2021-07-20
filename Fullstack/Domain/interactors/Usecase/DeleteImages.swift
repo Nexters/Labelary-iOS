@@ -17,8 +17,8 @@ struct DeleteImages: Usecase {
     func get(param: Param) -> Observable<Result> {
         return Just(param)
             .map{_ in []}
-//            .receive(on: DispatchQueue.global())
-//            .flatMap { _ in imageRepository.deleteImages(images: param) }
+            .receive(on: DispatchQueue.global())
+            .flatMap { _ in imageRepository.deleteImages(images: param) }
             .receive(on: DispatchQueue.main)
             .asObservable()
             .eraseToAnyPublisher()

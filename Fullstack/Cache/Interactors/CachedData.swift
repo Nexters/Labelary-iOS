@@ -30,7 +30,7 @@ struct CachedData: CachedDataSource {
     }
 
     func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]> {
-        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil).firstObject
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
@@ -192,8 +192,7 @@ struct CachedData: CachedDataSource {
     // Label
     func getAllLabels() -> Observable<[LabelEntity]> {
         return Just(realm.objects(LabelRealmModel.self)).asObservable()
-            .map { results in
-                print("results: ", results)
+            .map { results in                
                 return results.mapNotNull { $0.convertToEntity() }
             }
             .eraseToAnyPublisher()
