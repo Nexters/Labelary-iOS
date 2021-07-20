@@ -69,7 +69,7 @@ struct LabelViewFromOutside: View {
     @State var showAddLabelView: Bool = false
     @ObservedObject var output = Output()
     @ObservedObject var sharedImage: model // 전달 받은 객체
-    @State var presentingToast: Bool = false
+    @State var showToast = false
     var body: some View {
         NavigationView {
             ZStack {
@@ -175,7 +175,7 @@ struct LabelViewFromOutside: View {
                         Image("btn_cancel")
                     }),
                     trailing: Button(action: {
-                        self.presentingToast = true
+                        self.showToast = true
                         print("완료버튼 작동")
                     }, label: {
                         Text("완료").font(Font.system(size: 16))
@@ -183,6 +183,7 @@ struct LabelViewFromOutside: View {
                     }))
             }
         }
+        .overlay(overlayView: customToast(show: $showToast), show: $showToast)
     }
 
     class Output: ObservableObject {

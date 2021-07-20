@@ -104,102 +104,92 @@ struct CachedData: CachedDataSource {
             .eraseToAnyPublisher()
     }
 
-    /*
-         func requestLabeling(labels: [LabelEntity], image: ImageEntity) -> Observable<[ImageEntity]> {
-             var imageQuery: ImageRealmModel
-             var labelQuery: [LabelRealmModel] = []
-             do {
-                 try realm.write {
-                     if !image.isCached {
-                         let model = ImageRealmModel()
-                         model.source = image.source
-                         model.isBookmark = image.isBookmark
-                         realm.add(model)
-                         labelQuery = realm.objects(LabelRealmModel.self)
-                             .filter { item in labels.contains { $0.id == item.id }}
-                     }
-                 }
-             } catch let error as NSError {
-                 fatalError("realm error: \(error)")
-             }
-
-             return Just((imageQuery, labelQuery)).asObservable()
-                 .map { imageQuery, labelQuery in
-
-                     imageQuery.convertToEntity()
-
-     //                {
-     //                    let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
-     //                        $0
-     //                    }
-     //                    .applying($0.labels.difference(from: labelQuery)) ?? []
-     //
-     //                    $0.labels.append(objectsIn: neeToAddLabels)
-     //                }
-     //
-
-                     labelQuery.forEach {
-                         let neeToAddImages: [ImageRealmModel] = imageQuery
-
-                         //applying($0.images.difference(from: imageQuery)) ?? []
-                         $0.images.append(objectsIn: neeToAddImages)
-                     }
-                     return imageQuery.mapNotNull { $0.convertToEntity() }
-                 }.eraseToAnyPublisher()
-         }
-     */
-
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
-        var imageQuery: [ImageRealmModel] = []
-        var labelQuery: [LabelRealmModel] = []
+        let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
+        let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
+
         do {
             try realm.write {
                 let needToAddedImages = images.filter { !$0.isCached }
+
                 needToAddedImages.forEach { entity in
-                    //   let model = realm.create(ImageRealmModel.self)
+
                     let model = ImageRealmModel()
+
                     model.source = entity.source
                     model.isBookmark = entity.isBookmark
-                    print("entity", entity) // imageEntity찍힘 !
-
                     realm.add(model)
-                    imageQuery = realm.objects(ImageRealmModel.self)
-                        .filter { item in images.contains { $0.id == item.id }} // 여기 이상함 !
-                    // 그렇다면 images에 지금 저장이..? 안된다고 해야하나 ? images 에 넣은 데이터가 이상한거징..
-                    print("imageQuery", imageQuery) // [] 빈 어레이로 찍힘
-                    labelQuery = realm.objects(LabelRealmModel.self)
-                        .filter { item in labels.contains { $0.id == item.id }}
-                    print("labelQuery", labelQuery)
                 }
             }
         } catch let error as NSError {
             fatalError("realm error: \(error)")
         }
-        //        let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-        //            .filter { item in images.contains { $0.id == item.id }}
-        //
-        //        let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
-        //            .filter { item in labels.contains { $0.id == item.id }}
 
-        return Just((imageQuery, labelQuery)).asObservable()
-            // Just((realm.objects(ImageRealmModel.self), realm.objects(LabelRealmModel.self))).asObservable()
-            .map { imageQuery, labelQuery in
-                imageQuery.forEach {
-                    let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
-                        $0
+        return
+            Just((imageQuery, labelQuery)).asObservable()
+                .map { imageQuery, labelQuery in
+                    imageQuery.forEach {
+                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
+                            $0
+                        }
+                        .applying($0.labels.difference(from: labelQuery)) ?? []
+                        $0.labels.append(objectsIn: neeToAddLabels)
+                        print("LabelRealmModel: ", neeToAddLabels)
                     }
-                    .applying($0.labels.difference(from: labelQuery)) ?? []
-                    print("$0.labels.append(objectsIn: neeToAddLabels)",$0.labels.append(objectsIn: neeToAddLabels))
-                    $0.labels.append(objectsIn: neeToAddLabels)
-                }
-                labelQuery.forEach {
-                    let neeToAddImages: [ImageRealmModel] = imageQuery.applying($0.images.difference(from: imageQuery)) ?? []
-                    $0.images.append(objectsIn: neeToAddImages)
-                    print(" $0.images.append(objectsIn: neeToAddImages)", $0.images.append(objectsIn: neeToAddImages))
-                }
-                return imageQuery.mapNotNull { $0.convertToEntity() }
-            }.eraseToAnyPublisher()
+
+                    labelQuery.forEach {
+                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
+                            $0
+                        }
+                        .applying($0.images.difference(from: imageQuery)) ?? []
+                        $0.images.append(objectsIn: neeToAddImages)
+                        print("ImageRealmModel: ", neeToAddImages)
+                    }
+                    return imageQuery.mapNotNull { $0.convertToEntity() }
+                }.eraseToAnyPublisher()
     }
+
+//    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
+//        do {
+//            try realm.write {
+//                let needToAddedImages = images.filter { !$0.isCached }
+//
+//                needToAddedImages.forEach { entity in
+//
+//                    let model = ImageRealmModel()
+//                    model.source = entity.source
+//                    model.isBookmark = entity.isBookmark
+//
+//                    realm.add(model)
+//
+//                }
+//            }
+//        } catch let error as NSError {
+//            fatalError("realm error: \(error)")
+//        }
+//
+//        return
+//            Just((realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}, realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }})).asObservable()
+//                .map { imageQuery, labelQuery in
+//                    imageQuery.forEach {
+//                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.labels.difference(from: labelQuery)) ?? []
+//
+//                        $0.labels.append(objectsIn: neeToAddLabels)
+//                    }
+//
+//                    labelQuery.forEach {
+//                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.images.difference(from: imageQuery)) ?? []
+//                        $0.images.append(objectsIn: neeToAddImages)
+//                    }
+//                    return imageQuery.mapNotNull { $0.convertToEntity() }
+//                }.eraseToAnyPublisher()
+//    }
 
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
@@ -324,7 +314,7 @@ struct CachedData: CachedDataSource {
 
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity> {
         var id = ""
-        print("name", name, "color", color)
+
         do {
             try realm.write {
                 let needToAddModel = LabelRealmModel()

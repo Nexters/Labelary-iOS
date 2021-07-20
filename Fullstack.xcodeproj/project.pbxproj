@@ -10,7 +10,6 @@
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
-		2427AA7E269FB9EA00750B75 /* Pods_Fullstack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
 		24534F8F266F701600E77669 /* SColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2F25CC2276008D2941 /* SColor.swift */; };
@@ -105,7 +104,6 @@
 		56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68A25C05203008EEF2F /* RequestLabeling.swift */; };
 		56D1B68E25C0540D008EEF2F /* LoadAlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */; };
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
-		78C835E12D30D65763AEF34E /* Pods_Fullstack_ShareSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1E418C34D458815C34AE682 /* Pods_Fullstack_ShareSheet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,17 +117,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2427AA7F269FB9EA00750B75 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2427AA7E269FB9EA00750B75 /* Pods_Fullstack.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2475AB2F25D8FABD0086B24D /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,8 +131,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		01EE381F255E3D4296277904 /* Pods-Fullstack-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack-ShareSheet/Pods-Fullstack-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
-		1A7B3800B294FC07BB9E025D /* Pods-Fullstack-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-Fullstack-ShareSheet/Pods-Fullstack-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		241882DB25C95C8D00B062CF /* SearchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabelView.swift; sourceTree = "<group>"; };
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
 		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
@@ -240,7 +225,6 @@
 		56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSearchLabelData.swift; sourceTree = "<group>"; };
 		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
-		D1E418C34D458815C34AE682 /* Pods_Fullstack_ShareSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack_ShareSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,7 +241,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78C835E12D30D65763AEF34E /* Pods_Fullstack_ShareSheet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +251,6 @@
 			isa = PBXGroup;
 			children = (
 				514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */,
-				D1E418C34D458815C34AE682 /* Pods_Fullstack_ShareSheet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -610,8 +592,6 @@
 				A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */,
 				E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */,
 				7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */,
-				01EE381F255E3D4296277904 /* Pods-Fullstack-ShareSheet.debug.xcconfig */,
-				1A7B3800B294FC07BB9E025D /* Pods-Fullstack-ShareSheet.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -629,7 +609,6 @@
 				246159CB25B2DCC100F6D730 /* Resources */,
 				5EFA83F005B3F453B50F451F /* [CP] Embed Pods Frameworks */,
 				2475AB2F25D8FABD0086B24D /* Embed App Extensions */,
-				2427AA7F269FB9EA00750B75 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -645,7 +624,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2475AB2C25D8FABD0086B24D /* Build configuration list for PBXNativeTarget "ShareSheet" */;
 			buildPhases = (
-				71F58AB768C773794F4EB360 /* [CP] Check Pods Manifest.lock */,
 				2475AB1D25D8FABD0086B24D /* Sources */,
 				2475AB1E25D8FABD0086B24D /* Frameworks */,
 				2475AB1F25D8FABD0086B24D /* Resources */,
@@ -737,28 +715,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fullstack/Pods-Fullstack-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71F58AB768C773794F4EB360 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Fullstack-ShareSheet-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF6D36DA36425FDC04F63404 /* [CP] Check Pods Manifest.lock */ = {
@@ -1074,7 +1030,6 @@
 		};
 		2475AB2D25D8FABD0086B24D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01EE381F255E3D4296277904 /* Pods-Fullstack-ShareSheet.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1095,7 +1050,6 @@
 		};
 		2475AB2E25D8FABD0086B24D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A7B3800B294FC07BB9E025D /* Pods-Fullstack-ShareSheet.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;
