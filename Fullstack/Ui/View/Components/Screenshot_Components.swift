@@ -22,7 +22,7 @@ struct Screenshot: Identifiable {
 }
 
 struct CScreenShotView<NEXT_VIEW: View>: View {
-    @Binding var screenshot: ImageWrapper
+    @ObservedObject var imageViewModel: ImageViewModel
     let nextView: NEXT_VIEW
     let width: CGFloat
     let height: CGFloat
@@ -32,15 +32,14 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             NavigationLink(destination: nextView) {
-                ImageView(img : screenshot.image)                    
+                ImageView(viewModel: imageViewModel)
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
                     .padding(.leading, 2)
-                    .padding(.trailing, 2)
-                    .blur(radius: 3.0)
+                    .padding(.trailing, 2)                    
             }
 
-            switch screenshot.status {
+            switch imageViewModel.status {
             case .IDLE:
                 Group {}
             case .EDITING:
@@ -48,14 +47,14 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     .padding(.leading, 72)
                     .padding(.bottom, 191)
                     .onTapGesture {
-                        screenshot.status = .SELECTING
+                        imageViewModel.status = .SELECTING
                     }
             case .SELECTING:
                 Image("btn_check_selective")
                     .padding(.leading, 72)
                     .padding(.bottom, 191)
                     .onTapGesture {
-                        screenshot.status = .EDITING
+                        imageViewModel.status = .EDITING
                     }
             }
 

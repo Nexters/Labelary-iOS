@@ -8,24 +8,12 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var output = Output()
-    let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-
-    init() {
-        let cancelbag = CancelBag()
-        loadSearchMainData.get()
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [self] data in
-                    output.setImages(recentlyImages: data.recentlyImages, bookmarkImages: data.bookmarkedImages)
-                }
-            ).store(in: cancelbag)
-    }
+    @ObservedObject var viewmodel = ViewModel()
 
     var body: some View {
         ScrollView {
             VStack {
-                if !self.output.isEditing {
+                if !self.viewmodel.isEditing {
                     HStack(alignment: .firstTextBaseline) {
                         Text("홈")
                             .font(Font.H1_BOLD)
@@ -41,43 +29,38 @@ struct SearchView: View {
                             alignment: .topLeading)
                 }
 
-                SearchBar(keyword: self.$output.keyword, isEditing: self.$output.isEditing, labels: self.$output.selectedLabels)
+                SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing, labels: self.$viewmodel.selectedLabels)
                     .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
 
-                if self.output.isEditing {
-                    buildSearchView(keyword: self.output.keyword)
+                if self.viewmodel.isEditing {
+                    buildSearchView(keyword: self.viewmodel.keyword)
                 } else {
-                    buildSection(title: "최근 순 사진", images: output.recentlyImages, isRecently: true)
-                    buildSection(title: "즐겨찾는 스크린샷", images: output.bookmarkImages, isRecently: false)
+                    buildSection(title: "최근 순 사진", models: viewmodel.recentlyImages, isRecently: true)
+                    buildSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages, isRecently: false)
                 }
-            }
+            }.onAppear(perform: viewmodel.onAppear)
         }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
             .navigationBarTitle("")
             .navigationBarHidden(true)
     }
 
     @ViewBuilder
-    func buildSection(title: String, images: [ImageWrapper], isRecently: Bool) -> some View {
+    func buildSection(title: String, models: [ImageViewModel], isRecently: Bool) -> some View {
         HStack {
             Text(title)
                 .font(Font.B1_BOLD)
                 .foregroundColor(Color.PRIMARY_1)
             Spacer()
-            NavigationLink(destination: HomeDeatilView(images: images.map { $0.image })) {
+            NavigationLink(destination: HomeDeatilView(images: models.map { $0.image })) {
                 Image("icon_arrow")
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
 
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
-                ForEach(images.indices, id: \.self) { i in
-                    if isRecently {
-                        let screenShot = $output.recentlyImages[i]
-                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image, onChangeBookMark: { onChangeBookMark(id: output.recentlyImages[i].image.id, isBookmark: $0) }, onDeleteImage: onDeleteImage), width: 90, height: 195)
-                    } else {
-                        let screenShot = $output.bookmarkImages[i]
-                        CScreenShotView(screenshot: screenShot, nextView: ScreenShotDetailView(screenShot: screenShot.image, onChangeBookMark: { onChangeBookMark(id: output.recentlyImages[i].image.id, isBookmark: $0) }, onDeleteImage: onDeleteImage), width: 90, height: 195)
-                    }
+                ForEach(models.indices, id: \.self) { i in
+                    let model = models[i]
+                    CScreenShotView(imageViewModel: model, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
             }.padding(.leading, 16).padding(.trailing, 16)
         }
@@ -91,7 +74,7 @@ struct SearchView: View {
                     .font(Font.B2_MEDIUM)
                     .foregroundColor(Color.PRIMARY_2)
 
-                FlexibleView(data: output.labels.prefix(5), spacing: 10, alignment: HorizontalAlignment.leading) { label in
+                FlexibleView(data: viewmodel.labels.prefix(5), spacing: 10, alignment: HorizontalAlignment.leading) { label in
                     Text(label.name)
                         .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                         .font(Font.B1_REGULAR)
@@ -99,11 +82,11 @@ struct SearchView: View {
                         .background(label.color.deactive)
                         .cornerRadius(3)
                         .onTapGesture {
-                            if !output.selectedLabels.contains(label) {
-                                output.selectedLabels.append(label)
+                            if !viewmodel.selectedLabels.contains(label) {
+                                viewmodel.selectedLabels.append(label)
                             } else {
-                                if let index = self.output.selectedLabels.firstIndex(of: label) {
-                                    self.output.selectedLabels.remove(at: index)
+                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
+                                    self.viewmodel.selectedLabels.remove(at: index)
                                 }
                             }
                         }
@@ -114,12 +97,12 @@ struct SearchView: View {
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color.PRIMARY_2)
 
-                    Text("\(output.labels.count)")
+                    Text("\(viewmodel.labels.count)")
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color(hex: "257CCC"))
                         .padding(.leading, 4)
                 }.padding(.top, 40)
-                FlexibleView(data: output.labels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
+                FlexibleView(data: viewmodel.labels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
                     Text(label.name)
                         .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                         .font(Font.B1_REGULAR)
@@ -127,11 +110,11 @@ struct SearchView: View {
                         .background(label.color.deactive)
                         .cornerRadius(3)
                         .onTapGesture {
-                            if !output.selectedLabels.contains(label) {
-                                output.selectedLabels.append(label)
+                            if !viewmodel.selectedLabels.contains(label) {
+                                viewmodel.selectedLabels.append(label)
                             } else {
-                                if let index = self.output.selectedLabels.firstIndex(of: label) {
-                                    self.output.selectedLabels.remove(at: index)
+                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
+                                    self.viewmodel.selectedLabels.remove(at: index)
                                 }
                             }
                         }
@@ -144,12 +127,12 @@ struct SearchView: View {
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color.PRIMARY_2)
 
-                    Text("\(output.labels.filter { label in label.name.contains(keyword) }.count)")
+                    Text("\(viewmodel.labels.filter { label in label.name.contains(keyword) }.count)")
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color(hex: "257CCC"))
                         .padding(.leading, 4)
                 }.padding(.top, 40)
-                FlexibleView(data: output.labels.filter { label in label.name.contains(keyword) }, spacing: 10, alignment: HorizontalAlignment.leading) { label in
+                FlexibleView(data: viewmodel.labels.filter { label in label.name.contains(keyword) }, spacing: 10, alignment: HorizontalAlignment.leading) { label in
                     Text(label.name)
                         .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                         .font(Font.B1_REGULAR)
@@ -157,11 +140,11 @@ struct SearchView: View {
                         .background(label.color.deactive)
                         .cornerRadius(3)
                         .onTapGesture {
-                            if !output.selectedLabels.contains(label) {
-                                output.selectedLabels.append(label)
+                            if !viewmodel.selectedLabels.contains(label) {
+                                viewmodel.selectedLabels.append(label)
                             } else {
-                                if let index = self.output.selectedLabels.firstIndex(of: label) {
-                                    self.output.selectedLabels.remove(at: index)
+                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
+                                    self.viewmodel.selectedLabels.remove(at: index)
                                 }
                             }
                         }
@@ -169,29 +152,14 @@ struct SearchView: View {
             }.padding(20)
         }
     }
-    
-    
-
-    private func onChangeBookMark(id: String, isBookmark: Bool) {
-        var item = output.recentlyImages.filter { $0.image.id == id }.first!
-        item.image.isBookmark = isBookmark
-        if output.bookmarkImages.contains(where: { $0.image.id == item.image.id }) {
-            if !isBookmark {
-                output.bookmarkImages = output.bookmarkImages.filter { $0.image.id != item.image.id }
-            }
-        } else {
-            output.bookmarkImages.append(item)
-        }
-    }
 
     private func onDeleteImage(id: String) {
-        output.recentlyImages = output.recentlyImages.filter { $0.image.id != id }
-        output.bookmarkImages = output.bookmarkImages.filter { $0.image.id != id }
+        viewmodel.recentlyImages = viewmodel.recentlyImages.filter { $0.image.id != id }
     }
 
-    class Output: ObservableObject {
-        @Published var recentlyImages: [ImageWrapper] = []
-        @Published var bookmarkImages: [ImageWrapper] = []
+    class ViewModel: ObservableObject {
+        @Published var recentlyImages: [ImageViewModel] = []
+        @Published var bookmarImages: [ImageViewModel] = []
         @Published var isEditing: Bool = false
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = [
@@ -210,10 +178,50 @@ struct SearchView: View {
         ]
 
         @Published var selectedLabels: [LabelEntity] = []
+        let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let cancelbag = CancelBag()
 
-        func setImages(recentlyImages: [ImageEntity], bookmarkImages: [ImageEntity]) {
-            self.recentlyImages = recentlyImages.map { ImageWrapper(imageEntity: $0, status: .IDLE) }
-            self.bookmarkImages = bookmarkImages.map { ImageWrapper(imageEntity: $0, status: .IDLE) }
+        var cachedImages: [ImageEntity] = []
+
+        init() {
+            refresh()
+        }
+
+        func refresh() {
+            loadSearchMainData.get()
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { data in
+                        self.recentlyImages = data.recentlyImages.map { ImageViewModel(image: $0) }
+                        self.bookmarImages = data.bookmarkedImages.map { ImageViewModel(image: $0) }
+                    }
+                ).store(in: cancelbag)
+        }
+
+        func onChangeBookMark(entity: ImageEntity) {
+            cachedImages.append(entity)
+        }
+
+        func onAppear() {
+            print("onAppear\(cachedImages)")
+            cachedImages.forEach { entity in
+                if entity.isBookmark {
+                    if !bookmarImages.contains(where: { $0.image.id == entity.id }) {
+                        if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {
+                            item.image = entity
+                            bookmarImages.insert(item, at: 0)
+                            item.reload()
+                        }
+                    }
+                } else {
+                    if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {
+                        item.image = entity
+                        item.reload()
+                    }
+                    bookmarImages.removeAll(where: { $0.image.id == entity.id })
+                }
+            }
+            cachedImages = []
         }
     }
 }

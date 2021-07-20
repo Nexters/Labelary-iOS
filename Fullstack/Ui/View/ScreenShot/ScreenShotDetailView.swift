@@ -10,23 +10,19 @@ import Photos
 import SwiftUI
 
 struct ScreenShotDetailView: View {
-//    @Binding var imageEntity : ImageEntity
     @Environment(\.presentationMode) var presentationMode
-    @Binding var screenShot: ImageEntity
-    @State var isOnHover: Bool = true
-    let requestBookmarkImage = BookmarkImage(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-    let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-    let onChangeBookMark: (Bool) -> Void
+    @ObservedObject var viewmodel: ViewModel
+    let onChangeBookMark: (ImageEntity) -> Void
     let onDeleteImage: (String) -> Void
 
     var body: some View {
         ZStack {
             ZStack(alignment: .center) {
-                ImageView(img: screenShot)
+                ImageView(viewModel: viewmodel.imageViewModel)
                     .aspectRatio(contentMode: .fit)
             }
             VStack(spacing: 0) {
-                if isOnHover {
+                if viewmodel.isOnHover {
                     HStack {
                         Image("ico_back")
                             .onTapGesture {
@@ -44,9 +40,9 @@ struct ScreenShotDetailView: View {
 
                 Spacer()
 
-                if isOnHover {
+                if viewmodel.isOnHover {
                     HStack {
-                        if screenShot.labels.isEmpty {
+                        if viewmodel.imageViewModel.image.labels.isEmpty {
                             Text("스크린샷에 추가된 라벨이 없습니다.")
                                 .font(Font.B1_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_3)
@@ -54,8 +50,8 @@ struct ScreenShotDetailView: View {
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach(screenShot.labels.indices, id: \.self) { i in
-                                        let label = screenShot.labels[i]
+                                    ForEach(viewmodel.imageViewModel.image.labels.indices, id: \.self) { i in
+                                        let label = viewmodel.imageViewModel.image.labels[i]
                                         Text(label.name)
                                             .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                                             .font(Font.B1_REGULAR)
@@ -77,19 +73,18 @@ struct ScreenShotDetailView: View {
                     ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
                     HStack {
                         Image("ico_delete_active").onTapGesture {
-                            delete()
+                            viewmodel.delete()
                         }
                         Spacer()
-                        if screenShot.isBookmark {
+                        if viewmodel.imageViewModel.image.isBookmark {
                             Image("ico_heart_active").onTapGesture {
-                                changeBookMark()
+                                viewmodel.changeBookMark()
                             }
                         } else {
                             Image("ico_heart").onTapGesture {
-                                changeBookMark()
+                                viewmodel.changeBookMark()
                             }
                         }
-
                         Spacer()
                         Image("ico_share")
                     }.padding(EdgeInsets(top: 22, leading: 34, bottom: 56, trailing: 34))
@@ -99,39 +94,54 @@ struct ScreenShotDetailView: View {
             }.edgesIgnoringSafeArea([.top, .bottom])
 
         }.onTapGesture {
-            self.isOnHover = !isOnHover
+            viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
     }
 
-    private func changeBookMark() {
-        requestBookmarkImage.get(param: BookmarkImage.Param(isActive: !screenShot.isBookmark, image: screenShot))
-            .sink(receiveCompletion: { complete in print("\(complete)") }, receiveValue: { data in
-                print("\(data)")
-                screenShot = data
-                onChangeBookMark(data.isBookmark)
-            })
-    }
+    class ViewModel: ObservableObject {
+        @Published var imageViewModel: ImageViewModel
+        @Published var isOnHover: Bool = true
+        let onChangeBookmark: (ImageEntity) -> Void
 
-    private func delete() {
-        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [screenShot.source], options: nil).firstObject!
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
-        }, completionHandler: { isDone, error in
-            print("idDone \(isDone) : \(Thread.current.isMainThread)")
-            if isDone {
-                DispatchQueue.main.async {
-                    onDeleteImage(screenShot.id)
-                    self.presentationMode.wrappedValue.dismiss()
+        let requestBookmarkImage = BookmarkImage(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let cancelbag = CancelBag()
+
+        init(imageViewModel: ImageViewModel, onChangeBookmark: @escaping (ImageEntity) -> Void) {
+            self.imageViewModel = imageViewModel
+            self.onChangeBookmark = onChangeBookmark
+        }
+
+        func changeBookMark() {
+            let isBookMark = !imageViewModel.image.isBookmark
+            requestBookmarkImage.get(param: BookmarkImage.Param(isActive: isBookMark, image: imageViewModel.image))
+                .sink(receiveCompletion: { complete in print("\(complete)") }, receiveValue: { data in
+                    DispatchQueue.main.async {
+                        print(data)
+                        self.imageViewModel = ImageViewModel(image: data)                        
+                        self.onChangeBookmark(data)
+                    }
+                }).store(in: cancelbag)
+        }
+
+        func delete() {
+            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+            }, completionHandler: { isDone, error in
+                print("idDone \(isDone) : \(Thread.current.isMainThread)")
+                if isDone {
+                    self.deleteImages.get(param: [self.imageViewModel.image])
+                        .sink(receiveCompletion: { _ in
+//                            onDeleteImage(viewmodel.screenShot.id)
+//                            self.presentationMode.wrappedValue.dismiss()
+                        }, receiveValue: { _ in })
+                        .store(in: self.cancelbag)
+                } else {
+                    print(error.debugDescription)
                 }
-//                deleteImages.get(param: [screenShot])
-//                    .sink(receiveCompletion: { _ in
-//                        onDeleteImage(screenShot.id)
-//                        self.presentationMode.wrappedValue.dismiss()
-//                    }, receiveValue: { _ in })
-            } else {
-                print(error.debugDescription)
-            }
-        })
+            })
+        }
     }
 }
 
