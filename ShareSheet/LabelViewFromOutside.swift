@@ -69,7 +69,7 @@ struct LabelViewFromOutside: View {
     @State var showAddLabelView: Bool = false
     @ObservedObject var output = Output()
     @ObservedObject var sharedImage: model // 전달 받은 객체
-
+    @State var showToast = false
     var body: some View {
         NavigationView {
             ZStack {
@@ -169,19 +169,21 @@ struct LabelViewFromOutside: View {
                         .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                         .opacity(selectedLabels.count > 0 ? 1 : 0)
                 }
-                .navigationBarTitle(Text("스크린샷 라벨 추가").font(Font.system(size: 16, weight: .heavy)), displayMode: .inline)
+                .navigationBarTitle(Text("스크린샷 라벨 추가"), displayMode: .inline)
                 .navigationBarItems(leading:
                     Button(action: {}, label: {
                         Image("btn_cancel")
                     }),
                     trailing: Button(action: {
-                        // 사진, label 묶어서 저장
+                        self.showToast = true
+                        print("완료버튼 작동")
                     }, label: {
                         Text("완료").font(Font.system(size: 16))
                             .foregroundColor(Color.KEY_ACTIVE)
                     }))
             }
         }
+        .overlay(overlayView: customToast(show: $showToast), show: $showToast)
     }
 
     class Output: ObservableObject {

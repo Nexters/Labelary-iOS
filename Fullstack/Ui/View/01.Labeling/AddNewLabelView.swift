@@ -63,12 +63,9 @@ struct AddNewLabelView: View {
     @State var isSelected: Bool = false
     @State private var selectedColor: String = ""
     @State private var color: ColorSet = .RED()
-    @State private var action: Bool = false
 
     let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-
-    let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] // realm db 파일 어디있는지 출력
     let cancelbag = CancelBag()
     var body: some View {
         VStack {
@@ -117,6 +114,7 @@ struct AddNewLabelView: View {
                             self.isSelected = true
                             self.selectedColor = self.labelButtons[button]
                             color = setLabelColor(_color: selectedColor)
+
                         }) {
                             if selectedIndex == button {
                                 Image("Label_middle_Selected_\(self.labelButtons[button])")
@@ -139,39 +137,27 @@ struct AddNewLabelView: View {
                         .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                         .onTapGesture {
                             if self.isSelected {
-                                do {
-                                    try realm.write {
-                                        createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
-                                            .sink(receiveCompletion: { _ in
-                                                print("complete create label")
+                                createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                    .sink(receiveCompletion: { _ in
+                                        print("complete create label")
 
-                                            }, receiveValue: { data in
-                                                
-                                                print("AddNewLabelView에서 데이타 : ")
-                                                print(data)
-                                                
-                                            }).store(in: cancelbag)
-                                    }
+                                    }, receiveValue: { _ in
+                                    }).store(in: cancelbag)
 
-                                } catch {
-                                    print(error)
-                                }
-
-                                self.action = true
+                                onClickedBackBtn()
                             }
                         }
                 }
-                NavigationLink(
-                    destination: AddLabelingView(),
-                    isActive: self.$action
-                ) {}
             }
         }
         Spacer()
+
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                 HStack {
-                    Button(action: onClickedBackBtn) {
+                    Button(action: {
+                        onClickedBackBtn()
+                    }) {
                         Image("navigation_back_btn")
                     }
                     Spacer(minLength: 80)

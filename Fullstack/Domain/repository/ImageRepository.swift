@@ -9,7 +9,7 @@ import Foundation
 
 protocol ImageRepository {
     func getAllImages() -> Observable<[ImageEntity]>
-    func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]>
+    func getUnLabeledImages() -> Observable<[ImageEntity]>
     func getLabeldImages() -> Observable<[ImageEntity]>
 
     func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]>

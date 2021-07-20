@@ -14,8 +14,8 @@ struct ImageRepositoryImpl: ImageRepository {
         return cachedDataSource.getAllImages()
     }
     
-    func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]> {
-        return cachedDataSource.getUnLabeledImages(filtered: filtered)
+    func getUnLabeledImages() -> Observable<[ImageEntity]> {
+        return cachedDataSource.getUnLabeledImages()
     }
     
     func getLabeldImages() -> Observable<[ImageEntity]> {

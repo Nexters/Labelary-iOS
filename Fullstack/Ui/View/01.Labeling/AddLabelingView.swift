@@ -117,17 +117,26 @@ struct LabelRowItemView: View {
     }
 }
 
+class ShowAddNewLabelView: ObservableObject {
+    @Published var pushed = false
+}
+
 // MARK: - Parent View
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
+    @ObservedObject var model = ShowAddNewLabelView()
     @ObservedObject var output = Output()
     @State var filters: [LabelEntity] = []
-    @State var showAddLabelingView = false
+    @State var showNewAddLabelingView = false
     @State var showSearchLabelView = false
     @State var isEdited = false
     @State var presentingToast: Bool = false
+    @ObservedObject var needToLabelingData = NeedToLabelingData()
     let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+    let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
     init() {
         let cancelBag = CancelBag()
@@ -150,9 +159,9 @@ struct AddLabelingView: View {
         showSearchLabelView = true
     }
 
-    func onClickedAddBtn() {
-        showAddLabelingView = true
-    }
+//    func onClickedAddBtn() {
+//        showAddLabelingView = true
+//    }
 
     func onClickedConfirmBtn() {
         isEdited = true
@@ -173,70 +182,88 @@ struct AddLabelingView: View {
         VStack {
             // MARK: - List of Badge Views of selected labels
 
-            VStack(alignment: .leading) {
-                if filters.count > 0 {
-                    HStack {
-                        Text("선택한 라벨")
-                        Text("\(filters.count)").foregroundColor(Color.PRIMARY_2)
-                            .font(.custom("Apple SD Gothic Neo", size: 14))
+            if output.labels.count == 0 {
+                DefaultView()
+            } else {
+                VStack(alignment: .leading) {
+                    if filters.count > 0 {
+                        HStack {
+                            Text("선택한 라벨")
+                            Text("\(filters.count)").foregroundColor(Color.PRIMARY_2)
+                                .font(.custom("Apple SD Gothic Neo", size: 14))
 
-                    }.padding(.leading, 15)
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(filters, id: \.self) { filter in
-                            Badge(name: filter.name, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
-                                withAnimation {
-                                    if let firstIndex = filters.firstIndex(of: filter) {
-                                        filters.remove(at: firstIndex)
+                        }.padding(.leading, 15)
+                    }
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(filters, id: \.self) { filter in
+                                Badge(name: filter.name, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                    withAnimation {
+                                        if let firstIndex = filters.firstIndex(of: filter) {
+                                            filters.remove(at: firstIndex)
+                                        }
                                     }
-                                }
-                            })
-                                .transition(.opacity)
+                                })
+                                    .transition(.opacity)
+                            }
+                        }
+                    }.padding(15)
+                }
+
+                // MARK: - List of the Labels
+
+                ZStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(output.labels, id: \.self) { label in
+                                LabelRowItemView(label: label,
+                                                 selectedLabels: $filters)
+                            }
                         }
                     }
-                }.padding(15)
-            }
 
-            // MARK: - List of the Labels
+                    Button(action: {
+                        let cancelBag = CancelBag()
 
-            ZStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack {
-                        ForEach(output.labels, id: \.self) { label in
-                            LabelRowItemView(label: label,
-                                             selectedLabels: $filters)
-                        }
+                        self.output.selectedLabels = filters
+                        neededData.labelData = self.output.selectedLabels
+                        print("neededData.labelData [] :", neededData.labelData)
+                        print("neededData.imageData [] :", neededData.imageData)
+
+                        requestLabeling.get(param: RequestLabeling.RequestData(labels: neededData.labelData, images: neededData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: { data in
+                            print("이미지 라벨링 데이터", data)
+                        }).store(in: cancelBag)
+                        neededData.isCompleted = true
+                        presentationMode.wrappedValue.dismiss() // 뒤로 가기 ?
+                        self.presentingToast = true
+
+                    }) {
+                        Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
                     }
-                }
-
-                Button(action: {
-                    self.presentingToast = true
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
-                }
-                .foregroundColor(Color.white)
-                .frame(width: 70, height: 52)
-                .background(Color(red: 56/255, green: 124/255, blue: 255/255))
-                .padding(21)
-                .cornerRadius(2)
-                .offset(x: 89, y: 219)
-                .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
-                    ToastView("스크린샷에 라벨이 추가되었습니다.") {
-                        // labeling logic
+                    .foregroundColor(Color.white)
+                    .frame(width: 70, height: 52)
+                    .background(Color(red: 56/255, green: 124/255, blue: 255/255))
+                    .padding(21)
+                    .cornerRadius(2)
+                    .offset(x: 89, y: 219)
+                    .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
+                        ToastView("스크린샷에 라벨이 추가되었습니다.") {}
+                            .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                            .padding(20)
                     }
-                    .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                    .padding(20)
+                    .opacity(filters.count > 0 ? 1 : 0)
                 }
-                .opacity(filters.count > 0 ? 1 : 0)
             }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
 
             HStack {
-                Button(action: onClickedBackBtn) {
+                // 뒤로가기버튼
+                Button(action: {
+                    self.onClickedBackBtn()
+                }) {
                     Image("navigation_back_btn")
                 }.offset(x: 20)
 
@@ -245,29 +272,30 @@ struct AddLabelingView: View {
                     .font(.custom("Apple SD Gothic Neo", size: 16))
                     .font(Font.body.bold())
                 Spacer(minLength: 30)
+
+                // 라벨 검색 버튼
                 Button(action: {
                     showSearchLabelView = true
                 }) {
                     ZStack {
-                        Image("navigation_bar_search_btn")
                         NavigationLink(
                             destination: SearchLabelView(),
                             isActive: $showSearchLabelView
-                        ) {}
-                          //  .isDetailLink(false)
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_search_btn")
                     }
                 }
 
                 Button(action: {
-                    showAddLabelingView = true
+                    // showNewAddLabelingView = true
+                    self.model.pushed = true
                 }) {
                     ZStack {
-                        Image("navigation_bar_plus_btn")
                         NavigationLink(
                             destination: AddNewLabelView(),
-                            isActive: $showAddLabelingView
-                        ) {}
-                           // .isDetailLink(false)
+                            isActive: $model.pushed
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_plus_btn")
                     }
                 }
             }
@@ -276,7 +304,6 @@ struct AddLabelingView: View {
 
     class Output: ObservableObject {
         @Published var labels: [LabelEntity] = []
-
         @Published var selectedLabels: [LabelEntity] = []
     }
 }

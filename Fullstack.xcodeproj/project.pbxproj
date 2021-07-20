@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2307B4153FE004B3E5EFC2D4 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
+		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
+		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
 		24534F8F266F701600E77669 /* SColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2F25CC2276008D2941 /* SColor.swift */; };
 		24534F94266F708F00E77669 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
@@ -130,6 +131,7 @@
 /* Begin PBXFileReference section */
 		241882DB25C95C8D00B062CF /* SearchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabelView.swift; sourceTree = "<group>"; };
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
+		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
 		2437675225DB3BB1003A51AB /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		245A663A25DBDE6F00A8DAF8 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		246159CD25B2DCC100F6D730 /* Fullstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fullstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,7 +217,9 @@
 		56D1B68A25C05203008EEF2F /* RequestLabeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLabeling.swift; sourceTree = "<group>"; };
 		56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAlbumData.swift; sourceTree = "<group>"; };
 		56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSearchLabelData.swift; sourceTree = "<group>"; };
+		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
+		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,7 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2307B4153FE004B3E5EFC2D4 /* Pods_Fullstack.framework in Frameworks */,
+				2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +375,7 @@
 				2475AB2525D8FABD0086B24D /* MainInterface.storyboard */,
 				2475AB2825D8FABD0086B24D /* Info.plist */,
 				24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */,
+				2427AAAC269FC1CF00750B75 /* customToast.swift */,
 				248CE63025F74B1C00FA7892 /* AddLabelView.swift */,
 				24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */,
 				24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */,
@@ -575,6 +580,8 @@
 			children = (
 				34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */,
 				A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */,
+				E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */,
+				7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -818,6 +825,7 @@
 				248A048326661A81007EE062 /* Entity.swift in Sources */,
 				24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */,
 				24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */,
+				2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */,
 				248A049A26661A86007EE062 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

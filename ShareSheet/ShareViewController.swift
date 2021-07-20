@@ -59,6 +59,12 @@ class ShareViewController: UIViewController {
             }
         }
     }
+    
+//    //swiftUI에서 cancel 버튼 눌렀을 때 share extension 내리는 메소드
+//    private func cancelShareExtension()
+//    {
+//
+//    }
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
@@ -99,7 +105,9 @@ class ShareNavigationController: UINavigationController {
 
 class model: ObservableObject {
     @Published var imageData: UIImage?
+
     init(imageData: UIImage) {
         self.imageData = imageData // imageData from the url
     }
+    
 }

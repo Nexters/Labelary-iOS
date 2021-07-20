@@ -63,10 +63,10 @@ enum ColorSet: VO {
         textDark: Color = Color.TEXT_GREEN_DARK
     )
     case VIOLET(
-            active: Color = Color.LABEL_VIOLET_ACTIVE,
-            deactive: Color = Color.LABEL_VIOLET_DEACTIVE,
-            text: Color = Color.TEXT_VIOLET,
-            textDark: Color = Color.TEXT_VIOLET_DARK
+        active: Color = Color.LABEL_VIOLET_ACTIVE,
+        deactive: Color = Color.LABEL_VIOLET_DEACTIVE,
+        text: Color = Color.TEXT_VIOLET,
+        textDark: Color = Color.TEXT_VIOLET_DARK
     )
 }
 
@@ -137,5 +137,51 @@ extension ColorSet {
         case .VIOLET(_, _, _, let textDark): color = textDark
         }
         return color
+    }
+}
+
+extension ColorSet: RawRepresentable {
+    public typealias rawValue = String
+
+    public init?(rawValue: rawValue) {
+        switch rawValue {
+        case "RED": self = .RED()
+        case "ORANGE": self = .ORANGE()
+        case "YELLOW": self = .YELLOW()
+        case "GREEN": self = .GREEN()
+        case "PEACOCK_GREEN": self = .PEACOCK_GREEN()
+        case "BLUE": self = .BLUE()
+        case "CONBALT_BLUE": self = .CONBALT_BLUE()
+        case "PINK": self = .PINK()
+        case "GRAY": self = .GRAY()
+        case "VIOLET": self = .VIOLET()
+        default:
+            return nil
+        }
+    }
+
+    public var rawValue: rawValue {
+        switch self {
+        case .RED:
+            return "RED"
+        case .ORANGE:
+            return "ORANGE"
+        case .YELLOW:
+            return "YELLOW"
+        case .GREEN:
+            return "GREEN"
+        case .PEACOCK_GREEN:
+            return "PEACOCK_GREEN"
+        case .BLUE:
+            return "BLUE"
+        case .CONBALT_BLUE:
+            return "CONBALT_BLUE"
+        case .PINK:
+            return "PINK"
+        case .GRAY:
+            return "GRAY"
+        case .VIOLET:
+            return "VIOLET"
+        }
     }
 }

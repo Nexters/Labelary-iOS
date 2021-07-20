@@ -9,33 +9,36 @@ import SwiftUI
 
 // 라벨이 없을때 화면
 struct DefaultView: View {
+    @State private var show: Bool = false
+
     var body: some View {
         VStack {
-            Spacer(minLength: 254)
+            Spacer()
             Image("ico_empty_album")
                 .padding(40)
             Text("라벨이 없습니다.")
+                .font(Font.H3_BOLD)
                 .foregroundColor(Color.primary)
                 .padding(14)
-            Text("라벨을 생성하여 스크린샷에\n 라벨을 추가해보세요.")
-                .foregroundColor(Color.secondary)
-                .padding(60)
-
-            Button(action: {
-                // 라벨 생성하기로 이동 (+버튼)
-            }) {
-                Image("create_label")
+            VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
+                Text("라벨을 생성하여 스크린샷에")
+                Text("라벨을 추가해보세요.")
             }
-            Spacer()
-        }.background(Color.black)
-    }
-}
+            .font(Font.B1_REGULAR)
+            .foregroundColor(Color.secondary)
+  
+            Button(action: {
+                self.show = true
+            }, label: {
+                NavigationLink(
+                    destination: AddNewLabelView(),
+                    isActive: $show
+                ) {
+                    Image("create_label")
+                }
+            }).offset(y: 60)
 
-struct DefaultView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            DefaultView()
-            DefaultView()
-        }
+            Spacer().frame(height: 269)
+        }.background(Color.black)
     }
 }

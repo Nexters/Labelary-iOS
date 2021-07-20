@@ -14,7 +14,7 @@ struct LoadSearchLabelData: Usecase {
     
     let labelRepository: LabelRepository
     
-    func get(param: Param) -> Observable<Result> {
+    func get(param: Param = ()) -> Observable<Result> {
         return Publishers.Zip(
             labelRepository.getRecentSearcheLabels(count: 10),
             labelRepository.getRecentCreatedLabels(count: nil)

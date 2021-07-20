@@ -29,8 +29,10 @@ struct CachedData: CachedDataSource {
             .asObservable()
     }
 
-    func getUnLabeledImages(filtered: [ImageEntity]) -> Observable<[ImageEntity]> {
-        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil).firstObject
+
+    func getUnLabeledImages() -> Observable<[ImageEntity]> {
+        let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
@@ -105,30 +107,91 @@ struct CachedData: CachedDataSource {
     }
 
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
-        let needToAddedImages = images.filter { !$0.isCached }
-        needToAddedImages.forEach { entity in
-            let model = realm.create(ImageRealmModel.self)
-            model.source = entity.source
-            model.isBookmark = entity.isBookmark
-        }
-        let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-            .filter { item in images.contains { $0.id == item.id }}
+        let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
+        let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
-        let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
-            .filter { item in labels.contains { $0.id == item.id }}
-        return Just((imageQuery, labelQuery)).asObservable()
-            .map { imageQuery, labelQuery in
-                imageQuery.forEach {
-                    let neeToAddLabels: [LabelRealmModel] = labelQuery.applying($0.labels.difference(from: labelQuery)) ?? []
-                    $0.labels.append(objectsIn: neeToAddLabels)
+        do {
+            try realm.write {
+                let needToAddedImages = images.filter { !$0.isCached }
+
+                needToAddedImages.forEach { entity in
+
+                    let model = ImageRealmModel()
+
+                    model.source = entity.source
+                    model.isBookmark = entity.isBookmark
+                    realm.add(model)
                 }
-                labelQuery.forEach {
-                    let neeToAddImages: [ImageRealmModel] = imageQuery.applying($0.images.difference(from: imageQuery)) ?? []
-                    $0.images.append(objectsIn: neeToAddImages)
-                }
-                return imageQuery.mapNotNull { $0.convertToEntity() }
-            }.eraseToAnyPublisher()
+            }
+        } catch let error as NSError {
+            fatalError("realm error: \(error)")
+        }
+
+        return
+            Just((imageQuery, labelQuery)).asObservable()
+                .map { imageQuery, labelQuery in
+                    imageQuery.forEach {
+                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
+                            $0
+                        }
+                        .applying($0.labels.difference(from: labelQuery)) ?? []
+                        $0.labels.append(objectsIn: neeToAddLabels)
+                        print("LabelRealmModel: ", neeToAddLabels)
+                    }
+
+                    labelQuery.forEach {
+                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
+                            $0
+                        }
+                        .applying($0.images.difference(from: imageQuery)) ?? []
+                        $0.images.append(objectsIn: neeToAddImages)
+                        print("ImageRealmModel: ", neeToAddImages)
+                    }
+                    return imageQuery.mapNotNull { $0.convertToEntity() }
+                }.eraseToAnyPublisher()
     }
+
+//    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
+//        do {
+//            try realm.write {
+//                let needToAddedImages = images.filter { !$0.isCached }
+//
+//                needToAddedImages.forEach { entity in
+//
+//                    let model = ImageRealmModel()
+//                    model.source = entity.source
+//                    model.isBookmark = entity.isBookmark
+//
+//                    realm.add(model)
+//
+//                }
+//            }
+//        } catch let error as NSError {
+//            fatalError("realm error: \(error)")
+//        }
+//
+//        return
+//            Just((realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}, realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }})).asObservable()
+//                .map { imageQuery, labelQuery in
+//                    imageQuery.forEach {
+//                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.labels.difference(from: labelQuery)) ?? []
+//
+//                        $0.labels.append(objectsIn: neeToAddLabels)
+//                    }
+//
+//                    labelQuery.forEach {
+//                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.images.difference(from: imageQuery)) ?? []
+//                        $0.images.append(objectsIn: neeToAddImages)
+//                    }
+//                    return imageQuery.mapNotNull { $0.convertToEntity() }
+//                }.eraseToAnyPublisher()
+//    }
 
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
@@ -251,14 +314,24 @@ struct CachedData: CachedDataSource {
     }
 
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity> {
-        let needToAddModel: LabelRealmModel = LabelRealmModel()
-        needToAddModel.name = name
-        needToAddModel.color = color
-        needToAddModel.createdAt = Date()
+        var id = ""
 
-        return Just(needToAddModel).asObservable()
+        do {
+            try realm.write {
+                let needToAddModel = LabelRealmModel()
+                id = needToAddModel.id
+                needToAddModel.name = name
+                needToAddModel.color = color.rawValue
+                needToAddModel.createdAt = Date()
+                realm.add(needToAddModel)
+                print("needToAddModel:", needToAddModel)
+            }
+        } catch let error as NSError {
+            fatalError("Error opening realm : \(error)")
+        }
+        return Just(realm.objects(LabelRealmModel.self).first(where: { $0.id == id })).asObservable()
             .tryMap { item in
-                guard let entity = item.convertToEntity() else {
+                guard let entity = item!.convertToEntity() else {
                     throw DomainError.DoNotFoundEntity
                 }
 
@@ -286,7 +359,7 @@ struct CachedData: CachedDataSource {
                 guard let unwrappedItem = item else {
                     throw DomainError.DoNotFoundEntity
                 }
-                unwrappedItem.color = label.color
+                unwrappedItem.color = label.color.rawValue
                 unwrappedItem.name = label.name
                 guard let entity = unwrappedItem.convertToEntity() else {
                     throw DomainError.ConvertError

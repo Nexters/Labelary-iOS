@@ -6,14 +6,24 @@
 //
 
 import Foundation
-import RealmSwift
+import RealmSwift 
 
 class LabelRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
-    dynamic var name: String = ""
-    dynamic var color = ColorSet.RED()
+    @objc dynamic var name: String = ""
+    @objc dynamic var color: String = ""
+
+    var colorType: ColorSet {
+        get {
+            return ColorSet(rawValue: color) ?? ColorSet.RED()
+        }
+        set {
+            color = newValue.rawValue
+        } 
+    }
+
     dynamic var images: List<ImageRealmModel> = List()
-    dynamic var createdAt: Date?
+    @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
 
     override static func primaryKey() -> String {
@@ -22,7 +32,9 @@ class LabelRealmModel: Object {
 }
 
 extension LabelRealmModel {
-    func convertToEntity() -> LabelEntity? {        
+
+    func convertToEntity() -> LabelEntity? {
+
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
@@ -30,7 +42,7 @@ extension LabelRealmModel {
         return LabelEntity(
             id: self.id,
             name: self.name,
-            color: self.color, // 여기서 RED..?
+            color: ColorSet(rawValue: self.color)!, 
             images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,

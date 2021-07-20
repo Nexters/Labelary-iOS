@@ -55,14 +55,34 @@ struct SearchBarTextField: UIViewRepresentable {
 
 struct SearchLabelView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var model = ShowAddNewLabelView()
     @State private var isEditing: Bool = false
     @State private var keyword: String = ""
     @State var selectedLabel: String = ""
     @ObservedObject var output = Output()
-    @State private var recentKeywords: [LabelEntity] = [LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-                                                        LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-                                                        LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-                                                        LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date())]
+    @State private var recentKeywords: [LabelEntity] = []
+
+    let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+    // get all labels
+    let searchLabel = SearchLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+    // 키워드로 라벨 검색
+    let loadSearchLabelData = LoadSearchLabelData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+    // 최근 검색한 라벨 데이타 불러오기
+
+    init() {
+        let cancelBag = CancelBag()
+        loadLabelingSelectData.get()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [self] data in
+                      output.labels = data
+                  }).store(in: cancelBag)
+
+        loadSearchLabelData.get()
+            .sink(receiveCompletion: { _ in }, receiveValue: {
+                [self] data in
+                output.recentlySearchedLabels = data.recentlySearchedLabels
+            }).store(in: cancelBag)
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -196,21 +216,9 @@ struct SearchLabelView: View {
     }
 
     class Output: ObservableObject {
-        @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
-        ]
+        @Published var labels: [LabelEntity] = [] // get all labels
 
-        @Published var selectedLabels: [LabelEntity] = []
+        @Published var selectedLabels: [LabelEntity] = [] // 선택한 라벨
+        @Published var recentlySearchedLabels: [LabelEntity] = [] // 최근에 검색한 라벨
     }
 }
