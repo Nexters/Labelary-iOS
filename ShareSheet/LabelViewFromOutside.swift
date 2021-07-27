@@ -5,7 +5,9 @@
 //  Created by 우민지 on 2021/02/15.
 //
 
+import MobileCoreServices
 import SwiftUI
+import UIKit
 
 func giveLabelBackgroundColor(color: String) -> Color {
     switch color {
@@ -61,14 +63,21 @@ func giveTextForegroundColor(color: String) -> Color {
     }
 }
 
+class ShareExtensionViewObservable: ObservableObject {
+    @Published var dismiss: Bool = false
+}
+
 struct LabelViewFromOutside: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var keyword: String = ""
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [LabelEntity] = []
     @State var showAddLabelView: Bool = false
+
     @ObservedObject var output = Output()
     @ObservedObject var sharedImage: model // 전달 받은 객체
+    @ObservedObject var shareExtension = ShareExtensionViewObservable()
+    
     @State var showToast = false
     var body: some View {
         NavigationView {
@@ -171,11 +180,14 @@ struct LabelViewFromOutside: View {
                 }
                 .navigationBarTitle(Text("스크린샷 라벨 추가"), displayMode: .inline)
                 .navigationBarItems(leading:
-                    Button(action: {}, label: {
+                    Button(action: {
+                        self.shareExtension.dismiss = true
+                    }, label: {
                         Image("btn_cancel")
                     }),
                     trailing: Button(action: {
                         self.showToast = true
+
                         print("완료버튼 작동")
                     }, label: {
                         Text("완료").font(Font.system(size: 16))

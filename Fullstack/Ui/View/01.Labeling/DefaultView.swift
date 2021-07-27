@@ -26,15 +26,16 @@ struct DefaultView: View {
             }
             .font(Font.B1_REGULAR)
             .foregroundColor(Color.secondary)
-  
+
             Button(action: {
                 self.show = true
             }, label: {
-                NavigationLink(
-                    destination: AddNewLabelView(),
-                    isActive: $show
-                ) {
+                ZStack {
                     Image("create_label")
+                    NavigationLink(
+                        destination: AddNewLabelView(),
+                        isActive: $show
+                    ) {}.isDetailLink(false)
                 }
             }).offset(y: 60)
 

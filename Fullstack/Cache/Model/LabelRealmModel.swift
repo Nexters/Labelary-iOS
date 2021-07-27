@@ -21,12 +21,13 @@ class LabelRealmModel: Object {
             color = newValue.rawValue
         } 
     }
+    
 
     dynamic var images: List<ImageRealmModel> = List()
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
 
-    override static func primaryKey() -> String {
+    override static func primaryKey() -> String? {
         return "id"
     }
 }
@@ -48,3 +49,5 @@ extension LabelRealmModel {
         )
     }
 }
+
+

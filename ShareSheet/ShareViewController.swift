@@ -12,7 +12,7 @@ import UIKit
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
     @IBOutlet var container: UIView!
-
+    @ObservedObject var shareExtension = ShareExtensionViewObservable()
     var tempImage = UIImage()
     private var sharedImage = model(imageData: UIImage())
 
@@ -27,11 +27,18 @@ class ShareViewController: UIViewController {
         container.addSubview(childView.view)
     }
 
-    // view will appear 에 할지 didload에 할지 고민..
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
+        if shareExtension.dismiss {
+            print("dismiss share extension ")
+            let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
+            navigationItem.setLeftBarButton(itemCancel, animated: true)
+        }
 
+    }
+    
+  
     // MARK: - Get Image file from share extension
 
     func getImage() {
@@ -60,11 +67,6 @@ class ShareViewController: UIViewController {
         }
     }
     
-//    //swiftUI에서 cancel 버튼 눌렀을 때 share extension 내리는 메소드
-//    private func cancelShareExtension()
-//    {
-//
-//    }
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
@@ -84,6 +86,7 @@ class ShareViewController: UIViewController {
     }
 
     @objc private func doneAction() {
+        
         extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
 }

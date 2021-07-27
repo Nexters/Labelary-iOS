@@ -134,6 +134,7 @@ struct AddLabelingView: View {
     @State var isEdited = false
     @State var presentingToast: Bool = false
     @ObservedObject var needToLabelingData = NeedToLabelingData()
+    @State private var showDefaultView: Bool = false // default view switch
     let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
     let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
@@ -141,10 +142,7 @@ struct AddLabelingView: View {
     init() {
         let cancelBag = CancelBag()
         loadLabelingSelectData.get()
-            .sink(receiveCompletion: {
-                print("received completion ", $0)
-            }, receiveValue: { [self] data in
-                print("하나씩 : ", data)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
                 output.labels = data
             }).store(in: cancelBag)
     }
@@ -228,12 +226,11 @@ struct AddLabelingView: View {
 
                         self.output.selectedLabels = filters
                         neededData.labelData = self.output.selectedLabels
-                        print("neededData.labelData [] :", neededData.labelData)
-                        print("neededData.imageData [] :", neededData.imageData)
 
                         requestLabeling.get(param: RequestLabeling.RequestData(labels: neededData.labelData, images: neededData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: { data in
                             print("이미지 라벨링 데이터", data)
                         }).store(in: cancelBag)
+
                         neededData.isCompleted = true
                         presentationMode.wrappedValue.dismiss() // 뒤로 가기 ?
                         self.presentingToast = true

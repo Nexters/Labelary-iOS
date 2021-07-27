@@ -11,17 +11,33 @@ import RealmSwift
 class ImageRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var source: String?
+    
+    var neededLabels: [LabelRealmModel] {
+        get {
+            return labels.map { $0.self }
+        }
+        set {
+            labels.removeAll()
+            labels.append(objectsIn: newValue.map {
+                LabelRealmModel(value: [$0])
+            })
+        }
+    }
+    
     dynamic var labels: List<LabelRealmModel> = List()
     @objc dynamic var isBookmark: Bool = false
 
     override static func primaryKey() -> String {
         return "id"
     }
+    
+    
 }
+
 
 extension ImageRealmModel {
     func convertToEntity() -> ImageEntity? {
-        print("id \(self.id) : source : \(self.source)")
+        print("확인겸사겸사 id \(self.id) : source : \(self.source) label: \(self.labels)")
         guard !self.id.isEmpty, let source = self.source else {
             return nil
         }
@@ -35,3 +51,4 @@ extension ImageRealmModel {
         )
     }
 }
+
