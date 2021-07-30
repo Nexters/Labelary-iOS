@@ -59,7 +59,6 @@ struct CLabelSearchField: View {
     }
 }
 
-
 struct CardStackView: View {
     var img: ImageEntity
     @State var displayedImage: UIImage? = nil
@@ -86,7 +85,9 @@ struct CardStackView: View {
         } else {
             PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
                 if result != nil {
-                    self.displayedImage = result!
+                    DispatchQueue.main.async {
+                        self.displayedImage = result!
+                    }
                 }
             })
         }
@@ -97,36 +98,34 @@ struct CardStackView: View {
 }
 
 struct ImageView: View {
-    var img: ImageEntity
-    @State var displayedImage: UIImage? = nil
-
-    var body: some View {
-        Image(uiImage: displayedImage ?? UIImage())
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .onAppear(perform: {
-                self.loadImage()
-            })
+    @ObservedObject var viewModel: ImageViewModel {
+        didSet(oldVal) {
+            viewModel.reload()
+        }
     }
 
-    private func loadImage() {
-//        switch img.source {
-//        case .Cache(let localIdentifier):
-        let options = PHImageRequestOptions()
-        options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
-        options.resizeMode = PHImageRequestOptionsResizeMode.fast
-        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [img.source], options: nil).firstObject
-        if asset == nil {
-        } else {
-            PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
-                if result != nil {
-                    self.displayedImage = result!
+    @State var uiImage: UIImage? = nil
+
+    init(viewModel: ImageViewModel) {
+        self.viewModel = viewModel
+    }
+
+    func reload(uiImage: UIImage) {
+        print("rororror")
+        self.uiImage = uiImage
+    }
+
+    var body: some View {
+        Image(uiImage: uiImage ?? UIImage())
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .onAppear(perform: viewModel.reload)
+            .onReceive(viewModel.$uiImage, perform: {
+                print("llloooo\($0?.size)")
+                if $0 != nil {
+                    uiImage = $0
                 }
             })
-        }
-
-//        case .Remote: break
-//        }
     }
 }
 
