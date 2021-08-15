@@ -17,7 +17,6 @@ struct FullstackApp: App {
     }
 
     init() {
-        FirebaseApp.configure()
-        Analytics.logEvent("hot_or_cold_switch",parameters: nil)
+        FirebaseApp.configure()    
     }
 }

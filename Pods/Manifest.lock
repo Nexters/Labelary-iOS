@@ -56,7 +56,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.2.2):
     - GoogleUtilities/Logger
-  - lottie-ios (3.2.1)
+  - lottie-ios (3.1.9)
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
@@ -119,7 +119,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: c542a2feaac9ab98fd074e8f1a02c3585bbfbd47
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
-  lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
+  lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   OpenCombine: a8c52f249bc3c7e2bd5ffb75e8653e57a8e33d27
   OpenCombineDispatch: 68ed85ae5255d558a14434a802f65fb833b50d39
@@ -131,6 +131,6 @@ SPEC CHECKSUMS:
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
   ToastUI: 2baa7f9c7badae7bd83a9ab87a21bc88983010bd
 
-
+PODFILE CHECKSUM: 9bfdc566fa458f103be27cf22523aee12a5c132d
 
 COCOAPODS: 1.10.1

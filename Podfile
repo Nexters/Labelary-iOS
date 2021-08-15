@@ -1,9 +1,9 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '15.0'
+platform :ios, '14.6'
 
 target 'Fullstack' do
-  pod "SwiftUICardStack"
   use_frameworks!
+  pod "SwiftUICardStack"
   pod 'OpenCombine', '~> 0.12.0'
   pod 'OpenCombineDispatch', '~> 0.12.0'
   pod 'OpenCombineFoundation', '~> 0.12.0'
