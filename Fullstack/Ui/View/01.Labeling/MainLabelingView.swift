@@ -12,6 +12,29 @@ struct CardView: View {
     }
 }
 
+struct CardViewWithShadow: View {
+    var photo: ImageHasher
+    var direction: LeftRight?
+
+    var body: some View {
+        HStack {
+            ZStack {
+                ZStack {
+                    CardView(photo: photo)
+                    Image("shadow_blue")
+                        .resizable()
+                        .opacity(direction == .right ? 0.7 : 0)
+                }
+                Image("shadow_red")
+                    .resizable()
+                    .opacity(direction == .left ? 0.7 : 0)
+            }
+            .fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+            .animation(.default)
+        }
+    }
+}
+
 class NeedToLabelingData: ObservableObject {
     @Published var imageData: [ImageEntity] = []
     @Published var labelData: [LabelEntity] = []
@@ -20,34 +43,31 @@ class NeedToLabelingData: ObservableObject {
         return hashTypeImage.image
     }
 
-    @Published var isCompleted: Bool?
+    @Published var isCompleted: Bool = false
 }
 
 var neededData = NeedToLabelingData()
 
-class ShowAddLabelingView: ObservableObject {
-    @Published var pushed = false
-}
-
 struct MainLabelingView: View {
-    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
     @State private var isShowingAddLabelingView = false
-    @State private var isSwipe = false
+    @State private var isSwipeToLeft = false
     @ObservedObject var output = Output()
     @State private var deSelectedImage: ImageEntity?
     
-    let loadAllImageData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
     let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
+    
     init() {
         let cancelbag = CancelBag()
-        loadAllImageData.get()
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [self] data in
-                    output.setImages(recentScreenshots: data.recentlyImages)
-                    output.labeledImages = data.recentlyImages
-                }
-            ).store(in: cancelbag)
+
+        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+            output.unlabeledImages.append(contentsOf: data)
+            output.setImages(_unlabeledImages: output.unlabeledImages)
+        }).store(in: cancelbag)
+        
+        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+            output.unlabeledImages.append(contentsOf: data)
+            output.setImages(_unlabeledImages: output.unlabeledImages)
+        }).store(in: cancelbag)
     }
     
     var body: some View {
@@ -68,8 +88,9 @@ struct MainLabelingView: View {
                     Image("shadow")
                         .resizable()
                         .frame(width: 248, height: 535, alignment: .center)
-                    HStack {
-                        Spacer(minLength: 63)
+                        .offset(x: 25)
+                    HStack(alignment: .center) {
+                        Spacer(minLength: 43)
                         CardStack(
                             direction: LeftRight.direction,
                             data: self.output.screenshots,
@@ -78,27 +99,30 @@ struct MainLabelingView: View {
                                 if direction == .right {
                                     // shadow ui 넣기
                                     neededData.imageData.append(neededData.convertToEntity(hashTypeImage: card))
-                                    //      self.isShowingAddLabelingView = true
-                                    self.showAddLabelingView.pushed = true
+                                    self.isShowingAddLabelingView = true
                                 }
 
                             },
-                            content: { photo, _, _ in
-                                CardView(photo: photo)
+                            content: { photo, direction, _ in
+                                CardViewWithShadow(photo: photo, direction: direction)
                             }
                         )
+                        
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
-                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .linear
+                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
                         ))
                     }
-                }
+                    
+                    .offset(y: -3)
+                }.offset(y: -40)
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                     
             HStack {
                 // skip button (왼쪽 swipe)
                 Button(action: {
-                    self.isSwipe = true
-                    output.labeledImages.removeFirst()
+                    self.isSwipeToLeft = true
+                    self.output.screenshots.removeFirst()
+                   
                 }, label: {
                     Image("main_skip_btn")
                 })
@@ -106,12 +130,9 @@ struct MainLabelingView: View {
                 
                 // add button (오른쪽 swipe)
                 Button(action: {
-                    neededData.imageData.append(output.labeledImages.first!)
-                    output.labeledImages.removeFirst()
-                    self.showAddLabelingView.pushed = true // push view
-                    
+                    neededData.imageData.append(output.unlabeledImages.first!)
                     self.isShowingAddLabelingView = true
-                    
+                
                 }, label: {
                     Image("main_add_btn")
                 })
@@ -127,10 +148,10 @@ struct MainLabelingView: View {
 
     class Output: ObservableObject {
         @Published var screenshots: [ImageHasher] = []
-        @Published var labeledImages: [ImageEntity] = []
+        @Published var unlabeledImages: [ImageEntity] = []
             
-        func setImages(recentScreenshots: [ImageEntity]) {
-            screenshots = recentScreenshots.map {
+        func setImages(_unlabeledImages: [ImageEntity]) {
+            screenshots = _unlabeledImages.map {
                 ImageHasher(imageEntity: $0)
             }
         }

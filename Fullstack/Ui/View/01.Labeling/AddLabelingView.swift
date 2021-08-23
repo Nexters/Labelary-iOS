@@ -125,7 +125,7 @@ class ShowAddNewLabelView: ObservableObject {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
+   // @ObservedObject var showAddLabelingView = ShowAddLabelView()
     @ObservedObject var model = ShowAddNewLabelView()
     @ObservedObject var output = Output()
     @State var filters: [LabelEntity] = []
