@@ -279,7 +279,7 @@ struct AddLabelingView: View {
                 }
 
                 Button(action: {
-                    // showNewAddLabelingView = true
+                   
                     self.model.pushed = true
                 }) {
                     ZStack {
