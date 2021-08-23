@@ -2,7 +2,7 @@ import Combine
 import SwiftUI
 import ToastUI
 
-// MARK: - functions to give color for GUI
+// MARK: - functions to give color for GUI Add Labeling View
 
 func giveLabelBackgroundColor(color: ColorSet) -> Color {
     switch color {
@@ -125,7 +125,6 @@ class ShowAddNewLabelView: ObservableObject {
 
 struct AddLabelingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var showAddLabelingView = ShowAddLabelingView()
     @ObservedObject var model = ShowAddNewLabelView()
     @ObservedObject var output = Output()
     @State var filters: [LabelEntity] = []
@@ -156,10 +155,6 @@ struct AddLabelingView: View {
     func onClickedSearchBtn() {
         showSearchLabelView = true
     }
-
-//    func onClickedAddBtn() {
-//        showAddLabelingView = true
-//    }
 
     func onClickedConfirmBtn() {
         isEdited = true
@@ -227,8 +222,8 @@ struct AddLabelingView: View {
                         self.output.selectedLabels = filters
                         neededData.labelData = self.output.selectedLabels
 
-                        requestLabeling.get(param: RequestLabeling.RequestData(labels: neededData.labelData, images: neededData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: { data in
-                            print("이미지 라벨링 데이터", data)
+                        requestLabeling.get(param: RequestLabeling.RequestData(labels: neededData.labelData, images: neededData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: {
+                            print("이미지 라벨링 데이터", $0)
                         }).store(in: cancelBag)
 
                         neededData.isCompleted = true
