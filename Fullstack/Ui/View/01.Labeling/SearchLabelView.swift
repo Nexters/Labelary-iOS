@@ -3,7 +3,7 @@
 //  Fullstack
 //
 //  Created by 우민지 on 2021/02/02.
-// 1_라벨링_라벨검색
+// 1_라벨링_라벨검색 SearchLabelView.swift
 
 import SwiftUI
 
