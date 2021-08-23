@@ -21,8 +21,8 @@ public enum LeftRight {
 
   public static func direction(degrees: Double) -> Self? {
     switch degrees {
-    case 045..<135: return .right
-    case 225..<315: return .left
+    case 005..<179: return .right
+    case 181..<355: return .left
     default: return nil
     }
   }
