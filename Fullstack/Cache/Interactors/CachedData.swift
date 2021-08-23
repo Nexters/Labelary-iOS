@@ -42,7 +42,7 @@ struct CachedData: CachedDataSource {
         }
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
-            .map { entities in results.filter { item in entities.contains(where: { $0.id == item.id }) } }
+            .map { entities in results.filter { item in !entities.contains(where: { $0.id == item.id }) } }
             .asObservable()
     }
 
@@ -109,13 +109,12 @@ struct CachedData: CachedDataSource {
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
         let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
-        
+
         print("labelQuery", labelQuery)
         do {
             try realm.write {
                 let needToAddedImages = images.filter { !$0.isCached }
-              
-                
+
                 needToAddedImages.forEach { entity in
 
                     let model = ImageRealmModel()
@@ -123,9 +122,9 @@ struct CachedData: CachedDataSource {
                     model.source = entity.source
                     model.isBookmark = entity.isBookmark
                     model.labels.append(objectsIn: labelQuery)
-                    print("model.labels ㅠㅠ 왜 안되냐",model.labels)
+                    print("model.labels ㅠㅠ 왜 안되냐", model.labels)
                     realm.add(model)
-                    
+
                     print("photo stored.")
                 }
             }
@@ -260,7 +259,7 @@ struct CachedData: CachedDataSource {
     // Label
     func getAllLabels() -> Observable<[LabelEntity]> {
         return Just(realm.objects(LabelRealmModel.self)).asObservable()
-            .map { results in                
+            .map { results in
                 return results.mapNotNull { $0.convertToEntity() }
             }
             .eraseToAnyPublisher()
