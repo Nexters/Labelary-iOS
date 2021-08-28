@@ -1,6 +1,7 @@
 import CardStack
 import SwiftUI
 import ToastUI
+import PhotosUI
 
 struct CardView: View {
     var photo: ImageHasher
@@ -51,24 +52,9 @@ var neededData = NeedToLabelingData()
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     @State private var isSwipeToLeft = false
-    @ObservedObject var output = Output()
+    @ObservedObject var viewModel = ViewModel()
     @State private var deSelectedImage: ImageEntity?
-    
-    let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
-    
-    init() {
-        let cancelbag = CancelBag()
 
-        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            output.unlabeledImages.append(contentsOf: data)
-            output.setImages(_unlabeledImages: output.unlabeledImages)
-        }).store(in: cancelbag)
-        
-        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            output.unlabeledImages.append(contentsOf: data)
-            output.setImages(_unlabeledImages: output.unlabeledImages)
-        }).store(in: cancelbag)
-    }
     
     var body: some View {
         ZStack {
@@ -77,7 +63,7 @@ struct MainLabelingView: View {
                 HStack {
                     Text("스크린샷 라벨링")
                         .font(.system(size: 18, weight: .heavy))
-                    Text("+\(output.screenshots.count)")
+                    Text("+\(viewModel.screenshots.count)")
                         .font(.system(size: 14))
                         .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
@@ -93,7 +79,7 @@ struct MainLabelingView: View {
                         Spacer(minLength: 43)
                         CardStack(
                             direction: LeftRight.direction,
-                            data: self.output.screenshots,
+                            data: self.viewModel.screenshots,
                             onSwipe: { card, direction in
                                 
                                 if direction == .right {
@@ -121,7 +107,7 @@ struct MainLabelingView: View {
                 // skip button (왼쪽 swipe)
                 Button(action: {
                     self.isSwipeToLeft = true
-                    self.output.screenshots.removeFirst()
+                    self.viewModel.screenshots.removeFirst()
                    
                 }, label: {
                     Image("main_skip_btn")
@@ -130,7 +116,7 @@ struct MainLabelingView: View {
                 
                 // add button (오른쪽 swipe)
                 Button(action: {
-                    neededData.imageData.append(output.unlabeledImages.first!)
+                    neededData.imageData.append(viewModel.unlabeledImages.first!)
                     self.isShowingAddLabelingView = true
                 
                 }, label: {
@@ -144,12 +130,52 @@ struct MainLabelingView: View {
                 isActive: $isShowingAddLabelingView
             ) {}
         }
+        
     }
 
-    class Output: ObservableObject {
+    class ViewModel: ObservableObject {
         @Published var screenshots: [ImageHasher] = []
         @Published var unlabeledImages: [ImageEntity] = []
+        @Published var unlabeledImagesViewModel: [UnlabeledImageViewModel] = []
+        @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
+        
+        let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
+        let cancelbag = CancelBag()
+        
+        
+        init()
+        {
+            refresh()
+        }
+        
+        func refresh() {
             
+            loadLabelingData.get().sink(receiveCompletion: { _ in },
+                                        receiveValue: { [self] data in
+                                            self.unlabeledImages.append(contentsOf: data)
+                                            self.setImages(_unlabeledImages: unlabeledImages)
+                                            unlabeledImagesViewModel = unlabeledImages.map {
+                                                UnlabeledImageViewModel(image: $0)
+                                            }
+                                            
+            }).store(in: cancelbag)
+            
+            print("refresh !! ")
+        }
+        
+        func showUI() {
+            
+            
+            if PHPhotoLibrary.authorizationStatus() == .authorized
+            {
+                self.refresh()
+                print("authorized")
+            }
+            
+        }
+        
+
+        
         func setImages(_unlabeledImages: [ImageEntity]) {
             screenshots = _unlabeledImages.map {
                 ImageHasher(imageEntity: $0)
@@ -159,5 +185,11 @@ struct MainLabelingView: View {
         func hash(into hasher: inout Hasher) {
             hasher.combine(screenshots)
         }
+        
+        func onAppear() {
+            showUI()
+        }
+        
+        
     }
 }

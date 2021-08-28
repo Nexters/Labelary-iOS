@@ -25,6 +25,37 @@ struct LabelWrapper {
     }
 }
 
+class UnlabeledImageViewModel: ObservableObject {
+    @Published var image: ImageEntity
+    @Published var uiImage: UIImage? = nil
+    
+    init(image: ImageEntity) {
+        self.image = image
+        
+    }
+    
+    
+    func reload() {
+        let options = PHImageRequestOptions()
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
+        options.resizeMode = PHImageRequestOptionsResizeMode.fast
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [self.image.source], options: nil).firstObject
+        if asset == nil {
+            self.uiImage = UIImage()
+            print("reloadFail")
+        } else {
+            PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth/10, height: asset!.pixelHeight/10), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
+                if result != nil {
+                    print("reload\(result?.size)")
+                    self.uiImage = result!
+                }
+            })
+//            print("reload")
+//            self.uiImage = UIImage(named: "sc0")
+        }
+    }
+}
+
 class ImageViewModel: ObservableObject {
     @Published var image: ImageEntity
     @Published var uiImage: UIImage? = nil
