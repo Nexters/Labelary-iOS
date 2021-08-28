@@ -10,6 +10,10 @@
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
 		241BB57226DA4F1D0018B4BD /* ShareSheetDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */; };
+		241BB57326DA677E0018B4BD /* LoadLabelingSelectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B67E25C04F5B008EEF2F /* LoadLabelingSelectData.swift */; };
+		241BB57426DA68060018B4BD /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
+		241BB57526DA682D0018B4BD /* CachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968825C1681900E441EC /* CachedData.swift */; };
+		241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B66225BFE215008EEF2F /* CancelBag.swift */; };
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
@@ -817,9 +821,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				24534F97266F709200E77669 /* LabelRepository.swift in Sources */,
+				241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */,
 				24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */,
 				24534FCD266F70F700E77669 /* Observable.swift in Sources */,
 				248A04A626661AAC007EE062 /* Usecase.swift in Sources */,
+				241BB57426DA68060018B4BD /* LabelRepositoryImpl.swift in Sources */,
+				241BB57526DA682D0018B4BD /* CachedData.swift in Sources */,
 				24534FEB266F71BE00E77669 /* Typography.swift in Sources */,
 				248A049D26661A90007EE062 /* VO.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
@@ -837,6 +844,7 @@
 				2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */,
 				241BB57226DA4F1D0018B4BD /* ShareSheetDefaultView.swift in Sources */,
 				248A049A26661A86007EE062 /* Image.swift in Sources */,
+				241BB57326DA677E0018B4BD /* LoadLabelingSelectData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

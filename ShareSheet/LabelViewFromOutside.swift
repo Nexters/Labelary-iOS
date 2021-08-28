@@ -8,6 +8,7 @@
 import MobileCoreServices
 import SwiftUI
 import UIKit
+import Combine
 
 
 func giveLabelBackgroundColor(color: String) -> Color {
@@ -78,6 +79,16 @@ struct LabelViewFromOutside: View {
     @ObservedObject var output = Output()
     @ObservedObject var sharedImage: model // 전달 받은 객체
     @ObservedObject var shareExtension = ShareExtensionViewObservable()
+    
+    let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+    
+    init() {
+        let cancelBag = CancelBag()
+        loadLabelingSelectData.get().sink(receiveCompletion: { _ in },
+                                          receiveValue: {[self] data in
+                                            output.labels = data})
+            .store(in: cancelBag)
+    }
     
     @State var showToast = false
     var body: some View {
@@ -200,10 +211,7 @@ struct LabelViewFromOutside: View {
     }
 
     class Output: ObservableObject {
-        @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-            
-        ]
+        @Published var labels: [LabelEntity] = []
 
         func colorSetToString(color: ColorSet) -> String {
             switch color {

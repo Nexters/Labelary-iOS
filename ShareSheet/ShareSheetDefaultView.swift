@@ -44,8 +44,3 @@ struct ShareSheetDefaultView: View {
     }
 }
 
-struct ShareSheetDefaultView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShareSheetDefaultView()
-    }
-}
