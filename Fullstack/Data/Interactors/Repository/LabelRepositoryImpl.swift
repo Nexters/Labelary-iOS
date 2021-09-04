@@ -8,7 +8,7 @@
 import Foundation
 
 struct LabelingRepositoryImpl: LabelRepository {
-    let cachedDataSource: CachedDataSource
+    let cachedDataSource: CachedDataSource 
 
     func getAllLabels() -> Observable<[LabelEntity]> {
         return cachedDataSource.getAllLabels()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DC491A4F6FD19311BC5AF2D /* Pods_ShareSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */; };
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
 		241BB57226DA4F1D0018B4BD /* ShareSheetDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */; };
@@ -17,6 +18,7 @@
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
+		24495BE126E26D08008295D8 /* DataSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24495BE026E26D08008295D8 /* DataSharing.swift */; };
 		24534F8F266F701600E77669 /* SColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2F25CC2276008D2941 /* SColor.swift */; };
 		24534F94266F708F00E77669 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
 		24534F97266F709200E77669 /* LabelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64C25BD7922008EEF2F /* LabelRepository.swift */; };
@@ -52,6 +54,11 @@
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
 		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
 		24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */; };
+		24B0EDD126DDC69800FE599B /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968F25C1695800E441EC /* ImageRealmModel.swift */; };
+		24B0EDD226DDC6A400FE599B /* LabelRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968C25C1694D00E441EC /* LabelRealmModel.swift */; };
+		24B0EDD326DDC6E200FE599B /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196AC25C2F2A500E441EC /* DomainError.swift */; };
+		24B0EDD426DDC6F600FE599B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196A725C1B8D800E441EC /* Array+.swift */; };
+		24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1969A25C1737E00E441EC /* CachedDataSource.swift */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
@@ -140,6 +147,9 @@
 		241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetDefaultView.swift; sourceTree = "<group>"; };
 		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
 		2437675225DB3BB1003A51AB /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		24495BDC26E20D5F008295D8 /* FullstackDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FullstackDebug.entitlements; sourceTree = "<group>"; };
+		24495BDD26E20E16008295D8 /* ShareSheetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheetDebug.entitlements; sourceTree = "<group>"; };
+		24495BE026E26D08008295D8 /* DataSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSharing.swift; sourceTree = "<group>"; };
 		245A663A25DBDE6F00A8DAF8 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		246159CD25B2DCC100F6D730 /* Fullstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fullstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		246159D025B2DCC100F6D730 /* FullstackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullstackApp.swift; sourceTree = "<group>"; };
@@ -226,6 +236,7 @@
 		56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAlbumData.swift; sourceTree = "<group>"; };
 		56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSearchLabelData.swift; sourceTree = "<group>"; };
 		56E1235626C8F6DD00A85986 /* CardStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -244,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DC491A4F6FD19311BC5AF2D /* Pods_ShareSheet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +267,7 @@
 			children = (
 				56E1235626C8F6DD00A85986 /* CardStack.framework */,
 				514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */,
+				6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -285,6 +298,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
+				24495BDC26E20D5F008295D8 /* FullstackDebug.entitlements */,
 				56C7912A2699A0690077367A /* GoogleService-Info.plist */,
 				56C1967E25C143F100E441EC /* Cache */,
 				56D1B65925BFE0D3008EEF2F /* Foundation */,
@@ -380,6 +394,7 @@
 		2475AB2225D8FABD0086B24D /* ShareSheet */ = {
 			isa = PBXGroup;
 			children = (
+				24495BDD26E20E16008295D8 /* ShareSheetDebug.entitlements */,
 				248CE63625F7607500FA7892 /* ShareSheet.entitlements */,
 				2475AB2325D8FABD0086B24D /* ShareViewController.swift */,
 				2475AB2525D8FABD0086B24D /* MainInterface.storyboard */,
@@ -444,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				56C1968C25C1694D00E441EC /* LabelRealmModel.swift */,
+				24495BE026E26D08008295D8 /* DataSharing.swift */,
 				56C1968F25C1695800E441EC /* ImageRealmModel.swift */,
 				249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */,
 			);
@@ -626,6 +642,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2475AB2C25D8FABD0086B24D /* Build configuration list for PBXNativeTarget "ShareSheet" */;
 			buildPhases = (
+				2E5304EC061C56348F05F89C /* [CP] Check Pods Manifest.lock */,
 				2475AB1D25D8FABD0086B24D /* Sources */,
 				2475AB1E25D8FABD0086B24D /* Frameworks */,
 				2475AB1F25D8FABD0086B24D /* Resources */,
@@ -702,6 +719,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2E5304EC061C56348F05F89C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareSheet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5EFA83F005B3F453B50F451F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -812,6 +851,7 @@
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
 				5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */,
+				24495BE126E26D08008295D8 /* DataSharing.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -826,10 +866,12 @@
 				24534FCD266F70F700E77669 /* Observable.swift in Sources */,
 				248A04A626661AAC007EE062 /* Usecase.swift in Sources */,
 				241BB57426DA68060018B4BD /* LabelRepositoryImpl.swift in Sources */,
+				24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */,
 				241BB57526DA682D0018B4BD /* CachedData.swift in Sources */,
 				24534FEB266F71BE00E77669 /* Typography.swift in Sources */,
 				248A049D26661A90007EE062 /* VO.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
+				24B0EDD426DDC6F600FE599B /* Array+.swift in Sources */,
 				248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */,
 				24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */,
 				248A049B26661A8A007EE062 /* Label.swift in Sources */,
@@ -840,10 +882,13 @@
 				24534F94266F708F00E77669 /* ImageRepository.swift in Sources */,
 				248A048326661A81007EE062 /* Entity.swift in Sources */,
 				24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */,
+				24B0EDD226DDC6A400FE599B /* LabelRealmModel.swift in Sources */,
 				24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */,
 				2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */,
 				241BB57226DA4F1D0018B4BD /* ShareSheetDefaultView.swift in Sources */,
+				24B0EDD126DDC69800FE599B /* ImageRealmModel.swift in Sources */,
 				248A049A26661A86007EE062 /* Image.swift in Sources */,
+				24B0EDD326DDC6E200FE599B /* DomainError.swift in Sources */,
 				241BB57326DA677E0018B4BD /* LoadLabelingSelectData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,6 +1040,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fullstack/FullstackDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Fullstack/Preview Content\"";
 				DEVELOPMENT_TEAM = G298UQ6Q8A;
@@ -1038,8 +1084,9 @@
 		};
 		2475AB2D25D8FABD0086B24D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheetDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G298UQ6Q8A;
 				INFOPLIST_FILE = ShareSheet/Info.plist;
@@ -1058,6 +1105,7 @@
 		};
 		2475AB2E25D8FABD0086B24D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareSheet/ShareSheet.entitlements;
 				CODE_SIGN_STYLE = Automatic;

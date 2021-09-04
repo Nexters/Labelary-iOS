@@ -7,8 +7,8 @@ struct CardView: View {
     var photo: ImageHasher
     
     var body: some View {
-        VStack(alignment: .center) {
-            CardStackView(img: self.photo.image)
+        HStack(alignment: .center){
+        CardStackView(img: self.photo.image)
         }
     }
 }
@@ -18,7 +18,7 @@ struct CardViewWithShadow: View {
     var direction: LeftRight?
 
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             ZStack {
                 ZStack {
                     CardView(photo: photo)
@@ -70,13 +70,14 @@ struct MainLabelingView: View {
                         .cornerRadius(2.0)
                 }.offset(y: -30)
 
-                ZStack(alignment: .center) {
+                ZStack() {
+                    
                     Image("shadow")
                         .resizable()
                         .frame(width: 248, height: 535, alignment: .center)
                         .offset(x: 25)
                     HStack(alignment: .center) {
-                        Spacer(minLength: 43)
+                      
                         CardStack(
                             direction: LeftRight.direction,
                             data: self.viewModel.screenshots,
@@ -90,14 +91,19 @@ struct MainLabelingView: View {
 
                             },
                             content: { photo, direction, _ in
+                               
                                 CardViewWithShadow(photo: photo, direction: direction)
+                                    .frame(width: 248, height: 535, alignment: .center)
+                                   
+                                    
                             }
                         )
-                        
+                        .frame(width: 248, height: 535, alignment: .center)
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
                             maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
                         ))
-                    }
+                    
+                    }.background(Color.red)
                     
                     .offset(y: -3)
                 }.offset(y: -40)

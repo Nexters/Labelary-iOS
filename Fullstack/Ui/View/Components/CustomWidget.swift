@@ -64,6 +64,8 @@ struct CardStackView: View {
     @State var displayedImage: UIImage? = nil
 
     var body: some View {
+       
+           
         Image(uiImage: displayedImage ?? UIImage())
             .resizable()
             .frame(width: 248, height: 535, alignment: .center)
@@ -72,6 +74,8 @@ struct CardStackView: View {
             .onAppear(perform: {
                 self.loadImage()
             })
+     
+        
     }
 
     private func loadImage() {
