@@ -59,7 +59,9 @@ struct MainLabelingView: View {
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+        
             VStack(alignment: .center) {
+                
                 HStack {
                     Text("스크린샷 라벨링")
                         .font(.system(size: 18, weight: .heavy))
@@ -68,8 +70,8 @@ struct MainLabelingView: View {
                         .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
-                }.offset(y: -30)
-
+                }
+                Spacer(minLength: 40)
                 ZStack() {
                     
                     Image("shadow")
@@ -103,7 +105,7 @@ struct MainLabelingView: View {
                             maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
                         ))
                     
-                    }.background(Color.red)
+                    }
                     
                     .offset(y: -3)
                 }.offset(y: -40)
