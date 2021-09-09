@@ -22,7 +22,7 @@ struct customToast: View {
                 Spacer(minLength: 78)
                 Button(action: {
                     print("앱으로 이동하기")
-                    
+
                 }, label: {
                     Text("보기")
                 }).foregroundColor(Color.KEY_ACTIVE)

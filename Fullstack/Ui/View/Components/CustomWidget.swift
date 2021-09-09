@@ -64,18 +64,23 @@ struct CardStackView: View {
     @State var displayedImage: UIImage? = nil
 
     var body: some View {
-       
+        ZStack {
+            Rectangle()
+                .fill(Color.DEPTH_2)
+                .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.57)
+                .cornerRadius(0.2)
+            
+            Image(uiImage: displayedImage ?? UIImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
+                .cornerRadius(2.0)
+                .onAppear(perform: {
+                    self.loadImage()
+                })
+            
+        }
            
-        Image(uiImage: displayedImage ?? UIImage())
-            .resizable()
-            .frame(width: 248, height: 535, alignment: .center)
-            .aspectRatio(contentMode: .fit)
-            .cornerRadius(2.0)
-            .onAppear(perform: {
-                self.loadImage()
-            })
-     
-        
     }
 
     private func loadImage() {

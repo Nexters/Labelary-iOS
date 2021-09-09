@@ -38,6 +38,7 @@
 		2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475AB2325D8FABD0086B24D /* ShareViewController.swift */; };
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247A637726E33E9D00E0A43B /* UIScreen.swift */; };
 		248A048326661A81007EE062 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
 		248A049A26661A86007EE062 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63B25BD7406008EEF2F /* Image.swift */; };
 		248A049B26661A8A007EE062 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64225BD75B7008EEF2F /* Label.swift */; };
@@ -167,6 +168,7 @@
 		2475AB2325D8FABD0086B24D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		247A637726E33E9D00E0A43B /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
 		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
 		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
 		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				56A9860826A4513A0088C80F /* Screenshot_Components.swift */,
 				5661457325D2D82400D057E1 /* Album_Components.swift */,
 				5661457725D2D84400D057E1 /* Label_Components.swift */,
+				247A637726E33E9D00E0A43B /* UIScreen.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -844,6 +847,7 @@
 				56D1B63725BD7391008EEF2F /* Entity.swift in Sources */,
 				56D1B66E25BFE215008EEF2F /* ErrorTracker.swift in Sources */,
 				245A663B25DBDE6F00A8DAF8 /* Badge.swift in Sources */,
+				247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */,
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
 				56A9860A26A4513A0088C80F /* Screenshot_Components.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,

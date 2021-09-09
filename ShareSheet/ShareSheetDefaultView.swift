@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ShareSheetDefaultView: View {
     @State private var show: Bool = false
-    
+
     var body: some View {
-        
         VStack {
             Spacer()
             Image("ico_empty_album")
@@ -43,4 +42,3 @@ struct ShareSheetDefaultView: View {
         }.background(Color.black)
     }
 }
-

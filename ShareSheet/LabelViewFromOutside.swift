@@ -5,11 +5,10 @@
 //  Created by 우민지 on 2021/02/15.
 //
 
+import Combine
 import MobileCoreServices
 import SwiftUI
 import UIKit
-import Combine
-
 
 func giveLabelBackgroundColor(color: String) -> Color {
     switch color {
@@ -79,15 +78,15 @@ struct LabelViewFromOutside: View {
     @ObservedObject var viewModel = ViewModel()
     @ObservedObject var sharedImage: model
     @ObservedObject var shareExtension = ShareExtensionViewObservable()
-    
+
     let cancelBag = CancelBag()
     let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-    
+
     init(sharedImage: model) {
         self.sharedImage = sharedImage
-        
+
         loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            
+
             self.viewModel.labels = data
             print(data)
         }).store(in: cancelBag)
@@ -215,7 +214,7 @@ struct LabelViewFromOutside: View {
 
     class ViewModel: ObservableObject {
         @Published var labels: [LabelEntity] = []
-        
+
 //        let cancelBag = CancelBag()
 //
 //        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
