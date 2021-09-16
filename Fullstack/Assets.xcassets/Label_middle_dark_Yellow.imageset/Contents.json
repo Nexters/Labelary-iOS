@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Label_middle_dark_Yellow.svg",
+      "filename" : "Label_middle_inactive_Yellow.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Label_middle_dark_Yellow@2x.svg",
+      "filename" : "Label_middle_inactive_Yellow@2x.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Label_middle_dark_Yellow@3x.svg",
+      "filename" : "Label_middle_inactive_Yellow@3x.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

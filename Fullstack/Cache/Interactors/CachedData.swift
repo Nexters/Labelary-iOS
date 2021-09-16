@@ -32,7 +32,7 @@ struct CachedData: CachedDataSource {
 
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
-
+        
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)

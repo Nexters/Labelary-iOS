@@ -5,6 +5,7 @@
 //  Created by 우민지 on 2021/02/15.
 //
 
+import Combine
 import MobileCoreServices
 import SwiftUI
 import UIKit
@@ -74,10 +75,23 @@ struct LabelViewFromOutside: View {
     @State var selectedLabels: [LabelEntity] = []
     @State var showAddLabelView: Bool = false
 
-    @ObservedObject var output = Output()
-    @ObservedObject var sharedImage: model // 전달 받은 객체
+    @ObservedObject var viewModel = ViewModel()
+    @ObservedObject var sharedImage: model
     @ObservedObject var shareExtension = ShareExtensionViewObservable()
-    
+
+    let cancelBag = CancelBag()
+    let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+    init(sharedImage: model) {
+        self.sharedImage = sharedImage
+
+        loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+
+            self.viewModel.labels = data
+            print(data)
+        }).store(in: cancelBag)
+    }
+
     @State var showToast = false
     var body: some View {
         NavigationView {
@@ -105,13 +119,13 @@ struct LabelViewFromOutside: View {
                             if self.keyword.isEmpty {
                                 HStack {
                                     Text("내 라벨").font(Font.system(size: 14)).foregroundColor(Color.secondary)
-                                    Text(" \(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
+                                    Text(" \(self.viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                                 }.padding(.leading, 20)
                             } else {
-                                if self.output.labels.filter { $0.name.contains(keyword) }.count > 0 {
+                                if self.viewModel.labels.filter { $0.name.contains(keyword) }.count > 0 {
                                     HStack {
                                         Text("검색 결과").font(Font.system(size: 14)).foregroundColor(Color.secondary)
-                                        Text("\(self.output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                                        Text("\(self.viewModel.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
                                     }
                                 } else {
                                     VStack(alignment: .leading) {
@@ -139,15 +153,15 @@ struct LabelViewFromOutside: View {
                                     }
                                 }
                             }
-                            FlexibleView(data: self.output.labels.filter { keyword.isEmpty ? true : $0.name.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                            FlexibleView(data: self.viewModel.labels.filter { keyword.isEmpty ? true : $0.name.contains(keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
                                 label in Button(action: {
                                     selectedLabels.insert(label, at: 0)
 
                                 }) {
                                     Text(verbatim: label.name)
                                         .padding(8)
-                                        .background(giveLabelBackgroundColor(color: self.output.colorSetToString(color: label.color)))
-                                        .foregroundColor(giveTextForegroundColor(color: self.output.colorSetToString(color: label.color)))
+                                        .background(giveLabelBackgroundColor(color: self.viewModel.colorSetToString(color: label.color)))
+                                        .foregroundColor(giveTextForegroundColor(color: self.viewModel.colorSetToString(color: label.color)))
                                 }
                             }.padding([.leading], 20)
                         }
@@ -161,7 +175,7 @@ struct LabelViewFromOutside: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(selectedLabels, id: \.self) { filter in
-                                    Badge(name: filter.name, color: giveLabelBackgroundColor(color: self.output.colorSetToString(color: filter.color)), textColor: giveTextForegroundColor(color: self.output.colorSetToString(color: filter.color)), type: .removable {
+                                    Badge(name: filter.name, color: giveLabelBackgroundColor(color: self.viewModel.colorSetToString(color: filter.color)), textColor: giveTextForegroundColor(color: self.viewModel.colorSetToString(color: filter.color)), type: .removable {
                                         withAnimation {
                                             if let firstIndex = selectedLabels.firstIndex(of: filter) {
                                                 selectedLabels.remove(at: firstIndex)
@@ -198,21 +212,25 @@ struct LabelViewFromOutside: View {
         .overlay(overlayView: customToast(show: $showToast), show: $showToast)
     }
 
-    class Output: ObservableObject {
-        @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
-        ]
+    class ViewModel: ObservableObject {
+        @Published var labels: [LabelEntity] = []
+
+//        let cancelBag = CancelBag()
+//
+//        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+//
+//        init()
+//        {
+//            refresh()
+//        }
+//
+//        func refresh() {
+//            loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+//
+//                self.labels = data
+//                print(data)
+//            }).store(in: cancelBag)
+//        }
 
         func colorSetToString(color: ColorSet) -> String {
             switch color {

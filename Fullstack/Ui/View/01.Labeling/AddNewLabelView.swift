@@ -28,16 +28,20 @@ struct FirstResponderTextField: UIViewRepresentable {
     func makeUIView(context: Context) -> some UIView {
         let textField = UITextField()
         let customFont = UIFont(name: (textField.font?.fontName)!, size: 28.0)!
+        textField.textColor = UIColor.white
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "입력완료", style: UIBarButtonItem.Style.plain, target: self, action: #selector(textField.doneButtonTapped(button:)))
-        toolBar.items = [flexibleSpace, doneButton]
-        toolBar.setItems([doneButton], animated: true)
+        
+        toolBar.items = [doneButton, flexibleSpace]
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        
         textField.font = customFont
         textField.delegate = context.coordinator
         textField.placeholder = self.placeholder
         textField.inputAccessoryView = toolBar
+        textField.keyboardAppearance = UIKeyboardAppearance.dark
         return textField
     }
 
@@ -68,102 +72,108 @@ struct AddNewLabelView: View {
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
     let cancelbag = CancelBag()
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
-                    .frame(width: 37, height: 20, alignment: .leading)
-                    .padding(7)
+        ZStack {
+            Color.DEPTH_5.ignoresSafeArea(edges: .all)
+            VStack {
+                VStack(alignment: .leading) {
+                    Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
+                        .foregroundColor(Color.PRIMARY_2)
+                        .frame(width: 37, height: 20, alignment: .leading)
+                        .padding(7)
 
-                FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
-                    .frame(width: 350, height: 40, alignment: .trailing)
-                    .foregroundColor(.white)
-                    .padding(7)
+                    FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
+                        .frame(width: 350, height: 40, alignment: .trailing)
+                        .foregroundColor(Color.PRIMARY_4)
+                        .padding(7)
 
-                Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
-                    .frame(width: 81, height: 20, alignment: .leading)
-                    .padding(7)
-            }
-            HStack(alignment: .center) {
-                VStack {
-                    ForEach(0 ..< labelButtons.count / 2) {
-                        button in
+                    Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                        .foregroundColor(Color.PRIMARY_2)
+                        .frame(width: 81, height: 20, alignment: .leading)
+                        .padding(7)
+                }
+                HStack(alignment: .center) {
+                    VStack {
+                        ForEach(0 ..< labelButtons.count / 2) {
+                            button in
 
-                        Button(action: {
-                            self.selectedIndex = button
-                            self.isSelected = true
-                            self.selectedColor = self.labelButtons[button]
-                            color = setLabelColor(_color: selectedColor)
-                        }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                            Button(action: {
+                                self.selectedIndex = button
+                                self.isSelected = true
+                                self.selectedColor = self.labelButtons[button]
+                                color = setLabelColor(_color: selectedColor)
+                            }) {
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                             }
+                            .padding([.top, .leading], 10)
                         }
-                        .padding([.top, .leading], 10)
+                    }
+
+                    VStack {
+                        ForEach(5 ..< labelButtons.count) {
+                            button in
+
+                            Button(action: {
+                                self.selectedIndex = button
+                                self.isSelected = true
+                                self.selectedColor = self.labelButtons[button]
+                                color = setLabelColor(_color: selectedColor)
+
+                            }) {
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
+                            }
+                            .padding([.top, .leading], 10)
+                        }
                     }
                 }
+                Spacer()
 
-                VStack {
-                    ForEach(5 ..< labelButtons.count) {
-                        button in
+                Button(action: {
+                    // create label
 
-                        Button(action: {
-                            self.selectedIndex = button
-                            self.isSelected = true
-                            self.selectedColor = self.labelButtons[button]
-                            color = setLabelColor(_color: selectedColor)
+                }) {
+                    ZStack {
+                        Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
+                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                            .onTapGesture {
+                                if self.isSelected {
+                                    createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                        .sink(receiveCompletion: { _ in
+                                            print("complete create label")
 
-                        }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                                        }, receiveValue: { _ in
+                                        }).store(in: cancelbag)
+
+                                    onClickedBackBtn()
+                                }
                             }
-                        }
-                        .padding([.top, .leading], 10)
                     }
                 }
             }
             Spacer()
 
-            Button(action: {
-                // create label
-
-            }) {
-                ZStack {
-                    Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
-                        .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                        .onTapGesture {
-                            if self.isSelected {
-                                createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
-                                    .sink(receiveCompletion: { _ in
-                                        print("complete create label")
-
-                                    }, receiveValue: { _ in
-                                    }).store(in: cancelbag)
-
-                                onClickedBackBtn()
-                            }
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading:
+                    HStack {
+                        Button(action: {
+                            onClickedBackBtn()
+                        }) {
+                            Image("navigation_back_btn")
                         }
-                }
-            }
+                        Spacer()
+                        Text("라벨 생성")
+                            .foregroundColor(Color.PRIMARY_1)
+                        Spacer()
+                    })
         }
-        Spacer()
-
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading:
-                HStack {
-                    Button(action: {
-                        onClickedBackBtn()
-                    }) {
-                        Image("navigation_back_btn")
-                    }
-                    Spacer(minLength: 80)
-                    Text("라벨 생성")
-                    Spacer()
-                })
     }
 
     func onClickedBackBtn() {

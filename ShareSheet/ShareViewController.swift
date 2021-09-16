@@ -9,6 +9,8 @@ import MobileCoreServices
 import SwiftUI
 import UIKit
 
+let defaults = UserDefaults(suiteName: "group.labelery")
+
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
     @IBOutlet var container: UIView!
@@ -16,8 +18,6 @@ class ShareViewController: UIViewController {
     var tempImage = UIImage()
     private var sharedImage = model(imageData: UIImage())
 
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         var input = model(imageData: UIImage())
         getImage()
@@ -27,7 +27,6 @@ class ShareViewController: UIViewController {
         container.addSubview(childView.view)
     }
 
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         if shareExtension.dismiss {
@@ -35,10 +34,8 @@ class ShareViewController: UIViewController {
             let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
             navigationItem.setLeftBarButton(itemCancel, animated: true)
         }
-
     }
-    
-  
+
     // MARK: - Get Image file from share extension
 
     func getImage() {
@@ -66,7 +63,6 @@ class ShareViewController: UIViewController {
             }
         }
     }
-    
 
     // 2: Set the title and the navigation items
     private func setupNavBar() {
@@ -86,7 +82,6 @@ class ShareViewController: UIViewController {
     }
 
     @objc private func doneAction() {
-        
         extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
 }
@@ -112,5 +107,4 @@ class model: ObservableObject {
     init(imageData: UIImage) {
         self.imageData = imageData // imageData from the url
     }
-    
 }

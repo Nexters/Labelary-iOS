@@ -1,4 +1,5 @@
 import CardStack
+import PhotosUI
 import SwiftUI
 import ToastUI
 
@@ -6,7 +7,7 @@ struct CardView: View {
     var photo: ImageHasher
     
     var body: some View {
-        VStack(alignment: .center) {
+        HStack(alignment: .center) {
             CardStackView(img: self.photo.image)
         }
     }
@@ -15,25 +16,31 @@ struct CardView: View {
 struct CardViewWithShadow: View {
     var photo: ImageHasher
     var direction: LeftRight?
-
+    
     var body: some View {
         HStack {
             ZStack {
                 ZStack {
                     CardView(photo: photo)
+
                     Image("shadow_blue")
                         .resizable()
-                        .opacity(direction == .right ? 0.7 : 0)
+                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                        .opacity(direction == .right ? 0.6 : 0)
                 }
+
                 Image("shadow_red")
                     .resizable()
-                    .opacity(direction == .left ? 0.7 : 0)
+                    .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                    .opacity(direction == .left ? 0.6 : 0)
             }
-            .fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+
             .animation(.default)
         }
     }
 }
+
+// 라벨링 완료된 데이타는 queue에서 빼야한다. -> unlabeled
 
 class NeedToLabelingData: ObservableObject {
     @Published var imageData: [ImageEntity] = []
@@ -46,82 +53,74 @@ class NeedToLabelingData: ObservableObject {
     @Published var isCompleted: Bool = false
 }
 
-var neededData = NeedToLabelingData()
-
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     @State private var isSwipeToLeft = false
-    @ObservedObject var output = Output()
-    @State private var deSelectedImage: ImageEntity?
-    
-    let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
+    @ObservedObject var viewModel = ViewModel()
+    @ObservedObject var needToLabelingData = NeedToLabelingData()
     
     init() {
-        let cancelbag = CancelBag()
-
-        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            output.unlabeledImages.append(contentsOf: data)
-            output.setImages(_unlabeledImages: output.unlabeledImages)
-        }).store(in: cancelbag)
-        
-        loadLabelingData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            output.unlabeledImages.append(contentsOf: data)
-            output.setImages(_unlabeledImages: output.unlabeledImages)
-        }).store(in: cancelbag)
+        self.viewModel.showUI()
     }
-    
+
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+        
             VStack(alignment: .center) {
                 HStack {
                     Text("스크린샷 라벨링")
                         .font(.system(size: 18, weight: .heavy))
-                    Text("+\(output.screenshots.count)")
+                        .foregroundColor(Color.PRIMARY_1)
+                    
+                    Text("+\(self.viewModel.screenshots.count)")
+                        .foregroundColor(Color.PRIMARY_1)
                         .font(.system(size: 14))
-                        .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                        .frame(height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
-                }.offset(y: -30)
-
-                ZStack(alignment: .center) {
+                }
+                Spacer(minLength: 40)
+                ZStack {
                     Image("shadow")
                         .resizable()
-                        .frame(width: 248, height: 535, alignment: .center)
+                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .offset(x: 25)
                     HStack(alignment: .center) {
-                        Spacer(minLength: 43)
                         CardStack(
                             direction: LeftRight.direction,
-                            data: self.output.screenshots,
+                            data: self.viewModel.screenshots,
                             onSwipe: { card, direction in
                                 
                                 if direction == .right {
-                                    // shadow ui 넣기
-                                    neededData.imageData.append(neededData.convertToEntity(hashTypeImage: card))
+                                    needToLabelingData.imageData.append(needToLabelingData.convertToEntity(hashTypeImage: card))
                                     self.isShowingAddLabelingView = true
                                 }
 
                             },
                             content: { photo, direction, _ in
+                               
                                 CardViewWithShadow(photo: photo, direction: direction)
+                                    .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                             }
                         )
-                        
+                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
                             maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
                         ))
                     }
                     
                     .offset(y: -3)
-                }.offset(y: -40)
-            }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-                    
+                }
+                .offset(y: -40)
+            }
+    
             HStack {
                 // skip button (왼쪽 swipe)
                 Button(action: {
                     self.isSwipeToLeft = true
-                    self.output.screenshots.removeFirst()
+                    self.viewModel.screenshots.removeFirst()
+                    // 왜 화면에는 바로 반영이 안되는걸까 ?
                    
                 }, label: {
                     Image("main_skip_btn")
@@ -130,7 +129,7 @@ struct MainLabelingView: View {
                 
                 // add button (오른쪽 swipe)
                 Button(action: {
-                    neededData.imageData.append(output.unlabeledImages.first!)
+                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
                     self.isShowingAddLabelingView = true
                 
                 }, label: {
@@ -146,18 +145,55 @@ struct MainLabelingView: View {
         }
     }
 
-    class Output: ObservableObject {
-        @Published var screenshots: [ImageHasher] = []
+    class ViewModel: ObservableObject {
+        @Published var screenshots: [ImageHasher] = [] // 이거 자체가 observable object여야 될거같음 ! 
         @Published var unlabeledImages: [ImageEntity] = []
+        @Published var unlabeledImagesViewModel: [UnlabeledImageViewModel] = []
+        @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
+        
+        let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
+        let cancelbag = CancelBag()
+        
+        init() {
+            refresh()
+        }
+        
+        func refresh() {
+            loadLabelingData.get().sink(receiveCompletion: { _ in },
+                                        receiveValue: { [self] data in
+                                            self.unlabeledImages.append(contentsOf: data)
+                                            self.setImages(_unlabeledImages: unlabeledImages)
+                                            unlabeledImagesViewModel = unlabeledImages.map {
+                                                UnlabeledImageViewModel(image: $0)
+                                            }
+                                            
+                                        }).store(in: cancelbag)
             
+            print("refresh !! ")
+        }
+        
+        func showUI() {
+            if PHPhotoLibrary.authorizationStatus() == .authorized {
+                refresh()
+                print("authorized")
+            }
+        }
+        
         func setImages(_unlabeledImages: [ImageEntity]) {
             screenshots = _unlabeledImages.map {
                 ImageHasher(imageEntity: $0)
             }
         }
-            
+        
+        // 왼쪽 버튼 눌렀을 때
+        /*
         func hash(into hasher: inout Hasher) {
             hasher.combine(screenshots)
+        }
+        */
+        
+        func onAppear() {
+            showUI()
         }
     }
 }
