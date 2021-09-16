@@ -10,11 +10,13 @@ import Foundation
 import Photos
 import UIKit
 
-struct ImageHasher: Hashable {
+struct ImageHasher: Identifiable {
+    var id: String
     var image: ImageEntity
 
     init(imageEntity: ImageEntity) {
         self.image = imageEntity
+        self.id = image.id
     }
 }
 

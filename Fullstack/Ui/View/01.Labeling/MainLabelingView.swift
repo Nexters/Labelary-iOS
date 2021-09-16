@@ -25,14 +25,14 @@ struct CardViewWithShadow: View {
 
                     Image("shadow_blue")
                         .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
-                        .opacity(direction == .right ? 0.8 : 0)
+                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                        .opacity(direction == .right ? 0.6 : 0)
                 }
 
                 Image("shadow_red")
                     .resizable()
-                    .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
-                    .opacity(direction == .left ? 0.8 : 0)
+                    .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                    .opacity(direction == .left ? 0.6 : 0)
             }
 
             .animation(.default)
@@ -40,7 +40,7 @@ struct CardViewWithShadow: View {
     }
 }
 
-// 라벨링 완료된 데이타는 queue에서 빼야한다.
+// 라벨링 완료된 데이타는 queue에서 빼야한다. -> unlabeled
 
 class NeedToLabelingData: ObservableObject {
     @Published var imageData: [ImageEntity] = []
@@ -53,17 +53,16 @@ class NeedToLabelingData: ObservableObject {
     @Published var isCompleted: Bool = false
 }
 
-var neededData = NeedToLabelingData()
-
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     @State private var isSwipeToLeft = false
     @ObservedObject var viewModel = ViewModel()
+    @ObservedObject var needToLabelingData = NeedToLabelingData()
     
     init() {
-        ViewModel().refresh()
+        self.viewModel.showUI()
     }
-   
+
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
@@ -72,9 +71,12 @@ struct MainLabelingView: View {
                 HStack {
                     Text("스크린샷 라벨링")
                         .font(.system(size: 18, weight: .heavy))
+                        .foregroundColor(Color.PRIMARY_1)
+                    
                     Text("+\(self.viewModel.screenshots.count)")
+                        .foregroundColor(Color.PRIMARY_1)
                         .font(.system(size: 14))
-                        .frame(width: 38, height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                        .frame(height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
                 }
@@ -82,7 +84,7 @@ struct MainLabelingView: View {
                 ZStack {
                     Image("shadow")
                         .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.7)
+                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .offset(x: 25)
                     HStack(alignment: .center) {
                         CardStack(
@@ -91,7 +93,7 @@ struct MainLabelingView: View {
                             onSwipe: { card, direction in
                                 
                                 if direction == .right {
-                                    neededData.imageData.append(neededData.convertToEntity(hashTypeImage: card))
+                                    needToLabelingData.imageData.append(needToLabelingData.convertToEntity(hashTypeImage: card))
                                     self.isShowingAddLabelingView = true
                                 }
 
@@ -109,15 +111,15 @@ struct MainLabelingView: View {
                     }
                     
                     .offset(y: -3)
-                }.offset(y: -40)
+                }
+                .offset(y: -40)
             }
     
             HStack {
                 // skip button (왼쪽 swipe)
                 Button(action: {
                     self.isSwipeToLeft = true
-                    self.viewModel.screenshots.shuffle()
-                    
+                    self.viewModel.screenshots.removeFirst()
                     // 왜 화면에는 바로 반영이 안되는걸까 ?
                    
                 }, label: {
@@ -127,7 +129,7 @@ struct MainLabelingView: View {
                 
                 // add button (오른쪽 swipe)
                 Button(action: {
-                    neededData.imageData.append(viewModel.unlabeledImages.first!)
+                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
                     self.isShowingAddLabelingView = true
                 
                 }, label: {
@@ -144,7 +146,7 @@ struct MainLabelingView: View {
     }
 
     class ViewModel: ObservableObject {
-        @Published var screenshots: [ImageHasher] = []
+        @Published var screenshots: [ImageHasher] = [] // 이거 자체가 observable object여야 될거같음 ! 
         @Published var unlabeledImages: [ImageEntity] = []
         @Published var unlabeledImagesViewModel: [UnlabeledImageViewModel] = []
         @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
@@ -184,10 +186,11 @@ struct MainLabelingView: View {
         }
         
         // 왼쪽 버튼 눌렀을 때
-            
+        /*
         func hash(into hasher: inout Hasher) {
             hasher.combine(screenshots)
         }
+        */
         
         func onAppear() {
             showUI()

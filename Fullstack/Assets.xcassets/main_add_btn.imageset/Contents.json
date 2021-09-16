@@ -1,16 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "btn_labeling.svg",
+      "filename" : "Group 699.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "btn_labeling@2x.svg",
+      "filename" : "Group 699@2x.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Group 699@3x.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

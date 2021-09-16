@@ -85,56 +85,35 @@ struct SearchLabelView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
-                if self.keyword.isEmpty {
-                    Text("최근에 검색한 라벨")
-                        .font(.custom("Apple SD Gothic Neo", size: 14))
-                        .foregroundColor(Color.PRIMARY_2)
-                    FlexibleView(data: output.labels.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
-                        label in Button(action: {
-                            self.keyword = label.name
-                        }) {
-                            Text(verbatim: label.name)
-                                .padding(8)
-                                .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                .background(giveLabelBackgroundColor(color: label.color))
-                                .foregroundColor(giveTextForegroundColor(color: label.color))
-                        }
-                    }
-                    Spacer(minLength: 20)
-                    HStack {
-                        Text("내 라벨")
+        ZStack {
+            Color.DEPTH_3.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading) {
+                ScrollView {
+                    if self.keyword.isEmpty {
+                        Text("최근에 검색한 라벨")
                             .font(.custom("Apple SD Gothic Neo", size: 14))
                             .foregroundColor(Color.PRIMARY_2)
-                        Text("\(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
-                            .font(.custom("Apple SD Gothic Neo", size: 14))
-                    }
-
-                    FlexibleView(data: output.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
-                        label in Button(action: {
-                            print(label)
-                        }) {
-                            Text(verbatim: label.name)
-                                .padding(8)
-                                .font(.custom("AppleSDGothicNeo-Regular", size: 16))
-                                .background(giveLabelBackgroundColor(color: label.color))
-                                .foregroundColor(giveTextForegroundColor(color: label.color))
+                        FlexibleView(data: output.labels.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
+                            label in Button(action: {
+                                self.keyword = label.name
+                            }) {
+                                Text(verbatim: label.name)
+                                    .padding(8)
+                                    .font(.custom("AppleSDGothicNeo-Regular", size: 16))
+                                    .background(giveLabelBackgroundColor(color: label.color))
+                                    .foregroundColor(giveTextForegroundColor(color: label.color))
+                            }
                         }
-                    }
-                } else {
-                    if output.labels.filter { $0.name.contains(keyword) }.count > 0 {
+                        Spacer(minLength: 20)
                         HStack {
-                            Text("검색 결과")
+                            Text("내 라벨")
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
                                 .foregroundColor(Color.PRIMARY_2)
-                            Text("\(output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                            Text("\(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
-                        }.offset(x: -140)
+                        }
 
-                        FlexibleView(data: output.labels.filter {
-                            keyword.isEmpty ? true : $0.name.contains(keyword)
-                        }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                        FlexibleView(data: output.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                             label in Button(action: {
                                 print(label)
                             }) {
@@ -146,69 +125,93 @@ struct SearchLabelView: View {
                             }
                         }
                     } else {
-                        VStack(alignment: .center) {
-                            Spacer(minLength: 143)
-                            Image("icon_empty_state_search")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                            Spacer(minLength: 20)
-                            Text("검색 결과가 없습니다.")
-                                .font(.custom("AppleSDGothicNeo-Bold", size: 18))
-                                .foregroundColor(Color.PRIMARY_1)
+                        if output.labels.filter { $0.name.contains(keyword) }.count > 0 {
+                            HStack {
+                                Text("검색 결과")
+                                    .font(.custom("Apple SD Gothic Neo", size: 14))
+                                    .foregroundColor(Color.PRIMARY_2)
+                                Text("\(output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
+                                    .font(.custom("Apple SD Gothic Neo", size: 14))
+                            }.offset(x: -140)
 
-                            Spacer(minLength: 10)
-                            Text("라벨을 생성하여 스크린샷에\n라벨을 추가해보세요.")
-                                .font(.custom("AppleSDGothicNeo-Bold", size: 18))
-                                .foregroundColor(Color.PRIMARY_2)
-                            Spacer(minLength: 30)
-
-                            NavigationLink(
-                                destination: AddNewLabelView()) {
-                                Text("라벨 생성하기")
+                            FlexibleView(data: output.labels.filter {
+                                keyword.isEmpty ? true : $0.name.contains(keyword)
+                            }, spacing: 8, alignment: HorizontalAlignment.leading) {
+                                label in Button(action: {
+                                    print(label)
+                                }) {
+                                    Text(verbatim: label.name)
+                                        .padding(8)
+                                        .font(.custom("AppleSDGothicNeo-Regular", size: 16))
+                                        .background(giveLabelBackgroundColor(color: label.color))
+                                        .foregroundColor(giveTextForegroundColor(color: label.color))
+                                }
+                            }
+                        } else {
+                            VStack(alignment: .center) {
+                                Spacer(minLength: 143)
+                                Image("icon_empty_state_search")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                Spacer(minLength: 20)
+                                Text("검색 결과가 없습니다.")
+                                    .font(.custom("AppleSDGothicNeo-Bold", size: 18))
                                     .foregroundColor(Color.PRIMARY_1)
-                                    .font(.system(size: 16, weight: .bold, design: .default))
-                                    .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                    .background(Color.KEY_ACTIVE)
-                                    .cornerRadius(2)
-                            }.isDetailLink(false)
 
-                            Spacer()
+                                Spacer(minLength: 10)
+                                Text("라벨을 생성하여 스크린샷에\n라벨을 추가해보세요.")
+                                    .font(.custom("AppleSDGothicNeo-Bold", size: 18))
+                                    .foregroundColor(Color.PRIMARY_2)
+                                Spacer(minLength: 30)
+
+                                NavigationLink(
+                                    destination: AddNewLabelView()) {
+                                        Text("라벨 생성하기")
+                                            .foregroundColor(Color.PRIMARY_1)
+                                            .font(.system(size: 16, weight: .bold, design: .default))
+                                            .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                            .background(Color.KEY_ACTIVE)
+                                            .cornerRadius(2)
+                                }.isDetailLink(false)
+
+                                Spacer()
+                            }
                         }
                     }
                 }
-            }
-        }.padding(12)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading:
-                HStack {
+            }.padding(12)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading:
                     HStack {
-                        SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요")
-                            .frame(width: 240, height: 20)
-                            .padding(10)
-                            .padding(.horizontal, 25)
-                            .background(Color.DEPTH_4_BG)
-                            .cornerRadius(2)
-                            .overlay(
-                                HStack {
-                                    Image("Icon_search")
-                                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                        .padding(.leading, 5)
+                        HStack {
+                            SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요")
+                                .frame(width: 240, height: 20)
+                                .padding(10)
+                                .padding(.horizontal, 25)
+                                .background(Color.DEPTH_4_BG)
+                                .cornerRadius(2)
+                                .overlay(
+                                    HStack {
+                                        Image("Icon_search")
+                                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                            .padding(.leading, 5)
+                                    }
+                                    .padding(5)
+                                )
+                                .padding(.horizontal, 10)
+                                .onTapGesture {
+                                    self.isEditing = true
                                 }
-                                .padding(5)
-                            )
-                            .padding(.horizontal, 10)
-                            .onTapGesture {
-                                self.isEditing = true
-                            }
-                    }
+                        }
 
-                    Button(action: onClickedBackBtn) {
-                        Text("취소").foregroundColor(Color.PRIMARY_1)
-                            .font(.custom("AppleSDGothicNeo-Medium", size: 16))
-                    }
-                }.padding(5)
-            )
+                        Button(action: onClickedBackBtn) {
+                            Text("취소").foregroundColor(Color.PRIMARY_1)
+                                .font(.custom("AppleSDGothicNeo-Medium", size: 16))
+                        }
+                    }.padding(5)
+                )
+        }
     }
 
     func onClickedBackBtn() {
