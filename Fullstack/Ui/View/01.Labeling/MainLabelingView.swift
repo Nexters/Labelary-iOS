@@ -103,7 +103,7 @@ struct MainLabelingView: View {
                         )
                         .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
-                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
+                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1
                         ))
                         .id(reloadToken)
                         .overlay(
@@ -117,7 +117,7 @@ struct MainLabelingView: View {
                                 }, label: {
                                     Image("main_skip_btn")
                                 })
-                                Spacer(minLength: 35)
+                                Spacer(minLength: 150)
                             
                                 // add button (오른쪽 swipe)
                                 Button(action: {
@@ -137,29 +137,7 @@ struct MainLabelingView: View {
                 }
                 .offset(y: -40)
             }
-    
-//            HStack {
-//                // skip button (왼쪽 swipe)
-//                Button(action: {
-//                    self.isSwipeToLeft = true
-//                    self.viewModel.passBtnAction()
-//
-//                }, label: {
-//                    Image("main_skip_btn")
-//                })
-//                Spacer(minLength: 35)
-//
-//                // add button (오른쪽 swipe)
-//                Button(action: {
-//                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
-//                    self.isShowingAddLabelingView = true
-//
-//                }, label: {
-//                    Image("main_add_btn")
-//                })
-//
-//            }.padding(40)
-//                .offset(y: 150)
+
             NavigationLink(
                 destination: AddLabelingView(),
                 isActive: $isShowingAddLabelingView
