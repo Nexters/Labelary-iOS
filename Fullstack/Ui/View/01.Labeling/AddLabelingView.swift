@@ -139,14 +139,6 @@ struct AddLabelingView: View {
 
     let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
-//    init() {
-//        let cancelBag = CancelBag()
-//        loadLabelingSelectData.get()
-//            .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-//                output.labels = data
-//            }).store(in: cancelBag)
-//    }
-
     // MARK: - NavigationLink Action funtions
 
     func onClickedBackBtn() {
