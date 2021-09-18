@@ -56,12 +56,9 @@ class NeedToLabelingData: ObservableObject {
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     @State private var isSwipeToLeft = false
+    @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
     @ObservedObject var needToLabelingData = NeedToLabelingData()
-    
-    init() {
-        self.viewModel.showUI()
-    }
 
     var body: some View {
         ZStack {
@@ -106,38 +103,41 @@ struct MainLabelingView: View {
                         )
                         .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .environment(\.cardStackConfiguration, CardStackConfiguration(
-                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1, animation: .default
+                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1
                         ))
+                        .id(reloadToken)
+                        .overlay(
+                            HStack {
+                                // skip button (왼쪽 swipe)
+                                Button(action: {
+                                    self.reloadToken = UUID()
+                                    self.isSwipeToLeft = true
+                                    self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
+                                    print("shuffle")
+                                }, label: {
+                                    Image("main_skip_btn")
+                                })
+                                Spacer(minLength: 150)
+                            
+                                // add button (오른쪽 swipe)
+                                Button(action: {
+                                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
+                                    self.isShowingAddLabelingView = true
+                            
+                                }, label: {
+                                    Image("main_add_btn")
+                                })
+                                
+                            }.padding(40)
+                                .offset(y: 150)
+                        )
                     }
                     
                     .offset(y: -3)
                 }
                 .offset(y: -40)
             }
-    
-            HStack {
-                // skip button (왼쪽 swipe)
-                Button(action: {
-                    self.isSwipeToLeft = true
-                    self.viewModel.screenshots.removeFirst()
-                    // 왜 화면에는 바로 반영이 안되는걸까 ?
-                   
-                }, label: {
-                    Image("main_skip_btn")
-                })
-                Spacer(minLength: 35)
-                
-                // add button (오른쪽 swipe)
-                Button(action: {
-                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
-                    self.isShowingAddLabelingView = true
-                
-                }, label: {
-                    Image("main_add_btn")
-                })
-                    
-            }.padding(40)
-                .offset(y: 150)
+
             NavigationLink(
                 destination: AddLabelingView(),
                 isActive: $isShowingAddLabelingView
@@ -146,7 +146,8 @@ struct MainLabelingView: View {
     }
 
     class ViewModel: ObservableObject {
-        @Published var screenshots: [ImageHasher] = [] // 이거 자체가 observable object여야 될거같음 ! 
+        @Published var screenshots: [ImageHasher] = [] // 이거 자체가 observable object여야 될거같음 !
+     
         @Published var unlabeledImages: [ImageEntity] = []
         @Published var unlabeledImagesViewModel: [UnlabeledImageViewModel] = []
         @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
@@ -155,10 +156,6 @@ struct MainLabelingView: View {
         let cancelbag = CancelBag()
         
         init() {
-            refresh()
-        }
-        
-        func refresh() {
             loadLabelingData.get().sink(receiveCompletion: { _ in },
                                         receiveValue: { [self] data in
                                             self.unlabeledImages.append(contentsOf: data)
@@ -166,18 +163,20 @@ struct MainLabelingView: View {
                                             unlabeledImagesViewModel = unlabeledImages.map {
                                                 UnlabeledImageViewModel(image: $0)
                                             }
-                                            
+                                        
                                         }).store(in: cancelbag)
-            
-            print("refresh !! ")
         }
         
-        func showUI() {
-            if PHPhotoLibrary.authorizationStatus() == .authorized {
-                refresh()
-                print("authorized")
-            }
+        func passBtnAction() {
+            screenshots.removeFirst()
         }
+        
+//        func showUI() {
+//            if PHPhotoLibrary.authorizationStatus() == .authorized {
+//                refresh()
+//                print("authorized")
+//            }
+//        }
         
         func setImages(_unlabeledImages: [ImageEntity]) {
             screenshots = _unlabeledImages.map {
@@ -187,13 +186,9 @@ struct MainLabelingView: View {
         
         // 왼쪽 버튼 눌렀을 때
         /*
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(screenshots)
-        }
-        */
-        
-        func onAppear() {
-            showUI()
-        }
+         func hash(into hasher: inout Hasher) {
+             hasher.combine(screenshots)
+         }
+         */
     }
 }
