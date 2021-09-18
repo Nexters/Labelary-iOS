@@ -32,14 +32,15 @@ struct CachedData: CachedDataSource {
 
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
-        
         var results: [ImageEntity] = []
+        
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
             for index in 0 ..< assets.count {
                 results.append(assets.object(at: index).toEntity())
             }
         }
+        
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
             .map { entities in results.filter { item in !entities.contains(where: { $0.id == item.id }) } }

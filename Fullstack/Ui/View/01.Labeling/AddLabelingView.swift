@@ -139,13 +139,13 @@ struct AddLabelingView: View {
 
     let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
-    init() {
-        let cancelBag = CancelBag()
-        loadLabelingSelectData.get()
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-                output.labels = data
-            }).store(in: cancelBag)
-    }
+//    init() {
+//        let cancelBag = CancelBag()
+//        loadLabelingSelectData.get()
+//            .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+//                output.labels = data
+//            }).store(in: cancelBag)
+//    }
 
     // MARK: - NavigationLink Action funtions
 
@@ -296,7 +296,15 @@ struct AddLabelingView: View {
                     }
                 }
             )
+            .onAppear(perform: {
+                let cancelBag = CancelBag()
+                loadLabelingSelectData.get()
+                    .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+                        output.labels = data
+                    }).store(in: cancelBag)
+            })
         }
+        
     }
 
     class Output: ObservableObject {
