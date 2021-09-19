@@ -132,11 +132,9 @@ struct AddLabelingView: View {
     @State var showSearchLabelView = false
     @State var isEdited = false
     @State var presentingToast: Bool = false
-    @ObservedObject var needToLabelingData = NeedToLabelingData()
     @State private var showDefaultView: Bool = false // default view switch
 
     let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-
     let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
     // MARK: - NavigationLink Action funtions
@@ -213,11 +211,10 @@ struct AddLabelingView: View {
 
                         Button(action: {
                             let cancelBag = CancelBag()
-
                             self.output.selectedLabels = filters
                             needToLabelingData.labelData = self.output.selectedLabels
 
-                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { print("completion add", $0) }, receiveValue: {
+                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {
                                 print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
 
@@ -296,7 +293,6 @@ struct AddLabelingView: View {
                     }).store(in: cancelBag)
             })
         }
-        
     }
 
     class Output: ObservableObject {

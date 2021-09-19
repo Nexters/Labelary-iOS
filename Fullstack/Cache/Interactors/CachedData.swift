@@ -29,18 +29,17 @@ struct CachedData: CachedDataSource {
             .asObservable()
     }
 
-
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
         var results: [ImageEntity] = []
-        
+
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
             for index in 0 ..< assets.count {
                 results.append(assets.object(at: index).toEntity())
             }
         }
-        
+
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
             .map { entities in results.filter { item in !entities.contains(where: { $0.id == item.id }) } }
@@ -111,26 +110,23 @@ struct CachedData: CachedDataSource {
         let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
-        print("labelQuery", labelQuery)
-        do {
-            try realm.write {
-                let needToAddedImages = images.filter { !$0.isCached }
+        try! realm.write {
+            let needToAddedImages = images.filter { !$0.isCached }
 
-                needToAddedImages.forEach { entity in
-
-                    let model = ImageRealmModel()
-
-                    model.source = entity.source
-                    model.isBookmark = entity.isBookmark
-                    model.labels.append(objectsIn: labelQuery)
-                    print("model.labels ㅠㅠ 왜 안되냐", model.labels)
-                    realm.add(model)
-
-                    print("photo stored.")
-                }
+            labelQuery.forEach { entity in
+                entity.images.append(objectsIn: imageQuery)
             }
-        } catch let error as NSError {
-            fatalError("realm error: \(error)")
+
+            needToAddedImages.forEach { entity in
+
+                let model = ImageRealmModel()
+
+                model.source = entity.source
+                model.isBookmark = entity.isBookmark
+                model.labels.append(objectsIn: labelQuery)
+
+                realm.add(model)
+            }
         }
 
         return
@@ -261,7 +257,7 @@ struct CachedData: CachedDataSource {
     func getAllLabels() -> Observable<[LabelEntity]> {
         return Just(realm.objects(LabelRealmModel.self)).asObservable()
             .map { results in
-                return results.mapNotNull { $0.convertToEntity() }
+                results.mapNotNull { $0.convertToEntity() }
             }
             .eraseToAnyPublisher()
     }

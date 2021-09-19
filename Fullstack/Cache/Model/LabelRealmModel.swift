@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RealmSwift 
+import RealmSwift
 
 class LabelRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
@@ -19,9 +19,8 @@ class LabelRealmModel: Object {
         }
         set {
             color = newValue.rawValue
-        } 
+        }
     }
-    
 
     dynamic var images: List<ImageRealmModel> = List()
     @objc dynamic var createdAt: Date?
@@ -33,17 +32,18 @@ class LabelRealmModel: Object {
 }
 
 extension LabelRealmModel {
-
+ 
     func convertToEntity() -> LabelEntity? {
-
+        print("LabelRealmModel: ",self.images)
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
 
+        
         return LabelEntity(
             id: self.id,
             name: self.name,
-            color: ColorSet(rawValue: self.color)!, 
+            color: ColorSet(rawValue: self.color)!,
             images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,
@@ -51,5 +51,3 @@ extension LabelRealmModel {
         )
     }
 }
-
-

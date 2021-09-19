@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,7 @@
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247A637726E33E9D00E0A43B /* UIScreen.swift */; };
+		2483800626F6354F00716C5F /* LabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2483800526F6354F00716C5F /* LabelDetailView.swift */; };
 		248A048326661A81007EE062 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
 		248A049A26661A86007EE062 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63B25BD7406008EEF2F /* Image.swift */; };
 		248A049B26661A8A007EE062 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64225BD75B7008EEF2F /* Label.swift */; };
@@ -61,6 +62,11 @@
 		24B0EDD426DDC6F600FE599B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196A725C1B8D800E441EC /* Array+.swift */; };
 		24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1969A25C1737E00E441EC /* CachedDataSource.swift */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
+		24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0316026F6B83200319C5A /* LabelAlbumView.swift */; };
+		24E0316F26F7165500319C5A /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0316E26F7165500319C5A /* CustomActionSheet.swift */; };
+		24E0317226F71F4600319C5A /* ActionSheetCard in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0317126F71F4600319C5A /* ActionSheetCard */; };
+		24E0317426F72F3600319C5A /* GrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317326F72F3600319C5A /* GrayView.swift */; };
+		24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317526F7312700319C5A /* ActionSheetCard.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
@@ -169,6 +175,7 @@
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		247A637726E33E9D00E0A43B /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		2483800526F6354F00716C5F /* LabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetailView.swift; sourceTree = "<group>"; };
 		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
 		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
 		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
@@ -179,6 +186,10 @@
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
 		24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetBadgeView.swift; sourceTree = "<group>"; };
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
+		24E0316026F6B83200319C5A /* LabelAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAlbumView.swift; sourceTree = "<group>"; };
+		24E0316E26F7165500319C5A /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
+		24E0317326F72F3600319C5A /* GrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayView.swift; sourceTree = "<group>"; };
+		24E0317526F7312700319C5A /* ActionSheetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCard.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5661457325D2D82400D057E1 /* Album_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_Components.swift; sourceTree = "<group>"; };
@@ -249,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24E0317226F71F4600319C5A /* ActionSheetCard in Frameworks */,
 				2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,6 +401,11 @@
 			isa = PBXGroup;
 			children = (
 				2464AD3525BA648900BE3492 /* LabelView.swift */,
+				24E0317326F72F3600319C5A /* GrayView.swift */,
+				24E0316E26F7165500319C5A /* CustomActionSheet.swift */,
+				24E0317526F7312700319C5A /* ActionSheetCard.swift */,
+				24E0316026F6B83200319C5A /* LabelAlbumView.swift */,
+				2483800526F6354F00716C5F /* LabelDetailView.swift */,
 			);
 			path = 03.Label;
 			sourceTree = "<group>";
@@ -637,6 +654,9 @@
 				2475AB2A25D8FABD0086B24D /* PBXTargetDependency */,
 			);
 			name = Fullstack;
+			packageProductDependencies = (
+				24E0317126F71F4600319C5A /* ActionSheetCard */,
+			);
 			productName = Fullstack;
 			productReference = 246159CD25B2DCC100F6D730 /* Fullstack.app */;
 			productType = "com.apple.product-type.application";
@@ -685,6 +705,9 @@
 				Base,
 			);
 			mainGroup = 246159C425B2DCC100F6D730;
+			packageReferences = (
+				24E0317026F71F4600319C5A /* XCRemoteSwiftPackageReference "SwiftUI-Action-Sheet-Card" */,
+			);
 			productRefGroup = 246159CE25B2DCC100F6D730 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -812,6 +835,7 @@
 				2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */,
 				56C1969025C1695800E441EC /* ImageRealmModel.swift in Sources */,
 				56D1B67925BFE215008EEF2F /* ViewModel.swift in Sources */,
+				24E0316F26F7165500319C5A /* CustomActionSheet.swift in Sources */,
 				56D1B66F25BFE215008EEF2F /* CancelBag.swift in Sources */,
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
 				567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */,
@@ -827,6 +851,7 @@
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
 				2464AD3625BA648900BE3492 /* LabelView.swift in Sources */,
 				56D1B67125BFE215008EEF2F /* Driver.swift in Sources */,
+				24E0317426F72F3600319C5A /* GrayView.swift in Sources */,
 				56D1B67525BFE215008EEF2F /* ActivityTracker.swift in Sources */,
 				2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */,
 				56BD4D2D25C9AF07008D2941 /* Typography.swift in Sources */,
@@ -841,9 +866,12 @@
 				56D1B67F25C04F5B008EEF2F /* LoadLabelingSelectData.swift in Sources */,
 				56BD4D3025CC2276008D2941 /* SColor.swift in Sources */,
 				56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */,
+				24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */,
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
 				56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */,
+				24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */,
+				2483800626F6354F00716C5F /* LabelDetailView.swift in Sources */,
 				56D1B63725BD7391008EEF2F /* Entity.swift in Sources */,
 				56D1B66E25BFE215008EEF2F /* ErrorTracker.swift in Sources */,
 				245A663B25DBDE6F00A8DAF8 /* Badge.swift in Sources */,
@@ -1165,6 +1193,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		24E0317026F71F4600319C5A /* XCRemoteSwiftPackageReference "SwiftUI-Action-Sheet-Card" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mahmudahsan/SwiftUI-Action-Sheet-Card";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		24E0317126F71F4600319C5A /* ActionSheetCard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24E0317026F71F4600319C5A /* XCRemoteSwiftPackageReference "SwiftUI-Action-Sheet-Card" */;
+			productName = ActionSheetCard;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 246159C525B2DCC100F6D730 /* Project object */;
 }

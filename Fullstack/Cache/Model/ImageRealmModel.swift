@@ -11,7 +11,7 @@ import RealmSwift
 class ImageRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var source: String?
-    
+
     var neededLabels: [LabelRealmModel] {
         get {
             return labels.map { $0.self }
@@ -38,7 +38,7 @@ class ImageRealmModel: Object {
 extension ImageRealmModel {
 
     func convertToEntity() -> ImageEntity? {
-        print("확인 id \(self.id) : source : \(self.source) label: \(self.labels)")
+        print("ImageRealmModel 확인 \n id \(self.id) : \n source : \(self.source) \n label: \(self.labels)")
 
         guard !self.id.isEmpty, let source = self.source else {
             return nil
