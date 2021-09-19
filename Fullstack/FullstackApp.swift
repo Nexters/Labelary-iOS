@@ -5,8 +5,8 @@
 //  Created by 우민지 on 2021/01/16.
 ////
 
-import SwiftUI
 import Firebase
+import SwiftUI
 
 @main
 struct FullstackApp: App {
@@ -17,6 +17,6 @@ struct FullstackApp: App {
     }
 
     init() {
-        FirebaseApp.configure()    
+        FirebaseApp.configure()
     }
 }

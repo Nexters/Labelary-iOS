@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct LabelView: View {
-    let screenshots: [Screenshot] = [
-        Screenshot(id: 0, imageName: "sc0"),
-        Screenshot(id: 1, imageName: "sc1"),
-        Screenshot(id: 2, imageName: "sc2"),
-        Screenshot(id: 3, imageName: "sc3"),
-        Screenshot(id: 4, imageName: "sc3"),
-        Screenshot(id: 5, imageName: "sc3"),
-        Screenshot(id: 6, imageName: "sc3"),
-        Screenshot(id: 7, imageName: "sc3")
-    ]
+    @ObservedObject var viewModel = ViewModel()
+    @State private var pushView = false
+    @State private var showingPopover = false
 
-    @State var labels: [LabelEntity] = [LabelEntity(id: "", name: "안녕", color: ColorSet.RED(), images: [], createdAt: Date()), LabelEntity(id: "", name: "안녕", color: ColorSet.RED(), images: [], createdAt: Date()), LabelEntity(id: "", name: "안녕", color: ColorSet.RED(), images: [], createdAt: Date()), LabelEntity(id: "", name: "안녕", color: ColorSet.RED(), images: [], createdAt: Date())]
+    var sheetView: some View {
+        ActionSheetCard(isShowing: $showingPopover, items: [
+            ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white),
+            ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white)
+        ],
+        backgroundColor: Color.DEPTH_2)
+    }
 
-    var body: some View {
+    var content: some View {
         ScrollView {
             VStack {
                 HStack(alignment: .firstTextBaseline) {
@@ -30,7 +29,10 @@ struct LabelView: View {
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
                     Spacer()
-                    Image("ico_add_album")
+
+                    NavigationLink(destination: LabelDetailView(), label: {
+                        Image("ico_add_album")
+                    })
                         .padding(EdgeInsets(top: 24, leading: 0, bottom: 0, trailing: 16))
                 }.frame(minWidth: 0,
                         maxWidth: .infinity,
@@ -40,17 +42,28 @@ struct LabelView: View {
                     .padding(.bottom, 20)
 
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()),GridItem(.flexible())]){
-                        ForEach(labels.indices,id : \.self){ i in
-                            let label = labels[i]
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                        ForEach(self.viewModel.labels.indices, id: \.self) { i in
+                            let label = self.viewModel.labels[i]
                             buildLabelView(label: label)
                         }
                     }.padding(EdgeInsets(top: 20, leading: 13, bottom: 20, trailing: 13))
                 }
             }
+
         }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .onAppear(perform: {
+                self.viewModel.refresh()
+            })
+    }
+
+    var body: some View {
+        ZStack {
+            content
+            sheetView   
+        }
     }
 
     @ViewBuilder
@@ -58,21 +71,47 @@ struct LabelView: View {
         VStack(alignment: .leading) {
             if label.images.isEmpty {
                 ZStack {
-                    Image("ico_more")
+                    Image("container_album")
+                    Button(action: {
+                        showingPopover = true
+                    }, label: {
+                        Image("ico_more")
+                    })
                         .padding(.leading, 115)
-                        .padding(.bottom,115)
+                        .padding(.bottom, 115)
 
-                    Image("ico_empty_screenshot")
-                       
-                }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160,alignment: .center).background(Color.DEPTH_3)
+                }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center).background(Color.DEPTH_3)
             } else {
-//                Image(label.images.first!!.id)
-//                    .frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160)
+                Image(label.images.first!.id)
+                    .frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160)
             }
 
             Text(label.name).font(Font.B2_MEDIUM).padding(.bottom, 8).foregroundColor(Color.PRIMARY_1)
 
             Text("\(label.images.count)").font(Font.B3_MEDIUM).padding(.bottom, 15).foregroundColor(Color.PRIMARY_2)
         }.padding(.leading, 7).padding(.trailing, 7).padding(.bottom, 8)
+    }
+
+    class ViewModel: ObservableObject {
+        @Published var screenshots: [ImageEntity] = []
+        @Published var labels: [LabelEntity] = []
+
+        let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+        init() {
+            refresh()
+        }
+
+        func refresh() {
+            let cancelBag = CancelBag()
+
+            loadLabelingSelectData.get().sink(receiveCompletion: {
+                _ in
+            }, receiveValue: {
+                [self] data in
+                self.labels = data
+            }).store(in: cancelBag)
+        }
     }
 }

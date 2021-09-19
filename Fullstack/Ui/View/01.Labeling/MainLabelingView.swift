@@ -1,5 +1,6 @@
 import CardStack
 import PhotosUI
+import RealmSwift
 import SwiftUI
 import ToastUI
 
@@ -40,8 +41,6 @@ struct CardViewWithShadow: View {
     }
 }
 
-// 라벨링 완료된 데이타는 queue에서 빼야한다. -> unlabeled
-
 class NeedToLabelingData: ObservableObject {
     @Published var imageData: [ImageEntity] = []
     @Published var labelData: [LabelEntity] = []
@@ -53,12 +52,13 @@ class NeedToLabelingData: ObservableObject {
     @Published var isCompleted: Bool = false
 }
 
+var needToLabelingData = NeedToLabelingData()
+
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
     @State private var isSwipeToLeft = false
     @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
-    @ObservedObject var needToLabelingData = NeedToLabelingData()
 
     var body: some View {
         ZStack {
@@ -87,10 +87,10 @@ struct MainLabelingView: View {
                         CardStack(
                             direction: LeftRight.direction,
                             data: self.viewModel.screenshots,
-                            onSwipe: { card, direction in
+                            onSwipe: { _, direction in
                                 
                                 if direction == .right {
-                                    needToLabelingData.imageData.append(needToLabelingData.convertToEntity(hashTypeImage: card))
+                                    needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                 }
 
@@ -108,7 +108,7 @@ struct MainLabelingView: View {
                         .id(reloadToken)
                         .overlay(
                             HStack {
-                                // skip button (왼쪽 swipe)
+                                // Left Button
                                 Button(action: {
                                     self.reloadToken = UUID()
                                     self.isSwipeToLeft = true
@@ -119,9 +119,9 @@ struct MainLabelingView: View {
                                 })
                                 Spacer(minLength: 150)
                             
-                                // add button (오른쪽 swipe)
+                                // Right Button
                                 Button(action: {
-                                    needToLabelingData.imageData.append(viewModel.unlabeledImages.first!)
+                                    needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                             
                                 }, label: {
@@ -146,13 +146,12 @@ struct MainLabelingView: View {
     }
 
     class ViewModel: ObservableObject {
-        @Published var screenshots: [ImageHasher] = [] // 이거 자체가 observable object여야 될거같음 !
-     
+        @Published var screenshots: [ImageHasher] = []
         @Published var unlabeledImages: [ImageEntity] = []
         @Published var unlabeledImagesViewModel: [UnlabeledImageViewModel] = []
         @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
         
-        let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData())) // get unlabeled Images
+        let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let cancelbag = CancelBag()
         
         init() {

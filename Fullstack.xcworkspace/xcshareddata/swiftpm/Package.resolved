@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ActionSheetCard",
+        "repositoryURL": "https://github.com/mahmudahsan/SwiftUI-Action-Sheet-Card",
+        "state": {
+          "branch": null,
+          "revision": "5e9a3ccef5297ded1af74406467322e8fb255b47",
+          "version": "0.3.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
