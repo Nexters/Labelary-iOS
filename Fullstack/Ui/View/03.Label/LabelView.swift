@@ -140,7 +140,7 @@ struct LabelView: View {
         // delete label
         let deleteLabel = DeleteLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
-        // modify label
+       
 
         init() {
             refresh()

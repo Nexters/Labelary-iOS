@@ -385,7 +385,6 @@ struct CachedData: CachedDataSource {
                 query.name = label.name
                 realm.add(query, update: .modified)
             }
-
         } else {
             print("object가 없습니다!")
         }

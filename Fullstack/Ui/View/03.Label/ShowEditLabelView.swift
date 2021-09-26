@@ -23,6 +23,24 @@ struct ShowEditLabelView: View {
             Color.DEPTH_3.ignoresSafeArea(edges: .all)
 
             VStack {
+                ZStack {
+                    HStack {
+                        Button(action: {
+                            dismissModal()
+                        }) {
+                            Image("btn_cancel")
+                        }
+                        Spacer()
+                    }.padding(.leading, 20)
+
+                    HStack(alignment: .center) {
+                        Text("라벨 수정")
+                            .foregroundColor(Color.PRIMARY_1)
+                            .font(.custom("Apple SD Gothic Neo", size: 16))
+                            .fontWeight(.bold)
+                    }
+                }.frame(height: 50)
+
                 VStack(alignment: .leading) {
                     Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
                         .foregroundColor(Color.PRIMARY_2)
@@ -103,7 +121,7 @@ struct ShowEditLabelView: View {
                                         print("complete update label")
                                     }, receiveValue: { _ in }).store(in: cancelbag)
 
-                                    onClickedBackBtn()
+                                    dismissModal()
                                 }
                             }
                     }
@@ -111,25 +129,12 @@ struct ShowEditLabelView: View {
             }
             Spacer()
 
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading:
-                    HStack {
-                        Button(action: {
-                            onClickedBackBtn()
-                        }) {
-                            Image("navigation_back_btn")
-                        }
-                        Spacer()
-                        Text("라벨 생성")
-                            .foregroundColor(Color.PRIMARY_1)
-                        Spacer()
-                    })
         }.onAppear(perform: {
             self.text = passingLabelEntity.selectedLabel?.name ?? ""
         })
     }
 
-    func onClickedBackBtn() {
+    func dismissModal() {
         self.presentationMode.wrappedValue.dismiss()
     }
 
