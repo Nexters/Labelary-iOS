@@ -17,4 +17,6 @@ struct DeleteLabel: Usecase {
     func get(param: Param) -> Observable<Result> {
         return labelRepository.deleteLabel(label: param)
     }
-}
+
+} 
+

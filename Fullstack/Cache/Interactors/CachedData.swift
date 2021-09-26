@@ -194,6 +194,7 @@ struct CachedData: CachedDataSource {
                  }.eraseToAnyPublisher()
      }
      */
+
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.id }}
@@ -340,28 +341,61 @@ struct CachedData: CachedDataSource {
             }.eraseToAnyPublisher()
     }
 
+//    func deleteLabel(label: LabelEntity) -> Observable<String> {
+//        let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
+//        return Just(query).asObservable()
+//            .tryMap { item in
+//                guard let unwrappedItem = item else {
+//                    throw DomainError.DoNotFoundEntity
+//                }
+//                let id = unwrappedItem.id
+//                realm.delete(unwrappedItem)
+//                return id
+//            }.eraseToAnyPublisher()
+//    }
+//
+
     func deleteLabel(label: LabelEntity) -> Observable<String> {
         let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
+        do {
+            try! realm.write {
+                if let object = query {
+                    realm.delete(object)
+                }
+            }
+        } catch {
+            print("\(error.localizedDescription)")
+        }
+
         return Just(query).asObservable()
             .tryMap { item in
                 guard let unwrappedItem = item else {
                     throw DomainError.DoNotFoundEntity
                 }
                 let id = unwrappedItem.id
-                realm.delete(unwrappedItem)
+                // realm.delete(unwrappedItem)
                 return id
             }.eraseToAnyPublisher()
     }
 
     func updateLabel(label: LabelEntity) -> Observable<LabelEntity> {
-        let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
-        return Just(query).asObservable()
+        if let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id) {
+            try! realm.write {
+                query.color = label.color.rawValue
+                query.name = label.name
+                realm.add(query, update: .modified)
+            }
+
+        } else {
+            print("object가 없습니다!")
+        }
+
+        return Just(realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)).asObservable()
             .tryMap { item in
                 guard let unwrappedItem = item else {
                     throw DomainError.DoNotFoundEntity
                 }
-                unwrappedItem.color = label.color.rawValue
-                unwrappedItem.name = label.name
+
                 guard let entity = unwrappedItem.convertToEntity() else {
                     throw DomainError.ConvertError
                 }
