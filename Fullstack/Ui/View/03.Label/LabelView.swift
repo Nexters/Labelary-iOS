@@ -7,17 +7,44 @@
 
 import SwiftUI
 
+class PassLabelData: ObservableObject {
+    @Published var selectedLabel: LabelEntity?
+}
+
+var passingLabelEntity = PassLabelData()
+
 struct LabelView: View {
     @ObservedObject var viewModel = ViewModel()
     @State private var pushView = false
+    @State private var showEditLabelView = false
     @State private var showingPopover = false
+    @State private var showingAlert = false
+    let cancelBag = CancelBag()
 
     var sheetView: some View {
         ActionSheetCard(isShowing: $showingPopover, items: [
-            ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white),
-            ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white)
+            ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
+                showEditLabelView = true
+                passingLabelEntity.selectedLabel = viewModel.selectedLabel
+
+            },
+            ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
+                showingAlert = true
+            }
         ],
         backgroundColor: Color.DEPTH_2)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("라벨을 삭제하시겠어요?"),
+                      message: Text("해당 라벨을 삭제해도\n 라벨이 추가된 스크린샷은 삭제되지 않습니다."),
+                      primaryButton: .default(Text("취소")),
+                      secondaryButton: .default(Text("삭제")) {
+                          viewModel.deleteLabel.get(param: viewModel.selectedLabel!)
+                              .sink(receiveCompletion: { _ in }, receiveValue: {
+                                  _ in
+                              }).store(in: cancelBag)
+
+                      })
+            }
     }
 
     var content: some View {
@@ -62,7 +89,9 @@ struct LabelView: View {
     var body: some View {
         ZStack {
             content
-            sheetView   
+            sheetView
+        }.sheet(isPresented: self.$showEditLabelView) {
+            ShowEditLabelView()
         }
     }
 
@@ -73,9 +102,16 @@ struct LabelView: View {
                 ZStack {
                     Image("container_album")
                     Button(action: {
-                        showingPopover = true
+                        viewModel.selectedLabel = label
+                        passingLabelEntity.selectedLabel = label
+
                     }, label: {
                         Image("ico_more")
+                            .onTapGesture {
+                                viewModel.selectedLabel = label
+                                passingLabelEntity.selectedLabel = label
+                                showingPopover = true
+                            }
                     })
                         .padding(.leading, 115)
                         .padding(.bottom, 115)
@@ -86,7 +122,9 @@ struct LabelView: View {
                     .frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160)
             }
 
-            Text(label.name).font(Font.B2_MEDIUM).padding(.bottom, 8).foregroundColor(Color.PRIMARY_1)
+            LabelBadge(name: label.name, color: giveLabelBackgroundColor(color: label.color), textColor: giveTextForegroundColor(color: label.color))
+                .font(Font.B2_MEDIUM)
+                .padding(.bottom, 8)
 
             Text("\(label.images.count)").font(Font.B3_MEDIUM).padding(.bottom, 15).foregroundColor(Color.PRIMARY_2)
         }.padding(.leading, 7).padding(.trailing, 7).padding(.bottom, 8)
@@ -95,9 +133,14 @@ struct LabelView: View {
     class ViewModel: ObservableObject {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
-
+        @Published var selectedLabel: LabelEntity?
         let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+        // delete label
+        let deleteLabel = DeleteLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+        // modify label
 
         init() {
             refresh()

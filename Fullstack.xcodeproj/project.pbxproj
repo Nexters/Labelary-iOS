@@ -30,6 +30,7 @@
 		246159D825B2DCC700F6D730 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D725B2DCC700F6D730 /* Preview Assets.xcassets */; };
 		246159EB25B2DEC100F6D730 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159EA25B2DEC100F6D730 /* Model.swift */; };
 		246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246159F425B2E18500F6D730 /* MainLabelingView.swift */; };
+		2464603626F78A4F00FE80DE /* LabelBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464603526F78A4E00FE80DE /* LabelBadge.swift */; };
 		2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD2925BA623500BE3492 /* AppViews + TabView.swift */; };
 		2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD2D25BA63E100BE3492 /* SearchView.swift */; };
 		2464AD3625BA648900BE3492 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3525BA648900BE3492 /* LabelView.swift */; };
@@ -39,6 +40,7 @@
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247A637726E33E9D00E0A43B /* UIScreen.swift */; };
+		24806B2626F99B8B00D5CF7A /* ShowEditLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24806B2526F99B8B00D5CF7A /* ShowEditLabelView.swift */; };
 		2483800626F6354F00716C5F /* LabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2483800526F6354F00716C5F /* LabelDetailView.swift */; };
 		248A048326661A81007EE062 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63625BD7391008EEF2F /* Entity.swift */; };
 		248A049A26661A86007EE062 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63B25BD7406008EEF2F /* Image.swift */; };
@@ -49,6 +51,7 @@
 		248A04A626661AAC007EE062 /* Usecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B62E25BD71C8008EEF2F /* Usecase.swift */; };
 		248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CE63025F74B1C00FA7892 /* AddLabelView.swift */; };
 		248CE63925F7624300FA7892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 246159D425B2DCC700F6D730 /* Assets.xcassets */; };
+		2491674126F80DB4004C6F46 /* DeleteLabelFromImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */; };
 		2491A88D26845861006451D0 /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491A88C26845861006451D0 /* DefaultView.swift */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */; };
@@ -165,6 +168,7 @@
 		246159D925B2DCC700F6D730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		246159EA25B2DEC100F6D730 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		246159F425B2E18500F6D730 /* MainLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabelingView.swift; sourceTree = "<group>"; };
+		2464603526F78A4E00FE80DE /* LabelBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBadge.swift; sourceTree = "<group>"; };
 		2464AD2925BA623500BE3492 /* AppViews + TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppViews + TabView.swift"; sourceTree = "<group>"; };
 		2464AD2D25BA63E100BE3492 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		2464AD3525BA648900BE3492 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
@@ -175,9 +179,11 @@
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2475AB2825D8FABD0086B24D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		247A637726E33E9D00E0A43B /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		24806B2526F99B8B00D5CF7A /* ShowEditLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditLabelView.swift; sourceTree = "<group>"; };
 		2483800526F6354F00716C5F /* LabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDetailView.swift; sourceTree = "<group>"; };
 		248CE63025F74B1C00FA7892 /* AddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelView.swift; sourceTree = "<group>"; };
 		248CE63625F7607500FA7892 /* ShareSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheet.entitlements; sourceTree = "<group>"; };
+		2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteLabelFromImage.swift; path = Fullstack/Domain/interactors/Usecase/DeleteLabelFromImage.swift; sourceTree = SOURCE_ROOT; };
 		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCollection+.swift"; sourceTree = "<group>"; };
@@ -401,6 +407,8 @@
 			isa = PBXGroup;
 			children = (
 				2464AD3525BA648900BE3492 /* LabelView.swift */,
+				24806B2526F99B8B00D5CF7A /* ShowEditLabelView.swift */,
+				2464603526F78A4E00FE80DE /* LabelBadge.swift */,
 				24E0317326F72F3600319C5A /* GrayView.swift */,
 				24E0316E26F7165500319C5A /* CustomActionSheet.swift */,
 				24E0317526F7312700319C5A /* ActionSheetCard.swift */,
@@ -577,6 +585,7 @@
 				56C1966925C1393F00E441EC /* SearchImageByLabel.swift */,
 				56C1966F25C13D9600E441EC /* DeleteImages.swift */,
 				56C1967225C13EAB00E441EC /* DeleteLabel.swift */,
+				2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */,
 				56C1967525C13F0600E441EC /* UpdateLabel.swift */,
 				56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */,
 				56C1967B25C1430600E441EC /* BookmarkImage.swift */,
@@ -816,6 +825,8 @@
 				5677671225DF854D00038DC6 /* View_Model.swift in Sources */,
 				56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */,
 				56D1B67725BFE215008EEF2F /* Publisher+.swift in Sources */,
+				24806B2626F99B8B00D5CF7A /* ShowEditLabelView.swift in Sources */,
+				2491674126F80DB4004C6F46 /* DeleteLabelFromImage.swift in Sources */,
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
@@ -864,6 +875,7 @@
 				5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */,
 				56C1967325C13EAB00E441EC /* DeleteLabel.swift in Sources */,
 				56D1B67F25C04F5B008EEF2F /* LoadLabelingSelectData.swift in Sources */,
+				2464603626F78A4F00FE80DE /* LabelBadge.swift in Sources */,
 				56BD4D3025CC2276008D2941 /* SColor.swift in Sources */,
 				56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */,
 				24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */,
