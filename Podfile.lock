@@ -1,4 +1,5 @@
 PODS:
+  - AlertToast (1.3.7)
   - Firebase/Analytics (7.6.0):
     - Firebase/Core
   - Firebase/Core (7.6.0):
@@ -75,9 +76,9 @@ PODS:
     - Realm (= 10.5.1)
   - Resolver (1.4.0)
   - SwiftUICardStack (0.0.5)
-  - ToastUI (1.3.2)
 
 DEPENDENCIES:
+  - AlertToast
   - Firebase/Analytics
   - lottie-ios
   - OpenCombine (~> 0.12.0)
@@ -86,10 +87,10 @@ DEPENDENCIES:
   - RealmSwift (~> 10.5.1)
   - Resolver
   - SwiftUICardStack
-  - ToastUI
 
 SPEC REPOS:
   trunk:
+    - AlertToast
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -108,9 +109,9 @@ SPEC REPOS:
     - RealmSwift
     - Resolver
     - SwiftUICardStack
-    - ToastUI
 
 SPEC CHECKSUMS:
+  AlertToast: 8c9d5efb2df6ea728b32b62bce99d876ec3e5393
   Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
   FirebaseAnalytics: 9f8f4feab1f3fddf4e4515f8f022fe6aa9e51043
   FirebaseCore: 0a43b7f1c5b36f3358cd703011ca4c7e0df55870
@@ -129,8 +130,7 @@ SPEC CHECKSUMS:
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
   Resolver: 9371a9c561477b2ff76408114fa3ba7e94d17afe
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
-  ToastUI: 2baa7f9c7badae7bd83a9ab87a21bc88983010bd
 
-PODFILE CHECKSUM: c53815495b076a587280d452e6d51beafc7cc92c
+PODFILE CHECKSUM: 88b5e032ee99fc62cb7e4184c525be6f126fb18d
 
 COCOAPODS: 1.10.1

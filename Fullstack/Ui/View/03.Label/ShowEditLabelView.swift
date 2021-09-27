@@ -47,7 +47,6 @@ struct ShowEditLabelView: View {
                         .frame(width: 37, height: 20, alignment: .leading)
                         .padding(7)
 
-                    // 클릭하면 올라오게 변경하기 !!
                     TextField("라벨명을 입력해주세요.", text: $text)
                         .font(.custom("Apple SD Gothic Neo", size: 28))
                         .frame(width: 350, height: 40, alignment: .trailing)
