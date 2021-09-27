@@ -19,6 +19,8 @@ struct LabelView: View {
     @State private var showEditLabelView = false
     @State private var showingPopover = false
     @State private var showingAlert = false
+    @State private var showLabelAlbumView = false
+
     let cancelBag = CancelBag()
 
     var sheetView: some View {
@@ -26,7 +28,7 @@ struct LabelView: View {
             ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
                 showEditLabelView = true
                 passingLabelEntity.selectedLabel = viewModel.selectedLabel
-
+                
             },
             ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
                 showingAlert = true
@@ -38,10 +40,11 @@ struct LabelView: View {
                       message: Text("해당 라벨을 삭제해도\n 라벨이 추가된 스크린샷은 삭제되지 않습니다."),
                       primaryButton: .default(Text("취소")),
                       secondaryButton: .default(Text("삭제")) {
+                          // 삭제 로직
+
                           viewModel.deleteLabel.get(param: viewModel.selectedLabel!)
-                              .sink(receiveCompletion: { _ in }, receiveValue: {
-                                  _ in
-                              }).store(in: cancelBag)
+                              .sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelBag)
+                        viewModel.refresh()
 
                       })
             }
@@ -83,6 +86,7 @@ struct LabelView: View {
             .navigationBarHidden(true)
             .onAppear(perform: {
                 self.viewModel.refresh()
+
             })
     }
 
@@ -90,6 +94,7 @@ struct LabelView: View {
         ZStack {
             content
             sheetView
+            NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
         }.sheet(isPresented: self.$showEditLabelView) {
             ShowEditLabelView()
         }
@@ -100,7 +105,14 @@ struct LabelView: View {
         VStack(alignment: .leading) {
             if label.images.isEmpty {
                 ZStack {
-                    Image("container_album")
+                    Button(action: {
+                        viewModel.selectedLabel = label // 그리고 이 값을 전달해야 한다.
+                        passingLabelEntity.selectedLabel = label
+                        showLabelAlbumView = true
+                    }, label: {
+                        Image("container_album")
+                    })
+
                     Button(action: {
                         viewModel.selectedLabel = label
                         passingLabelEntity.selectedLabel = label
@@ -139,8 +151,8 @@ struct LabelView: View {
 
         // delete label
         let deleteLabel = DeleteLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-
-        // modify label
+        // delete Image data
+        let deleteLabelFromImage = DeleteLabelFromImage(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init() {
             refresh()

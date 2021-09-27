@@ -108,14 +108,11 @@ struct CachedData: CachedDataSource {
 
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
         let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
+
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
         try! realm.write {
             let needToAddedImages = images.filter { !$0.isCached }
-
-            labelQuery.forEach { entity in
-                entity.images.append(objectsIn: imageQuery)
-            }
 
             needToAddedImages.forEach { entity in
 
@@ -127,11 +124,17 @@ struct CachedData: CachedDataSource {
 
                 realm.add(model)
             }
+
+            labelQuery.forEach { entity in
+                entity.images.append(objectsIn: imageQuery)
+                realm.add(entity, update: .modified)
+            }
         }
 
         return
             Just((imageQuery, labelQuery)).asObservable()
                 .map { imageQuery, labelQuery in
+
                     imageQuery.forEach {
                         let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
                             $0
@@ -147,6 +150,7 @@ struct CachedData: CachedDataSource {
                         .applying($0.images.difference(from: imageQuery)) ?? []
                         $0.images.append(objectsIn: neeToAddImages)
                     }
+
                     return imageQuery.mapNotNull { $0.convertToEntity() }
                 }.eraseToAnyPublisher()
     }
@@ -200,10 +204,13 @@ struct CachedData: CachedDataSource {
             .filter { item in images.contains { $0.id == item.id }}
         let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
             .filter { item in labels.contains { $0.id == item.id }}
+
         return Just((imageQuery, labelQuery)).asObservable()
             .map { imageQuery, labelQuery in
+
                 imageQuery.forEach { image in
                     labelQuery.forEach { item in
+
                         if let index = image.labels.firstIndex(where: { $0.id == item.id }) {
                             image.labels.remove(at: index)
                         }
@@ -354,9 +361,33 @@ struct CachedData: CachedDataSource {
 //            }.eraseToAnyPublisher()
 //    }
 //
+//
+//    func deleteLabel(label: LabelEntity) -> Observable<String> {
+//        let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
+//        do {
+//            try! realm.write {
+//                if let object = query {
+//                    realm.delete(object)
+//                }
+//            }
+//        } catch {
+//            print("\(error.localizedDescription)")
+//        }
+//
+//        return Just(query).asObservable()
+//            .tryMap { item in
+//                guard let unwrappedItem = item else {
+//                    throw DomainError.DoNotFoundEntity
+//                }
+//                let id = unwrappedItem.id
+//                // realm.delete(unwrappedItem)
+//                return id
+//            }.eraseToAnyPublisher()
+//    }
 
     func deleteLabel(label: LabelEntity) -> Observable<String> {
         let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
+        let id = label.id
         do {
             try! realm.write {
                 if let object = query {
@@ -372,7 +403,7 @@ struct CachedData: CachedDataSource {
                 guard let unwrappedItem = item else {
                     throw DomainError.DoNotFoundEntity
                 }
-                let id = unwrappedItem.id
+                // let id = unwrappedItem.id
                 // realm.delete(unwrappedItem)
                 return id
             }.eraseToAnyPublisher()
@@ -385,7 +416,6 @@ struct CachedData: CachedDataSource {
                 query.name = label.name
                 realm.add(query, update: .modified)
             }
-
         } else {
             print("object가 없습니다!")
         }

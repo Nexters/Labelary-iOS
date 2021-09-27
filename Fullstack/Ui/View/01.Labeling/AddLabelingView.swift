@@ -1,6 +1,6 @@
+import AlertToast
 import Combine
 import SwiftUI
-import ToastUI
 
 // MARK: - functions to give color for GUI Add Labeling View
 
@@ -218,10 +218,8 @@ struct AddLabelingView: View {
                                 print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
 
-                            needToLabelingData.isCompleted = true
-
-                            presentationMode.wrappedValue.dismiss()
                             self.presentingToast = true
+                            presentationMode.wrappedValue.dismiss()
 
                         }) {
                             Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
@@ -232,11 +230,12 @@ struct AddLabelingView: View {
                         .padding(21)
                         .cornerRadius(2)
                         .offset(x: 69, y: 219)
-                        .toast(isPresented: $presentingToast, dismissAfter: 0.1) {
-                            ToastView("스크린샷에 라벨이 추가되었습니다.") {}
-                                .frame(width: 272, height: 53, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                .padding(20)
-                        }
+//                        .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
+//                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.",
+//                                       style: .style(backgroundColor: Color.black.opacity(0.5),
+//                                                     titleColor: Color.PRIMARY_1,
+//                                                     titleFont: Font.B1_MEDIUM))
+//                        })
                         .opacity(filters.count > 0 ? 1 : 0)
                     }
                 }

@@ -1,9 +1,9 @@
+import AlertToast
 import CardStack
 import PhotosUI
 import RealmSwift
 import SwiftUI
-import ToastUI
-
+ 
 struct CardView: View {
     var photo: ImageHasher
     
@@ -48,11 +48,15 @@ class NeedToLabelingData: ObservableObject {
     func convertToEntity(hashTypeImage: ImageHasher) -> ImageEntity {
         return hashTypeImage.image
     }
-
-    @Published var isCompleted: Bool = false
 }
 
 var needToLabelingData = NeedToLabelingData()
+
+class PresentToast: ObservableObject {
+    @Published var presentToast = false
+}
+
+var presentToast = PresentToast()
 
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
@@ -137,7 +141,7 @@ struct MainLabelingView: View {
                 }
                 .offset(y: -40)
             }
-
+            
             NavigationLink(
                 destination: AddLabelingView(),
                 isActive: $isShowingAddLabelingView
