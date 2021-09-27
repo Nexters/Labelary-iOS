@@ -188,6 +188,8 @@ struct AddNewLabelView: View {
             return .ORANGE()
         case "Yellow":
             return .YELLOW()
+        case "Violet":
+            return .VIOLET()
         case "Green":
             return .GREEN()
         case "Peacock_Green":

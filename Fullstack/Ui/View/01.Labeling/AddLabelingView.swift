@@ -54,6 +54,31 @@ func giveTextForegroundColor(color: ColorSet) -> Color {
     }
 }
 
+func giveActiveColor(color: ColorSet) -> Color {
+    switch color {
+    case .YELLOW:
+        return Color.LABEL_YELLOW_ACTIVE
+    case .RED:
+        return Color.LABEL_RED_ACTIVE
+    case .VIOLET:
+        return Color.LABEL_VIOLET_ACTIVE
+    case .BLUE:
+        return Color.LABEL_BLUE_ACTIVE
+    case .GREEN:
+        return Color.LABEL_GREEN_ACTIVE
+    case .ORANGE:
+        return Color.LABEL_ORANGE_ACTIVE
+    case .PINK:
+        return Color.LABEL_PINK_ACTIVE
+    case .CONBALT_BLUE:
+        return Color.LABEL_CONBALT_BLUE_ACTIVE
+    case .PEACOCK_GREEN:
+        return Color.LABEL_GREEN_ACTIVE
+    case .GRAY:
+        return Color.LABEL_GRAY_ACTIVE
+    }
+}
+
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
