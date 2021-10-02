@@ -13,9 +13,13 @@ struct LabelAlbumView: View {
     @State private var secondOption = false
     @State private var thirdOption = false
 
-    var addScreenShot: some View {
-        Text("+")
-    }
+    let data = (1 ... 10).map { "NUMNER \($0)" }
+
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
 
     var body: some View {
         ZStack {
@@ -56,8 +60,26 @@ struct LabelAlbumView: View {
                     }.offset(x: 20)
                     Spacer()
                 }
-
                 Spacer()
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 25) {
+                        Button(action: {}) {
+                            Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
+                                .resizable()
+                                .frame(width: 102, height: 221)
+                        }
+
+                        // 라벨에 해당하는 스크린샷 이미지 데이터 
+//                        ForEach(data, id: \.self) { _ in
+//                            Button(action: {}) {
+//                                Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
+//                                    .resizable()
+//                                    .frame(width: 102, height: 221)
+//                            }
+//                        }
+                        
+                    }
+                }
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:

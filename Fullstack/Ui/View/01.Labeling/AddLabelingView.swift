@@ -79,6 +79,30 @@ func giveActiveColor(color: ColorSet) -> Color {
     }
 }
 
+func colorToString(color: ColorSet) -> String {
+    switch color {
+    case .YELLOW:
+        return "Yellow"
+    case .RED:
+        return "Red"
+    case .VIOLET:
+        return "Violet"
+    case .BLUE:
+        return "Blue"
+    case .GREEN:
+        return "Green"
+    case .ORANGE:
+        return "Orange"
+    case .PINK:
+        return "Pink"
+    case .CONBALT_BLUE:
+        return "Cobalt_Blue"
+    case .PEACOCK_GREEN:
+        return "Peacock_Green"
+    case .GRAY:
+        return "Gray"
+    }
+}
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
