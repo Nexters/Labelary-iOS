@@ -69,7 +69,7 @@ struct CardStackView: View {
                 .fill(Color.DEPTH_2)
                 .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.57)
                 .cornerRadius(0.2)
-            
+
             Image(uiImage: displayedImage ?? UIImage())
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -78,9 +78,7 @@ struct CardStackView: View {
                 .onAppear(perform: {
                     self.loadImage()
                 })
-            
         }
-           
     }
 
     private func loadImage() {
@@ -103,6 +101,37 @@ struct CardStackView: View {
 
 //        case .Remote: break
 //        }
+    }
+}
+
+struct ThumbnailImageView: View {
+    @ObservedObject var viewModel: ImageViewModel {
+        didSet(oldVal) {
+            viewModel.reload()
+        }
+    }
+
+    @State var uiImage: UIImage? = nil
+
+    init(viewModel: ImageViewModel) {
+        self.viewModel = viewModel
+    }
+
+    func reload(uiImage: UIImage) {
+        print("rororror")
+        self.uiImage = uiImage
+    }
+
+    var body: some View {
+        Image(uiImage: uiImage ?? UIImage())
+            .resizable()
+            .frame(width: 160, height: 160)
+            .onAppear(perform: viewModel.reload)
+            .onReceive(viewModel.$uiImage, perform: {
+                if $0 != nil {
+                    uiImage = $0
+                }
+            })
     }
 }
 

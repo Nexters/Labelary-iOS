@@ -20,9 +20,10 @@ struct Screenshot: Identifiable {
         case SELECTING
     }
 }
+
 // 03.Label
 
-struct ThumbnailView: View {
+struct AlbumThumbnailView: View {
     @ObservedObject var imageViewModel: ImageViewModel
     let width: CGFloat
     let height: CGFloat
@@ -30,9 +31,9 @@ struct ThumbnailView: View {
     @State var isPresent: Bool = false
     var body: some View {
         ZStack {
-            ImageView(viewModel: imageViewModel)
-                .frame(width: self.width, height: self.height)
+            ThumbnailImageView(viewModel: imageViewModel) 
                 .cornerRadius(2)
+                .frame(width: self.width, height: self.height)
         }
     }
 }

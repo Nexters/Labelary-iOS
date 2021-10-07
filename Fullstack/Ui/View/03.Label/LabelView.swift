@@ -109,7 +109,7 @@ struct LabelView: View {
             if label.images.isEmpty {
                 ZStack {
                     Button(action: {
-                        viewModel.selectedLabel = label // 그리고 이 값을 전달해야 한다.
+                        viewModel.selectedLabel = label
                         passingLabelEntity.selectedLabel = label
                         showLabelAlbumView = true
                     }, label: {
@@ -133,7 +133,8 @@ struct LabelView: View {
 
                 }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center).background(Color.DEPTH_3)
             } else {
-                ThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
+                AlbumThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
+                    .frame(width: 160, height: 160)
             }
 
             LabelBadge(name: label.name, color: giveLabelBackgroundColor(color: label.color), textColor: giveTextForegroundColor(color: label.color))
@@ -148,7 +149,6 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
-        @Published var thumbnails: [ImageViewModel] = []
 
         let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
