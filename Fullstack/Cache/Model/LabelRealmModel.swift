@@ -23,6 +23,7 @@ class LabelRealmModel: Object {
     }
 
     dynamic var images: List<ImageRealmModel> = List()
+
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
 
@@ -32,14 +33,12 @@ class LabelRealmModel: Object {
 }
 
 extension LabelRealmModel {
- 
     func convertToEntity() -> LabelEntity? {
-       // print("LabelRealmModel: ",self.images.count)
+        // print("LabelRealmModel: ",self.images.count)
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
 
-        
         return LabelEntity(
             id: self.id,
             name: self.name,

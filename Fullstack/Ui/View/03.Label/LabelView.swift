@@ -133,8 +133,7 @@ struct LabelView: View {
 
                 }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center).background(Color.DEPTH_3)
             } else {
-                Image(label.images.first!.id)
-                    .frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160)
+                ThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
             }
 
             LabelBadge(name: label.name, color: giveLabelBackgroundColor(color: label.color), textColor: giveTextForegroundColor(color: label.color))
@@ -149,6 +148,8 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
+        @Published var thumbnails: [ImageViewModel] = []
+
         let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
@@ -170,6 +171,10 @@ struct LabelView: View {
                 [self] data in
                 self.labels = data
             }).store(in: cancelBag)
+        }
+
+        func setImages(label: LabelEntity) -> ImageViewModel {
+            return ImageViewModel(image: label.images.first!)
         }
     }
 }

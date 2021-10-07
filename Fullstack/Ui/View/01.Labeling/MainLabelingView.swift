@@ -146,7 +146,9 @@ struct MainLabelingView: View {
                 destination: AddLabelingView(),
                 isActive: $isShowingAddLabelingView
             ) {}
-        }
+        }.onAppear(perform: {
+            needToLabelingData.imageData.removeAll() // 여기서 초기화해주기 
+        })
     }
 
     class ViewModel: ObservableObject {

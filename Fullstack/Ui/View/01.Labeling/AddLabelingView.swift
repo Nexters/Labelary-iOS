@@ -263,8 +263,8 @@ struct AddLabelingView: View {
                             self.output.selectedLabels = filters
                             needToLabelingData.labelData = self.output.selectedLabels
 
-                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {
-                                print("이미지 라벨링 데이터", $0)
+                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {_ in 
+                              //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
 
                             self.presentingToast = true

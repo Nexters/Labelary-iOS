@@ -20,6 +20,22 @@ struct Screenshot: Identifiable {
         case SELECTING
     }
 }
+// 03.Label
+
+struct ThumbnailView: View {
+    @ObservedObject var imageViewModel: ImageViewModel
+    let width: CGFloat
+    let height: CGFloat
+
+    @State var isPresent: Bool = false
+    var body: some View {
+        ZStack {
+            ImageView(viewModel: imageViewModel)
+                .frame(width: self.width, height: self.height)
+                .cornerRadius(2)
+        }
+    }
+}
 
 struct CScreenShotView<NEXT_VIEW: View>: View {
     @ObservedObject var imageViewModel: ImageViewModel
@@ -36,7 +52,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
                     .padding(.leading, 2)
-                    .padding(.trailing, 2)                    
+                    .padding(.trailing, 2)
             }
 
             switch imageViewModel.status {

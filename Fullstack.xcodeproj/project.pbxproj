@@ -1162,7 +1162,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"nanopb\"",
-					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1247,7 +1246,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"nanopb\"",
-					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";

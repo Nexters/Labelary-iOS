@@ -137,56 +137,69 @@ struct CachedData: CachedDataSource {
         var labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
         var imageId: [String] = []
+        if imageQuery.count == 0 {
+            try! realm.write {
+                let needToAddedImages = images.filter { !$0.isCached }
+                needToAddedImages.forEach { entity in
 
-        try! realm.write {
-            let needToAddedImages = images.filter { !$0.isCached }
-            needToAddedImages.forEach { entity in
+                    let model = ImageRealmModel()
 
-                let model = ImageRealmModel()
+                    model.source = entity.source
+                    model.isBookmark = entity.isBookmark
+                    model.labels.append(objectsIn: labelQuery)
 
-                model.source = entity.source
-                model.isBookmark = entity.isBookmark
-                model.labels.append(objectsIn: labelQuery)
-
-                imageId.append(model.id)
-                realm.add(model)
-            }
-        }
-
-        try! realm.write {
-            imageId.forEach { imgId in
-                let neededImage = realm.objects(ImageRealmModel.self).filter("id == '\(imgId)'").first
-                labelQuery.forEach { entity in
-                    entity.images.append(neededImage!)
-                    realm.add(entity, update: .modified)
+                    imageId.append(model.id)
+                    realm.add(model)
                 }
             }
         }
-        
-        imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
-        labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
+
+        imageQuery = realm.objects(ImageRealmModel.self).filter { item in imageId.contains { $0 == item.id }}
+
+//        try! realm.write {
+//            labelQuery.forEach { entity in
+//
+//                entity.images.append(objectsIn: imageQuery)
+//
+//                //  entity.images.append(objectsIn: imageQuery)
+//            }
+//        }
+
+        try! realm.write {
+            labelQuery.forEach { entity in
+
+                let model = LabelRealmModel()
+                //   model.id = entity.id
+                model.color = entity.color
+                model.name = entity.name
+                model.createdAt = entity.createdAt
+                model.images.append(objectsIn: imageQuery)
+
+                realm.add(model, update: .modified)
+            }
+        }
 
         return
             Just((imageQuery, labelQuery)).asObservable()
-                .map { imageQuery, labelQuery in
+                .map { imageQuery, _ in
 
-                    imageQuery.forEach {
-                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
-                            $0
-                        }
-                        .applying($0.labels.difference(from: labelQuery)) ?? []
-                        //   $0.labels.append(objectsIn: neeToAddLabels)
-                    }
+//                    imageQuery.forEach {
+//                        let neeToAddLabels: [LabelRealmModel] = labelQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.labels.difference(from: labelQuery)) ?? []
+//                        //   $0.labels.append(objectsIn: neeToAddLabels)
+//                    }
 
-                    labelQuery.forEach {
-                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
-                            $0
-                        }
-                        .applying($0.images.difference(from: imageQuery)) ?? []
-                        //  $0.images.append(objectsIn: neeToAddImages)
-                    }
+//                    labelQuery.forEach {
+//                        let neeToAddImages: [ImageRealmModel] = imageQuery.map {
+//                            $0
+//                        }
+//                        .applying($0.images.difference(from: imageQuery)) ?? []
+//                        //  $0.images.append(objectsIn: neeToAddImages)
+//                    }
 
-                    return imageQuery.mapNotNull { $0.convertToEntity() }
+                    imageQuery.mapNotNull { $0.convertToEntity() }
                 }.eraseToAnyPublisher()
     }
 
