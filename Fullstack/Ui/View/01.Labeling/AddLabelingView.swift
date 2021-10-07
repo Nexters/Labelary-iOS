@@ -54,6 +54,55 @@ func giveTextForegroundColor(color: ColorSet) -> Color {
     }
 }
 
+func giveActiveColor(color: ColorSet) -> Color {
+    switch color {
+    case .YELLOW:
+        return Color.LABEL_YELLOW_ACTIVE
+    case .RED:
+        return Color.LABEL_RED_ACTIVE
+    case .VIOLET:
+        return Color.LABEL_VIOLET_ACTIVE
+    case .BLUE:
+        return Color.LABEL_BLUE_ACTIVE
+    case .GREEN:
+        return Color.LABEL_GREEN_ACTIVE
+    case .ORANGE:
+        return Color.LABEL_ORANGE_ACTIVE
+    case .PINK:
+        return Color.LABEL_PINK_ACTIVE
+    case .CONBALT_BLUE:
+        return Color.LABEL_CONBALT_BLUE_ACTIVE
+    case .PEACOCK_GREEN:
+        return Color.LABEL_GREEN_ACTIVE
+    case .GRAY:
+        return Color.LABEL_GRAY_ACTIVE
+    }
+}
+
+func colorToString(color: ColorSet) -> String {
+    switch color {
+    case .YELLOW:
+        return "Yellow"
+    case .RED:
+        return "Red"
+    case .VIOLET:
+        return "Violet"
+    case .BLUE:
+        return "Blue"
+    case .GREEN:
+        return "Green"
+    case .ORANGE:
+        return "Orange"
+    case .PINK:
+        return "Pink"
+    case .CONBALT_BLUE:
+        return "Cobalt_Blue"
+    case .PEACOCK_GREEN:
+        return "Peacock_Green"
+    case .GRAY:
+        return "Gray"
+    }
+}
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
@@ -214,8 +263,8 @@ struct AddLabelingView: View {
                             self.output.selectedLabels = filters
                             needToLabelingData.labelData = self.output.selectedLabels
 
-                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {
-                                print("이미지 라벨링 데이터", $0)
+                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {_ in 
+                              //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
 
                             self.presentingToast = true

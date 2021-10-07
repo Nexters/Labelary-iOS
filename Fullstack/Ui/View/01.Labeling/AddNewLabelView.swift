@@ -33,10 +33,10 @@ struct FirstResponderTextField: UIViewRepresentable {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "입력완료", style: UIBarButtonItem.Style.plain, target: self, action: #selector(textField.doneButtonTapped(button:)))
-        
+
         toolBar.items = [doneButton, flexibleSpace]
         toolBar.setItems([flexibleSpace, doneButton], animated: true)
-        
+
         textField.font = customFont
         textField.delegate = context.coordinator
         textField.placeholder = self.placeholder
@@ -63,10 +63,10 @@ struct AddNewLabelView: View {
     let labelButtons = ["Yellow", "Red", "Violet", "Blue", "Green", "Orange", "Pink", "Cobalt_Blue", "Peacock_Green", "Gray"]
     @Environment(\.presentationMode) var presentationMode
     @State var text: String = ""
-    @State var selectedIndex: Int? = -1
+    @State var selectedIndex: Int = -1
     @State var isSelected: Bool = false
     @State private var selectedColor: String = ""
-    @State private var color: ColorSet = .RED()
+    @State private var color: ColorSet = .VIOLET()
 
     let realm: Realm = try! Realm()
     let createLabel = CreateLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
@@ -188,6 +188,8 @@ struct AddNewLabelView: View {
             return .ORANGE()
         case "Yellow":
             return .YELLOW()
+        case "Violet":
+            return .VIOLET()
         case "Green":
             return .GREEN()
         case "Peacock_Green":
@@ -201,7 +203,7 @@ struct AddNewLabelView: View {
         case "Gray":
             return .GRAY()
         default:
-            return .RED()
+            return .VIOLET()
         }
     }
 

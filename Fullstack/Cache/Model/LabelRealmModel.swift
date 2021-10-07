@@ -15,7 +15,7 @@ class LabelRealmModel: Object {
 
     var colorType: ColorSet {
         get {
-            return ColorSet(rawValue: color) ?? ColorSet.RED()
+            return ColorSet(rawValue: color) ?? ColorSet.VIOLET()
         }
         set {
             color = newValue.rawValue
@@ -23,6 +23,7 @@ class LabelRealmModel: Object {
     }
 
     dynamic var images: List<ImageRealmModel> = List()
+
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
 
@@ -32,14 +33,12 @@ class LabelRealmModel: Object {
 }
 
 extension LabelRealmModel {
- 
     func convertToEntity() -> LabelEntity? {
-        print("LabelRealmModel: ",self.images)
+        // print("LabelRealmModel: ",self.images.count)
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }
 
-        
         return LabelEntity(
             id: self.id,
             name: self.name,
