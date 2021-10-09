@@ -28,15 +28,37 @@ struct AlbumThumbnailView: View {
     let width: CGFloat
     let height: CGFloat
 
-    @State var isPresent: Bool = false
     var body: some View {
-        ZStack {
-            ThumbnailImageView(viewModel: imageViewModel) 
-                .cornerRadius(2)
-                .frame(width: self.width, height: self.height)
+        ThumbnailImageView(viewModel: imageViewModel)
+            .cornerRadius(2)
+            .frame(width: self.width, height: self.height)
+    }
+}
+
+struct AlbumScreenShotView<NEXT_VIEW: View>: View {
+    @ObservedObject var imageViewModel: ImageViewModel
+    let width: CGFloat
+    let height: CGFloat
+    let nextView: NEXT_VIEW
+
+    var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            NavigationLink(destination: nextView) {
+                ImageView(viewModel: imageViewModel)
+                    .frame(width: self.width, height: self.height)
+            }
+            Image("ico_heart_small")
+                .padding(.leading, 8)
+                .padding(.bottom, 8)
+
+            Image("ico_label_small")
+                .padding(.leading, 30)
+                .padding(.bottom, 8)
         }
     }
 }
+
+// 02. Search
 
 struct CScreenShotView<NEXT_VIEW: View>: View {
     @ObservedObject var imageViewModel: ImageViewModel
