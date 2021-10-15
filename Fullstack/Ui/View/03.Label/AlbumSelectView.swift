@@ -10,7 +10,20 @@ import SwiftUI
 struct AlbumSelectView: View {
     var body: some View {
         ZStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Color.DEPTH_4_BG
+            VStack { 
+                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            }
+//            .navigationBarItems(leading: {
+//                HStack {
+//                    Button(action: {}) {}
+//                }
+//            }, trailing:
+//            HStack {
+//                NavigationLink(destination: {}, label: {})
+//                Button(action: {}) {}
+//
+//            })
         }
     }
 }

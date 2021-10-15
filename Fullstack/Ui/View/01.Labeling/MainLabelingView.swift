@@ -147,7 +147,7 @@ struct MainLabelingView: View {
                 isActive: $isShowingAddLabelingView
             ) {}
         }.onAppear(perform: {
-            needToLabelingData.imageData.removeAll() // 여기서 초기화해주기 
+            needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
         })
     }
 
@@ -158,6 +158,8 @@ struct MainLabelingView: View {
         @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
         
         let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        
         let cancelbag = CancelBag()
         
         init() {

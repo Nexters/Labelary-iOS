@@ -133,8 +133,31 @@ struct LabelView: View {
 
                 }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center).background(Color.DEPTH_3)
             } else {
-                AlbumThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
-                    .frame(width: 160, height: 160)
+                ZStack {
+                    Button(action: {
+                        viewModel.selectedLabel = label
+                        passingLabelEntity.selectedLabel = label
+                        showLabelAlbumView = true
+                    }, label: {
+                        AlbumThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
+                    })
+
+                    Button(action: {
+                        viewModel.selectedLabel = label
+                        passingLabelEntity.selectedLabel = label
+
+                    }, label: {
+                        Image("ico_more")
+                            .onTapGesture {
+                                viewModel.selectedLabel = label
+                                passingLabelEntity.selectedLabel = label
+                                showingPopover = true
+                            }
+                    })
+                        .padding(.leading, 115)
+                        .padding(.bottom, 115)
+
+                }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center)
             }
 
             LabelBadge(name: label.name, color: giveLabelBackgroundColor(color: label.color), textColor: giveTextForegroundColor(color: label.color))
@@ -170,6 +193,7 @@ struct LabelView: View {
             }, receiveValue: {
                 [self] data in
                 self.labels = data
+
             }).store(in: cancelBag)
         }
 
