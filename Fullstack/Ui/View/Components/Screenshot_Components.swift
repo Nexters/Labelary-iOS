@@ -35,6 +35,17 @@ struct AlbumThumbnailView: View {
     }
 }
 
+// EditAlbumView 에서 LazyVGridView의 Cell들
+struct EditingScreenShotView: View {
+    @ObservedObject var imageViewModel: ImageViewModel
+    let width: CGFloat
+    let height: CGFloat
+
+    var body: some View {
+        ImageView(viewModel: imageViewModel).frame(width: self.width, height: self.height)
+    }
+}
+
 struct AlbumScreenShotView<NEXT_VIEW: View>: View {
     @ObservedObject var imageViewModel: ImageViewModel
     let width: CGFloat

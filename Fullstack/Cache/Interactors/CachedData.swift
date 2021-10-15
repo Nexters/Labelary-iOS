@@ -155,29 +155,28 @@ struct CachedData: CachedDataSource {
         }
 
         imageQuery = realm.objects(ImageRealmModel.self).filter { item in imageId.contains { $0 == item.id }}
-
-//        try! realm.write {
-//            labelQuery.forEach { entity in
-//
-//                entity.images.append(objectsIn: imageQuery)
-//
-//                //  entity.images.append(objectsIn: imageQuery)
-//            }
-//        }
-
         try! realm.write {
             labelQuery.forEach { entity in
-
-                let model = LabelRealmModel()
-                //   model.id = entity.id
-                model.color = entity.color
-                model.name = entity.name
-                model.createdAt = entity.createdAt
-                model.images.append(objectsIn: imageQuery)
-
-                realm.add(model, update: .modified)
+                entity.images.append(objectsIn: imageQuery)
+                realm.add(entity, update: .modified)
             }
         }
+
+        /*
+         try! realm.write {
+             labelQuery.forEach { entity in
+
+                 let model = LabelRealmModel()
+                 //   model.id = entity.id
+                 model.color = entity.color
+                 model.name = entity.name
+                 model.createdAt = entity.createdAt
+                 model.images.append(objectsIn: imageQuery)
+
+                 realm.add(model, update: .modified)
+             }
+         }
+         */
 
         return
             Just((imageQuery, labelQuery)).asObservable()

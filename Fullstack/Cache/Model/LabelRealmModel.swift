@@ -34,7 +34,6 @@ class LabelRealmModel: Object {
 
 extension LabelRealmModel {
     func convertToEntity() -> LabelEntity? {
-        // print("LabelRealmModel: ",self.images.count)
         guard !self.id.isEmpty, !self.name.isEmpty, let createdAt = self.createdAt else {
             return nil
         }

@@ -35,7 +35,7 @@ struct AlbumEmptyView: View {
                     ZStack {
                         Image("add_screenshot_btn")
                         NavigationLink(
-                            destination: AddNewLabelView(), // 스크린샷 선택 화면으로 이동해야 한다 !!!!!! 중요중요
+                            destination: EditAlbumView(), // 스크린샷 선택 화면으로 이동해야 한다 !!!!!! 중요중요
                             isActive: $show
                         ) {}.isDetailLink(false)
                     }

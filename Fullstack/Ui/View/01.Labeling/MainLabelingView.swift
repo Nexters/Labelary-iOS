@@ -158,6 +158,8 @@ struct MainLabelingView: View {
         @Published var isAuthorized = PHPhotoLibrary.authorizationStatus()
         
         let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        
         let cancelbag = CancelBag()
         
         init() {

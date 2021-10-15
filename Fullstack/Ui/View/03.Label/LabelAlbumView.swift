@@ -94,9 +94,11 @@ struct LabelAlbumView: View {
                                 .foregroundColor(Color.PRIMARY_1)
                         },
                         trailing:
-                        Button(action: {}) {
-                            Text("선택").font(Font.B1_BOLD)
-                                .foregroundColor(giveActiveColor(color: passingLabelEntity.selectedLabel!.color))
+                        HStack {
+                            NavigationLink(destination: AlbumSelectView()) {
+                                Text("선택").font(Font.B1_BOLD)
+                                    .foregroundColor(giveActiveColor(color: passingLabelEntity.selectedLabel!.color))
+                            }
                         })
 
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
