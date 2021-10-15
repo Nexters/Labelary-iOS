@@ -79,7 +79,9 @@ struct EditAlbumView: View {
                     trailing: HStack {
                         Button(action: {
                             // request lable
-                            viewModel.requestLabeling.get(param: RequestLabeling.Param.init(labels: viewModel.currentLabel, images: selectedImages))
+                            viewModel.requestLabeling.get(param: RequestLabeling.Param.init(labels: viewModel.currentLabel, images: selectedImages)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
+                            
+                            presentationMode.wrappedValue.dismiss()
 
                         }, label: {
                             Text("스크린샷 추가")
@@ -106,7 +108,7 @@ struct EditAlbumView: View {
                 self.unlabeledImages.append(contentsOf: data)
                 self.setImages(unlabeledImages: unlabeledImages)
             }).store(in: cancelBag)
-            currentLabel.append(passingLabelEntity.selectedLabel)
+            currentLabel.append(passingLabelEntity.selectedLabel!)
         }
 
         func setImages(unlabeledImages: [ImageEntity]) {
