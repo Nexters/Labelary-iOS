@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// 라벨 컬러별 앨범 UI
+
 struct LabelAlbumView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var firstOption = true
@@ -70,6 +72,7 @@ struct LabelAlbumView: View {
                             Button(action: {}) {
                                 Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
                                     .resizable()
+                                    .aspectRatio(contentMode: .fill)
                                     .frame(width: 102, height: 221)
                             }
 
@@ -96,7 +99,7 @@ struct LabelAlbumView: View {
                         trailing:
                         HStack {
                             NavigationLink(destination: AlbumSelectView()) {
-                                Text("선택").font(Font.B1_BOLD)
+                                Text("선택").font(Font.B1_REGULAR)
                                     .foregroundColor(giveActiveColor(color: passingLabelEntity.selectedLabel!.color))
                             }
                         })
@@ -123,7 +126,12 @@ struct LabelAlbumView: View {
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init() {
+            if (passingLabelEntity.selectedLabel?.images.count ?? 0) > 0 {
+                cachedImages = passingLabelEntity.selectedLabel!.images
+            }
+
             refresh()
+            screenshots = setImages(data: cachedImages)
         }
 
         func refresh() {

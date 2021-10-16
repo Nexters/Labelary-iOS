@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// 엘범에 스크린샷이 없을때 보여주는 화면
+
 struct AlbumEmptyView: View {
     @State private var show = false
     @Environment(\.presentationMode) var presentationMode

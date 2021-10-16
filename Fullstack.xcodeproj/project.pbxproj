@@ -411,8 +411,8 @@
 		2464AD3425BA646900BE3492 /* 03.Label */ = {
 			isa = PBXGroup;
 			children = (
-				2464AD3525BA648900BE3492 /* LabelView.swift */,
 				24B6DB1C2700AA07004C5B24 /* AlbumEmptyView.swift */,
+				2464AD3525BA648900BE3492 /* LabelView.swift */,
 				24806B2526F99B8B00D5CF7A /* ShowEditLabelView.swift */,
 				24E0316026F6B83200319C5A /* LabelAlbumView.swift */,
 				24D0F5AA270218E5004BA2F1 /* AlbumSelectView.swift */,

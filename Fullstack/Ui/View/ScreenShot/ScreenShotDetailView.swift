@@ -70,7 +70,7 @@ struct ScreenShotDetailView: View {
                             .padding(.leading, 6)
                     }.padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 20))
                         .background(Color(hex: "B3000000"))
-                    ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
+              //      ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.delete()
@@ -96,6 +96,7 @@ struct ScreenShotDetailView: View {
         }.onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 
     class ViewModel: ObservableObject {

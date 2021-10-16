@@ -56,7 +56,9 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
         ZStack(alignment: .bottomLeading) {
             NavigationLink(destination: nextView) {
                 ImageView(viewModel: imageViewModel)
+                    .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
+                  
             }
             Image("ico_heart_small")
                 .padding(.leading, 8)

@@ -92,13 +92,17 @@ struct LabelView: View {
 
     var body: some View {
         NavigationView {
-            ZStack {
-                content
-                sheetView
-                NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
+            if viewModel.labels.count == 0 {
+                DefaultView()
+            } else {
+                ZStack {
+                    content
+                    sheetView
+                    NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
 
-            }.sheet(isPresented: self.$showEditLabelView) {
-                ShowEditLabelView()
+                }.sheet(isPresented: self.$showEditLabelView) {
+                    ShowEditLabelView()
+                }
             }
         }.navigationBarHidden(true)
     }
