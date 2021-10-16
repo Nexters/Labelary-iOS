@@ -69,7 +69,7 @@ struct LabelAlbumView: View {
                     Spacer()
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 25) {
-                            Button(action: {}) {
+                            NavigationLink(destination: EditAlbumView()) {
                                 Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
