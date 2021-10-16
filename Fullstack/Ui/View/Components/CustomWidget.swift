@@ -135,6 +135,8 @@ struct ThumbnailImageView: View {
     }
 }
 
+
+
 struct ImageView: View {
     @ObservedObject var viewModel: ImageViewModel {
         didSet(oldVal) {

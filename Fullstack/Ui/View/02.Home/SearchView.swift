@@ -82,18 +82,18 @@ struct SearchView: View {
                         .background(label.color.deactive)
                         .cornerRadius(3)
                         .onTapGesture {
-                            if !viewmodel.selectedLabels.contains(label) {
-                                viewmodel.selectedLabels.append(label)
+                            if !viewmodel.recentlySearchedLabels.contains(label) {
+                                viewmodel.recentlySearchedLabels.append(label)
                             } else {
-                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
-                                    self.viewmodel.selectedLabels.remove(at: index)
+                                if let index = self.viewmodel.recentlySearchedLabels.firstIndex(of: label) {
+                                    self.viewmodel.recentlySearchedLabels.remove(at: index)
                                 }
                             }
                         }
                 }
 
                 HStack {
-                    Text("내 라벨")
+                    Text("라벨 목록")
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color.PRIMARY_2)
 
@@ -162,31 +162,32 @@ struct SearchView: View {
         @Published var bookmarImages: [ImageViewModel] = []
         @Published var isEditing: Bool = false
         @Published var keyword: String = ""
-        @Published var labels: [LabelEntity] = [
-            LabelEntity(id: "1", name: "OOTD", color: ColorSet.RED(), images: [], createdAt: Date()),
-            LabelEntity(id: "2", name: "컬러팔레트", color: ColorSet.BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "3", name: "UI 레퍼런스", color: ColorSet.GREEN(), images: [], createdAt: Date()),
-            LabelEntity(id: "4", name: "편집디자인", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "5", name: "채팅", color: ColorSet.CONBALT_BLUE(), images: [], createdAt: Date()),
-            LabelEntity(id: "6", name: "meme 모음", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "7", name: "글귀", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "8", name: "장소(공연, 전시 등)", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "9", name: "영화", color: ColorSet.YELLOW(), images: [], createdAt: Date()),
-            LabelEntity(id: "10", name: "네일", color: ColorSet.ORANGE(), images: [], createdAt: Date()),
-            LabelEntity(id: "11", name: "맛집", color: ColorSet.GRAY(), images: [], createdAt: Date()),
-            LabelEntity(id: "12", name: "인테리어", color: ColorSet.GRAY(), images: [], createdAt: Date())
-        ]
-
+        @Published var labels: [LabelEntity] = []
+        @Published var recentlySearchedLabels: [LabelEntity] = []
         @Published var selectedLabels: [LabelEntity] = []
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let loadSearchLabelData = LoadSearchLabelData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 최근 검색한 라벨
+        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 모든 라벨들을 로드
+        
         let cancelbag = CancelBag()
 
         var cachedImages: [ImageEntity] = []
 
         init() {
             refresh()
+            loadLabelingSelectData.get().sink(receiveCompletion: {
+                _ in
+            }, receiveValue: {
+                data in
+                self.labels = data
+            }).store(in: cancelbag)
+            
+            loadSearchLabelData.get().sink(receiveCompletion: { _ in }, receiveValue: { data in
+                self.recentlySearchedLabels = data.recentlySearchedLabels
+            }).store(in: cancelbag)
         }
 
+        
         func refresh() {
             loadSearchMainData.get()
                 .sink(

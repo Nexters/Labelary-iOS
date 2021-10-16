@@ -71,7 +71,7 @@ struct EditAlbumView: View {
                             Image("btn_cancel")
                         })
 
-                        Text("\(selectedImages.count)")
+                        Text("\(selectedImages.count)개")
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                             .opacity(selectedImages.count > 0 ? 1 : 0)
@@ -79,7 +79,9 @@ struct EditAlbumView: View {
                     trailing: HStack {
                         Button(action: {
                             // request lable
+                            viewModel.requestLabeling.get(param: RequestLabeling.Param.init(labels: viewModel.currentLabel, images: selectedImages)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
                             
+                            presentationMode.wrappedValue.dismiss()
 
                         }, label: {
                             Text("스크린샷 추가")
@@ -92,10 +94,12 @@ struct EditAlbumView: View {
 
     class ViewModel: ObservableObject {
         let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
        
         let cancelBag = CancelBag()
         @Published var unlabeledImages: [ImageEntity] = []
         @Published var screenshots: [ImageViewModel] = []
+        @Published var currentLabel: [LabelEntity] = []
 
         init() {
             loadLabelingData.get().sink(receiveCompletion: {
@@ -104,6 +108,7 @@ struct EditAlbumView: View {
                 self.unlabeledImages.append(contentsOf: data)
                 self.setImages(unlabeledImages: unlabeledImages)
             }).store(in: cancelBag)
+            currentLabel.append(passingLabelEntity.selectedLabel!)
         }
 
         func setImages(unlabeledImages: [ImageEntity]) {
