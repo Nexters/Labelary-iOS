@@ -17,7 +17,7 @@ struct AlbumEditLabelView: View {
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 20) {
                 Text("현재 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
                 Text("현재 라벨 이름 어쩌고").font(Font.H3_MEDIUM)
 
