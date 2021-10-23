@@ -23,6 +23,7 @@ class LabelRealmModel: Object {
     }
 
     dynamic var images: List<ImageRealmModel> = List()
+   // dynamic var images = LinkingObjects(fromType: ImageRealmModel.self, property: "labels")
 
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
