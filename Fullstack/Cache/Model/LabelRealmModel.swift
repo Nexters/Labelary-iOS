@@ -22,8 +22,7 @@ class LabelRealmModel: Object {
         }
     }
 
-    dynamic var images: List<ImageRealmModel> = List()
-   // dynamic var images = LinkingObjects(fromType: ImageRealmModel.self, property: "labels")
+  //  dynamic var images: List<ImageRealmModel> = List()
 
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
@@ -43,7 +42,7 @@ extension LabelRealmModel {
             id: self.id,
             name: self.name,
             color: ColorSet(rawValue: self.color)!,
-            images: self.images.mapNotNull { $0.convertToEntity() },
+        //    images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,
             isCached: true

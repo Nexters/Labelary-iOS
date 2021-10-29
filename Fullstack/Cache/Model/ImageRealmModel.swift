@@ -23,8 +23,7 @@ class ImageRealmModel: Object {
 
 extension ImageRealmModel {
     func convertToEntity() -> ImageEntity? {
-        print("ImageRealmModel 확인 \n id \(self.id) : \n source : \(self.source) \n label: \(self.labels)")
-
+        print("\(self.id) \(self.labels) image realm model")
         guard !self.id.isEmpty, let source = self.source else {
             return nil
         }

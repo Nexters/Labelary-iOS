@@ -17,6 +17,7 @@
 		241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B66225BFE215008EEF2F /* CancelBag.swift */; };
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
+		242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
 		2448D8672719476800C4EC52 /* AlbumEditLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2448D8662719476800C4EC52 /* AlbumEditLabelView.swift */; };
 		24495BE126E26D08008295D8 /* DataSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24495BE026E26D08008295D8 /* DataSharing.swift */; };
@@ -160,6 +161,7 @@
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
 		241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetDefaultView.swift; sourceTree = "<group>"; };
 		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
+		242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label_ImageRealmModel.swift; sourceTree = "<group>"; };
 		2437675225DB3BB1003A51AB /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		2448D8662719476800C4EC52 /* AlbumEditLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumEditLabelView.swift; sourceTree = "<group>"; };
 		24495BDC26E20D5F008295D8 /* FullstackDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FullstackDebug.entitlements; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 			isa = PBXGroup;
 			children = (
 				56C1968C25C1694D00E441EC /* LabelRealmModel.swift */,
+				242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */,
 				24495BE026E26D08008295D8 /* DataSharing.swift */,
 				56C1968F25C1695800E441EC /* ImageRealmModel.swift */,
 				249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */,
@@ -908,6 +911,7 @@
 				56A9860A26A4513A0088C80F /* Screenshot_Components.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,
 				56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */,
+				242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
 				5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */,

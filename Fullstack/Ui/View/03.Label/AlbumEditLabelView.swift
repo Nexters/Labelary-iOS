@@ -15,23 +15,33 @@ struct AlbumEditLabelView: View {
     @State var isSelected: Bool = false
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading) {
                 Text("현재 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
+                
                 Text("현재 라벨 이름 어쩌고").font(Font.H3_MEDIUM)
+                    .offset(y: 9.0)
 
                 Text("변경할 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
+                    .padding(.top, 40)
+
                 if !isSelected {
-                    Text("새 라벨을 선택해 주세요.").font(Font.H1_MEDIUM).foregroundColor(Color.PRIMARY_4)
+                    Text("새 라벨을 선택해 주세요.")
+                        .font(Font.H1_MEDIUM).foregroundColor(Color.PRIMARY_4)
+                        .offset(y: 9.0)
                 } else {
-                    Text("\(viewModel.selectedLabel[0].name)").font(Font.H1_MEDIUM)
+                    Text("\(viewModel.selectedLabel[0].name)")
+                        .font(Font.H1_MEDIUM)
+                        .offset(y: 9.0)
                 }
 
                 HStack {
                     Text("내 라벨").foregroundColor(Color.PRIMARY_2)
                     Text("\(viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                 }.font(Font.B2_MEDIUM)
+                .padding(.top, 80)
+
                 // flexible view -> selected 되면 버튼 x 뜨게 한다
                 FlexibleView(data: viewModel.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                     label in Button(action: {
@@ -44,7 +54,8 @@ struct AlbumEditLabelView: View {
                             .foregroundColor(giveTextForegroundColor(color: label.color))
                     }
                 }
-            }
+            }.padding(20)
+            Spacer()
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                 HStack {
@@ -52,8 +63,10 @@ struct AlbumEditLabelView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) { Image("ico_cancel")
                     }
+                    Spacer(minLength: 100)
                     Text("스크린샷 라벨 변경").foregroundColor(Color.PRIMARY_1).font(Font.B1_BOLD)
                 },
+
                 trailing: HStack {
                     Button(action: {
                         viewModel.requestLabeling.get(param: RequestLabeling.Param(labels: viewModel.selectedLabel, images: viewModel.selectedImages)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)

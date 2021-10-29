@@ -134,7 +134,7 @@ struct CachedData: CachedDataSource {
 
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
         var imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
-        var labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
+        let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
         var imageId: [String] = []
         if imageQuery.count == 0 {
@@ -155,6 +155,7 @@ struct CachedData: CachedDataSource {
         }
 
         imageQuery = realm.objects(ImageRealmModel.self).filter { item in imageId.contains { $0 == item.id }}
+        
 //        try! realm.write {
 //            labelQuery.forEach { entity in
 //                entity.images.append(objectsIn: imageQuery)
@@ -162,19 +163,17 @@ struct CachedData: CachedDataSource {
 //            }
 //        }
 
-         try! realm.write {
-             labelQuery.forEach { entity in
+        try! realm.write {
+            labelQuery.forEach { entity in
 
-                 let model = LabelRealmModel()
-                 model.color = entity.color
-                 model.name = entity.name
-                 model.createdAt = entity.createdAt
-                 model.images.append(objectsIn: imageQuery)
-
-                 realm.add(model, update: .modified)
-             }
-         }
-
+                let model = LabelRealmModel()
+                model.color = entity.color
+                model.name = entity.name
+                model.createdAt = entity.createdAt
+           //     model.images.append(objectsIn: imageQuery)
+                realm.add(model, update: .modified)
+            }
+        }
 
         return
             Just((imageQuery, labelQuery)).asObservable()
@@ -260,9 +259,9 @@ struct CachedData: CachedDataSource {
                             image.labels.remove(at: index)
                         }
 
-                        if let index = item.images.firstIndex(where: { $0.id == image.id }) {
-                            item.images.remove(at: index)
-                        }
+//                        if let index = item.images.firstIndex(where: { $0.id == image.id }) {
+//                            item.images.remove(at: index)
+//                        }
                     }
                 }
                 return imageQuery.mapNotNull { $0.id }
