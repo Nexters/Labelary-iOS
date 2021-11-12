@@ -8,13 +8,13 @@
 import Combine
 import Foundation
 
-struct SearchImageByLabel: Usecase {
-    typealias Param = [LabelEntity]
-    typealias Result = [ImageEntity]
-
-    let imageRepository: ImageRepository
-
-    func get(param: Param) -> Observable<Result> {
-        return imageRepository.getImages(labels: param)
-    }
-}
+//struct SearchImageByLabel: Usecase {
+//    typealias Param = [LabelEntity]
+//    typealias Result = [ImageEntity]
+//
+//    let imageRepository: ImageRepository
+//
+//    func get(param: Param) -> Observable<Result> {
+//        return imageRepository.getImages(labels: param)
+//    }
+//}

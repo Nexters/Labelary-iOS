@@ -60,7 +60,7 @@ var presentToast = PresentToast()
 
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
-    @State private var isSwipeToLeft = false
+    //  @State private var isSwipeToLeft = false
     @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
 
@@ -98,6 +98,12 @@ struct MainLabelingView: View {
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                 }
+                                
+                                if direction == .left {
+                                    self.reloadToken = UUID()
+                                    self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
+                                    
+                                }
 
                             },
                             content: { photo, direction, _ in
@@ -116,9 +122,8 @@ struct MainLabelingView: View {
                                 // Left Button
                                 Button(action: {
                                     self.reloadToken = UUID()
-                                    self.isSwipeToLeft = true
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
-                                    print("shuffle")
+                                
                                 }, label: {
                                     Image("main_skip_btn")
                                 })
@@ -194,7 +199,10 @@ struct MainLabelingView: View {
                 print("앨범 접근 권한 허용 필요 ")
             case .notDetermined:
                 break
-                
+            case .restricted:
+                break
+            case .limited:
+                break
             @unknown default:
                 break
             }

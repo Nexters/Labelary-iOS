@@ -181,7 +181,7 @@ struct LabelView: View {
 
         @Published var labelImageData: [LabelImageEntity] = [] // 여기서 이미지를 꺼낼거임
 
-        let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+      
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
         let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))

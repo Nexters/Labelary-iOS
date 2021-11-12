@@ -22,9 +22,9 @@ struct ImageRepositoryImpl: ImageRepository {
         return cachedDataSource.getLabeldImages()
     }
     
-    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
-        return cachedDataSource.getImages(labels: labels)
-    }
+//    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
+//        return cachedDataSource.getImages(labels: labels)
+//    }
     
     func getBookmarkImages() -> Observable<[ImageEntity]> {
         return cachedDataSource.getBookmarkImages()

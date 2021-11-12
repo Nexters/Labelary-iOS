@@ -58,6 +58,7 @@ struct CachedData: CachedDataSource {
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
         var results: [ImageEntity] = []
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self)
 
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
@@ -69,6 +70,7 @@ struct CachedData: CachedDataSource {
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
             .map { entities in results.filter { item in !entities.contains(where: { $0.id == item.id }) } }
+
             .asObservable()
     }
 
@@ -78,13 +80,15 @@ struct CachedData: CachedDataSource {
             .eraseToAnyPublisher()
     }
 
-    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
-        let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-            .filter { item in item.labels.contains { label in labels.contains { $0.id == label.id } } }
-        return Just(query).asObservable()
-            .map { result in result.mapNotNull { $0.convertToEntity() }}
-            .eraseToAnyPublisher()
-    }
+//    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
+    ////        let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
+    ////            .filter { item in item.labels.contains { label in labels.contains { $0.id == label.id } } }
+//
+//        var query = realm.objects(<#T##type: Element.Type##Element.Type#>)
+//        return Just(query).asObservable()
+//            .map { result in result.mapNotNull { $0.convertToEntity() }}
+//            .eraseToAnyPublisher()
+//    }
 
     func getBookmarkImages() -> Observable<[ImageEntity]> {
         let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
@@ -189,24 +193,61 @@ struct CachedData: CachedDataSource {
         let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
             .filter { item in labels.contains { $0.id == item.id }}
 
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self)
+
+        for labelImage in labelImageQuery {
+            for item in labelImage.labels {
+                if let index = labelImage.labels.firstIndex(where: { $0.id == item.id }) {
+                    labelImage.labels.remove(at: index)
+                }
+            }
+            try! realm.write {
+                realm.add(labelImage)
+            }
+        }
+
+        try! realm.write {
+            realm.delete(labelQuery)
+        }
+
         return Just((imageQuery, labelQuery)).asObservable()
             .map { imageQuery, labelQuery in
 
-                imageQuery.forEach { image in
-                    labelQuery.forEach { item in
-
-                        if let index = image.labels.firstIndex(where: { $0.id == item.id }) {
-                            image.labels.remove(at: index)
-                        }
-
-//                        if let index = item.images.firstIndex(where: { $0.id == image.id }) {
-//                            item.images.remove(at: index)
-//                        }
+                imageQuery.forEach { _ in
+                    labelQuery.forEach { _ in
                     }
                 }
                 return imageQuery.mapNotNull { $0.id }
             }.eraseToAnyPublisher()
     }
+
+//    func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
+//        let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
+//            .filter { item in images.contains { $0.id == item.id }}
+//        let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
+//            .filter { item in labels.contains { $0.id == item.id }}
+//
+//        let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self) // 여기서 이미지한테서 라벨만 하나 쏙 빼주면 되지 않나 ?????
+//
+//
+//        return Just((imageQuery, labelQuery)).asObservable()
+//            .map { imageQuery, labelQuery in
+//
+//                imageQuery.forEach { image in
+//                    labelQuery.forEach { item in
+//
+//                        if let index = image.labels.firstIndex(where: { $0.id == item.id }) {
+//                            image.labels.remove(at: index)
+//                        }
+//
+    ////                        if let index = item.images.firstIndex(where: { $0.id == image.id }) {
+    ////                            item.images.remove(at: index)
+    ////                        }
+//                    }
+//                }
+//                return imageQuery.mapNotNull { $0.id }
+//            }.eraseToAnyPublisher()
+//    }
 
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
@@ -285,7 +326,7 @@ struct CachedData: CachedDataSource {
         var query: [LabelImageRealmModel] = []
 
         for data in labelImageQuery {
-            if data.labels.contains(labelQuery.first!) {
+            if labelQuery.first != nil {
                 query.append(data)
             }
         }
