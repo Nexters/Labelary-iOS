@@ -96,6 +96,7 @@ struct MainLabelingView: View {
                                 if direction == .right {
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
+                                    
                                 }
 
                             },
@@ -148,6 +149,7 @@ struct MainLabelingView: View {
             ) {}
         }.onAppear(perform: {
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+            print("이미지 데이터 초기화 ++++++++++++++++")
         })
     }
 
