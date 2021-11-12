@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PassLabelData: ObservableObject {
-    @Published var selectedLabel: LabelEntity?
+    @Published var selectedLabel: LabelEntity? 
 }
 
 var passingLabelEntity = PassLabelData()
@@ -110,7 +110,7 @@ struct LabelView: View {
     @ViewBuilder
     func buildLabelView(label: LabelEntity) -> some View {
         VStack(alignment: .leading) {
-            if label.images.isEmpty {
+            if viewModel.labelImageDict[label]?.count == 0 {
                 ZStack {
                     Button(action: {
                         viewModel.selectedLabel = label
@@ -143,7 +143,7 @@ struct LabelView: View {
                         passingLabelEntity.selectedLabel = label
                         showLabelAlbumView = true
                     }, label: {
-                        AlbumThumbnailView(imageViewModel: viewModel.setImages(label: label), width: 160, height: 160)
+                        AlbumThumbnailView(imageViewModel: viewModel.setImages(labelImage: (viewModel.labelImageDict[label]?.first)!), width: 160, height: 160)
                     })
 
                     Button(action: {
@@ -168,7 +168,7 @@ struct LabelView: View {
                 .font(Font.B2_MEDIUM)
                 .padding(.bottom, 8)
 
-            Text("\(label.images.count)").font(Font.B3_MEDIUM).padding(.bottom, 15).foregroundColor(Color.PRIMARY_2)
+            Text("\(viewModel.labelImageDict[label]!.count)").font(Font.B3_MEDIUM).padding(.bottom, 15).foregroundColor(Color.PRIMARY_2)
         }.padding(.leading, 7).padding(.trailing, 7).padding(.bottom, 8)
     }
 
@@ -176,9 +176,15 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
+        // dictionary 타입으로 만들어주기
+        @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
+
+        @Published var labelImageData: [LabelImageEntity] = [] // 여기서 이미지를 꺼낼거임
 
         let searchImageByLabel = SearchImageByLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+
+        let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
         // delete label
         let deleteLabel = DeleteLabel(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
@@ -197,12 +203,19 @@ struct LabelView: View {
             }, receiveValue: {
                 [self] data in
                 self.labels = data
-
             }).store(in: cancelBag)
+
+            // label 별로 분류를 해야하는뎅
+            for label in labels {
+                loadAlbumData.get(param: label).sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+                    self.labelImageDict[label] = data
+                }).store(in: cancelBag)
+            }
         }
 
-        func setImages(label: LabelEntity) -> ImageViewModel {
-            return ImageViewModel(image: label.images.first!)
+        // image 들을 label별로 분류해야 한다.
+        func setImages(labelImage: LabelImageEntity) -> ImageViewModel {
+            return ImageViewModel(image: labelImage.image)
         }
     }
 }

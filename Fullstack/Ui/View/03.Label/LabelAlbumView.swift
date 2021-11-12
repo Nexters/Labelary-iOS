@@ -23,9 +23,8 @@ struct LabelAlbumView: View {
     ]
 
     var body: some View {
-        if passingLabelEntity.selectedLabel?.images.count == 0 {
+        if viewModel.labelImageDict[passingLabelEntity.selectedLabel!]!.count == 0 {
             AlbumEmptyView()
-
         } else {
             ZStack {
                 Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
@@ -113,22 +112,30 @@ struct LabelAlbumView: View {
     }
 
     class ViewModel: ObservableObject {
-        @Published var data = passingLabelEntity.selectedLabel?.images
         @Published var screenshots: [ImageViewModel] = []
 
         @Published var recentlyImages: [ImageViewModel] = []
         @Published var bookmarkImages: [ImageViewModel] = []
+
+        @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
 
         let cancelBag = CancelBag()
 
         var cachedImages: [ImageEntity] = []
 
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init() {
-            if (passingLabelEntity.selectedLabel?.images.count ?? 0) > 0 {
-                cachedImages = passingLabelEntity.selectedLabel!.images
-            }
+            if passingLabelEntity.selectedLabel != nil {
+                loadAlbumData.get(param: passingLabelEntity.selectedLabel!).sink(receiveCompletion: { _ in }, receiveValue: {
+                    [self] data in labelImageDict[passingLabelEntity.selectedLabel!] = data
+                }).store(in: cancelBag)
+
+                for data in labelImageDict[passingLabelEntity.selectedLabel!]! {
+                    cachedImages.append(data.image)
+                }
+            } else {}
 
             refresh()
             screenshots = setImages(data: cachedImages)

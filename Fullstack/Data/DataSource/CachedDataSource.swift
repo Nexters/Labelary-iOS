@@ -8,6 +8,11 @@
 import Foundation
 
 protocol CachedDataSource {
+    // ImageLabel
+    func getAllLabeledImageData() -> Observable<[LabelImageEntity]>
+    func loadAlbumData(label: LabelEntity) -> Observable<[LabelImageEntity]>
+    func searchLabelByImage(image: ImageEntity) -> Observable<[LabelEntity]>
+
     // Image
     func getAllImages() -> Observable<[ImageEntity]>
     func getUnLabeledImages() -> Observable<[ImageEntity]>
@@ -19,7 +24,8 @@ protocol CachedDataSource {
 
     func changeBookmark(isActive: Bool, image: ImageEntity) -> Observable<ImageEntity>
 
-    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]>
+    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]>
+
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]>
     func deleteImages(images: [ImageEntity]) -> Observable<[String]>
 

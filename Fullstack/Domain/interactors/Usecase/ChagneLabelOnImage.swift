@@ -7,23 +7,23 @@
 
 import Combine
 import Foundation
-
-struct ChangeLabelOnImage: Usecase {
-    typealias Param = RequestData
-    typealias Result = [ImageEntity]
-
-    let labelRepository: LabelRepository
-    let imageRepository: ImageRepository
-
-    func get(param: Param) -> Observable<Result> {
-        return imageRepository.deleteLabel(labels: [param.beforeLabel], images: param.images)
-            .flatMap { _ in imageRepository.requestLabeling(labels: [param.afterLabel], images: param.images) }
-            .eraseToAnyPublisher()
-    }
-
-    struct RequestData {
-        let beforeLabel: LabelEntity
-        let afterLabel: LabelEntity
-        let images: [ImageEntity]
-    }
-}
+//
+// struct ChangeLabelOnImage: Usecase {
+//    typealias Param = RequestData
+//    typealias Result = [ImageEntity]
+//
+//    let labelRepository: LabelRepository
+//    let imageRepository: ImageRepository
+//
+//    func get(param: Param) -> Observable<Result> {
+//        return imageRepository.deleteLabel(labels: [param.beforeLabel], images: param.images)
+//            .flatMap { _ in imageRepository.requestLabeling(labels: [param.afterLabel], images: param.images) }
+//            .eraseToAnyPublisher()
+//    }
+//
+//    struct RequestData {
+//        let beforeLabel: LabelEntity
+//        let afterLabel: LabelEntity
+//        let images: [ImageEntity]
+//    }
+// }

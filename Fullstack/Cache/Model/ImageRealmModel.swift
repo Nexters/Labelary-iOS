@@ -14,6 +14,10 @@ class ImageRealmModel: Object {
 
     dynamic var labels: List<LabelRealmModel> = List()
 
+//    var labels: Results<LabelRealmModel>? {
+//        return realm?.objects(LabelRealmModel.self).filter(NSPredicate(format: "image == %@", self))
+//    }
+
     @objc dynamic var isBookmark: Bool = false
 
     override static func primaryKey() -> String {
@@ -31,7 +35,7 @@ extension ImageRealmModel {
         return ImageEntity(
             source: source,
             id: self.id,
-            labels: self.labels.mapNotNull { $0.convertToEntity() },
+            //      labels: self.labels.mapNotNull { $0.convertToEntity() },
             isBookmark: self.isBookmark,
             isCached: true
         )

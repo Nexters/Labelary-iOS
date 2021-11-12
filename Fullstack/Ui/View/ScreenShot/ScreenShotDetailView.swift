@@ -42,7 +42,7 @@ struct ScreenShotDetailView: View {
 
                 if viewmodel.isOnHover {
                     HStack {
-                        if viewmodel.imageViewModel.image.labels.isEmpty {
+                        if viewmodel.getlabel(image: viewmodel.imageViewModel.image).isEmpty {
                             Text("스크린샷에 추가된 라벨이 없습니다.")
                                 .font(Font.B1_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_3)
@@ -50,8 +50,9 @@ struct ScreenShotDetailView: View {
                         } else {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach(viewmodel.imageViewModel.image.labels.indices, id: \.self) { i in
-                                        let label = viewmodel.imageViewModel.image.labels[i]
+                                    ForEach(viewmodel.getlabel(image: viewmodel.imageViewModel.image).indices, id: \.self) { i in
+                                       // let label = viewmodel.imageViewModel.image.labels[i]
+                                        let label = viewmodel.getlabel(image: viewmodel.imageViewModel.image)[i]
                                         Text(label.name)
                                             .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
                                             .font(Font.B1_REGULAR)
@@ -70,7 +71,7 @@ struct ScreenShotDetailView: View {
                             .padding(.leading, 6)
                     }.padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 20))
                         .background(Color(hex: "B3000000"))
-              //      ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
+                    //      ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.delete()
@@ -96,21 +97,37 @@ struct ScreenShotDetailView: View {
         }.onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)
     }
 
     class ViewModel: ObservableObject {
         @Published var imageViewModel: ImageViewModel
         @Published var isOnHover: Bool = true
+
+        @Published var LabelImageData: [LabelImageEntity] = []
+
+        @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
+
         let onChangeBookmark: (ImageEntity) -> Void
 
         let requestBookmarkImage = BookmarkImage(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let cancelbag = CancelBag()
 
+        let searchLabelByImage = SearchLabelByImage(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
+
         init(imageViewModel: ImageViewModel, onChangeBookmark: @escaping (ImageEntity) -> Void) {
             self.imageViewModel = imageViewModel
             self.onChangeBookmark = onChangeBookmark
+        }
+
+        func getlabel(image: ImageEntity) -> [LabelEntity] {
+            var labels: [LabelEntity] = []
+            searchLabelByImage.get(param: image).sink(receiveCompletion: { _ in }, receiveValue: {
+                data in
+                labels.append(contentsOf: data)
+            }).store(in: cancelbag)
+            return labels
         }
 
         func changeBookMark() {
@@ -119,7 +136,7 @@ struct ScreenShotDetailView: View {
                 .sink(receiveCompletion: { complete in print("\(complete)") }, receiveValue: { data in
                     DispatchQueue.main.async {
                         print(data)
-                        self.imageViewModel = ImageViewModel(image: data)                        
+                        self.imageViewModel = ImageViewModel(image: data)
                         self.onChangeBookmark(data)
                     }
                 }).store(in: cancelbag)

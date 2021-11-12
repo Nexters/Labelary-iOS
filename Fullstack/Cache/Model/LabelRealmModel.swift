@@ -15,14 +15,16 @@ class LabelRealmModel: Object {
 
     var colorType: ColorSet {
         get {
-            return ColorSet(rawValue: color) ?? ColorSet.VIOLET()
+            return ColorSet(rawValue: self.color) ?? ColorSet.VIOLET()
         }
         set {
-            color = newValue.rawValue
+            self.color = newValue.rawValue
         }
     }
 
-  //  dynamic var images: List<ImageRealmModel> = List()
+
+//    var image: ImageRealmModel { return images.first!}
+
 
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
