@@ -103,6 +103,7 @@ func colorToString(color: ColorSet) -> String {
         return "Gray"
     }
 }
+
 // MARK: - Each Customed Post-it Label View
 
 struct LabelRowItemView: View {
@@ -263,8 +264,10 @@ struct AddLabelingView: View {
                             self.output.selectedLabels = filters
                             needToLabelingData.labelData = self.output.selectedLabels
 
-                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in }, receiveValue: {_ in 
-                              //  print("이미지 라벨링 데이터", $0)
+                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
+                                needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+                            }, receiveValue: { _ in
+                                //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
 
                             self.presentingToast = true
@@ -336,7 +339,9 @@ struct AddLabelingView: View {
             .onAppear(perform: {
                 let cancelBag = CancelBag()
                 loadLabelingSelectData.get()
-                    .sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+                    .sink(receiveCompletion: { _ in
+
+                    }, receiveValue: { [self] data in
                         output.labels = data
                     }).store(in: cancelBag)
             })

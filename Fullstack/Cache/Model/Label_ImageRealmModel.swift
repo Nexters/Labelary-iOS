@@ -9,11 +9,11 @@ import Foundation
 import RealmSwift
 // 관계 테이블
 class LabelImageRealmModel: Object {
-    @objc dynamic var id: String = ""
+    @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var image: ImageRealmModel? = nil
     dynamic var labels: List<LabelRealmModel> = List()
     
-    override static func primaryKey() -> String? {
+    override static func primaryKey() -> String {
         return "id"
     }
 }
