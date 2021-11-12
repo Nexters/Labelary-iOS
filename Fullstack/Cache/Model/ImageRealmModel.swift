@@ -12,11 +12,8 @@ class ImageRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var source: String?
 
-    dynamic var labels: List<LabelRealmModel> = List()
+ //   dynamic var labels: List<LabelRealmModel> = List()
 
-//    var labels: Results<LabelRealmModel>? {
-//        return realm?.objects(LabelRealmModel.self).filter(NSPredicate(format: "image == %@", self))
-//    }
 
     @objc dynamic var isBookmark: Bool = false
 
@@ -27,7 +24,7 @@ class ImageRealmModel: Object {
 
 extension ImageRealmModel {
     func convertToEntity() -> ImageEntity? {
-        print("\(self.id) \(self.labels) image realm model")
+     //   print("\(self.id) image realm model")
         guard !self.id.isEmpty, let source = self.source else {
             return nil
         }

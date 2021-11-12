@@ -266,6 +266,7 @@ struct AddLabelingView: View {
 
                             requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
                                 needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+                                print("++++++++++++++++++++++requet labeling completion && imageData 리스트 초기화 \n")
                             }, receiveValue: { _ in
                                 //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
@@ -299,6 +300,7 @@ struct AddLabelingView: View {
                     // 뒤로가기버튼
                     Button(action: {
                         self.onClickedBackBtn()
+                        needToLabelingData.imageData.removeAll() // 초기화해주기
                     }) {
                         Image("navigation_back_btn")
                     }.offset(x: 20)

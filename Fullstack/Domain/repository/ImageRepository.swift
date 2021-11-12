@@ -12,7 +12,7 @@ protocol ImageRepository {
     func getUnLabeledImages() -> Observable<[ImageEntity]>
     func getLabeldImages() -> Observable<[ImageEntity]>
 
-    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]>
+ //   func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]>
     func getBookmarkImages() -> Observable<[ImageEntity]>
     func getImage(id: String) -> Observable<ImageEntity?>
 
