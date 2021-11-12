@@ -94,9 +94,9 @@ struct MainLabelingView: View {
                             onSwipe: { _, direction in
                                 
                                 if direction == .right {
+                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
-                                    
                                 }
 
                             },
@@ -149,7 +149,6 @@ struct MainLabelingView: View {
             ) {}
         }.onAppear(perform: {
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-            print("이미지 데이터 초기화 ++++++++++++++++")
         })
     }
 
@@ -174,18 +173,44 @@ struct MainLabelingView: View {
                                             }
                                         
                                         }).store(in: cancelbag)
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [unowned self] status in
+                DispatchQueue.main.async {
+                    [unowned self] in
+                    showUI(for: status)
+                }
+            }
         }
         
         func passBtnAction() {
             screenshots.removeFirst()
         }
         
-//        func showUI() {
-//            if PHPhotoLibrary.authorizationStatus() == .authorized {
-//                refresh()
-//                print("authorized")
-//            }
-//        }
+        // 권한 허용 묻고 허용되면 스크린샷들 불러오기
+        func showUI(for status: PHAuthorizationStatus) {
+            switch status {
+            case .authorized:
+                refresh()
+            case .denied:
+                print("앨범 접근 권한 허용 필요 ")
+            case .notDetermined:
+                break
+                
+            @unknown default:
+                break
+            }
+        }
+        
+        func refresh() {
+            loadLabelingData.get().sink(receiveCompletion: { _ in },
+                                        receiveValue: { [self] data in
+                                            self.unlabeledImages.append(contentsOf: data)
+                                            self.setImages(_unlabeledImages: unlabeledImages)
+                                            unlabeledImagesViewModel = unlabeledImages.map {
+                                                UnlabeledImageViewModel(image: $0)
+                                            }
+                                        
+                                        }).store(in: cancelbag)
+        }
         
         func setImages(_unlabeledImages: [ImageEntity]) {
             screenshots = _unlabeledImages.map {
