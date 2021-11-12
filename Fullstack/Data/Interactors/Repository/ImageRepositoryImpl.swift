@@ -38,12 +38,12 @@ struct ImageRepositoryImpl: ImageRepository {
         return cachedDataSource.changeBookmark(isActive: isActive, image: image)
     }
     
-    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]> {
+    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.requestLabeling(labels: labels, images: images)
     }
     
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
-        return cachedDataSource.deleteLabel(labels: labels, images: images) 
+        return cachedDataSource.deleteLabel(labels: labels, images: images)
     }
     
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {

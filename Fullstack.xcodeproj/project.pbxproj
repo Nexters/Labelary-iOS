@@ -15,11 +15,13 @@
 		241BB57426DA68060018B4BD /* LabelRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */; };
 		241BB57526DA682D0018B4BD /* CachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968825C1681900E441EC /* CachedData.swift */; };
 		241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B66225BFE215008EEF2F /* CancelBag.swift */; };
+		2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2420BB89272ECCB500541863 /* LabelImage.swift */; };
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
+		242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */; };
 		2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2437675225DB3BB1003A51AB /* FlexibleView.swift */; };
+		243C3D5C273CE52F00785F78 /* SearchLabelByImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C3D5B273CE52F00785F78 /* SearchLabelByImage.swift */; };
 		2448D8672719476800C4EC52 /* AlbumEditLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2448D8662719476800C4EC52 /* AlbumEditLabelView.swift */; };
-		24495BE126E26D08008295D8 /* DataSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24495BE026E26D08008295D8 /* DataSharing.swift */; };
 		24534F8F266F701600E77669 /* SColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2F25CC2276008D2941 /* SColor.swift */; };
 		24534F94266F708F00E77669 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B63225BD7313008EEF2F /* ImageRepository.swift */; };
 		24534F97266F709200E77669 /* LabelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B64C25BD7922008EEF2F /* LabelRepository.swift */; };
@@ -55,6 +57,15 @@
 		2491466427116CA800DEB8A2 /* EditAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491466327116CA800DEB8A2 /* EditAlbumView.swift */; };
 		2491674126F80DB4004C6F46 /* DeleteLabelFromImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */; };
 		2491A88D26845861006451D0 /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491A88C26845861006451D0 /* DefaultView.swift */; };
+		24943BE22730F27A006C9705 /* LabelImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE12730F27A006C9705 /* LabelImageRepository.swift */; };
+		24943BE42730F30D006C9705 /* LoadLabeledImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */; };
+		24943BE62730F481006C9705 /* RequestNewLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE52730F481006C9705 /* RequestNewLabeling.swift */; };
+		24943BE82730F5F8006C9705 /* LabelImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */; };
+		24943BE92730FA06006C9705 /* LabelImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */; };
+		24943BEA2730FA09006C9705 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
+		24943BEB2730FA3C006C9705 /* LabelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2420BB89272ECCB500541863 /* LabelImage.swift */; };
+		24943BEC2730FA4A006C9705 /* LabelImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE12730F27A006C9705 /* LabelImageRepository.swift */; };
+		24943BED2730FA62006C9705 /* Label_ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
@@ -67,6 +78,7 @@
 		24B0EDD426DDC6F600FE599B /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C196A725C1B8D800E441EC /* Array+.swift */; };
 		24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1969A25C1737E00E441EC /* CachedDataSource.swift */; };
 		24B6DB1D2700AA07004C5B24 /* AlbumEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B6DB1C2700AA07004C5B24 /* AlbumEmptyView.swift */; };
+		24BB719327352238002FCF28 /* LoadAlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BB719227352238002FCF28 /* LoadAlbumData.swift */; };
 		24D0F5AB270218E5004BA2F1 /* AlbumSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0F5AA270218E5004BA2F1 /* AlbumSelectView.swift */; };
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0316026F6B83200319C5A /* LabelAlbumView.swift */; };
@@ -127,7 +139,7 @@
 		56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68425C05072008EEF2F /* SearchLabel.swift */; };
 		56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68725C05155008EEF2F /* CreateLabel.swift */; };
 		56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68A25C05203008EEF2F /* RequestLabeling.swift */; };
-		56D1B68E25C0540D008EEF2F /* LoadAlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */; };
+		56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */; };
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,12 +171,14 @@
 		241882DB25C95C8D00B062CF /* SearchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabelView.swift; sourceTree = "<group>"; };
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
 		241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetDefaultView.swift; sourceTree = "<group>"; };
+		2420BB89272ECCB500541863 /* LabelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelImage.swift; path = Fullstack/Domain/entities/LabelImage.swift; sourceTree = SOURCE_ROOT; };
 		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
+		242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label_ImageRealmModel.swift; sourceTree = "<group>"; };
 		2437675225DB3BB1003A51AB /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		243C3D5B273CE52F00785F78 /* SearchLabelByImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchLabelByImage.swift; path = Fullstack/Domain/interactors/Usecase/SearchLabelByImage.swift; sourceTree = SOURCE_ROOT; };
 		2448D8662719476800C4EC52 /* AlbumEditLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumEditLabelView.swift; sourceTree = "<group>"; };
 		24495BDC26E20D5F008295D8 /* FullstackDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FullstackDebug.entitlements; sourceTree = "<group>"; };
 		24495BDD26E20E16008295D8 /* ShareSheetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareSheetDebug.entitlements; sourceTree = "<group>"; };
-		24495BE026E26D08008295D8 /* DataSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSharing.swift; sourceTree = "<group>"; };
 		245A663A25DBDE6F00A8DAF8 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		246159CD25B2DCC100F6D730 /* Fullstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fullstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		246159D025B2DCC100F6D730 /* FullstackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullstackApp.swift; sourceTree = "<group>"; };
@@ -191,6 +205,10 @@
 		2491466327116CA800DEB8A2 /* EditAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlbumView.swift; sourceTree = "<group>"; };
 		2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteLabelFromImage.swift; path = Fullstack/Domain/interactors/Usecase/DeleteLabelFromImage.swift; sourceTree = SOURCE_ROOT; };
 		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
+		24943BE12730F27A006C9705 /* LabelImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelImageRepository.swift; path = Fullstack/Domain/repository/LabelImageRepository.swift; sourceTree = SOURCE_ROOT; };
+		24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadLabeledImageData.swift; path = Fullstack/Domain/interactors/Usecase/LoadLabeledImageData.swift; sourceTree = SOURCE_ROOT; };
+		24943BE52730F481006C9705 /* RequestNewLabeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestNewLabeling.swift; path = Fullstack/Domain/interactors/Usecase/RequestNewLabeling.swift; sourceTree = SOURCE_ROOT; };
+		24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCollection+.swift"; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
@@ -198,6 +216,7 @@
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
 		24A8E67425DD2BBE0042CAD4 /* ShareSheetBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetBadgeView.swift; sourceTree = "<group>"; };
 		24B6DB1C2700AA07004C5B24 /* AlbumEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumEmptyView.swift; sourceTree = "<group>"; };
+		24BB719227352238002FCF28 /* LoadAlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadAlbumData.swift; path = Fullstack/Domain/interactors/Usecase/LoadAlbumData.swift; sourceTree = SOURCE_ROOT; };
 		24D0F5AA270218E5004BA2F1 /* AlbumSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSelectView.swift; sourceTree = "<group>"; };
 		24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewFromOutside.swift; sourceTree = "<group>"; };
 		24E0316026F6B83200319C5A /* LabelAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAlbumView.swift; sourceTree = "<group>"; };
@@ -260,7 +279,7 @@
 		56D1B68425C05072008EEF2F /* SearchLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabel.swift; sourceTree = "<group>"; };
 		56D1B68725C05155008EEF2F /* CreateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLabel.swift; sourceTree = "<group>"; };
 		56D1B68A25C05203008EEF2F /* RequestLabeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLabeling.swift; sourceTree = "<group>"; };
-		56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAlbumData.swift; sourceTree = "<group>"; };
+		56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSearchMainData.swift; sourceTree = "<group>"; };
 		56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSearchLabelData.swift; sourceTree = "<group>"; };
 		56E1235626C8F6DD00A85986 /* CardStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -499,7 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				56C1968C25C1694D00E441EC /* LabelRealmModel.swift */,
-				24495BE026E26D08008295D8 /* DataSharing.swift */,
+				242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */,
 				56C1968F25C1695800E441EC /* ImageRealmModel.swift */,
 				249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */,
 			);
@@ -518,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				56BD4D2225C97F65008D2941 /* LabelRepositoryImpl.swift */,
+				24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */,
 				56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */,
 			);
 			path = Repository;
@@ -588,13 +608,17 @@
 			isa = PBXGroup;
 			children = (
 				56D1B65425BD7BAC008EEF2F /* LoadLabelingData.swift */,
+				24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */,
 				56D1B67E25C04F5B008EEF2F /* LoadLabelingSelectData.swift */,
 				56D1B68425C05072008EEF2F /* SearchLabel.swift */,
 				56D1B68725C05155008EEF2F /* CreateLabel.swift */,
 				56D1B68A25C05203008EEF2F /* RequestLabeling.swift */,
-				56D1B68D25C0540D008EEF2F /* LoadAlbumData.swift */,
+				56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */,
+				24BB719227352238002FCF28 /* LoadAlbumData.swift */,
+				24943BE52730F481006C9705 /* RequestNewLabeling.swift */,
 				56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */,
 				56C1966925C1393F00E441EC /* SearchImageByLabel.swift */,
+				243C3D5B273CE52F00785F78 /* SearchLabelByImage.swift */,
 				56C1966F25C13D9600E441EC /* DeleteImages.swift */,
 				56C1967225C13EAB00E441EC /* DeleteLabel.swift */,
 				2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */,
@@ -610,6 +634,7 @@
 			children = (
 				56D1B63225BD7313008EEF2F /* ImageRepository.swift */,
 				56D1B64C25BD7922008EEF2F /* LabelRepository.swift */,
+				24943BE12730F27A006C9705 /* LabelImageRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -620,6 +645,7 @@
 				56D1B63625BD7391008EEF2F /* Entity.swift */,
 				56D1B63B25BD7406008EEF2F /* Image.swift */,
 				56D1B64225BD75B7008EEF2F /* Label.swift */,
+				2420BB89272ECCB500541863 /* LabelImage.swift */,
 				56D1B64525BD7680008EEF2F /* Color.swift */,
 				56D1B68125C0502C008EEF2F /* VO.swift */,
 				56C1966C25C13AD300E441EC /* SearchResult.swift */,
@@ -842,6 +868,7 @@
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
+				24943BE22730F27A006C9705 /* LabelImageRepository.swift in Sources */,
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
 				2491A88D26845861006451D0 /* DefaultView.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
@@ -851,7 +878,7 @@
 				56A9860B26A4513A0088C80F /* CustomWidget.swift in Sources */,
 				56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */,
 				56C1968D25C1694D00E441EC /* LabelRealmModel.swift in Sources */,
-				56D1B68E25C0540D008EEF2F /* LoadAlbumData.swift in Sources */,
+				56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */,
 				56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */,
 				241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */,
 				56C196A825C1B8D800E441EC /* Array+.swift in Sources */,
@@ -862,7 +889,9 @@
 				56D1B66F25BFE215008EEF2F /* CancelBag.swift in Sources */,
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
 				567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */,
+				24BB719327352238002FCF28 /* LoadAlbumData.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
+				24943BE62730F481006C9705 /* RequestNewLabeling.swift in Sources */,
 				249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */,
@@ -894,8 +923,11 @@
 				2464603626F78A4F00FE80DE /* LabelBadge.swift in Sources */,
 				56BD4D3025CC2276008D2941 /* SColor.swift in Sources */,
 				56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */,
+				24943BE82730F5F8006C9705 /* LabelImageRepositoryImpl.swift in Sources */,
 				24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */,
+				243C3D5C273CE52F00785F78 /* SearchLabelByImage.swift in Sources */,
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
+				2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
 				56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */,
 				24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */,
@@ -905,13 +937,14 @@
 				245A663B25DBDE6F00A8DAF8 /* Badge.swift in Sources */,
 				247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */,
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
+				24943BE42730F30D006C9705 /* LoadLabeledImageData.swift in Sources */,
 				56A9860A26A4513A0088C80F /* Screenshot_Components.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,
 				56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */,
+				242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
 				5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */,
-				24495BE126E26D08008295D8 /* DataSharing.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -924,12 +957,17 @@
 				241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */,
 				24A8E67525DD2BBE0042CAD4 /* ShareSheetBadgeView.swift in Sources */,
 				24534FCD266F70F700E77669 /* Observable.swift in Sources */,
+				24943BED2730FA62006C9705 /* Label_ImageRealmModel.swift in Sources */,
 				248A04A626661AAC007EE062 /* Usecase.swift in Sources */,
 				241BB57426DA68060018B4BD /* LabelRepositoryImpl.swift in Sources */,
+				24943BEC2730FA4A006C9705 /* LabelImageRepository.swift in Sources */,
 				24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */,
 				241BB57526DA682D0018B4BD /* CachedData.swift in Sources */,
 				24534FEB266F71BE00E77669 /* Typography.swift in Sources */,
+				24943BEB2730FA3C006C9705 /* LabelImage.swift in Sources */,
+				24943BEA2730FA09006C9705 /* ImageRepositoryImpl.swift in Sources */,
 				248A049D26661A90007EE062 /* VO.swift in Sources */,
+				24943BE92730FA06006C9705 /* LabelImageRepositoryImpl.swift in Sources */,
 				2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */,
 				24B0EDD426DDC6F600FE599B /* Array+.swift in Sources */,
 				248CE63125F74B1C00FA7892 /* AddLabelView.swift in Sources */,

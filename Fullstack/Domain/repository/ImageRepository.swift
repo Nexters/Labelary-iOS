@@ -1,4 +1,4 @@
-//
+  //
 //  ImageRepository.swift
 //  Fullstack
 //
@@ -18,7 +18,7 @@ protocol ImageRepository {
 
     func changeBookmark(isActive: Bool, image: ImageEntity) -> Observable<ImageEntity>
 
-    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[ImageEntity]>
+    func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]>
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]>
     func deleteImages(images: [ImageEntity]) -> Observable<[String]>
 

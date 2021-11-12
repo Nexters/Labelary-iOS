@@ -1,21 +1,21 @@
 //
-//  RequestLabeling.swift
+//  RequestNewLabeling.swift
 //  Fullstack
 //
-//  Created by 김범준 on 2021/01/26.
+//  Created by 우민지 on 2021/11/02.
 //
 
-import Combine
 import Foundation
+import Combine
 
-struct RequestLabeling: Usecase {
+struct RequestNewLabeling: Usecase {
     typealias Param = RequestData
     typealias Result = [LabelImageEntity]
 
-    let imageRepository: ImageRepository
+    let labelImageRepository: LabelImageRepository
 
     func get(param: Param) -> Observable<Result> {
-        return imageRepository.requestLabeling(labels: param.labels, images: param.images) 
+        return labelImageRepository.requestNewLabeling(labels: param.labels, images: param.images)
     }
 
     struct RequestData {

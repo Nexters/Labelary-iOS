@@ -115,7 +115,7 @@ struct SearchLabelView: View {
 
                         FlexibleView(data: output.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                             label in Button(action: {
-                                print(label)
+                            
                             }) {
                                 Text(verbatim: label.name)
                                     .padding(8)

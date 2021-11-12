@@ -15,14 +15,16 @@ class LabelRealmModel: Object {
 
     var colorType: ColorSet {
         get {
-            return ColorSet(rawValue: color) ?? ColorSet.VIOLET()
+            return ColorSet(rawValue: self.color) ?? ColorSet.VIOLET()
         }
         set {
-            color = newValue.rawValue
+            self.color = newValue.rawValue
         }
     }
 
-    dynamic var images: List<ImageRealmModel> = List()
+
+//    var image: ImageRealmModel { return images.first!}
+
 
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?
@@ -42,7 +44,7 @@ extension LabelRealmModel {
             id: self.id,
             name: self.name,
             color: ColorSet(rawValue: self.color)!,
-            images: self.images.mapNotNull { $0.convertToEntity() },
+        //    images: self.images.mapNotNull { $0.convertToEntity() },
             createdAt: createdAt,
             lastSearchedAt: self.lastSearchedAt,
             isCached: true
