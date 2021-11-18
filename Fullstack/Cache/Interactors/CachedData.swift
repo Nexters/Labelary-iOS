@@ -322,12 +322,16 @@ struct CachedData: CachedDataSource {
 
     func loadAlbumData(label: LabelEntity) -> Observable<[LabelImageEntity]> {
         let labelImageQuery = realm.objects(LabelImageRealmModel.self)
-        let labelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == label.id }
+
         var query: [LabelImageRealmModel] = []
 
-        for data in labelImageQuery {
-            if labelQuery.first != nil {
-                query.append(data)
+        for labelImage in labelImageQuery {
+            let labels = labelImage.labels
+            for data in labels {
+                if data.id == label.id {
+                    query.append(labelImage)
+                    continue
+                }
             }
         }
 
