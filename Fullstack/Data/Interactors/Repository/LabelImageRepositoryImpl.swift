@@ -14,10 +14,6 @@ struct LabelImageRepositoryImpl: LabelImageRepository {
         return cachedDataSource.getAllLabeledImageData()
     }
 
-    func requestNewLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
-        return cachedDataSource.requestLabeling(labels: labels, images: images)
-    }
-
     func loadAlbumData(label: LabelEntity) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.loadAlbumData(label: label)
     }

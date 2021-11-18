@@ -94,15 +94,14 @@ struct MainLabelingView: View {
                             onSwipe: { _, direction in
                                 
                                 if direction == .right {
-                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                 }
                                 
                                 if direction == .left {
+                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
-                                    
                                 }
 
                             },
@@ -121,6 +120,7 @@ struct MainLabelingView: View {
                             HStack {
                                 // Left Button
                                 Button(action: {
+                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
                                 

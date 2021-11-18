@@ -59,7 +59,6 @@
 		2491A88D26845861006451D0 /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491A88C26845861006451D0 /* DefaultView.swift */; };
 		24943BE22730F27A006C9705 /* LabelImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE12730F27A006C9705 /* LabelImageRepository.swift */; };
 		24943BE42730F30D006C9705 /* LoadLabeledImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */; };
-		24943BE62730F481006C9705 /* RequestNewLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE52730F481006C9705 /* RequestNewLabeling.swift */; };
 		24943BE82730F5F8006C9705 /* LabelImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */; };
 		24943BE92730FA06006C9705 /* LabelImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */; };
 		24943BEA2730FA09006C9705 /* ImageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BD4D2525C97F6E008D2941 /* ImageRepositoryImpl.swift */; };
@@ -207,7 +206,6 @@
 		2491A88C26845861006451D0 /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
 		24943BE12730F27A006C9705 /* LabelImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelImageRepository.swift; path = Fullstack/Domain/repository/LabelImageRepository.swift; sourceTree = SOURCE_ROOT; };
 		24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadLabeledImageData.swift; path = Fullstack/Domain/interactors/Usecase/LoadLabeledImageData.swift; sourceTree = SOURCE_ROOT; };
-		24943BE52730F481006C9705 /* RequestNewLabeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestNewLabeling.swift; path = Fullstack/Domain/interactors/Usecase/RequestNewLabeling.swift; sourceTree = SOURCE_ROOT; };
 		24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCollection+.swift"; sourceTree = "<group>"; };
@@ -615,7 +613,6 @@
 				56D1B68A25C05203008EEF2F /* RequestLabeling.swift */,
 				56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */,
 				24BB719227352238002FCF28 /* LoadAlbumData.swift */,
-				24943BE52730F481006C9705 /* RequestNewLabeling.swift */,
 				56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */,
 				56C1966925C1393F00E441EC /* SearchImageByLabel.swift */,
 				243C3D5B273CE52F00785F78 /* SearchLabelByImage.swift */,
@@ -891,7 +888,6 @@
 				567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */,
 				24BB719327352238002FCF28 /* LoadAlbumData.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
-				24943BE62730F481006C9705 /* RequestNewLabeling.swift in Sources */,
 				249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */,
