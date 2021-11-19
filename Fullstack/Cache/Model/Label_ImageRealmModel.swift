@@ -14,7 +14,7 @@ class LabelImageRealmModel: Object {
 
     dynamic var labels: List<LabelRealmModel> = List()
     @objc dynamic var createdAt: Date?
-    dynamic var lastSearchAt: Date?
+    dynamic var lastSearchedAt: Date?
     override static func primaryKey() -> String {
         return "id"
     }
@@ -30,6 +30,6 @@ extension LabelImageRealmModel {
                                 image: self.image!.convertToEntity()!,
                                 labels: self.labels.mapNotNull { $0.convertToEntity() },
                                 createdAt: createdAt,
-                                lastSearchedAt: self.lastSearchAt)
+                                lastSearchedAt: self.lastSearchedAt)
     }
 }
