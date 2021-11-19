@@ -12,6 +12,8 @@ protocol CachedDataSource {
     func getAllLabeledImageData() -> Observable<[LabelImageEntity]>
     func loadAlbumData(label: LabelEntity) -> Observable<[LabelImageEntity]> // 이게 get image by label
     func searchLabelByImage(image: ImageEntity) -> Observable<[LabelEntity]>
+    func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]>
+    func loadOldLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]>
 
     // Image
     func getAllImages() -> Observable<[ImageEntity]>

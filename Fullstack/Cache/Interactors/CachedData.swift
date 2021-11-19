@@ -24,7 +24,6 @@ struct CachedData: CachedDataSource {
                 needToAddModel.color = color.rawValue
                 needToAddModel.createdAt = Date()
                 realm.add(needToAddModel)
-                print("needToAddModel:", needToAddModel)
             }
         } catch let error as NSError {
             fatalError("Error opening realm : \(error)")
@@ -171,12 +170,12 @@ struct CachedData: CachedDataSource {
                 let labelImageModel = LabelImageRealmModel()
                 labelImageModel.image = neededimage
                 labelImageModel.labels.append(objectsIn: labelQuery)
+                labelImageModel.createdAt = Date()
                 realm.add(labelImageModel)
             }
         }
 
         // 새로 image + label 묶음이 생성되는 경우만 고려함
-
         labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
 
         return
@@ -463,6 +462,24 @@ struct CachedData: CachedDataSource {
                     throw DomainError.ConvertError
                 }
                 return entity
+            }.eraseToAnyPublisher()
+    }
+
+    func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self).sorted(byKeyPath: "createdAt", ascending: false).filter { item in labelImages.contains { $0.id == item.id }}
+
+        return Just(labelImageQuery).asObservable()
+            .map { _ in
+                labelImageQuery.mapNotNull { $0.convertToEntity() }
+            }.eraseToAnyPublisher()
+    }
+
+    func loadOldLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self).sorted(byKeyPath: "createdAt", ascending: true).filter { item in labelImages.contains { $0.id == item.id }}
+
+        return Just(labelImageQuery).asObservable()
+            .map { _ in
+                labelImageQuery.mapNotNull { $0.convertToEntity() }
             }.eraseToAnyPublisher()
     }
 }

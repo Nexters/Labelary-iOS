@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LabelImageRepositoryImpl: LabelImageRepository { 
+struct LabelImageRepositoryImpl: LabelImageRepository {
     let cachedDataSource: CachedDataSource
 
     func loadlabeledImageData() -> Observable<[LabelImageEntity]> {
@@ -20,5 +20,13 @@ struct LabelImageRepositoryImpl: LabelImageRepository {
 
     func searchLabelByImage(image: ImageEntity) -> Observable<[LabelEntity]> {
         return cachedDataSource.searchLabelByImage(image: image)
+    }
+
+    func loadOldLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
+        return cachedDataSource.loadRecentlyLabeledImage(labelImages: labelImages)
+    }
+
+    func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
+        return cachedDataSource.loadOldLabeledImage(labelImages: labelImages)
     }
 }

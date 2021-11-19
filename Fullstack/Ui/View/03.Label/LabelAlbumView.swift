@@ -36,6 +36,8 @@ struct LabelAlbumView: View {
                             secondOption = false
                             thirdOption = false
                             // 최신순으로 정렬
+                            
+                            
                         }) {
                             LabelBadge(name: "최신순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(firstOption ? 1 : 0), textColor: firstOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
@@ -126,6 +128,7 @@ struct LabelAlbumView: View {
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
+        // 최신순, 자주본순, 오래본순 정렬
         init() {
             if passingLabelEntity.selectedLabel != nil {
                 loadAlbumData.get(param: passingLabelEntity.selectedLabel!).sink(receiveCompletion: { _ in }, receiveValue: {

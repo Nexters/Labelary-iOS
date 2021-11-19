@@ -12,4 +12,6 @@ struct LabelImageEntity: Entity {
     let id: String // Image id
     var image : ImageEntity
     var labels: [LabelEntity]
+    let createdAt: Date
+    var lastSearchedAt: Date?
 }
