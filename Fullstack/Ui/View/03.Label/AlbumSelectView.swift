@@ -27,7 +27,7 @@ struct AlbumSelectView: View {
                     LazyVGrid(columns: columns, spacing: 14) {
                         ForEach(viewModel.screenshots.indices, id: \.self) { i in
                             let screenshot = viewModel.screenshots[i]
-                            AlbumGridItem(selectedImages: $selectedImages, screenshot: screenshot, img: viewModel.unlabeledImages[i])
+                            AlbumGridItem(selectedImages: $selectedImages, screenshot: screenshot, img: viewModel.cachedImages[i])
                         }
                     }
                 }
@@ -51,41 +51,47 @@ struct AlbumSelectView: View {
                         selectedImages.count > 0 ?
                             Image("ico_label_edit_active") : Image("ico_label_edit_inactive")
                         
-                    }.disabled(selectedImages.count > 0 ? true : false)
-              
+                    }.disabled(selectedImages.count > 0 ? false : true).padding()
+                    
                     // 이미지 삭제하기
                     Button(action: {
                         viewModel.requestDeleteImage(selectedImages: selectedImages)
                     }) {
                         selectedImages.count > 0 ?
                             Image("ico_delete_active") : Image("ico_delete_inactive")
-                    }.disabled(selectedImages.count > 0 ? true : false)
+                    }.disabled(selectedImages.count > 0 ? false : true)
                 })
     }
     
     class ViewModel: ObservableObject {
         let deleteImage = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
     
-        @Published var unlabeledImages: [ImageEntity] = []
+        @Published var cachedImages: [ImageEntity] = []
+        @Published var labelImages: [LabelImageEntity] = []
         @Published var screenshots: [ImageViewModel] = []
         @Published var currentLabel: [LabelEntity] = []
    
-        let loadLabelingData = LoadLabelingData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
+        
         let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let cancelBag = CancelBag()
     
         init() {
-            loadLabelingData.get().sink(receiveCompletion: {
-                _ in
-            }, receiveValue: { [self] data in
-                self.unlabeledImages.append(contentsOf: data)
-                self.setImages(unlabeledImages: unlabeledImages)
+            loadAlbumData.get(param: passingLabelEntity.selectedLabel!).sink(receiveCompletion: { _ in }, receiveValue: {
+                [self] data in
+                self.labelImages.append(contentsOf: data)
+                
             }).store(in: cancelBag)
+            
+            for data in labelImages {
+                cachedImages.append(data.image)
+            }
+            setImages(images: cachedImages)
             currentLabel.append(passingLabelEntity.selectedLabel!)
         }
     
-        func setImages(unlabeledImages: [ImageEntity]) {
-            screenshots = unlabeledImages.map {
+        func setImages(images: [ImageEntity]) {
+            screenshots = images.map {
                 ImageViewModel(image: $0)
             }
         }
