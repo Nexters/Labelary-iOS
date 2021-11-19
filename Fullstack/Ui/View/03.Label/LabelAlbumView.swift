@@ -35,9 +35,6 @@ struct LabelAlbumView: View {
                             firstOption = true
                             secondOption = false
                             thirdOption = false
-                            // 최신순으로 정렬
-                            
-                            
                         }) {
                             LabelBadge(name: "최신순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(firstOption ? 1 : 0), textColor: firstOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
@@ -48,7 +45,7 @@ struct LabelAlbumView: View {
                             firstOption = false
                             secondOption = true
                             thirdOption = false
-                            // 오래본순으로 정렬
+
                         }) {
                             LabelBadge(name: "오래본순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(secondOption ? 1 : 0), textColor: secondOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
@@ -68,23 +65,43 @@ struct LabelAlbumView: View {
                         Spacer()
                     }
                     Spacer()
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 25) {
-                            NavigationLink(destination: EditAlbumView()) {
-                                Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 102, height: 221)
-                            }
+                    if firstOption == true {
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 25) {
+                                NavigationLink(destination: EditAlbumView()) {
+                                    Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 102, height: 221)
+                                }
 
-                            ForEach(viewModel.screenshots.indices, id: \.self) { i in
-                                let screenshot = viewModel.screenshots[i]
+                                ForEach(viewModel.screenshots.indices, id: \.self) { i in
+                                    let screenshot = viewModel.screenshots[i]
 
-                                AlbumScreenShotView(imageViewModel: screenshot, width: 102, height: 221, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                    AlbumScreenShotView(imageViewModel: screenshot, width: 102, height: 221, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                }
                             }
                         }
-                    }
+                    } else {
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 25) {
+                                NavigationLink(destination: EditAlbumView()) {
+                                    Image("SS_large_state_\(colorToString(color: passingLabelEntity.selectedLabel!.color))")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 102, height: 221)
+                                }
 
+                                ForEach(viewModel.oldScreenshots.indices, id: \.self) { i in
+                                    let screenshot = viewModel.oldScreenshots[i]
+
+                                    AlbumScreenShotView(imageViewModel: screenshot, width: 102, height: 221, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                }
+                            }
+                        }
+                        
+                    }
+                    
                 }.onAppear(perform: viewModel.onAppear)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading:
@@ -115,20 +132,24 @@ struct LabelAlbumView: View {
 
     class ViewModel: ObservableObject {
         @Published var screenshots: [ImageViewModel] = []
-
+        @Published var oldScreenshots: [ImageViewModel] = []
         @Published var recentlyImages: [ImageViewModel] = []
         @Published var bookmarkImages: [ImageViewModel] = []
 
+        @Published var tempOldLabelImages: [LabelImageEntity] = []
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
 
         let cancelBag = CancelBag()
 
-        var cachedImages: [ImageEntity] = []
+        var cachedImages: [ImageEntity] = [] // 최신순 ㅋㅋ
+        var cachedOldImages: [ImageEntity] = []
 
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
-        // 최신순, 자주본순, 오래본순 정렬
+        // 자주본순, 오래본순 정렬
+        let loadOldLabeledImage = LoadOldLabeledImage(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
+
         init() {
             if passingLabelEntity.selectedLabel != nil {
                 loadAlbumData.get(param: passingLabelEntity.selectedLabel!).sink(receiveCompletion: { _ in }, receiveValue: {
@@ -138,10 +159,24 @@ struct LabelAlbumView: View {
                 for data in labelImageDict[passingLabelEntity.selectedLabel!]! {
                     cachedImages.append(data.image)
                 }
-            } else {}
+
+                loadOldLabeledImage.get(param: labelImageDict[passingLabelEntity.selectedLabel!]!).sink(receiveCompletion: { _ in }, receiveValue: {
+                    [self] data in
+                    tempOldLabelImages.append(contentsOf: data)
+                }).store(in: cancelBag)
+
+                for entity in tempOldLabelImages {
+                    print("------------ <오래된순> createdAt :", entity.createdAt)
+                    cachedOldImages.append(entity.image)
+                }
+
+            } else {
+                print("passing label entity is empty !! /n")
+            }
 
             refresh()
             screenshots = setImages(data: cachedImages)
+            oldScreenshots = setOldImages(data: cachedOldImages)
         }
 
         func refresh() {
@@ -151,13 +186,19 @@ struct LabelAlbumView: View {
                     self.recentlyImages = data.recentlyImages.map {
                         ImageViewModel(image: $0)
                     }
-
                     self.bookmarkImages = data.bookmarkedImages.map {
                         ImageViewModel(image: $0)
                     }
                 }).store(in: cancelBag)
         }
 
+        func setOldImages(data: [ImageEntity]) -> [ImageViewModel] {
+            oldScreenshots = data.map {
+                ImageViewModel(image: $0)
+            }
+            return oldScreenshots
+        }
+        
         func setImages(data: [ImageEntity]) -> [ImageViewModel] {
             screenshots = data.map {
                 ImageViewModel(image: $0)
