@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PassLabelData: ObservableObject {
-    @Published var selectedLabel: LabelEntity? 
+    @Published var selectedLabel: LabelEntity?
 }
 
 var passingLabelEntity = PassLabelData()
@@ -86,25 +86,26 @@ struct LabelView: View {
             .navigationBarHidden(true)
             .onAppear(perform: {
                 self.viewModel.refresh()
-
             })
     }
 
     var body: some View {
         NavigationView {
             if viewModel.labels.count == 0 {
-                DefaultView()
+                    AlbumListEmptyStateView()
             } else {
                 ZStack {
                     content
                     sheetView
                     NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
-
                 }.sheet(isPresented: self.$showEditLabelView) {
                     ShowEditLabelView()
                 }
             }
         }.navigationBarHidden(true)
+            .onAppear(perform: {
+                viewModel.refresh()
+            })
     }
 
     @ViewBuilder
@@ -176,12 +177,12 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
+
         // dictionary 타입으로 만들어주기
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
 
         @Published var labelImageData: [LabelImageEntity] = [] // 여기서 이미지를 꺼낼거임
 
-      
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
 
         let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))

@@ -85,6 +85,10 @@
 		24E0317226F71F4600319C5A /* ActionSheetCard in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0317126F71F4600319C5A /* ActionSheetCard */; };
 		24E0317426F72F3600319C5A /* GrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317326F72F3600319C5A /* GrayView.swift */; };
 		24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317526F7312700319C5A /* ActionSheetCard.swift */; };
+		24F7C9B82746A608007C0D49 /* AlbumAddLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9B72746A608007C0D49 /* AlbumAddLabel.swift */; };
+		24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */; };
+		24F7C9BC27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */; };
+		24F7C9BE27474E8B007C0D49 /* LoadOldLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
@@ -221,6 +225,10 @@
 		24E0316E26F7165500319C5A /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		24E0317326F72F3600319C5A /* GrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayView.swift; sourceTree = "<group>"; };
 		24E0317526F7312700319C5A /* ActionSheetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCard.swift; sourceTree = "<group>"; };
+		24F7C9B72746A608007C0D49 /* AlbumAddLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumAddLabel.swift; sourceTree = "<group>"; };
+		24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListEmptyStateView.swift; sourceTree = "<group>"; };
+		24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRecentlyLabeledImage.swift; sourceTree = "<group>"; };
+		24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadOldLabeledImage.swift; path = Fullstack/Domain/interactors/Usecase/LoadOldLabeledImage.swift; sourceTree = SOURCE_ROOT; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5661457325D2D82400D057E1 /* Album_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_Components.swift; sourceTree = "<group>"; };
@@ -428,6 +436,8 @@
 		2464AD3425BA646900BE3492 /* 03.Label */ = {
 			isa = PBXGroup;
 			children = (
+				24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */,
+				24F7C9B72746A608007C0D49 /* AlbumAddLabel.swift */,
 				24B6DB1C2700AA07004C5B24 /* AlbumEmptyView.swift */,
 				2464AD3525BA648900BE3492 /* LabelView.swift */,
 				24806B2526F99B8B00D5CF7A /* ShowEditLabelView.swift */,
@@ -605,6 +615,8 @@
 		56D1B62425BD6CD9008EEF2F /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
+				24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */,
+				24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */,
 				56D1B65425BD7BAC008EEF2F /* LoadLabelingData.swift */,
 				24943BE32730F30D006C9705 /* LoadLabeledImageData.swift */,
 				56D1B67E25C04F5B008EEF2F /* LoadLabelingSelectData.swift */,
@@ -860,6 +872,7 @@
 				5677671225DF854D00038DC6 /* View_Model.swift in Sources */,
 				56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */,
 				56D1B67725BFE215008EEF2F /* Publisher+.swift in Sources */,
+				24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */,
 				24806B2626F99B8B00D5CF7A /* ShowEditLabelView.swift in Sources */,
 				2491674126F80DB4004C6F46 /* DeleteLabelFromImage.swift in Sources */,
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
@@ -875,6 +888,7 @@
 				56A9860B26A4513A0088C80F /* CustomWidget.swift in Sources */,
 				56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */,
 				56C1968D25C1694D00E441EC /* LabelRealmModel.swift in Sources */,
+				24F7C9BC27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift in Sources */,
 				56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */,
 				56D1B68525C05072008EEF2F /* SearchLabel.swift in Sources */,
 				241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */,
@@ -940,7 +954,9 @@
 				242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */,
 				2464AD2E25BA63E100BE3492 /* SearchView.swift in Sources */,
 				56C1968925C1681900E441EC /* CachedData.swift in Sources */,
+				24F7C9BE27474E8B007C0D49 /* LoadOldLabeledImage.swift in Sources */,
 				5677677E25DFC69F00038DC6 /* OnboardingView.swift in Sources */,
+				24F7C9B82746A608007C0D49 /* AlbumAddLabel.swift in Sources */,
 				246159F525B2E18500F6D730 /* MainLabelingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

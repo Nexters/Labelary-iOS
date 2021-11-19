@@ -12,7 +12,7 @@ class LabelRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = ""
-
+    
     var colorType: ColorSet {
         get {
             return ColorSet(rawValue: self.color) ?? ColorSet.VIOLET()

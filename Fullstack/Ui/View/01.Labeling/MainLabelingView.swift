@@ -60,7 +60,6 @@ var presentToast = PresentToast()
 
 struct MainLabelingView: View {
     @State private var isShowingAddLabelingView = false
-    //  @State private var isSwipeToLeft = false
     @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
 
@@ -141,7 +140,9 @@ struct MainLabelingView: View {
                             }.padding(40)
                                 .offset(y: 150)
                         )
-                    }
+                    }.onAppear(perform: {
+                        self.reloadToken = UUID()
+                    })
                     
                     .offset(y: -3)
                 }
