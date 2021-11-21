@@ -430,11 +430,12 @@ struct CachedData: CachedDataSource {
 
     func deleteImageFromLabel(images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
         let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
-        let labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
+        var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
         try! realm.write {
             realm.delete(labelImageQuery)
             realm.delete(imageQuery)
         }
+        labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
         return Just(labelImageQuery.self).asObservable()
             .map { _ in
                 labelImageQuery.mapNotNull { $0.convertToEntity() }
