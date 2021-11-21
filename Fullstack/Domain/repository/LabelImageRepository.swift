@@ -8,6 +8,9 @@
 import Foundation
 
 protocol LabelImageRepository {
+    // change label of labelImageEntity
+    func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]>
+
     //  load the image data saved in realm
     func loadlabeledImageData() -> Observable<[LabelImageEntity]>
 

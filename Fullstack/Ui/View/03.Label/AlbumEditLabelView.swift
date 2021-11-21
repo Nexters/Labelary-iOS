@@ -13,14 +13,16 @@ struct AlbumEditLabelView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel = ViewModel()
     @State var isSelected: Bool = false
+    @State var selectedLabel: LabelEntity?
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+            Color.DEPTH_3.edgesIgnoringSafeArea(.all)
+
             VStack(alignment: .leading) {
                 Text("현재 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
-                
-                Text("현재 라벨 이름 어쩌고").font(Font.H3_MEDIUM)
+
+                Text("\(passingLabelEntity.selectedLabel!.name)").font(Font.H3_MEDIUM)
                     .offset(y: 9.0)
 
                 Text("변경할 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
@@ -31,7 +33,7 @@ struct AlbumEditLabelView: View {
                         .font(Font.H1_MEDIUM).foregroundColor(Color.PRIMARY_4)
                         .offset(y: 9.0)
                 } else {
-                    Text("\(viewModel.selectedLabel[0].name)")
+                    Text("\(selectedLabel!.name)")
                         .font(Font.H1_MEDIUM)
                         .offset(y: 9.0)
                 }
@@ -40,15 +42,22 @@ struct AlbumEditLabelView: View {
                     Text("내 라벨").foregroundColor(Color.PRIMARY_2)
                     Text("\(viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                 }.font(Font.B2_MEDIUM)
-                .padding(.top, 80)
+                    .padding(.top, 80)
 
                 // flexible view -> selected 되면 버튼 x 뜨게 한다
                 FlexibleView(data: viewModel.labels, spacing: 8, alignment: HorizontalAlignment.leading) {
                     label in Button(action: {
-                        viewModel.selectedLabel.append(label)
+                        selectedLabel = label
+                        isSelected = true
+
                     }) {
-                        Text(verbatim: label.name)
-                            .padding(8)
+                        HStack {
+                            Text(verbatim: label.name)
+                            if selectedLabel == label { Image("btn_icon_cancel").onTapGesture {
+                                selectedLabel = nil
+                                isSelected = false
+                            } }
+                        }.padding(8)
                             .font(.custom("AppleSDGothicNeo-Regular", size: 16))
                             .background(giveLabelBackgroundColor(color: label.color))
                             .foregroundColor(giveTextForegroundColor(color: label.color))
@@ -69,20 +78,25 @@ struct AlbumEditLabelView: View {
 
                 trailing: HStack {
                     Button(action: {
-                        viewModel.requestLabeling.get(param: RequestLabeling.Param(labels: viewModel.selectedLabel, images: viewModel.selectedImages)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
+                        viewModel.selectedLabel = selectedLabel
+
+                        viewModel.changeLabelOnImage.get(param: ChangeFromLabelToLabel.RequestData(images: passingImageEntity.selectedImages, fromLabel: passingLabelEntity.selectedLabel!, toLabel: viewModel.selectedLabel!)).sink(receiveCompletion: { _ in }, receiveValue: { _ in
+                        }).store(in: viewModel.cancelBag)
+                        presentationMode.wrappedValue.dismiss()
+                        passingImageEntity.selectedImages.removeAll()
                     }) {
                         Text("완료").font(Font.B1_MEDIUM).foregroundColor(Color.KEY_ACTIVE)
-                    }
+                    }.disabled(!isSelected)
                 })
     }
 
     class ViewModel: ObservableObject {
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
         let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let changeLabelOnImage = ChangeFromLabelToLabel(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
         @Published var labels: [LabelEntity] = []
-        @Published var selectedLabel: [LabelEntity] = []
-        @Published var selectedImages: [ImageEntity] = []
+        @Published var selectedLabel: LabelEntity?
 
         let cancelBag = CancelBag()
 

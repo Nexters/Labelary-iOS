@@ -20,8 +20,8 @@ struct SearchView: View {
                             .foregroundColor(Color.PRIMARY_1)
                             .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
                         Spacer()
-                        Image("ico_profile")
-                            .padding(EdgeInsets(top: 23, leading: 0, bottom: 0, trailing: 21))
+//                        Image("ico_profile")
+//                            .padding(EdgeInsets(top: 23, leading: 0, bottom: 0, trailing: 21))
                     }.frame(minWidth: 0,
                             maxWidth: .infinity,
                             minHeight: 0,

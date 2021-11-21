@@ -28,7 +28,7 @@ struct Badge: View {
 
                 switch type {
                 case .removable(var callback):
-                    Image(systemName: "xmark")
+                    Image("btn_icon_cancel")
                         .resizable()
                         .frame(width: 8, height: 8, alignment: .center)
                         .font(Font.caption.bold())

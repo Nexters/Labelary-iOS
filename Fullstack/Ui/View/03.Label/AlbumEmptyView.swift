@@ -54,7 +54,7 @@ struct AlbumEmptyView: View {
                             Image("navigation_back_btn")
                         })
 
-                        Text("라벨이름어쩌고")
+                        Text("\(passingLabelEntity.selectedLabel!.name)")
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                     }

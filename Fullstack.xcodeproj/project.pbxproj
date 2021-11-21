@@ -39,6 +39,8 @@
 		2464AD3625BA648900BE3492 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3525BA648900BE3492 /* LabelView.swift */; };
 		2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */; };
 		2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3D25BA795500BE3492 /* SearchBar.swift */; };
+		247386F7274A175400C533E6 /* ChangeFromLabelToLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247386F6274A175400C533E6 /* ChangeFromLabelToLabel.swift */; };
+		247386F9274A6E4300C533E6 /* DeleteImageFromLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247386F8274A6E4300C533E6 /* DeleteImageFromLabel.swift */; };
 		2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475AB2325D8FABD0086B24D /* ShareViewController.swift */; };
 		2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2475AB2525D8FABD0086B24D /* MainInterface.storyboard */; };
 		2475AB2B25D8FABD0086B24D /* ShareSheet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2475AB2125D8FABD0086B24D /* ShareSheet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -196,6 +198,8 @@
 		2464AD3525BA648900BE3492 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelingView.swift; sourceTree = "<group>"; };
 		2464AD3D25BA795500BE3492 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		247386F6274A175400C533E6 /* ChangeFromLabelToLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeFromLabelToLabel.swift; path = Fullstack/Domain/interactors/Usecase/ChangeFromLabelToLabel.swift; sourceTree = SOURCE_ROOT; };
+		247386F8274A6E4300C533E6 /* DeleteImageFromLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteImageFromLabel.swift; path = Fullstack/Domain/interactors/Usecase/DeleteImageFromLabel.swift; sourceTree = SOURCE_ROOT; };
 		2475AB2125D8FABD0086B24D /* ShareSheet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareSheet.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2475AB2325D8FABD0086B24D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		2475AB2625D8FABD0086B24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -625,6 +629,7 @@
 				56D1B68A25C05203008EEF2F /* RequestLabeling.swift */,
 				56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */,
 				24BB719227352238002FCF28 /* LoadAlbumData.swift */,
+				247386F8274A6E4300C533E6 /* DeleteImageFromLabel.swift */,
 				56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */,
 				56C1966925C1393F00E441EC /* SearchImageByLabel.swift */,
 				243C3D5B273CE52F00785F78 /* SearchLabelByImage.swift */,
@@ -633,6 +638,7 @@
 				2491674026F80DB4004C6F46 /* DeleteLabelFromImage.swift */,
 				56C1967525C13F0600E441EC /* UpdateLabel.swift */,
 				56C1967825C1404700E441EC /* ChagneLabelOnImage.swift */,
+				247386F6274A175400C533E6 /* ChangeFromLabelToLabel.swift */,
 				56C1967B25C1430600E441EC /* BookmarkImage.swift */,
 			);
 			path = Usecase;
@@ -905,12 +911,14 @@
 				249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				56BD4D2A25C98990008D2941 /* DIContainer.swift in Sources */,
+				247386F9274A6E4300C533E6 /* DeleteImageFromLabel.swift in Sources */,
 				56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */,
 				56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */,
 				56C1969B25C1737E00E441EC /* CachedDataSource.swift in Sources */,
 				56D1B67425BFE215008EEF2F /* Observable.swift in Sources */,
 				5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */,
 				246159D125B2DCC100F6D730 /* FullstackApp.swift in Sources */,
+				247386F7274A175400C533E6 /* ChangeFromLabelToLabel.swift in Sources */,
 				2464AD3625BA648900BE3492 /* LabelView.swift in Sources */,
 				56D1B67125BFE215008EEF2F /* Driver.swift in Sources */,
 				24E0317426F72F3600319C5A /* GrayView.swift in Sources */,
