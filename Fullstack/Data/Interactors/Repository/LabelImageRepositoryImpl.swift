@@ -9,6 +9,10 @@ import Foundation
 
 struct LabelImageRepositoryImpl: LabelImageRepository {
     let cachedDataSource: CachedDataSource
+    
+    func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]> {
+        return cachedDataSource.changeFromLabelToLabel(images: images, fromLabel: fromLabel, toLabel: toLabel)
+    }
 
     func loadlabeledImageData() -> Observable<[LabelImageEntity]> {
         return cachedDataSource.getAllLabeledImageData()

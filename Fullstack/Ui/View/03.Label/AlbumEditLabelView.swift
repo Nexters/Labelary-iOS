@@ -49,7 +49,7 @@ struct AlbumEditLabelView: View {
                     label in Button(action: {
                         selectedLabel = label
                         isSelected = true
-                        print("+++++++ select :: \(label)")
+
                     }) {
                         HStack {
                             Text(verbatim: label.name)
@@ -78,8 +78,12 @@ struct AlbumEditLabelView: View {
 
                 trailing: HStack {
                     Button(action: {
-                        viewModel.selectedLabel.append(selectedLabel!)
-                        viewModel.requestLabeling.get(param: RequestLabeling.Param(labels: viewModel.selectedLabel, images: viewModel.selectedImages)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
+                        viewModel.selectedLabel = selectedLabel
+
+                        viewModel.changeLabelOnImage.get(param: ChangeFromLabelToLabel.RequestData(images: passingImageEntity.selectedImages, fromLabel: passingLabelEntity.selectedLabel!, toLabel: viewModel.selectedLabel!)).sink(receiveCompletion: { _ in }, receiveValue: { _ in
+                        }).store(in: viewModel.cancelBag)
+                        presentationMode.wrappedValue.dismiss()
+                        passingImageEntity.selectedImages.removeAll()
                     }) {
                         Text("완료").font(Font.B1_MEDIUM).foregroundColor(Color.KEY_ACTIVE)
                     }.disabled(!isSelected)
@@ -89,10 +93,10 @@ struct AlbumEditLabelView: View {
     class ViewModel: ObservableObject {
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
         let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let changeLabelOnImage = ChangeFromLabelToLabel(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
         @Published var labels: [LabelEntity] = []
-        @Published var selectedLabel: [LabelEntity] = []
-        @Published var selectedImages: [ImageEntity] = []
+        @Published var selectedLabel: LabelEntity?
 
         let cancelBag = CancelBag()
 

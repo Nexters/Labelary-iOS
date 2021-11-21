@@ -6,7 +6,13 @@
 //
 
 import SwiftUI
-// 스크린샷 선택
+// 스크린샷 선택된 이미지들
+class PassImageData: ObservableObject {
+    @Published var selectedImages: [ImageEntity] = []
+}
+
+var passingImageEntity = PassImageData()
+
 struct AlbumSelectView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedImages: [ImageEntity] = []
@@ -35,8 +41,10 @@ struct AlbumSelectView: View {
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                 HStack {
+                    // Cancel Button
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
+                        passingImageEntity.selectedImages.removeAll()
                     }) { Image("ico_cancel") }
                     
                     Text("\(selectedImages.count)개")
@@ -52,10 +60,13 @@ struct AlbumSelectView: View {
                             Image("ico_label_edit_active") : Image("ico_label_edit_inactive")
                         
                     }.disabled(selectedImages.count > 0 ? false : true).padding()
+                        .onTapGesture(perform: {
+                            passingImageEntity.selectedImages.append(contentsOf: selectedImages)
+                        })
                     
                     // 이미지 삭제하기
                     Button(action: {
-                        viewModel.requestDeleteImage(selectedImages: selectedImages)
+                        viewModel.deleteImageFromLabel.get(param: selectedImages).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
                     }) {
                         selectedImages.count > 0 ?
                             Image("ico_delete_active") : Image("ico_delete_inactive")
@@ -64,8 +75,6 @@ struct AlbumSelectView: View {
     }
     
     class ViewModel: ObservableObject {
-        let deleteImage = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-    
         @Published var cachedImages: [ImageEntity] = []
         @Published var labelImages: [LabelImageEntity] = []
         @Published var screenshots: [ImageViewModel] = []
@@ -74,6 +83,9 @@ struct AlbumSelectView: View {
         let loadAlbumData = LoadAlbumData(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
         
         let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        
+        let deleteImageFromLabel = DeleteImageFromLabel(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        
         let cancelBag = CancelBag()
     
         init() {
@@ -94,10 +106,6 @@ struct AlbumSelectView: View {
             screenshots = images.map {
                 ImageViewModel(image: $0)
             }
-        }
-        
-        func requestDeleteImage(selectedImages: [ImageEntity]) {
-            deleteImage.get(param: selectedImages).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelBag)
         }
     }
 }

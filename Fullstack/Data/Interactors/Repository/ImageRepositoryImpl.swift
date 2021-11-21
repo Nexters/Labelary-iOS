@@ -50,6 +50,10 @@ struct ImageRepositoryImpl: ImageRepository {
         return cachedDataSource.deleteImages(images: images)
     }
     
+    func deleteImageFromLabel(images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
+        return cachedDataSource.deleteImageFromLabel(images: images)
+    }
+    
     func isExistOnRealm(image: ImageEntity) -> Observable<Bool> {
         return cachedDataSource.isExistOnRealm(image: image)
     }

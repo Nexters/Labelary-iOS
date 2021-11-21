@@ -135,6 +135,18 @@ struct CachedData: CachedDataSource {
             .eraseToAnyPublisher()
     }
 
+    // 이미지들 라벨을 다른 라벨로 바꾸는 거임
+    func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]> {
+        let fromLabelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == fromLabel.id }
+        let toLabelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == toLabel.id }
+        var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
+
+        return Just(labelImageQuery).asObservable()
+            .map { _ in
+                labelImageQuery.mapNotNull { $0.convertToEntity() }
+            }.eraseToAnyPublisher()
+    }
+
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
         var imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
@@ -160,10 +172,10 @@ struct CachedData: CachedDataSource {
         var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in imageId.contains { $0 == item.image?.id }}
 
         try! realm.write {
-//            for existData in labelImageQuery {
-//                existData.labels.append(objectsIn: labelQuery)
-//                realm.add(existData)
-//            }
+            for existData in labelImageQuery {
+                existData.labels.append(objectsIn: labelQuery)
+                realm.add(existData)
+            }
 
             for neededimage in imageQuery {
                 let labelImageModel = LabelImageRealmModel()
@@ -416,6 +428,19 @@ struct CachedData: CachedDataSource {
 //            }.eraseToAnyPublisher()
 //    }
 
+    func deleteImageFromLabel(images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
+        let imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
+        try! realm.write {
+            realm.delete(labelImageQuery)
+            realm.delete(imageQuery)
+        }
+        return Just(labelImageQuery.self).asObservable()
+            .map { _ in
+                labelImageQuery.mapNotNull { $0.convertToEntity() }
+            }.eraseToAnyPublisher()
+    }
+
     func deleteLabel(label: LabelEntity) -> Observable<String> {
         let query = realm.object(ofType: LabelRealmModel.self, forPrimaryKey: label.id)
         let id = label.id
@@ -466,7 +491,7 @@ struct CachedData: CachedDataSource {
 
     func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
         let labelImageQuery = realm.objects(LabelImageRealmModel.self).sorted(byKeyPath: "createdAt", ascending: true).filter { item in labelImages.contains { $0.id == item.id }}
-        
+
         return Just(labelImageQuery).asObservable()
             .map { _ in
                 labelImageQuery.mapNotNull { $0.convertToEntity() }
