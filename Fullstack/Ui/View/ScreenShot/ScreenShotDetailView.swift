@@ -99,10 +99,10 @@ struct ScreenShotDetailView: View {
                 }
             }.edgesIgnoringSafeArea([.top, .bottom])
 
-        }.toast(isPresenting: $showToastOn, duration: 0.3) {
+        }.toast(isPresenting: $showToastOn, duration: 0.6) {
             AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.")
         }
-        .toast(isPresenting: $showToastOff, duration: 0.3) {
+        .toast(isPresenting: $showToastOff, duration: 0.6) {
             AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.")
         }
         .onTapGesture {
