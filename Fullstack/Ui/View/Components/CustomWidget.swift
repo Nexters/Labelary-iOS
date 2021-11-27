@@ -67,7 +67,7 @@ struct CardStackView: View {
         ZStack {
             Rectangle()
                 .fill(Color.DEPTH_2)
-                .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.57)
+                .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                 .cornerRadius(0.2)
 
             Image(uiImage: displayedImage ?? UIImage())
@@ -158,7 +158,7 @@ struct ImageView: View {
     var body: some View {
         Image(uiImage: uiImage ?? UIImage())
             .resizable()
-            .aspectRatio(contentMode: .fit)
+           // .aspectRatio(contentMode: .fit)
             .onAppear(perform: viewModel.reload)
             .onReceive(viewModel.$uiImage, perform: {
                 print("llloooo\($0?.size)")
