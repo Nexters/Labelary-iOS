@@ -8,10 +8,10 @@ target 'Fullstack' do
   pod 'OpenCombineDispatch', '~> 0.12.0'
   pod 'OpenCombineFoundation', '~> 0.12.0'
   pod 'RealmSwift', '~> 10.5.1'
-  pod 'AlertToast'
   pod 'lottie-ios'
   pod "Resolver"
   pod 'Firebase/Analytics'
+  pod 'AlertToast'
 end
 
 target 'ShareSheet' do

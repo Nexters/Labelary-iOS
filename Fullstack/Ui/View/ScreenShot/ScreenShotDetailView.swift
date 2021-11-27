@@ -5,6 +5,7 @@
 //  Created by 김범준 on 2021/02/19.
 //
 
+import AlertToast
 import Foundation
 import Photos
 import SwiftUI
@@ -14,7 +15,8 @@ struct ScreenShotDetailView: View {
     @ObservedObject var viewmodel: ViewModel
     let onChangeBookMark: (ImageEntity) -> Void
     let onDeleteImage: (String) -> Void
-
+    @State private var showToastOn = false
+    @State private var showToastOff = false
     var body: some View {
         ZStack {
             ZStack(alignment: .center) {
@@ -51,7 +53,7 @@ struct ScreenShotDetailView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(viewmodel.getlabel(image: viewmodel.imageViewModel.image).indices, id: \.self) { i in
-                                       // let label = viewmodel.imageViewModel.image.labels[i]
+                                        // let label = viewmodel.imageViewModel.image.labels[i]
                                         let label = viewmodel.getlabel(image: viewmodel.imageViewModel.image)[i]
                                         Text(label.name)
                                             .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
@@ -69,6 +71,7 @@ struct ScreenShotDetailView: View {
                             .font(Font.B2_MEDIUM)
                             .foregroundColor(Color.KEY_ACTIVE)
                             .padding(.leading, 6)
+
                     }.padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 20))
                         .background(Color(hex: "B3000000"))
                     //      ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
@@ -80,10 +83,12 @@ struct ScreenShotDetailView: View {
                         if viewmodel.imageViewModel.image.isBookmark {
                             Image("ico_heart_active").onTapGesture {
                                 viewmodel.changeBookMark()
+                                showToastOff.toggle()
                             }
                         } else {
                             Image("ico_heart").onTapGesture {
                                 viewmodel.changeBookMark()
+                                showToastOn.toggle()
                             }
                         }
                         Spacer()
@@ -94,7 +99,13 @@ struct ScreenShotDetailView: View {
                 }
             }.edgesIgnoringSafeArea([.top, .bottom])
 
-        }.onTapGesture {
+        }.toast(isPresenting: $showToastOn, duration: 0.6) {
+            AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.")
+        }
+        .toast(isPresenting: $showToastOff, duration: 0.6) {
+            AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.")
+        }
+        .onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)

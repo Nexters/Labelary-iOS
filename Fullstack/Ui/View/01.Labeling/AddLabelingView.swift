@@ -284,12 +284,12 @@ struct AddLabelingView: View {
                         .padding(21)
                         .cornerRadius(2)
                         .offset(x: 69, y: 219)
-//                        .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
-//                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.",
-//                                       style: .style(backgroundColor: Color.black.opacity(0.5),
-//                                                     titleColor: Color.PRIMARY_1,
-//                                                     titleFont: Font.B1_MEDIUM))
-//                        })
+                        .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
+                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.",
+                                       style: .style(backgroundColor: Color.black.opacity(0.5),
+                                                     titleColor: Color.PRIMARY_1,
+                                                     titleFont: Font.B1_MEDIUM))
+                        })
                         .opacity(filters.count > 0 ? 1 : 0)
                     }
                 }

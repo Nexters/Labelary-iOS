@@ -52,6 +52,8 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
     let height: CGFloat
     let nextView: NEXT_VIEW
 
+    @State var isPresent: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             NavigationLink(destination: nextView) {
@@ -59,6 +61,26 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
             }
+            
+            switch imageViewModel.status {
+            case .IDLE:
+                Group {}
+            case .EDITING:
+                Image("btn_check")
+                    .padding(.leading, 72)
+                    .padding(.bottom, 191)
+                    .onTapGesture {
+                        imageViewModel.status = .SELECTING
+                    }
+            case .SELECTING:
+                Image("btn_check_selective")
+                    .padding(.leading, 72)
+                    .padding(.bottom, 191)
+                    .onTapGesture {
+                        imageViewModel.status = .EDITING
+                    }
+            }
+            
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
@@ -86,8 +108,6 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                 ImageView(viewModel: imageViewModel)
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
-                    .padding(.leading, 2)
-                    .padding(.trailing, 2)
             }
 
             switch imageViewModel.status {

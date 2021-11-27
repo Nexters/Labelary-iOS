@@ -64,7 +64,7 @@ struct AppView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { [self] _ in
-                        print("ddddd")
+                        //print("ddddd")
                         onSplash = false
                     }
                 ).store(in: cancelbag)

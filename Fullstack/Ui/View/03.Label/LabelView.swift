@@ -90,22 +90,28 @@ struct LabelView: View {
     }
 
     var body: some View {
-        NavigationView {
-            if viewModel.labels.count == 0 {
-                    AlbumListEmptyStateView()
-            } else {
-                ZStack {
-                    content
-                    sheetView
-                    NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
-                }.sheet(isPresented: self.$showEditLabelView) {
-                    ShowEditLabelView()
-                }
+        //      NavigationView {
+        if viewModel.labels.count == 0 {
+            AlbumListEmptyStateView()
+                .onAppear(perform: {
+                    viewModel.refresh()
+                })
+        } else {
+            ZStack {
+                content
+                sheetView
+                NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
+            }.sheet(isPresented: self.$showEditLabelView) {
+                ShowEditLabelView()
             }
-        }.navigationBarHidden(true)
             .onAppear(perform: {
                 viewModel.refresh()
             })
+        }
+        //  }.navigationBarHidden(true)
+//            .onAppear(perform: {
+//                viewModel.refresh()
+//            })
     }
 
     @ViewBuilder

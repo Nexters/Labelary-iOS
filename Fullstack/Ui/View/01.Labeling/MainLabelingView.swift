@@ -26,13 +26,13 @@ struct CardViewWithShadow: View {
 
                     Image("shadow_blue")
                         .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
                         .opacity(direction == .right ? 0.6 : 0)
                 }
 
                 Image("shadow_red")
                     .resizable()
-                    .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.581)
+                    .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
                     .opacity(direction == .left ? 0.6 : 0)
             }
 
@@ -84,7 +84,7 @@ struct MainLabelingView: View {
                 ZStack {
                     Image("shadow")
                         .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
+                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
                         .offset(x: 25)
                     HStack(alignment: .center) {
                         CardStack(
