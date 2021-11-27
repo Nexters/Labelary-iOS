@@ -78,7 +78,7 @@ struct LabelAlbumView: View {
                                 ForEach(viewModel.screenshots.indices, id: \.self) { i in
                                     let screenshot = viewModel.screenshots[i]
 
-                                    AlbumScreenShotView(imageViewModel: screenshot, width: 102, height: 221, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                    AlbumScreenShotView(imageViewModel: screenshot, width: 90, height: 195, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
                                 }
                             }
                         }
