@@ -15,23 +15,23 @@ struct CLabelSearchField: View {
     var placeholder: Text
     @Binding var text: String
     var commit: () -> () = {}
-    @Binding var labels: [LabelEntity]
+    //  @Binding var labels: [LabelEntity]
     @Binding var isEditing: Bool
 
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty, !isEditing { placeholder }
             HStack {
-                if !labels.isEmpty && isEditing {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        buildLabels(labels: labels)
-                    }.frame(maxWidth: min(CGFloat(self.labels.count) * 60, 300))
-                }
+//                if !labels.isEmpty && isEditing {
+//                    ScrollView(.horizontal, showsIndicators: false) {
+//                        buildLabels(labels: labels)
+//                    }.frame(maxWidth: min(CGFloat(self.labels.count) * 60, 300))
+//                }
                 TextField(
-                    "",
+                    "\(text)",
                     text: $text,
                     onEditingChanged: { isEditing in
-                        print("asdasdasd \(isEditing)")
+                        //   print("asdasdasd \(isEditing)")
                         self.isEditing = isEditing
                     }, onCommit: commit
                 )
@@ -40,23 +40,23 @@ struct CLabelSearchField: View {
         }
     }
 
-    @ViewBuilder
-    func buildLabels(labels: [LabelEntity]) -> some View {
-        HStack {
-            ForEach(labels, id: \.id) { label in
-                Text(label.name).padding(EdgeInsets(top: 3, leading: 8, bottom: 3, trailing: 8))
-                    .font(Font.B2_MEDIUM)
-                    .background(label.color.deactive)
-                    .foregroundColor(label.color.text)
-                    .cornerRadius(3)
-                    .onTapGesture {
-                        if let index = self.labels.firstIndex(of: label) {
-                            self.labels.remove(at: index)
-                        }
-                    }
-            }
-        }
-    }
+//    @ViewBuilder
+//    func buildLabels(labels: [LabelEntity]) -> some View {
+//        HStack {
+//            ForEach(labels, id: \.id) { label in
+//                Text(label.name).padding(EdgeInsets(top: 3, leading: 8, bottom: 3, trailing: 8))
+//                    .font(Font.B2_MEDIUM)
+//                    .background(label.color.deactive)
+//                    .foregroundColor(label.color.text)
+//                    .cornerRadius(3)
+//                    .onTapGesture {
+//                        if let index = self.labels.firstIndex(of: label) {
+//                            self.labels.remove(at: index)
+//                        }
+//                    }
+//            }
+//        }
+//    }
 }
 
 struct CardStackView: View {
@@ -135,8 +135,6 @@ struct ThumbnailImageView: View {
     }
 }
 
-
-
 struct ImageView: View {
     @ObservedObject var viewModel: ImageViewModel {
         didSet(oldVal) {
@@ -158,7 +156,7 @@ struct ImageView: View {
     var body: some View {
         Image(uiImage: uiImage ?? UIImage())
             .resizable()
-           // .aspectRatio(contentMode: .fit)
+            // .aspectRatio(contentMode: .fit)
             .onAppear(perform: viewModel.reload)
             .onReceive(viewModel.$uiImage, perform: {
                 print("llloooo\($0?.size)")

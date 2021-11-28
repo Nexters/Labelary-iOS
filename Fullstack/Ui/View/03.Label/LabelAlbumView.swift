@@ -166,10 +166,9 @@ struct LabelAlbumView: View {
                 }).store(in: cancelBag)
 
                 for entity in tempOldLabelImages {
-                    print("------------ <오래된순> createdAt :", entity.createdAt)
+           //         print("------------ <오래된순> createdAt :", entity.createdAt)
                     cachedOldImages.append(entity.image)
                 }
-
             } else {
                 print("passing label entity is empty !! /n")
             }

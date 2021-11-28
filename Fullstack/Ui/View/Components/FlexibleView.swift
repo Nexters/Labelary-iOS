@@ -58,19 +58,21 @@ struct FlexibleView<Data: Collection, Content: View>: View where Data.Element: H
 
     var body: some View {
         ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
-            Color.clear
-                .frame(height: 1)
-                .readSize { size in
-                    availableWidth = size.width
-                }
+         
+                Color.clear
+                    .frame(height: 1)
+                    .readSize { size in
+                        availableWidth = size.width
+                    }
 
-            _FlexibleView(
-                availableWidth: availableWidth,
-                data: data,
-                spacing: spacing,
-                alignment: alignment,
-                content: content
-            )
+                _FlexibleView(
+                    availableWidth: availableWidth,
+                    data: data,
+                    spacing: spacing,
+                    alignment: alignment,
+                    content: content
+                )
+            
         }
     }
 }
