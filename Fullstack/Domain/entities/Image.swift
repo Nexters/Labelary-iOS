@@ -12,7 +12,6 @@ import SwiftUI
 struct ImageEntity: Entity {
     let source: String
     var id: String
-//    var labels: [LabelEntity]
     var isBookmark: Bool = false
     var isCached: Bool = false
     var createdAt: Date?
@@ -34,9 +33,8 @@ extension PHAsset {
         return ImageEntity(
             source: localIdentifier,
             id: localIdentifier,
-            //         labels: [],
             isBookmark: false,
-            createdAt: creationDate
+            createdAt: creationDate 
         )
     }
 }

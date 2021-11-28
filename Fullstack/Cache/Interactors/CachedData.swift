@@ -195,6 +195,7 @@ struct CachedData: CachedDataSource {
                 labelImageModel.image = neededimage
                 labelImageModel.labels.append(objectsIn: labelQuery)
                 labelImageModel.createdAt = Date()
+            
                 realm.add(labelImageModel)
             }
         }

@@ -31,7 +31,7 @@ struct ScreenShotDetailView: View {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                         Spacer()
-                        Text("2019년 1월 24일")
+                        Text(viewmodel.createdAt) // 날짜
                             .font(Font.B1_MEDIUM)
                             .foregroundColor(Color.PRIMARY_1)
                         Spacer()
@@ -108,15 +108,14 @@ struct ScreenShotDetailView: View {
         .onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 
     class ViewModel: ObservableObject {
         @Published var imageViewModel: ImageViewModel
         @Published var isOnHover: Bool = true
-
         @Published var LabelImageData: [LabelImageEntity] = []
-
+        @Published var createdAt: String = ""
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
 
         let onChangeBookmark: (ImageEntity) -> Void
@@ -124,12 +123,16 @@ struct ScreenShotDetailView: View {
         let requestBookmarkImage = BookmarkImage(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let cancelbag = CancelBag()
+        let dateFormatter = DateFormatter()
+        
 
         let searchLabelByImage = SearchLabelByImage(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init(imageViewModel: ImageViewModel, onChangeBookmark: @escaping (ImageEntity) -> Void) {
             self.imageViewModel = imageViewModel
             self.onChangeBookmark = onChangeBookmark
+            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+            createdAt = dateFormatter.string(from: imageViewModel.image.createdAt ?? Date())
         }
 
         func getlabel(image: ImageEntity) -> [LabelEntity] {
