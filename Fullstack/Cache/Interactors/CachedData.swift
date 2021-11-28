@@ -137,9 +137,22 @@ struct CachedData: CachedDataSource {
 
     // 이미지들 라벨을 다른 라벨로 바꾸는 거임
     func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]> {
-        let fromLabelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == fromLabel.id }
         let toLabelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == toLabel.id }
-        var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
+        var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }} // 새로운 data
+        try! realm.write {
+            for labelImage in labelImageQuery {
+                
+                for (index, item) in labelImage.labels.enumerated() { 
+                    if item.id == fromLabel.id {
+                        labelImage.labels.remove(at: index)
+                    }
+                }
+
+                labelImage.labels.append(objectsIn: toLabelQuery)
+
+                realm.add(labelImage, update: .modified)
+            }
+        }
 
         return Just(labelImageQuery).asObservable()
             .map { _ in

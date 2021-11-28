@@ -18,6 +18,7 @@ struct AlbumSelectView: View {
     @State private var selectedImages: [ImageEntity] = []
     @State private var onTapped: Bool = false
     @ObservedObject private var viewModel = ViewModel()
+    @State private var showEditView: Bool = false
 
     let columns = [
         GridItem(.flexible()),
@@ -55,18 +56,22 @@ struct AlbumSelectView: View {
                 },
                 trailing: HStack {
                     // 라벨 수정하기 -> 스크린샷 라벨 변경 화면으로 이동
-                    NavigationLink(destination: AlbumEditLabelView()) {
+                    
+                    Button(action: {
+                        print("+++++++++++++++++++++selectedImages: \(selectedImages.count)")
+                        passingImageEntity.selectedImages.append(contentsOf: selectedImages)
+                        showEditView = true
+                    }) {
                         selectedImages.count > 0 ?
                             Image("ico_label_edit_active") : Image("ico_label_edit_inactive")
-                        
                     }.disabled(selectedImages.count > 0 ? false : true).padding()
-                        .onTapGesture(perform: {
-                            passingImageEntity.selectedImages.append(contentsOf: selectedImages)
-                        })
                     
+                    NavigationLink(destination: AlbumEditLabelView(), isActive: $showEditView) {}
+                
                     // 이미지 삭제하기
                     Button(action: {
                         viewModel.deleteImageFromLabel.get(param: selectedImages).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewModel.cancelBag)
+                     
                     }) {
                         selectedImages.count > 0 ?
                             Image("ico_delete_active") : Image("ico_delete_inactive")
