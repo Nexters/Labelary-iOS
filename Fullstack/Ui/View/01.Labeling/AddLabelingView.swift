@@ -240,8 +240,7 @@ struct AddLabelingView: View {
                                                 filters.remove(at: firstIndex)
                                             }
                                         }
-                                    })
-                                        .transition(.opacity)
+                                    }).transition(.opacity)
                                 }
                             }
                         }.padding(15)
@@ -267,7 +266,7 @@ struct AddLabelingView: View {
                             requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
                                 needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                 needToLabelingData.labelData.removeAll()
-                         
+
                             }, receiveValue: { _ in
                                 //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)

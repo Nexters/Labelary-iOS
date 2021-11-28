@@ -30,7 +30,7 @@ struct Badge: View {
                 case .removable(var callback):
                     Image("btn_icon_cancel")
                         .resizable()
-                        .frame(width: 8, height: 8, alignment: .center)
+                        .frame(width: 18, height: 18, alignment: .center)
                         .font(Font.caption.bold())
                         .onTapGesture {
                             callback()

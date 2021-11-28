@@ -112,7 +112,7 @@ struct ShowEditLabelView: View {
                             .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
                             .onTapGesture {
                                 if self.isSelected {
-                                    // create말고 updatelabel로 바꿔주어야 한다 !!
+                                  
                                     passingLabelEntity.selectedLabel?.name = self.text
                                     passingLabelEntity.selectedLabel?.color = self.color
 

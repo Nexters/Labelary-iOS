@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @ObservedObject var viewmodel = ViewModel()
-
+    @State private var show = false
     var body: some View {
         ScrollView {
             VStack {
@@ -20,8 +20,11 @@ struct SearchView: View {
                             .foregroundColor(Color.PRIMARY_1)
                             .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
                         Spacer()
-//                        Image("ico_profile")
-//                            .padding(EdgeInsets(top: 23, leading: 0, bottom: 0, trailing: 21))
+                        Button(action:  {
+                            // 설정으로 !!
+                        }) {
+                            Image("ico_profile")
+                        }
                     }.frame(minWidth: 0,
                             maxWidth: .infinity,
                             minHeight: 0,
@@ -29,18 +32,35 @@ struct SearchView: View {
                             alignment: .topLeading)
                 }
 
-                SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing, labels: self.$viewmodel.selectedLabels)
-                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
+                Button(action: {
+                    self.show = true
+                }) {
+                    Text("스크린샷 검색 ")
+                    NavigationLink(
+                        destination: SearchScreenshotView(),
+                        isActive: $show
+                    ) {}
+                }
+                .frame(width: 360, height: 40, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                .background(Color.DEPTH_3)
+                .cornerRadius(4)
+                .foregroundColor(Color.PRIMARY_2)
+                .font(Font.B1_REGULAR)
+                .overlay(
+                    HStack {
+                        Image("Icon_search")
+                            .foregroundColor(.red)
+                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                        Spacer()
+                    }.padding(.horizontal, 9)
+                )
 
-                if self.viewmodel.isEditing {
-                    buildSearchView(keyword: self.viewmodel.keyword)
-                } else {
+                if !self.viewmodel.isEditing {
                     buildSection(title: "최근 순 사진", models: viewmodel.recentlyImages, isRecently: true)
                     buildSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages, isRecently: false)
                 }
             }.onAppear(perform: viewmodel.onAppear)
         }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-            .navigationBarTitle("")
             .navigationBarHidden(true)
     }
 
@@ -66,93 +86,6 @@ struct SearchView: View {
         }
     }
 
-    @ViewBuilder
-    func buildSearchView(keyword: String) -> some View {
-        if keyword.isEmpty {
-            VStack(alignment: .leading) {
-                Text("최근 검색한 라벨")
-                    .font(Font.B2_MEDIUM)
-                    .foregroundColor(Color.PRIMARY_2)
-
-                FlexibleView(data: viewmodel.labels.prefix(5), spacing: 10, alignment: HorizontalAlignment.leading) { label in
-                    Text(label.name)
-                        .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
-                        .font(Font.B1_REGULAR)
-                        .foregroundColor(label.color.text)
-                        .background(label.color.deactive)
-                        .cornerRadius(3)
-                        .onTapGesture {
-                            if !viewmodel.recentlySearchedLabels.contains(label) {
-                                viewmodel.recentlySearchedLabels.append(label)
-                            } else {
-                                if let index = self.viewmodel.recentlySearchedLabels.firstIndex(of: label) {
-                                    self.viewmodel.recentlySearchedLabels.remove(at: index)
-                                }
-                            }
-                        }
-                }
-
-                HStack {
-                    Text("라벨 목록")
-                        .font(Font.B2_MEDIUM)
-                        .foregroundColor(Color.PRIMARY_2)
-
-                    Text("\(viewmodel.labels.count)")
-                        .font(Font.B2_MEDIUM)
-                        .foregroundColor(Color(hex: "257CCC"))
-                        .padding(.leading, 4)
-                }.padding(.top, 40)
-                FlexibleView(data: viewmodel.labels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
-                    Text(label.name)
-                        .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
-                        .font(Font.B1_REGULAR)
-                        .foregroundColor(label.color.text)
-                        .background(label.color.deactive)
-                        .cornerRadius(3)
-                        .onTapGesture {
-                            if !viewmodel.selectedLabels.contains(label) {
-                                viewmodel.selectedLabels.append(label)
-                            } else {
-                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
-                                    self.viewmodel.selectedLabels.remove(at: index)
-                                }
-                            }
-                        }
-                }
-            }.padding(20)
-        } else {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("검색결과")
-                        .font(Font.B2_MEDIUM)
-                        .foregroundColor(Color.PRIMARY_2)
-
-                    Text("\(viewmodel.labels.filter { label in label.name.contains(keyword) }.count)")
-                        .font(Font.B2_MEDIUM)
-                        .foregroundColor(Color(hex: "257CCC"))
-                        .padding(.leading, 4)
-                }.padding(.top, 40)
-                FlexibleView(data: viewmodel.labels.filter { label in label.name.contains(keyword) }, spacing: 10, alignment: HorizontalAlignment.leading) { label in
-                    Text(label.name)
-                        .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
-                        .font(Font.B1_REGULAR)
-                        .foregroundColor(label.color.text)
-                        .background(label.color.deactive)
-                        .cornerRadius(3)
-                        .onTapGesture {
-                            if !viewmodel.selectedLabels.contains(label) {
-                                viewmodel.selectedLabels.append(label)
-                            } else {
-                                if let index = self.viewmodel.selectedLabels.firstIndex(of: label) {
-                                    self.viewmodel.selectedLabels.remove(at: index)
-                                }
-                            }
-                        }
-                }
-            }.padding(20)
-        }
-    }
-
     private func onDeleteImage(id: String) {
         viewmodel.recentlyImages = viewmodel.recentlyImages.filter { $0.image.id != id }
     }
@@ -168,7 +101,7 @@ struct SearchView: View {
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let loadSearchLabelData = LoadSearchLabelData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 최근 검색한 라벨
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 모든 라벨들을 로드
-        
+
         let cancelbag = CancelBag()
 
         var cachedImages: [ImageEntity] = []
@@ -181,13 +114,12 @@ struct SearchView: View {
                 data in
                 self.labels = data
             }).store(in: cancelbag)
-            
+
             loadSearchLabelData.get().sink(receiveCompletion: { _ in }, receiveValue: { data in
                 self.recentlySearchedLabels = data.recentlySearchedLabels
             }).store(in: cancelbag)
         }
 
-        
         func refresh() {
             loadSearchMainData.get()
                 .sink(

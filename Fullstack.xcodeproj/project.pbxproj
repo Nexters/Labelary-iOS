@@ -69,6 +69,8 @@
 		24943BED2730FA62006C9705 /* Label_ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */; };
 		249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E81DD25DB6FF100423791 /* SizeReader.swift */; };
 		249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */; };
+		24A314AA27538C0F006C43D3 /* ScreenshotAddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */; };
+		24A314B02753C114006C43D3 /* SearchScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
 		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
@@ -217,6 +219,8 @@
 		24943BE72730F5F8006C9705 /* LabelImageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelImageRepositoryImpl.swift; sourceTree = "<group>"; };
 		249E81DD25DB6FF100423791 /* SizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCollection+.swift"; sourceTree = "<group>"; };
+		24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotAddLabelView.swift; sourceTree = "<group>"; };
+		24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenshotView.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
 		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
@@ -431,7 +435,9 @@
 			isa = PBXGroup;
 			children = (
 				2464AD3D25BA795500BE3492 /* SearchBar.swift */,
+				24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */,
 				2464AD2D25BA63E100BE3492 /* SearchView.swift */,
+				24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */,
 				5661459525DA3E5E00D057E1 /* HomeDetailView.swift */,
 			);
 			path = 02.Home;
@@ -924,6 +930,7 @@
 				24E0317426F72F3600319C5A /* GrayView.swift in Sources */,
 				56D1B67525BFE215008EEF2F /* ActivityTracker.swift in Sources */,
 				2491466427116CA800DEB8A2 /* EditAlbumView.swift in Sources */,
+				24A314AA27538C0F006C43D3 /* ScreenshotAddLabelView.swift in Sources */,
 				2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */,
 				56BD4D2D25C9AF07008D2941 /* Typography.swift in Sources */,
 				56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */,
@@ -947,6 +954,7 @@
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
 				2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
+				24A314B02753C114006C43D3 /* SearchScreenshotView.swift in Sources */,
 				56C1967925C1404700E441EC /* ChagneLabelOnImage.swift in Sources */,
 				24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */,
 				2483800626F6354F00716C5F /* LabelDetailView.swift in Sources */,

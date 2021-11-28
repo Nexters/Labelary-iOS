@@ -17,6 +17,7 @@ struct ScreenShotDetailView: View {
     let onDeleteImage: (String) -> Void
     @State private var showToastOn = false
     @State private var showToastOff = false
+    @State private var showDeleteToast = false
     var body: some View {
         ZStack {
             ZStack(alignment: .center) {
@@ -78,6 +79,7 @@ struct ScreenShotDetailView: View {
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.delete()
+                            showDeleteToast.toggle()
                         }
                         Spacer()
                         if viewmodel.imageViewModel.image.isBookmark {
@@ -105,6 +107,9 @@ struct ScreenShotDetailView: View {
         .toast(isPresenting: $showToastOff, duration: 0.6) {
             AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.")
         }
+        .toast(isPresenting: $showDeleteToast, duration: 0.5) {
+            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")
+        }
         .onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
@@ -124,7 +129,6 @@ struct ScreenShotDetailView: View {
         let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
         let cancelbag = CancelBag()
         let dateFormatter = DateFormatter()
-        
 
         let searchLabelByImage = SearchLabelByImage(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
 
