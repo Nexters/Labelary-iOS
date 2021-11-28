@@ -15,7 +15,6 @@ struct SearchScreenshotView: View {
         VStack(alignment: .leading) {
             SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing)
                 .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
-            Spacer()
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(viewmodel.selectedLabels, id: \.self) { item in
