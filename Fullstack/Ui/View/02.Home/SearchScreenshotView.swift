@@ -7,14 +7,23 @@
 
 import SwiftUI
 
+class neededLabelForSearch: ObservableObject {
+    @Published var selectedLabels: [LabelEntity] = []
+}
+
+var searchSelectedLabels = neededLabelForSearch()
+
 struct SearchScreenshotView: View {
     @State private var keyword: String = ""
     @ObservedObject var viewmodel = ViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    @State private var showResultView: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
             SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing)
                 .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
+            Spacer(minLength: 20)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(viewmodel.selectedLabels, id: \.self) { item in
@@ -111,12 +120,24 @@ struct SearchScreenshotView: View {
                     }
                 }.padding(20)
             }
+
+            Spacer(minLength: 20)
+            Button(action: {
+                // 검색 결과 화면으로 이동
+                searchSelectedLabels.selectedLabels.append(contentsOf: viewmodel.selectedLabels)
+                self.showResultView = true
+            }) {
+                Image(viewmodel.selectedLabels.count > 0 ? "ico_search_screenshot_active" : "ico_search_screenshot_inactive")
+                    .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
+                NavigationLink(destination: SearchResultView(), isActive: $showResultView) {}
+            }.disabled(viewmodel.selectedLabels.count == 0)
+                .padding(.leading, 10)
+
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
-
                 HStack {
                     Button(action: {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Image("ico_cancel")
                     })
