@@ -30,7 +30,6 @@ struct SearchScreenshotView: View {
                         Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
                             withAnimation {
                                 if let firstIndex = viewmodel.selectedLabels.firstIndex(of: item) {
-                                    searchSelectedLabels.selectedLabels.remove(at: firstIndex)
                                     viewmodel.selectedLabels.remove(at: firstIndex)
                                 }
                             }
@@ -125,6 +124,7 @@ struct SearchScreenshotView: View {
             Spacer(minLength: 20)
             Button(action: {
                 // 검색 결과 화면으로 이동
+                searchSelectedLabels.selectedLabels.removeAll()
                 searchSelectedLabels.selectedLabels.append(contentsOf: viewmodel.selectedLabels)
                 self.showResultView = true
             }) {

@@ -18,21 +18,17 @@ struct SearchResultView: View {
     ]
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(searchSelectedLabels.selectedLabels, id: \.self) { item in
-                            Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
-                                withAnimation {
-                                    if let firstIndex = searchSelectedLabels.selectedLabels.firstIndex(of: item) {
-                                        searchSelectedLabels.selectedLabels.remove(at: firstIndex)
-                                    }
-                                }
-                            }).transition(.opacity)
-                        }
-                    }.padding(15)
+                FlexibleView(data: searchSelectedLabels.selectedLabels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
+                    Text(label.name)
+                        .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
+                        .font(Font.B1_REGULAR)
+                        .foregroundColor(label.color.text)
+                        .background(label.color.deactive)
+                        .cornerRadius(3)
                 }
+
                 Spacer()
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -45,13 +41,13 @@ struct SearchResultView: View {
             HStack {
                 Text("스크린샷 검색 결과").font(Font.B2_MEDIUM)
                 Text("\(viewModel.screenshots.count)").foregroundColor(Color.KEY_ACTIVE).font(Font.B2_MEDIUM) // 결과에 해당하는 스크린샷 개수
-            }
+            }.padding([.leading, .top], 20)
 
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 25) {
+                LazyVGrid(columns: columns, spacing: 14) {
                     ForEach(viewModel.screenshots.indices, id: \.self) { i in
                         let screenshot = viewModel.screenshots[i]
-                        CScreenShotView(imageViewModel: screenshot, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                        CScreenShotView(imageViewModel: screenshot, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
                     }
                 }
             }
