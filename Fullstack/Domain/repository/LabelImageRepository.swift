@@ -21,4 +21,5 @@ protocol LabelImageRepository {
     // load image data by time
     func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]>
     func loadOldLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]>
+    func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]>
 }

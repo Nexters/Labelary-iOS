@@ -79,15 +79,15 @@ struct CachedData: CachedDataSource {
             .eraseToAnyPublisher()
     }
 
-//    func getImages(labels: [LabelEntity]) -> Observable<[ImageEntity]> {
-    ////        let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-    ////            .filter { item in item.labels.contains { label in labels.contains { $0.id == label.id } } }
-//
-//        var query = realm.objects(<#T##type: Element.Type##Element.Type#>)
-//        return Just(query).asObservable()
-//            .map { result in result.mapNotNull { $0.convertToEntity() }}
-//            .eraseToAnyPublisher()
-//    }
+    // search screenshot
+    func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]> {
+        let query = realm.objects(LabelImageRealmModel.self).filter {
+            item in item.labels.contains { label in labels.contains { $0.id == label.id } }
+        }
+
+        return Just(query).asObservable().map { result in result.mapNotNull { $0.convertToEntity() }}
+            .eraseToAnyPublisher()
+    }
 
     func getBookmarkImages() -> Observable<[ImageEntity]> {
         let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
@@ -141,8 +141,7 @@ struct CachedData: CachedDataSource {
         var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }} // 새로운 data
         try! realm.write {
             for labelImage in labelImageQuery {
-                
-                for (index, item) in labelImage.labels.enumerated() { 
+                for (index, item) in labelImage.labels.enumerated() {
                     if item.id == fromLabel.id {
                         labelImage.labels.remove(at: index)
                     }
@@ -195,7 +194,7 @@ struct CachedData: CachedDataSource {
                 labelImageModel.image = neededimage
                 labelImageModel.labels.append(objectsIn: labelQuery)
                 labelImageModel.createdAt = Date()
-            
+
                 realm.add(labelImageModel)
             }
         }
