@@ -21,16 +21,19 @@ struct SearchResultView: View {
         VStack {
             HStack {
                 ScrollView(.horizontal) {
-                    ForEach(searchSelectedLabels.selectedLabels, id: \.self) { item in
-                        Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
-                            withAnimation {
-                                if let firstIndex = searchSelectedLabels.selectedLabels.firstIndex(of: item) {
-                                    searchSelectedLabels.selectedLabels.remove(at: firstIndex)
+                    HStack {
+                        ForEach(searchSelectedLabels.selectedLabels, id: \.self) { item in
+                            Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
+                                withAnimation {
+                                    if let firstIndex = searchSelectedLabels.selectedLabels.firstIndex(of: item) {
+                                        searchSelectedLabels.selectedLabels.remove(at: firstIndex)
+                                    }
                                 }
-                            }
-                        }).transition(.opacity)
-                    }
+                            }).transition(.opacity)
+                        }
+                    }.padding(15)
                 }
+                Spacer()
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {

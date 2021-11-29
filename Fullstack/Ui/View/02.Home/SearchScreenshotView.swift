@@ -30,6 +30,7 @@ struct SearchScreenshotView: View {
                         Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
                             withAnimation {
                                 if let firstIndex = viewmodel.selectedLabels.firstIndex(of: item) {
+                                    searchSelectedLabels.selectedLabels.remove(at: firstIndex)
                                     viewmodel.selectedLabels.remove(at: firstIndex)
                                 }
                             }
