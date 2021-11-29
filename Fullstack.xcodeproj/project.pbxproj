@@ -71,6 +71,7 @@
 		249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */; };
 		24A314AA27538C0F006C43D3 /* ScreenshotAddLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */; };
 		24A314B02753C114006C43D3 /* SearchScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */; };
+		24A314B22753DB4D006C43D3 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A314B12753DB4D006C43D3 /* SearchResultView.swift */; };
 		24A8E66925DD1B340042CAD4 /* ShareSheetSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */; };
 		24A8E66D25DD28690042CAD4 /* ShareSheetSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */; };
 		24A8E67125DD29240042CAD4 /* ShareSheetFlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */; };
@@ -221,6 +222,7 @@
 		249FCCAB26A803F6003E59B2 /* RealmCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCollection+.swift"; sourceTree = "<group>"; };
 		24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotAddLabelView.swift; sourceTree = "<group>"; };
 		24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenshotView.swift; sourceTree = "<group>"; };
+		24A314B12753DB4D006C43D3 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		24A8E66825DD1B340042CAD4 /* ShareSheetSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSearchBarView.swift; sourceTree = "<group>"; };
 		24A8E66C25DD28690042CAD4 /* ShareSheetSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetSizeReader.swift; sourceTree = "<group>"; };
 		24A8E67025DD29240042CAD4 /* ShareSheetFlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetFlexibleView.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				24A314A927538C0F006C43D3 /* ScreenshotAddLabelView.swift */,
 				2464AD2D25BA63E100BE3492 /* SearchView.swift */,
 				24A314AF2753C114006C43D3 /* SearchScreenshotView.swift */,
+				24A314B12753DB4D006C43D3 /* SearchResultView.swift */,
 				5661459525DA3E5E00D057E1 /* HomeDetailView.swift */,
 			);
 			path = 02.Home;
@@ -920,6 +923,7 @@
 				247386F9274A6E4300C533E6 /* DeleteImageFromLabel.swift in Sources */,
 				56C1967025C13D9600E441EC /* DeleteImages.swift in Sources */,
 				56C1967C25C1430600E441EC /* BookmarkImage.swift in Sources */,
+				24A314B22753DB4D006C43D3 /* SearchResultView.swift in Sources */,
 				56C1969B25C1737E00E441EC /* CachedDataSource.swift in Sources */,
 				56D1B67425BFE215008EEF2F /* Observable.swift in Sources */,
 				5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */,

@@ -35,7 +35,8 @@ struct Badge: View {
                         .onTapGesture {
                             callback()
                         }
-                default:
+                
+                     default:
                     AddLabelingView()
                 }
             }
