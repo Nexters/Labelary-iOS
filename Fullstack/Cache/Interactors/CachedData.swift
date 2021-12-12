@@ -81,10 +81,13 @@ struct CachedData: CachedDataSource {
 
     // search screenshot
     func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]> {
+        let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
         let query = realm.objects(LabelImageRealmModel.self).filter {
             item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
-        }
+        } // 합집합
         
+        
+
         return Just(query).asObservable().map { result in result.mapNotNull { $0.convertToEntity() }}
             .eraseToAnyPublisher()
     }

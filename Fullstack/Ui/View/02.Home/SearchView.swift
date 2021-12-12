@@ -11,67 +11,70 @@ struct SearchView: View {
     @ObservedObject var viewmodel = ViewModel()
     @State private var show = false
     var body: some View {
-        ScrollView {
-            VStack {
-                if !self.viewmodel.isEditing {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("홈")
-                            .font(Font.H1_BOLD)
-                            .foregroundColor(Color.PRIMARY_1)
-                            .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
-                        Spacer()
-                        Button(action:  {
-                            // 설정으로 !!
-                        }) {
-                            Image("ico_profile")
-                        }
-                    }.frame(minWidth: 0,
-                            maxWidth: .infinity,
-                            minHeight: 0,
-                            maxHeight: 60,
-                            alignment: .topLeading)
-                }
+        ZStack {
+            Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+            ScrollView {
+                VStack {
+                    if !self.viewmodel.isEditing {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("홈")
+                                .font(Font.H1_BOLD)
+                                .foregroundColor(Color.PRIMARY_1)
+                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
+                            Spacer()
+                            Button(action: {
+                                // 설정으로 !!
+                            }) {
+                                Image("ico_profile")
+                            }
+                        }.frame(minWidth: 0,
+                                maxWidth: .infinity,
+                                minHeight: 0,
+                                maxHeight: 60,
+                                alignment: .topLeading)
+                    }
 
-                Button(action: {
-                    self.show = true
-                }) {
-                    Text("스크린샷 검색 ")
-                    NavigationLink(
-                        destination: SearchScreenshotView(),
-                        isActive: $show
-                    ) {}
-                }
-                .frame(width: 360, height: 40, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                .background(Color.DEPTH_3)
-                .cornerRadius(4)
-                .foregroundColor(Color.PRIMARY_2)
-                .font(Font.B1_REGULAR)
-                .overlay(
-                    HStack {
-                        Image("Icon_search")
-                            .foregroundColor(.red)
-                            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                        Spacer()
-                    }.padding(.horizontal, 9)
-                )
+                    Button(action: {
+                        self.show = true
+                    }) {
+                        Text("스크린샷 검색 ")
+                        NavigationLink(
+                            destination: SearchScreenshotView(),
+                            isActive: $show
+                        ) {}
+                    }
+                    .frame(width: 360, height: 40, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                    .background(Color.DEPTH_3)
+                    .cornerRadius(4)
+                    .foregroundColor(Color.PRIMARY_2)
+                    .font(Font.B1_REGULAR)
+                    .overlay(
+                        HStack {
+                            Image("Icon_search")
+                                .foregroundColor(.red)
+                                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                            Spacer()
+                        }.padding(.horizontal, 9)
+                    )
 
-                if !self.viewmodel.isEditing {
-                    buildSection(title: "최근 순 사진", models: viewmodel.recentlyImages, isRecently: true)
-                    buildSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages, isRecently: false)
-                }
-            }.onAppear(perform: viewmodel.onAppear)
-        }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-            .navigationBarHidden(true)
+                    if !self.viewmodel.isEditing {
+                        buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages, isRecently: true)
+                        buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages, isRecently: false)
+                    }
+                }.onAppear(perform: viewmodel.onAppear)
+            }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
+                .navigationBarHidden(true)
+        }
     }
 
     @ViewBuilder
-    func buildSection(title: String, models: [ImageViewModel], isRecently: Bool) -> some View {
+    func buildLikeSection(title: String, models: [ImageViewModel], isRecently: Bool) -> some View {
         HStack {
             Text(title)
                 .font(Font.B1_BOLD)
                 .foregroundColor(Color.PRIMARY_1)
             Spacer()
-            NavigationLink(destination: HomeDeatilView(images: models.map { $0.image })) {
+            NavigationLink(destination: HomeDetailView(images: models.map { $0.image })) {
                 Image("icon_arrow")
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
@@ -80,7 +83,33 @@ struct SearchView: View {
             LazyHStack {
                 ForEach(models.indices, id: \.self) { i in
                     let model = models[i]
-                    CScreenShotView(imageViewModel: model, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                    CScreenShotView(imageViewModel: model,
+                                    
+                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                }
+            }.padding(.leading, 16).padding(.trailing, 16)
+        }
+    }
+    
+    @ViewBuilder
+    func buildRecentSection(title: String, models: [ImageViewModel], isRecently: Bool) -> some View {
+        HStack {
+            Text(title)
+                .font(Font.B1_BOLD)
+                .foregroundColor(Color.PRIMARY_1)
+            Spacer()
+            NavigationLink(destination: HomeDetailRecentView(images: models.map { $0.image })) {
+                Image("icon_arrow")
+            }
+        }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
+
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack {
+                ForEach(models.indices, id: \.self) { i in
+                    let model = models[i]
+                    CScreenShotView(imageViewModel: model,
+                                    
+                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
             }.padding(.leading, 16).padding(.trailing, 16)
         }

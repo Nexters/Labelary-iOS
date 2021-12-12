@@ -1,15 +1,15 @@
 //
-//  HomeDetail.swift
+//  HomeDetailRecentView.swift
 //  Fullstack
 //
-//  Created by 김범준 on 2021/02/15.
+//  Created by 우민지 on 2021/12/12.
 //
 
 import Foundation
 import SwiftUI
 
 // 최근순 스크린샷
-struct HomeDetailView: View {
+struct HomeDetailRecentView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var output: Output
 
@@ -38,7 +38,7 @@ struct HomeDetailView: View {
                             }
                         }
                     if !self.output.isEditing {
-                        Text("즐겨찾는 스크린샷")
+                        Text("최근 순 스크린샷")
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                             .padding(.top, 14)
