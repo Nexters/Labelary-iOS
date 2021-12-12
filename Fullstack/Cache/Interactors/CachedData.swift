@@ -86,8 +86,6 @@ struct CachedData: CachedDataSource {
             item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
         } // 합집합
         
-        
-
         return Just(query).asObservable().map { result in result.mapNotNull { $0.convertToEntity() }}
             .eraseToAnyPublisher()
     }

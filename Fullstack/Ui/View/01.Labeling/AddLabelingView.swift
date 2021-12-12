@@ -308,8 +308,7 @@ struct AddLabelingView: View {
 
                     Spacer(minLength: 100)
                     Text("스크린샷 라벨 추가")
-                        .font(.custom("Apple SD Gothic Neo", size: 16))
-                        .font(Font.body.bold())
+                        .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                     Spacer(minLength: 30)
 

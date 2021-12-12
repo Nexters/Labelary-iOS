@@ -22,11 +22,12 @@ struct SearchView: View {
                                 .foregroundColor(Color.PRIMARY_1)
                                 .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
                             Spacer()
-                            Button(action: {
-                                // 설정으로 !!
-                            }) {
+                            NavigationLink(
+                                destination: SettingView()
+                            ) {
                                 Image("ico_profile")
                             }
+
                         }.frame(minWidth: 0,
                                 maxWidth: .infinity,
                                 minHeight: 0,
@@ -37,7 +38,8 @@ struct SearchView: View {
                     Button(action: {
                         self.show = true
                     }) {
-                        Text("스크린샷 검색 ")
+                        Text("스크린샷 검색")
+                            .foregroundColor(Color.PRIMARY_2)
                         NavigationLink(
                             destination: SearchScreenshotView(),
                             isActive: $show
@@ -51,7 +53,6 @@ struct SearchView: View {
                     .overlay(
                         HStack {
                             Image("Icon_search")
-                                .foregroundColor(.red)
                                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                             Spacer()
                         }.padding(.horizontal, 9)
@@ -84,13 +85,12 @@ struct SearchView: View {
                 ForEach(models.indices, id: \.self) { i in
                     let model = models[i]
                     CScreenShotView(imageViewModel: model,
-                                    
                                     nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
             }.padding(.leading, 16).padding(.trailing, 16)
         }
     }
-    
+
     @ViewBuilder
     func buildRecentSection(title: String, models: [ImageViewModel], isRecently: Bool) -> some View {
         HStack {
@@ -108,7 +108,6 @@ struct SearchView: View {
                 ForEach(models.indices, id: \.self) { i in
                     let model = models[i]
                     CScreenShotView(imageViewModel: model,
-                                    
                                     nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
             }.padding(.leading, 16).padding(.trailing, 16)

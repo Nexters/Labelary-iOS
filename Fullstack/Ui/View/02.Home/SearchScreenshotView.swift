@@ -24,8 +24,8 @@ struct SearchScreenshotView: View {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
                 SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing)
-                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 0, trailing: 0))
-                Spacer(minLength: 20)
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 20, trailing: 0))
+      
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(viewmodel.selectedLabels, id: \.self) { item in
@@ -39,6 +39,7 @@ struct SearchScreenshotView: View {
                         }
                     }
                 }.padding(15)
+                
                 if !viewmodel.isEditing {
                     VStack(alignment: .leading) {
                         Text("최근 검색한 라벨")
@@ -146,7 +147,7 @@ struct SearchScreenshotView: View {
                     })
                     Spacer(minLength: 120)
                     Text("스크린샷 검색")
-                        .foregroundColor(Color.PRIMARY_2)
+                        .foregroundColor(Color.PRIMARY_1)
                         .font(Font.B1_REGULAR)
                     Spacer()
                 }

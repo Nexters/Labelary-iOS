@@ -29,7 +29,7 @@ struct SearchResultView: View {
                             .foregroundColor(label.color.text)
                             .background(label.color.deactive)
                             .cornerRadius(3)
-                    }  .padding(.leading, 28)
+                    }.padding(.leading, 28)
 
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
@@ -38,7 +38,6 @@ struct SearchResultView: View {
                     })
                         .padding(.trailing, 28)
                 }
-                Spacer()
 
                 HStack {
                     Text("스크린샷 검색 결과").font(Font.B2_MEDIUM)
@@ -53,7 +52,7 @@ struct SearchResultView: View {
                             CScreenShotView(imageViewModel: screenshot, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
                         }
                     }
-                }
+                }.padding([.leading, .trailing], 20)
             }
 
         }.navigationBarBackButtonHidden(true)
