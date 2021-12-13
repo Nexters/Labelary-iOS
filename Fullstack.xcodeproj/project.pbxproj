@@ -41,6 +41,7 @@
 		2464AD3B25BA686B00BE3492 /* AddLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */; };
 		2464AD3E25BA795500BE3492 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2464AD3D25BA795500BE3492 /* SearchBar.swift */; };
 		2470899227661E0E00A04ED2 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470899127661E0E00A04ED2 /* SettingView.swift */; };
+		247089942766FF2F00A04ED2 /* FastLabelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247089932766FF2F00A04ED2 /* FastLabelingView.swift */; };
 		247386F7274A175400C533E6 /* ChangeFromLabelToLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247386F6274A175400C533E6 /* ChangeFromLabelToLabel.swift */; };
 		247386F9274A6E4300C533E6 /* DeleteImageFromLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247386F8274A6E4300C533E6 /* DeleteImageFromLabel.swift */; };
 		2475AB2425D8FABD0086B24D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2475AB2325D8FABD0086B24D /* ShareViewController.swift */; };
@@ -205,6 +206,7 @@
 		2464AD3A25BA686B00BE3492 /* AddLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelingView.swift; sourceTree = "<group>"; };
 		2464AD3D25BA795500BE3492 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		2470899127661E0E00A04ED2 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		247089932766FF2F00A04ED2 /* FastLabelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastLabelingView.swift; sourceTree = "<group>"; };
 		247386F6274A175400C533E6 /* ChangeFromLabelToLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeFromLabelToLabel.swift; path = Fullstack/Domain/interactors/Usecase/ChangeFromLabelToLabel.swift; sourceTree = SOURCE_ROOT; };
 		247386F8274A6E4300C533E6 /* DeleteImageFromLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteImageFromLabel.swift; path = Fullstack/Domain/interactors/Usecase/DeleteImageFromLabel.swift; sourceTree = SOURCE_ROOT; };
 		2475AB2125D8FABD0086B24D /* ShareSheet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareSheet.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -473,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				2470899127661E0E00A04ED2 /* SettingView.swift */,
+				247089932766FF2F00A04ED2 /* FastLabelingView.swift */,
 			);
 			path = 04.Settings;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */,
 				24D0F5AB270218E5004BA2F1 /* AlbumSelectView.swift in Sources */,
 				24B6DB1D2700AA07004C5B24 /* AlbumEmptyView.swift in Sources */,
+				247089942766FF2F00A04ED2 /* FastLabelingView.swift in Sources */,
 				56D1B63C25BD7406008EEF2F /* Image.swift in Sources */,
 				56D1B64325BD75B7008EEF2F /* Label.swift in Sources */,
 				2448D8672719476800C4EC52 /* AlbumEditLabelView.swift in Sources */,
