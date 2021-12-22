@@ -47,4 +47,6 @@ protocol CachedDataSource {
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity>
     func deleteLabel(label: LabelEntity) -> Observable<String>
     func updateLabel(label: LabelEntity) -> Observable<LabelEntity>
+    
+    func deleteAll()
 }

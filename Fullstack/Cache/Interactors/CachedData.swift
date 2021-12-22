@@ -82,9 +82,16 @@ struct CachedData: CachedDataSource {
     // search screenshot
     func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]> {
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
+        let set = Set(labelQuery)
+        /*
         let query = realm.objects(LabelImageRealmModel.self).filter {
             item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
         } // 합집합
+    */
+        
+        let query = realm.objects(LabelImageRealmModel.self).filter {
+            set.isSubset(of: Set($0.labels))
+        }
         
         return Just(query).asObservable().map { result in result.mapNotNull { $0.convertToEntity() }}
             .eraseToAnyPublisher()
@@ -209,6 +216,13 @@ struct CachedData: CachedDataSource {
                     labelImageQuery.mapNotNull { $0.convertToEntity() }
 
                 }.eraseToAnyPublisher()
+    }
+    
+    func deleteAll()
+    {
+        try! realm.write {
+            realm.deleteAll()
+        }
     }
 
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {

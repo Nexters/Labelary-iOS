@@ -6,6 +6,7 @@
 //
 
 import MessageUI
+import RealmSwift
 import SwiftUI
 import UIKit
 
@@ -15,6 +16,7 @@ struct SettingView: View {
     @State private var showMailView = false
     @State private var showAlert = false
     @State private var mailData = ComposeMailData(subject: "Report", receivers: ["mjwoo001@gmail.com"], message: " write message...", attachments: [AttachmentData(data: "text".data(using: .utf8)!, mimeType: "text/plain", fileName: "text.txt")])
+    let realm = try! Realm()
 
     var body: some View {
         ZStack {
@@ -99,6 +101,7 @@ struct SettingView: View {
 
                 Button(action: {
                     // label 초기화
+                    self.showAlert = true
                 }, label: {
                     VStack(alignment: .leading) {
                         Text("라벨 초기화하기")
@@ -115,6 +118,12 @@ struct SettingView: View {
                 }).frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
                     .background(Color.DEPTH_4_BG)
                 Spacer()
+            }.alert(isPresented: $showAlert) {
+                Alert(title: Text("라벨을 초기화하시겠어요?"), message: Text("라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("초기화"), action: {
+                    try! realm.write {
+                        realm.deleteAll()
+                    }
+                }))
             }
             .padding(.top, -35)
             .navigationTitle("")
@@ -134,9 +143,7 @@ struct SettingView: View {
         }
     }
 
-    class ViewModel: ObservableObject {
-        // let removeAllLabel
-    }
+    class ViewModel: ObservableObject {}
 }
 
 struct ComposeMailData {
