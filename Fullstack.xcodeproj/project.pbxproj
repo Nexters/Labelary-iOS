@@ -16,6 +16,7 @@
 		241BB57526DA682D0018B4BD /* CachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1968825C1681900E441EC /* CachedData.swift */; };
 		241BB57626DA685E0018B4BD /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B66225BFE215008EEF2F /* CancelBag.swift */; };
 		2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2420BB89272ECCB500541863 /* LabelImage.swift */; };
+		2423D1D527736AE4001EB669 /* ScreenShotDetailLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2423D1D427736AE4001EB669 /* ScreenShotDetailLabelView.swift */; };
 		2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */; };
 		2427AAAD269FC1CF00750B75 /* customToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2427AAAC269FC1CF00750B75 /* customToast.swift */; };
 		242A76BE272BFAE400979A3C /* Label_ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */; };
@@ -183,6 +184,7 @@
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
 		241BB57126DA4F1D0018B4BD /* ShareSheetDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetDefaultView.swift; sourceTree = "<group>"; };
 		2420BB89272ECCB500541863 /* LabelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelImage.swift; path = Fullstack/Domain/entities/LabelImage.swift; sourceTree = SOURCE_ROOT; };
+		2423D1D427736AE4001EB669 /* ScreenShotDetailLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotDetailLabelView.swift; sourceTree = "<group>"; };
 		2427AAAC269FC1CF00750B75 /* customToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToast.swift; sourceTree = "<group>"; };
 		242A76BD272BFAE400979A3C /* Label_ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label_ImageRealmModel.swift; sourceTree = "<group>"; };
 		2437675225DB3BB1003A51AB /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */,
+				2423D1D427736AE4001EB669 /* ScreenShotDetailLabelView.swift */,
 			);
 			path = ScreenShot;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				2437675325DB3BB1003A51AB /* FlexibleView.swift in Sources */,
 				56BD4D2D25C9AF07008D2941 /* Typography.swift in Sources */,
 				56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */,
+				2423D1D527736AE4001EB669 /* ScreenShotDetailLabelView.swift in Sources */,
 				241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */,
 				24D0F5AB270218E5004BA2F1 /* AlbumSelectView.swift in Sources */,
 				24B6DB1D2700AA07004C5B24 /* AlbumEmptyView.swift in Sources */,

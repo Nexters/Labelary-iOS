@@ -20,6 +20,7 @@ struct ScreenShotDetailView: View {
     @State private var showDeleteToast = false
     var body: some View {
         ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
             ZStack(alignment: .center) {
                 ImageView(viewModel: viewmodel.imageViewModel)
                     .aspectRatio(contentMode: .fit)
@@ -27,10 +28,11 @@ struct ScreenShotDetailView: View {
             VStack(spacing: 0) {
                 if viewmodel.isOnHover {
                     HStack {
-                        Image("ico_back")
-                            .onTapGesture {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image("ico_back")
+                        }
                         Spacer()
                         Text(viewmodel.createdAt) // 날짜
                             .font(Font.B1_MEDIUM)
@@ -68,10 +70,12 @@ struct ScreenShotDetailView: View {
                         }
 
                         Spacer()
-                        Text("추가")
-                            .font(Font.B2_MEDIUM)
-                            .foregroundColor(Color.KEY_ACTIVE)
-                            .padding(.leading, 6)
+                        Button(action: {}) {
+                            Text("추가")
+                                .font(Font.B2_MEDIUM)
+                                .foregroundColor(Color.KEY_ACTIVE)
+                                .padding(.leading, 6)
+                        }
 
                     }.padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 20))
                         .background(Color(hex: "B3000000"))
@@ -94,7 +98,15 @@ struct ScreenShotDetailView: View {
                             }
                         }
                         Spacer()
-                        Image("ico_share")
+
+                        Button(action: {
+                            let imageToShare = viewmodel.imageViewModel.uiImage!
+                            let activityVC = UIActivityViewController(activityItems: [imageToShare], applicationActivities: nil)
+                            UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+
+                        }) {
+                            Image("ico_share")
+                        }
                     }.padding(EdgeInsets(top: 22, leading: 34, bottom: 56, trailing: 34))
                         .background(Color(hex: "B3000000"))
                         .edgesIgnoringSafeArea(.bottom)
@@ -102,10 +114,10 @@ struct ScreenShotDetailView: View {
             }.edgesIgnoringSafeArea([.top, .bottom])
 
         }.toast(isPresenting: $showToastOn, duration: 0.6) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.")
+            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
         .toast(isPresenting: $showToastOff, duration: 0.6) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart_active", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.")
+            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
         .toast(isPresenting: $showDeleteToast, duration: 0.5) {
             AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")

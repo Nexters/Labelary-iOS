@@ -77,8 +77,8 @@ struct LabelAlbumView: View {
 
                                 ForEach(viewModel.screenshots.indices, id: \.self) { i in
                                     let screenshot = viewModel.screenshots[i]
-
-                                    AlbumScreenShotView(imageViewModel: screenshot, width: 90, height: 195, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                    CScreenShotView(imageViewModel: screenshot,
+                                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                                 }
                             }
                         }
@@ -95,14 +95,15 @@ struct LabelAlbumView: View {
                                 ForEach(viewModel.oldScreenshots.indices, id: \.self) { i in
                                     let screenshot = viewModel.oldScreenshots[i]
 
-                                    AlbumScreenShotView(imageViewModel: screenshot, width: 102, height: 221, nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage))
+                                    CScreenShotView(imageViewModel: screenshot,
+                                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                                 }
                             }
                         }
-                        
                     }
-                    
+
                 }.onAppear(perform: viewModel.onAppear)
+               
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading:
                         HStack {
@@ -166,7 +167,7 @@ struct LabelAlbumView: View {
                 }).store(in: cancelBag)
 
                 for entity in tempOldLabelImages {
-           //         print("------------ <오래된순> createdAt :", entity.createdAt)
+                    //         print("------------ <오래된순> createdAt :", entity.createdAt)
                     cachedOldImages.append(entity.image)
                 }
             } else {
@@ -197,7 +198,7 @@ struct LabelAlbumView: View {
             }
             return oldScreenshots
         }
-        
+
         func setImages(data: [ImageEntity]) -> [ImageViewModel] {
             screenshots = data.map {
                 ImageViewModel(image: $0)

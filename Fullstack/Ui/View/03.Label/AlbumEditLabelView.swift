@@ -49,7 +49,6 @@ struct AlbumEditLabelView: View {
                     label in Button(action: {
                         selectedLabel = label
                         isSelected = true
-
                     }) {
                         HStack {
                             Text(verbatim: label.name)

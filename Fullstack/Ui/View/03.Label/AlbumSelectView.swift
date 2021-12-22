@@ -58,7 +58,7 @@ struct AlbumSelectView: View {
                     // 라벨 수정하기 -> 스크린샷 라벨 변경 화면으로 이동
                     
                     Button(action: {
-                        print("+++++++++++++++++++++selectedImages: \(selectedImages.count)")
+                        
                         passingImageEntity.selectedImages.append(contentsOf: selectedImages)
                         showEditView = true
                     }) {

@@ -5,6 +5,7 @@
 //  Created by 우민지 on 2021/01/22.
 //
 
+import Combine
 import SwiftUI
 
 class PassLabelData: ObservableObject {
@@ -21,7 +22,6 @@ struct LabelView: View {
     @State private var showingAlert = false
     @State private var showLabelAlbumView = false
     @State private var show: Bool = false
-
     let cancelBag = CancelBag()
 
     var emptyView: some View {
@@ -59,12 +59,12 @@ struct LabelView: View {
     var sheetView: some View {
         ActionSheetCard(isShowing: $showingPopover, items: [
             ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
-                showEditLabelView = true
+                showEditLabelView.toggle()
                 passingLabelEntity.selectedLabel = viewModel.selectedLabel
 
             },
             ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
-                showingAlert = true
+                showingAlert.toggle()
             }
         ],
         backgroundColor: Color.DEPTH_2)
@@ -123,19 +123,18 @@ struct LabelView: View {
     }
 
     var body: some View {
-        if viewModel.showDefault {
-            emptyView
-        } else {
-            ZStack {
-                content
-                sheetView
-                NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
-            }.sheet(isPresented: self.$showEditLabelView) {
-                ShowEditLabelView()
+        VStack {
+            if viewModel.labels.isEmpty {
+                emptyView
+            } else {
+                ZStack {
+                    content
+                    sheetView
+                    NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
+                }.sheet(isPresented: self.$showEditLabelView) {
+                    ShowEditLabelView()
+                }
             }
-            .onAppear(perform: {
-                viewModel.refresh()
-            })
         }
     }
 
@@ -208,7 +207,6 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
-        @Published var showDefault: Bool = false
 
         // dictionary 타입으로 만들어주기
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
@@ -226,11 +224,6 @@ struct LabelView: View {
 
         init() {
             refresh()
-            if labels.count == 0 {
-                self.showDefault = true
-            } else {
-                self.showDefault = false
-            }
         }
 
         func refresh() {

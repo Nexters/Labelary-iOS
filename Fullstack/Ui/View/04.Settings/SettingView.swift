@@ -12,7 +12,6 @@ import UIKit
 
 struct SettingView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject private var viewModel = ViewModel()
     @State private var showMailView = false
     @State private var showAlert = false
     @State private var mailData = ComposeMailData(subject: "Report", receivers: ["mjwoo001@gmail.com"], message: " write message...", attachments: [AttachmentData(data: "text".data(using: .utf8)!, mimeType: "text/plain", fileName: "text.txt")])
@@ -130,7 +129,6 @@ struct SettingView: View {
             .background(Color.DEPTH_5)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
-
                 HStack {
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -143,7 +141,6 @@ struct SettingView: View {
         }
     }
 
-    class ViewModel: ObservableObject {}
 }
 
 struct ComposeMailData {

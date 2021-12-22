@@ -53,7 +53,7 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
     let nextView: NEXT_VIEW
 
     @State var isPresent: Bool = false
-    
+
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             NavigationLink(destination: nextView) {
@@ -61,7 +61,7 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
             }
-            
+
             switch imageViewModel.status {
             case .IDLE:
                 Group {}
@@ -80,7 +80,7 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
                         imageViewModel.status = .EDITING
                     }
             }
-            
+
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
@@ -104,6 +104,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
+         
             NavigationLink(destination: nextView) {
                 ImageView(viewModel: imageViewModel)
                     .cornerRadius(2)

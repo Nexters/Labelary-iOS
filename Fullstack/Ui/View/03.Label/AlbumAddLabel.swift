@@ -105,7 +105,7 @@ struct AlbumAddLabelView: View {
 
                 Button(action: {
                     // create label
-                    
+
                 }) {
                     ZStack {
                         Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
@@ -118,9 +118,13 @@ struct AlbumAddLabelView: View {
 
                                         }, receiveValue: { _ in
                                         }).store(in: cancelbag)
-
+                                    
+                                    // labelView reload
+                                   
+                                    
                                     onClickedBackBtn()
                                 }
+                                
                             }
                     }
                 }

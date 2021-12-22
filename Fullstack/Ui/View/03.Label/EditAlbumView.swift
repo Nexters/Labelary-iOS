@@ -62,7 +62,7 @@ struct EditAlbumView: View {
                     }
                 }
             }.navigationBarBackButtonHidden(true)
-
+            .navigationViewStyle(StackNavigationViewStyle())
                 .navigationBarItems(leading:
                     HStack {
                         Button(action: {
