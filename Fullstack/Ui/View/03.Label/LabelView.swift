@@ -20,8 +20,41 @@ struct LabelView: View {
     @State private var showingPopover = false
     @State private var showingAlert = false
     @State private var showLabelAlbumView = false
+    @State private var show: Bool = false
 
     let cancelBag = CancelBag()
+
+    var emptyView: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            VStack {
+                Spacer()
+                Image("ico_empty_album")
+                    .padding(40)
+                Text("라벨이 없습니다.")
+                    .font(Font.H3_BOLD)
+                    .foregroundColor(Color.PRIMARY_1)
+                    .padding(14)
+                VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
+                    Text("라벨을 생성하여 스크린샷에")
+                    Text("라벨을 추가해보세요.")
+                }
+                .font(Font.B1_REGULAR)
+                .foregroundColor(Color.PRIMARY_2)
+
+                Button(action: {
+                    self.show = true
+                }, label: {
+                    Image("create_label")
+                }).offset(y: 60)
+                    .sheet(isPresented: self.$show, content: {
+                        AlbumAddLabelView()
+                    })
+
+                Spacer().frame(height: 269)
+            }
+        }
+    }
 
     var sheetView: some View {
         ActionSheetCard(isShowing: $showingPopover, items: [
@@ -90,12 +123,8 @@ struct LabelView: View {
     }
 
     var body: some View {
-        //      NavigationView {
-        if viewModel.labels.count == 0 {
-            AlbumListEmptyStateView()
-                .onAppear(perform: {
-                    viewModel.refresh()
-                })
+        if viewModel.showDefault {
+            emptyView
         } else {
             ZStack {
                 content
@@ -108,10 +137,6 @@ struct LabelView: View {
                 viewModel.refresh()
             })
         }
-        //  }.navigationBarHidden(true)
-//            .onAppear(perform: {
-//                viewModel.refresh()
-//            })
     }
 
     @ViewBuilder
@@ -183,6 +208,7 @@ struct LabelView: View {
         @Published var screenshots: [ImageEntity] = []
         @Published var labels: [LabelEntity] = []
         @Published var selectedLabel: LabelEntity?
+        @Published var showDefault: Bool = false
 
         // dictionary 타입으로 만들어주기
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
@@ -200,6 +226,11 @@ struct LabelView: View {
 
         init() {
             refresh()
+            if labels.count == 0 {
+                self.showDefault = true
+            } else {
+                self.showDefault = false
+            }
         }
 
         func refresh() {
