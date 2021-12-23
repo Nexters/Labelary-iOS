@@ -19,7 +19,7 @@ struct ScreenShotDetailLabelView: View {
             VStack(alignment: .leading) {
                 SearchBar(keyword: self.$viewmodel.keyword, isEditing: self.$viewmodel.isEditing)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
-                ScrollView {
+             
                     if self.viewmodel.keyword.isEmpty {
                         HStack {
                             Text("라벨 목록").font(Font.B2_MEDIUM)
@@ -29,7 +29,8 @@ struct ScreenShotDetailLabelView: View {
                                 .foregroundColor(Color(hex: "257CCC"))
                                 .padding(.leading, 4)
 
-                        }.padding(.leading, 40)
+                        }.padding(.leading, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                         FlexibleView(data: viewmodel.labels, spacing: 10, alignment: HorizontalAlignment.leading) { label in
                             Text(label.name)
@@ -47,34 +48,34 @@ struct ScreenShotDetailLabelView: View {
                                         }
                                     }
                                 }
-                        }.padding(20)
+                        }.padding(.leading, 20)
 
                     } else {
                         if (viewmodel.labels.filter { label in label.name.contains(viewmodel.keyword) }.count) > 0 {
                             VStack(alignment: .leading) {
                                 HStack {
-                                    Text("검색 결과").font(Font.B2_MEDIUM)
-                                        .foregroundColor(Color(hex: "257CCC"))
+                                    Text("검색 결과")
+                                        .font(Font.B2_MEDIUM)
+                                        .foregroundColor(Color.PRIMARY_2)
                                     Text("\(viewmodel.labels.filter { label in label.name.contains(viewmodel.keyword) }.count)")
                                         .font(Font.B2_MEDIUM)
                                         .foregroundColor(Color(hex: "257CCC"))
                                         .padding(.leading, 4)
 
-                                }.padding(.top, 40)
-                            }
+                                }.padding(.leading, 20)
+                            }.frame(maxWidth: .infinity, alignment: .leading)
                         } else {
                             VStack(alignment: .leading) {
                                 Text("검색결과가 없습니다 ")
                                     .font(Font.B2_MEDIUM)
                                     .foregroundColor(Color.PRIMARY_2)
-                                    .padding(.bottom, 20)
+                                    .padding([.bottom, .leading], 20)
 
                                 HStack {
                                     Text("\(viewmodel.keyword)").font(Font.system(size: 16))
                                         .foregroundColor(Color.PRIMARY_1)
                                         .offset(x: 8)
-                                    
-                                    
+
                                     NavigationLink(destination: AddNewLabelView(), isActive: $showAddLabelView) {
                                         Text("생성")
                                             .onTapGesture {
@@ -82,19 +83,18 @@ struct ScreenShotDetailLabelView: View {
                                             }
 
                                     }.foregroundColor(Color.KEY)
-                                    .font(Font.B2_MEDIUM)
+                                        .font(Font.B2_MEDIUM)
                                         .padding(8)
                                 }
                                 .background(Color.DEPTH_3)
                                 .cornerRadius(2)
                                 .border(Color.PRIMARY_4)
                                 .offset(x: 20)
-                            }
+                            }.frame(maxWidth: .infinity, alignment: .leading)
                         }
                         FlexibleView(data: self.viewmodel.labels.filter { viewmodel.keyword.isEmpty ? true : $0.name.contains(viewmodel.keyword) }, spacing: 8, alignment: HorizontalAlignment.leading) {
                             label in Button(action: {
                                 viewmodel.selectedLabels.insert(label, at: 0)
-
                             }) {
                                 Text(verbatim: label.name)
                                     .padding(8)
@@ -103,7 +103,9 @@ struct ScreenShotDetailLabelView: View {
                             }
                         }.padding([.leading], 20)
                     }
+                    
                     Spacer()
+                    
                     VStack(alignment: .leading) {
                         HStack {
                             Text("추가한 라벨")
@@ -126,11 +128,11 @@ struct ScreenShotDetailLabelView: View {
                                 }
                             }
                         }.padding(20)
-
-                    }.frame(width: UIScreen.main.bounds.width, height: 101)
-                        .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-                        .opacity(viewmodel.selectedLabels.count > 0 ? 1 : 0)
-                }
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 101)
+                    .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
+                    .opacity(viewmodel.selectedLabels.count > 0 ? 1 : 0)
+                
             }
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
