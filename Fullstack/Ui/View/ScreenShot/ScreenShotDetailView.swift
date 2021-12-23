@@ -105,7 +105,7 @@ struct ScreenShotDetailView: View {
                         Spacer()
 
                         Button(action: {
-                            let imageToShare = viewmodel.imageViewModel.uiImage!
+                            let imageToShare = viewmodel.imageViewModel.uiImage
                             let activityVC = UIActivityViewController(activityItems: [imageToShare], applicationActivities: nil)
                             UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
 

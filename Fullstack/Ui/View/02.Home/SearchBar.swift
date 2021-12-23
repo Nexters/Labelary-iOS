@@ -49,7 +49,7 @@ struct SearchBar: View {
             )
             .padding(10)
             .padding(.horizontal, 24)
-            .background(Color.DEPTH_3)
+            .background(Color.DEPTH_2)
             .cornerRadius(4)
             .foregroundColor(Color.PRIMARY_2)
             .font(Font.B1_REGULAR)

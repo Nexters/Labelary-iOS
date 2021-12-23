@@ -104,6 +104,7 @@ struct SearchScreenshotView: View {
                                 .foregroundColor(Color(hex: "257CCC"))
                                 .padding(.leading, 4)
                         }.padding(.top, 40)
+                        
                         FlexibleView(data: viewmodel.labels.filter { label in label.name.contains(keyword) }, spacing: 10, alignment: HorizontalAlignment.leading) { label in
                             Text(label.name)
                                 .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
