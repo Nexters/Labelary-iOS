@@ -18,6 +18,7 @@ struct ScreenShotDetailView: View {
     @State private var showToastOn = false
     @State private var showToastOff = false
     @State private var showDeleteToast = false
+    @State private var showNextView = false
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
@@ -70,7 +71,11 @@ struct ScreenShotDetailView: View {
                         }
 
                         Spacer()
-                        Button(action: {}) {
+
+                        NavigationLink(
+                            destination: ScreenShotDetailLabelView(),
+                            isActive: $showNextView
+                        ) {
                             Text("추가")
                                 .font(Font.B2_MEDIUM)
                                 .foregroundColor(Color.KEY_ACTIVE)
@@ -155,7 +160,7 @@ struct ScreenShotDetailView: View {
             var labels: [LabelEntity] = []
             searchLabelByImage.get(param: image).sink(receiveCompletion: { _ in }, receiveValue: {
                 data in
-                labels.append(contentsOf: data)
+                labels.append(contentsOf: data.first?.labels ?? [])
             }).store(in: cancelbag)
             return labels
         }

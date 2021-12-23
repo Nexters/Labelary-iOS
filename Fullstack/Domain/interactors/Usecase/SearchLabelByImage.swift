@@ -10,11 +10,11 @@ import Combine
 
 struct SearchLabelByImage: Usecase {
     typealias Param = ImageEntity
-    typealias Result = [LabelEntity]
+    typealias Result = [LabelImageEntity]
     
     let labelImageRepository: LabelImageRepository
     
     func get(param: Param) -> Observable<Result> {
-        return labelImageRepository.searchLabelByImage(image: param)
+        return labelImageRepository.searchLabelByImage(image: param) 
     }
 }

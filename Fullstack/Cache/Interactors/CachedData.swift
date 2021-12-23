@@ -84,15 +84,15 @@ struct CachedData: CachedDataSource {
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
         let set = Set(labelQuery)
         /*
-        let query = realm.objects(LabelImageRealmModel.self).filter {
-            item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
-        } // 합집합
-    */
-        
+             let query = realm.objects(LabelImageRealmModel.self).filter {
+                 item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
+             } // 합집합
+         */
+
         let query = realm.objects(LabelImageRealmModel.self).filter {
             set.isSubset(of: Set($0.labels))
         }
-        
+
         return Just(query).asObservable().map { result in result.mapNotNull { $0.convertToEntity() }}
             .eraseToAnyPublisher()
     }
@@ -217,9 +217,8 @@ struct CachedData: CachedDataSource {
 
                 }.eraseToAnyPublisher()
     }
-    
-    func deleteAll()
-    {
+
+    func deleteAll() {
         try! realm.write {
             realm.deleteAll()
         }
@@ -376,11 +375,10 @@ struct CachedData: CachedDataSource {
         return Just(query).asObservable().map { results in results.mapNotNull { $0.convertToEntity() }}.eraseToAnyPublisher()
     }
 
-    func searchLabelByImage(image: ImageEntity) -> Observable<[LabelEntity]> {
-        var query: [LabelRealmModel] = []
-        let labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { $0.image?.id == image.id }.map { query.append(contentsOf: $0.labels) }
+    func searchLabelByImage(image: ImageEntity) -> Observable<[LabelImageEntity]> {
+        let labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { $0.image?.id == image.id }
 
-        return Just(query).asObservable().map { results in results.mapNotNull { $0.convertToEntity() }}.eraseToAnyPublisher()
+        return Just(labelImageQuery).asObservable().map { results in results.mapNotNull { $0.convertToEntity() }}.eraseToAnyPublisher() 
     }
 
     func getRecentSearcheLabels(count: Int?) -> Observable<[LabelEntity]> {

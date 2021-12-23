@@ -9,7 +9,7 @@ import Foundation
 
 struct LabelImageRepositoryImpl: LabelImageRepository {
     let cachedDataSource: CachedDataSource
-    
+
     func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.changeFromLabelToLabel(images: images, fromLabel: fromLabel, toLabel: toLabel)
     }
@@ -22,7 +22,7 @@ struct LabelImageRepositoryImpl: LabelImageRepository {
         return cachedDataSource.loadAlbumData(label: label)
     }
 
-    func searchLabelByImage(image: ImageEntity) -> Observable<[LabelEntity]> {
+    func searchLabelByImage(image: ImageEntity) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.searchLabelByImage(image: image)
     }
 
@@ -33,7 +33,7 @@ struct LabelImageRepositoryImpl: LabelImageRepository {
     func loadRecentlyLabeledImage(labelImages: [LabelImageEntity]) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.loadOldLabeledImage(labelImages: labelImages)
     }
-    
+
     func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]> {
         return cachedDataSource.getImages(labels: labels)
     }
