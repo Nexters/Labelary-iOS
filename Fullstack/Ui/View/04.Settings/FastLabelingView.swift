@@ -13,13 +13,29 @@ struct FastLabelingView: View {
         FastLabelingPageViewData(description: "스크린샷을 할 때마다\n빠르게 라벨링 할 수 있어요.", source: "labelingsetting_img_2", state: "indicator_2", buttonName: "설정하기")
     ]
     @State private var index: Int = 0
+    @Environment(\.presentationMode) var presentationMode
+
     let onFinished: () -> Void
     var body: some View {
         ZStack {
-            FastLabelingSwiperView(pages: pages, index: $index, onFinished: onFinished)
-        }.navigationBarItems(leading: HStack {
-            Text("빠른 라벨링 설정하기 ")
-        })
+            HStack(alignment: .center) {
+                FastLabelingSwiperView(pages: pages, index: $index, onFinished: onFinished)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading:
+            HStack {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) { Image("ico_back") }
+            },
+            trailing: HStack {
+                Spacer()
+                Text("빠른 라벨링 설정하기 ")
+                    .font(Font.B1_BOLD)
+                    .foregroundColor(Color.PRIMARY_1)
+                Spacer()
+            })
     }
 }
 
@@ -30,6 +46,7 @@ struct FastLabelingSwiperView: View {
     @State private var offset: CGFloat = 0
     @State private var isUserSwiping: Bool = false
     let onFinished: () -> Void
+    let shareItem = UIImage(named: "AppIcon")!
 
     var body: some View {
         GeometryReader { geometry in
@@ -40,7 +57,8 @@ struct FastLabelingSwiperView: View {
                             if index < pages.count - 1 {
                                 index += 1
                             } else {
-                                onFinished()
+                                let activityVC = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+                                UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
                             }
                         }).frame(width: geometry.size.width, height: geometry.size.height)
                     }
@@ -87,8 +105,12 @@ struct FastLabelingPageView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
-                Image(viewData.source)
-                    .frame(width: 196, height: 363, alignment: .center)
+                HStack(alignment: .center) {
+                    Spacer()
+                    Image(viewData.source)
+                        .frame(width: 196, height: 363, alignment: .center)
+                    Spacer()
+                }
                 Image(viewData.state)
                     .padding(.top, 39)
                     .padding(.leading, 20)
