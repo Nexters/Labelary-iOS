@@ -28,13 +28,10 @@ struct FastLabelingView: View {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }) { Image("ico_back") }
-            },
-            trailing: HStack {
-                Spacer()
+                .padding(.trailing, 100)
                 Text("빠른 라벨링 설정하기 ")
                     .font(Font.B1_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
-                Spacer()
             })
     }
 }
