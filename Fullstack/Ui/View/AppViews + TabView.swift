@@ -40,7 +40,7 @@ struct AppView: View {
                             .tabItem {
                                 Image(output.selection == 1 ? "ico_home_on" : "ico_home_off")
                             }.tag(1)
-                        LabelView() 
+                        LabelView()
                             .tabItem {
                                 Image(output.selection == 2 ? "ico_album_on" : "ico_album_off")
                             }.tag(2)
@@ -64,7 +64,7 @@ struct AppView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { [self] _ in
-                        //print("ddddd")
+                        // print("ddddd")
                         onSplash = false
                     }
                 ).store(in: cancelbag)

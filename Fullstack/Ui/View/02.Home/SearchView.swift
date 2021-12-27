@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @ObservedObject var viewmodel = ViewModel()
     @State private var show = false
+  
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
@@ -23,7 +24,7 @@ struct SearchView: View {
                                 .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
                             Spacer()
                             NavigationLink(
-                                destination: SettingView()
+                                destination: SettingView(onFinished: {})
                             ) {
                                 Image("ico_profile")
                             }

@@ -91,7 +91,6 @@
 		24D2355025DA888100F3A329 /* LabelViewFromOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2354F25DA888100F3A329 /* LabelViewFromOutside.swift */; };
 		24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0316026F6B83200319C5A /* LabelAlbumView.swift */; };
 		24E0316F26F7165500319C5A /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0316E26F7165500319C5A /* CustomActionSheet.swift */; };
-		24E0317226F71F4600319C5A /* ActionSheetCard in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0317126F71F4600319C5A /* ActionSheetCard */; };
 		24E0317426F72F3600319C5A /* GrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317326F72F3600319C5A /* GrayView.swift */; };
 		24E0317626F7312700319C5A /* ActionSheetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0317526F7312700319C5A /* ActionSheetCard.swift */; };
 		24F7C9B82746A608007C0D49 /* AlbumAddLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9B72746A608007C0D49 /* AlbumAddLabel.swift */; };
@@ -317,7 +316,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E0317226F71F4600319C5A /* ActionSheetCard in Frameworks */,
 				2427AA7D269FB9EA00750B75 /* Pods_Fullstack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -746,7 +744,6 @@
 			);
 			name = Fullstack;
 			packageProductDependencies = (
-				24E0317126F71F4600319C5A /* ActionSheetCard */,
 			);
 			productName = Fullstack;
 			productReference = 246159CD25B2DCC100F6D730 /* Fullstack.app */;
@@ -1442,14 +1439,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		24E0317126F71F4600319C5A /* ActionSheetCard */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24E0317026F71F4600319C5A /* XCRemoteSwiftPackageReference "SwiftUI-Action-Sheet-Card" */;
-			productName = ActionSheetCard;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 246159C525B2DCC100F6D730 /* Project object */;
 }

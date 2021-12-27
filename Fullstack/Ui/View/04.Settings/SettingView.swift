@@ -15,6 +15,8 @@ struct SettingView: View {
     @State private var showMailView = false
     @State private var showAlert = false
     @State private var mailData = ComposeMailData(subject: "Report", receivers: ["mjwoo001@gmail.com"], message: " write message...", attachments: [AttachmentData(data: "text".data(using: .utf8)!, mimeType: "text/plain", fileName: "text.txt")])
+    @State private var showDetail = false
+    let onFinished: () -> Void
     let realm = try! Realm()
 
     var body: some View {
@@ -69,16 +71,23 @@ struct SettingView: View {
                 }).frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
                     .background(Color.DEPTH_4_BG)
 
-                Button(action: {}, label: {
+                Button(action: {
+                    self.showDetail = true
+                }) {
                     Text("빠른 라벨링 설정하기")
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
                         .padding(.leading, 20)
                     Spacer()
                     Image("ico_next")
                         .padding(.trailing, 20)
-                }).frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
+
+                }.frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
                     .background(Color.DEPTH_4_BG)
                     .padding(.top, -9)
+
+                NavigationLink(destination: FastLabelingView(onFinished: onFinished),
+                               isActive: $showDetail) {}
+
                 Button(action: {
                     showMailView.toggle()
                 }, label: {
@@ -140,7 +149,6 @@ struct SettingView: View {
             )
         }
     }
-
 }
 
 struct ComposeMailData {
