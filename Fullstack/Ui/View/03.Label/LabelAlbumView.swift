@@ -28,7 +28,6 @@ struct LabelAlbumView: View {
         } else {
             ZStack {
                 Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-
                 VStack {
                     HStack {
                         Button(action: {
@@ -94,16 +93,13 @@ struct LabelAlbumView: View {
 
                                 ForEach(viewModel.oldScreenshots.indices, id: \.self) { i in
                                     let screenshot = viewModel.oldScreenshots[i]
-
                                     CScreenShotView(imageViewModel: screenshot,
                                                     nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: viewModel.onChangeBookMark), onChangeBookMark: viewModel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                                 }
                             }
                         }
                     }
-
                 }.onAppear(perform: viewModel.onAppear)
-               
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading:
                         HStack {
@@ -112,7 +108,8 @@ struct LabelAlbumView: View {
                             }) {
                                 Image("navigation_back_btn")
                             }
-                            Text("\(passingLabelEntity.selectedLabel!.name)").font(Font.B1_BOLD)
+                            Text("\(passingLabelEntity.selectedLabel!.name)")
+                                .font(Font.B1_BOLD)
                                 .foregroundColor(Color.PRIMARY_1)
                         },
                         trailing:
@@ -136,13 +133,12 @@ struct LabelAlbumView: View {
         @Published var oldScreenshots: [ImageViewModel] = []
         @Published var recentlyImages: [ImageViewModel] = []
         @Published var bookmarkImages: [ImageViewModel] = []
-
         @Published var tempOldLabelImages: [LabelImageEntity] = []
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
 
         let cancelBag = CancelBag()
 
-        var cachedImages: [ImageEntity] = [] // 최신순 ㅋㅋ
+        var cachedImages: [ImageEntity] = [] // 최신순
         var cachedOldImages: [ImageEntity] = []
 
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
@@ -167,7 +163,6 @@ struct LabelAlbumView: View {
                 }).store(in: cancelBag)
 
                 for entity in tempOldLabelImages {
-                    //         print("------------ <오래된순> createdAt :", entity.createdAt)
                     cachedOldImages.append(entity.image)
                 }
             } else {

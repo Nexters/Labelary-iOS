@@ -124,7 +124,7 @@ struct ScreenShotDetailView: View {
         .toast(isPresenting: $showToastOff, duration: 0.6) {
             AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
-        .toast(isPresenting: $showDeleteToast, duration: 0.5) {
+        .toast(isPresenting: $showDeleteToast, duration: 0.7) {
             AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")
         }
         .onTapGesture {
@@ -139,6 +139,7 @@ struct ScreenShotDetailView: View {
         @Published var LabelImageData: [LabelImageEntity] = []
         @Published var createdAt: String = ""
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
+        @Environment(\.presentationMode) var presentationMode
 
         let onChangeBookmark: (ImageEntity) -> Void
 
@@ -178,22 +179,23 @@ struct ScreenShotDetailView: View {
         }
 
         func delete() {
+            // delete image from photo library
             let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
+
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
-            }, completionHandler: { isDone, error in
-                print("idDone \(isDone) : \(Thread.current.isMainThread)")
+            }, completionHandler: { [self] isDone, error in
+
                 if isDone {
-                    self.deleteImages.get(param: [self.imageViewModel.image])
-                        .sink(receiveCompletion: { _ in
-//                            onDeleteImage(viewmodel.screenShot.id)
-//                            self.presentationMode.wrappedValue.dismiss()
-                        }, receiveValue: { _ in })
-                        .store(in: self.cancelbag)
+                    print("삭제 완료 +++++++")
+
                 } else {
                     print(error.debugDescription)
                 }
+
             })
+            
+            
         }
     }
 }

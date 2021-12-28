@@ -26,7 +26,7 @@ struct HomeDetailRecentView: View {
                 HStack {
                     Image(self.output.isEditing ? "ico_cancel" : "ico_back")
                         .padding(.top, 13)
-                        .padding(.leading, output.isEditing ? 18 : 20)
+                        .padding(.leading, output.isEditing ? 20 : 20)
                         .onTapGesture {
                             if self.output.isEditing {
                                 self.output.isEditing = false
@@ -73,13 +73,9 @@ struct HomeDetailRecentView: View {
                             let screenshot = output.items[index]
 
                             CScreenShotView(imageViewModel: screenshot,
-
                                             nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
-
-//                            CScreenShotView(screenshot: screenshot,
-//                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(screenShot: output.items[index].image), onChangeBookMark: onChangeBookMark, onDeleteImage: { _ in onDeleteImage(index: index) }), width: 102, height: 221)
                         }
-                    }.padding(EdgeInsets(top: 20, leading: 13, bottom: 20, trailing: 13))
+                    } .padding(EdgeInsets(top: 20, leading: 20, bottom: 16, trailing: 20))
                 }
                 Spacer()
             }
