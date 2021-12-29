@@ -75,7 +75,7 @@ struct ScreenShotDetailView: View {
                         Spacer()
 
                         NavigationLink(
-                            destination: ScreenShotDetailLabelView(),
+                            destination: ScreenShotDetailLabelView(image: [viewmodel.imageViewModel.image]),
                             isActive: $showNextView
                         ) {
                             Text("추가")
@@ -200,7 +200,6 @@ struct ScreenShotDetailView: View {
 //                }
 //            })
 
-         
             try! realm.write {
                 realm.delete(imageQuery)
             }

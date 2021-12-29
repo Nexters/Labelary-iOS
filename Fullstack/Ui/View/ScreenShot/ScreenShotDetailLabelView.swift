@@ -11,6 +11,7 @@ struct ScreenShotDetailLabelView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewmodel = ViewModel()
     @State var showAddLabelView: Bool = false
+    var image: [ImageEntity] = []
 
     var body: some View {
         ZStack {
@@ -150,7 +151,7 @@ struct ScreenShotDetailLabelView: View {
                 HStack {
                     Button(action: {
                         // request labeling
-                        viewmodel.requestLabeling.get(param: viewmodel.selectedLabels).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewmodel.cancelbag)
+                        viewmodel.requestLabeling.get(param: RequestLabeling.Param(labels: viewmodel.selectedLabels, images: self.image)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewmodel.cancelbag)
 
                     }, label: {
                         Text("완료")
