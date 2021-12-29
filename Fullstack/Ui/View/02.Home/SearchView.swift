@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @ObservedObject var viewmodel = ViewModel()
     @State private var show = false
-  
+
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
@@ -86,9 +86,9 @@ struct SearchView: View {
                 ForEach(models.indices, id: \.self) { i in
                     let model = models[i]
                     CScreenShotView(imageViewModel: model,
-                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
+                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
-            }.padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
+            }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
         }
     }
 
@@ -103,6 +103,7 @@ struct SearchView: View {
                 Image("icon_arrow")
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
+       
 
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
@@ -111,7 +112,7 @@ struct SearchView: View {
                     CScreenShotView(imageViewModel: model,
                                     nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
-            }.padding(.leading, 16).padding(.trailing, 16)
+            }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
         }
     }
 

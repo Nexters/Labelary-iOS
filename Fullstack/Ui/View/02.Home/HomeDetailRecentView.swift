@@ -73,9 +73,10 @@ struct HomeDetailRecentView: View {
                             let screenshot = output.items[index]
 
                             CScreenShotView(imageViewModel: screenshot,
-                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
+                                .padding(.bottom, 8)
                         }
-                    } .padding(EdgeInsets(top: 20, leading: 20, bottom: 16, trailing: 20))
+                    } .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()
             }
