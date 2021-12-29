@@ -29,7 +29,7 @@ struct AlbumGridItem: View {
                 EditingScreenShotView(imageViewModel: screenshot, width: 102, height: 221)
 
             })
-            self.isSelected ? Image("btn_check_active").offset(x: -10, y: 30) : Image("btn_check").offset(x: -10, y: 30)
+            self.isSelected ? Image("btn_check_active").offset(x: -10, y: 10) : Image("btn_check").offset(x: -10, y: 10)
         }
     }
 }
@@ -75,6 +75,7 @@ struct EditAlbumView: View {
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                             .opacity(selectedImages.count > 0 ? 1 : 0)
+                            .padding(.leading, 20)
                     },
                     trailing: HStack {
                         Button(action: {

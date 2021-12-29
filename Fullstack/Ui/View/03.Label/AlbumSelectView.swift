@@ -63,8 +63,10 @@ struct AlbumSelectView: View {
                         showEditView = true
                     }) {
                         selectedImages.count > 0 ?
-                            Image("ico_label_edit_active") : Image("ico_label_edit_inactive")
-                    }.disabled(selectedImages.count > 0 ? false : true).padding()
+                            Image("ico_label_edit_active") : Image("ico_label_edit_in")
+                    }.disabled(selectedImages.count > 0 ? false : true)
+                    .frame(width: 22, height: 18, alignment: .center)
+                    .padding(.trailing, 30)
                     
                     NavigationLink(destination: AlbumEditLabelView(), isActive: $showEditView) {}
                 
@@ -74,8 +76,9 @@ struct AlbumSelectView: View {
                      
                     }) {
                         selectedImages.count > 0 ?
-                            Image("ico_delete_active") : Image("ico_delete_inactive")
+                            Image("ico_delete_active") : Image("ico_delete_in")
                     }.disabled(selectedImages.count > 0 ? false : true)
+                    .frame(width: 22, height: 23, alignment: .center)
                 })
     }
     

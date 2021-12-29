@@ -89,7 +89,6 @@ struct ScreenShotDetailView: View {
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.delete()
-                            showDeleteToast.toggle()
                         }
                         Spacer()
                         if viewmodel.imageViewModel.image.isBookmark {
@@ -195,6 +194,9 @@ struct ScreenShotDetailView: View {
                     print("삭제 완료!")
                 }
             })
+
+            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+                .store(in: cancelbag)
         }
     }
 }
