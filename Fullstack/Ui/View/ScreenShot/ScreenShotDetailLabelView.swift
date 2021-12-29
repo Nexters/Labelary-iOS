@@ -129,7 +129,7 @@ struct ScreenShotDetailLabelView: View {
                         }
                     }.padding(20)
                 }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.13)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.13)
                 .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .opacity(viewmodel.selectedLabels.count > 0 ? 1 : 0)
             }
@@ -148,7 +148,11 @@ struct ScreenShotDetailLabelView: View {
                     Spacer()
                 }, trailing:
                 HStack {
-                    Button(action: {}, label: {
+                    Button(action: {
+                        // request labeling
+                        viewmodel.requestLabeling.get(param: viewmodel.selectedLabels).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewmodel.cancelbag)
+
+                    }, label: {
                         Text("완료")
                             .foregroundColor(Color.KEY_ACTIVE)
                             .font(Font.B1_MEDIUM)
@@ -163,6 +167,7 @@ struct ScreenShotDetailLabelView: View {
         @Published var isEditing: Bool = false
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 모든 라벨들을 로드
         let cancelbag = CancelBag()
+        let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init() {
             loadLabelingSelectData.get().sink(receiveCompletion: {

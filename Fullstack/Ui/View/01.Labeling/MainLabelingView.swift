@@ -133,6 +133,7 @@ struct MainLabelingView: View {
                                 Button(action: {
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
+                                   // print("image entity : ",needToLabelingData.imageData.first)
                             
                                 }, label: {
                                     Image("main_add_btn")

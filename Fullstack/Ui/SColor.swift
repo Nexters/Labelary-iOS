@@ -19,6 +19,7 @@ extension Color {
     static let KEY_INACTIVE = Color(hex: "66387CFF")
 
     static let DEPTH_5 = Color(hex: "000000")
+    
     static let DEPTH_4_BG = Color(hex: "1B1D21")
     static let DEPTH_3 = Color(hex: "282C33")
     static let DEPTH_2 = Color(hex: "3D414C")
