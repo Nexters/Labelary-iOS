@@ -225,17 +225,37 @@ struct CachedData: CachedDataSource {
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
         var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
+        print("image entity count : ", images.count)
         print("imageQuery count:", imageQuery.count)
         print("labelImageQuery count : ", labelImageQuery.count)
 
-        if labelImageQuery.isEmpty {
-            for neededimage in imageQuery {
-                let labelImageModel = LabelImageRealmModel()
-                labelImageModel.image = neededimage
-                labelImageModel.labels.append(objectsIn: labelQuery)
-                labelImageModel.createdAt = Date()
+        if imageQuery.count == 0 {
+            try! realm.write {
+                let needToAddedImages = images.filter { !$0.isCached }
+                needToAddedImages.forEach { entity in
 
-                realm.add(labelImageModel)
+                    let model = ImageRealmModel()
+                    model.id = entity.id
+                    model.source = entity.source
+                    model.isBookmark = entity.isBookmark
+                    realm.add(model)
+                }
+            }
+        }
+        
+        imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
+        print("imageQuery2222 count:", imageQuery.count)
+
+        if labelImageQuery.isEmpty {
+            try! realm.write {
+                for neededimage in imageQuery {
+                    let labelImageModel = LabelImageRealmModel()
+                    labelImageModel.image = neededimage
+                    labelImageModel.labels.append(objectsIn: labelQuery)
+                    labelImageModel.createdAt = Date()
+
+                    realm.add(labelImageModel)
+                }
             }
         } else {
             try! realm.write {
