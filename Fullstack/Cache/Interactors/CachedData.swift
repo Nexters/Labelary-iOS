@@ -167,59 +167,6 @@ struct CachedData: CachedDataSource {
             }.eraseToAnyPublisher()
     }
 
-    /*
-        func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
-            var imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
-            let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
-
-            var imageId: [String] = []
-
-            if imageQuery.count == 0 {
-                try! realm.write {
-                    let needToAddedImages = images.filter { !$0.isCached }
-                    needToAddedImages.forEach { entity in
-
-                        let model = ImageRealmModel()
-
-                        model.source = entity.source
-                        model.isBookmark = entity.isBookmark
-                        imageId.append(model.id)
-                        realm.add(model)
-                    }
-                }
-            }
-
-            imageQuery = realm.objects(ImageRealmModel.self).filter { item in imageId.contains { $0 == item.id }}
-            var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
-
-            try! realm.write {
-                for existData in labelImageQuery {
-                    existData.labels.append(objectsIn: labelQuery)
-                    realm.add(existData)
-                }
-
-                for neededimage in imageQuery {
-                    let labelImageModel = LabelImageRealmModel()
-                    labelImageModel.image = neededimage
-                    labelImageModel.labels.append(objectsIn: labelQuery)
-                    labelImageModel.createdAt = Date()
-
-                    realm.add(labelImageModel)
-                }
-            }
-
-            // 새로 image + label 묶음이 생성되는 경우만 고려함
-            labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
-
-            return
-                Just(labelImageQuery).asObservable()
-                    .map { _ in
-                        labelImageQuery.mapNotNull { $0.convertToEntity() }
-
-                    }.eraseToAnyPublisher()
-        }
-     */
-
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
         var imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
@@ -242,7 +189,7 @@ struct CachedData: CachedDataSource {
                 }
             }
         }
-        
+
         imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         print("imageQuery2222 count:", imageQuery.count)
 
@@ -344,9 +291,16 @@ struct CachedData: CachedDataSource {
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.id }}
+        let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
+            .filter { item in images.contains { $0.id == item.image?.id }}
 
         try! realm.write {
-            realm.delete(imageQuery)
+            if imageQuery.first?.source == nil {
+                realm.delete(imageQuery)
+            }
+            if labelImageQuery.count > 0 {
+                realm.delete(labelImageQuery)
+            }
         }
 
         return Just(imageQuery).asObservable()

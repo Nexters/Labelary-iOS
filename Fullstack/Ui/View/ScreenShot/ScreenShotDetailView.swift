@@ -190,13 +190,13 @@ struct ScreenShotDetailView: View {
             }, completionHandler: { isDone, error in
                 print(isDone ? "success+++" : error.debugDescription)
                 if isDone {
-                    self.showDeleteToast = false
+                    self.showDeleteToast = true
                     print("삭제 완료!")
                 }
             })
 
-            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in })
-                .store(in: cancelbag)
+//            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+//                .store(in: cancelbag)
         }
     }
 }
