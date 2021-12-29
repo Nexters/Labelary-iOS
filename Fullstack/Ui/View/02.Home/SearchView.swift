@@ -86,9 +86,9 @@ struct SearchView: View {
                 ForEach(models.indices, id: \.self) { i in
                     let model = models[i]
                     CScreenShotView(imageViewModel: model,
-                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
                 }
-            }.padding(.leading, 16).padding(.trailing, 16)
+            }.padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
         }
     }
 

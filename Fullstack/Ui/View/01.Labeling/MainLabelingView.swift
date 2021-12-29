@@ -23,6 +23,7 @@ struct CardViewWithShadow: View {
             ZStack {
                 ZStack {
                     CardView(photo: photo)
+                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
 
                     Image("shadow_blue")
                         .resizable()
