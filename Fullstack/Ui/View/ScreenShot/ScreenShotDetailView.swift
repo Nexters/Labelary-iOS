@@ -8,6 +8,7 @@
 import AlertToast
 import Foundation
 import Photos
+import RealmSwift
 import SwiftUI
 
 struct ScreenShotDetailView: View {
@@ -17,8 +18,9 @@ struct ScreenShotDetailView: View {
     let onDeleteImage: (String) -> Void
     @State private var showToastOn = false
     @State private var showToastOff = false
-    @State private var showDeleteToast = false
     @State private var showNextView = false
+    @State private var showDeleteToast = false
+
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
@@ -134,11 +136,14 @@ struct ScreenShotDetailView: View {
     }
 
     class ViewModel: ObservableObject {
+        let realm: Realm = try! Realm()
+
         @Published var imageViewModel: ImageViewModel
         @Published var isOnHover: Bool = true
         @Published var LabelImageData: [LabelImageEntity] = []
         @Published var createdAt: String = ""
         @Published var labelImageDict: [LabelEntity: [LabelImageEntity]] = [:]
+        @Published var showDeleteToast = false
         @Environment(\.presentationMode) var presentationMode
 
         let onChangeBookmark: (ImageEntity) -> Void
@@ -179,23 +184,26 @@ struct ScreenShotDetailView: View {
         }
 
         func delete() {
+            let imageQuery = realm.objects(ImageRealmModel.self)
+                .filter { $0.id == self.imageViewModel.image.id }
             // delete image from photo library
-            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
+//            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
+//
+//            PHPhotoLibrary.shared().performChanges({ [self] in
+//                print("imageentity id:", imageViewModel.image.id)
+//                PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+//            }, completionHandler: { [self] isDone, error in
+//                print(isDone ? "success+++" : error.debugDescription)
+//                if isDone {
+//                    print("삭제 완료 +++++++")
+//
+//                }
+//            })
 
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
-            }, completionHandler: { [self] isDone, error in
-
-                if isDone {
-                    print("삭제 완료 +++++++")
-
-                } else {
-                    print(error.debugDescription)
-                }
-
-            })
-            
-            
+         
+            try! realm.write {
+                realm.delete(imageQuery)
+            }
         }
     }
 }

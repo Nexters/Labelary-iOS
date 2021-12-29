@@ -116,15 +116,15 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                 Group {}
             case .EDITING:
                 Image("btn_check")
-                    .padding(.leading, 72)
-                    .padding(.bottom, 191)
+                    .padding(.leading, 52)
+                    .padding(.bottom, 161)
                     .onTapGesture {
                         imageViewModel.status = .SELECTING
                     }
             case .SELECTING:
                 Image("btn_check_selective")
-                    .padding(.leading, 72)
-                    .padding(.bottom, 191)
+                    .padding(.leading, 52)
+                    .padding(.bottom, 161)
                     .onTapGesture {
                         imageViewModel.status = .EDITING
                     }

@@ -73,11 +73,8 @@ struct HomeDetailView: View {
                             let screenshot = output.items[index]
 
                             CScreenShotView(imageViewModel: screenshot,
-
                                             nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
 
-//                            CScreenShotView(screenshot: screenshot,
-//                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(screenShot: output.items[index].image), onChangeBookMark: onChangeBookMark, onDeleteImage: { _ in onDeleteImage(index: index) }), width: 102, height: 221)
                         }
                     }.padding(EdgeInsets(top: 20, leading: 13, bottom: 20, trailing: 13))
                 }
@@ -100,7 +97,6 @@ struct HomeDetailView: View {
         }
      */
 
-    // 여기 고쳐야 함
     private func onDeleteImage(index: String) {
         output.items = output.items.filter { $0.image.id != index }
     }
