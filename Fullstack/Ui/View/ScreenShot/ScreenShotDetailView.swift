@@ -195,8 +195,7 @@ struct ScreenShotDetailView: View {
                 }
             })
 
-//            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in })
-//                .store(in: cancelbag)
+            
         }
     }
 }

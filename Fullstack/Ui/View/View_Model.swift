@@ -16,7 +16,7 @@ struct ImageHasher: Identifiable {
 
     init(imageEntity: ImageEntity) {
         self.image = imageEntity
-        self.id = image.id
+        self.id = self.image.id
     }
 }
 
@@ -30,13 +30,11 @@ struct LabelWrapper {
 class UnlabeledImageViewModel: ObservableObject {
     @Published var image: ImageEntity
     @Published var uiImage: UIImage? = nil
-    
+
     init(image: ImageEntity) {
         self.image = image
-        
     }
-    
-    
+
     func reload() {
         let options = PHImageRequestOptions()
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.opportunistic
@@ -44,6 +42,8 @@ class UnlabeledImageViewModel: ObservableObject {
         let asset = PHAsset.fetchAssets(withLocalIdentifiers: [self.image.source], options: nil).firstObject
         if asset == nil {
             self.uiImage = UIImage()
+            // delete 하면 ??
+
             print("reloadFail")
         } else {
             PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth/10, height: asset!.pixelHeight/10), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
@@ -75,11 +75,12 @@ class ImageViewModel: ObservableObject {
         if asset == nil {
             self.uiImage = UIImage()
             print("reloadFail")
-            // 여기서 삭제를 하면 ? 
+            // 여기서 삭제를 하면 ?
+
         } else {
             PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
                 if result != nil {
-                  //  print("reload\(result?.size)")
+                    //  print("reload\(result?.size)")
                     self.uiImage = result!
                 }
             })
