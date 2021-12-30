@@ -161,7 +161,7 @@ struct ImageView: View {
             // .aspectRatio(contentMode: .fit)
             .onAppear(perform: viewModel.reload)
             .onReceive(viewModel.$uiImage, perform: {
-                print("llloooo\($0?.size)")
+               // print("llloooo\($0?.size)")
                 if $0 != nil {
                     uiImage = $0
                 }

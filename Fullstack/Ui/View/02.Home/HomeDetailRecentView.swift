@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Photos
 import SwiftUI
 
 // 최근순 스크린샷
@@ -50,6 +51,9 @@ struct HomeDetailRecentView: View {
                         Image("ico_delete_active")
                             .padding(.top, 14)
                             .onTapGesture {
+                                print("++++++ +++++ output")
+                                print(self.output.items.filter { $0.status == .SELECTING })
+                                output.delete(images: self.output.items.filter { $0.status == .SELECTING })
                                 output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
                             }
                     } else {
@@ -76,7 +80,7 @@ struct HomeDetailRecentView: View {
                                             nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
                                 .padding(.bottom, 8)
                         }
-                    } .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                    }.padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()
             }
@@ -144,6 +148,21 @@ struct HomeDetailRecentView: View {
 
         func changeItems(items: [ImageViewModel]) {
             self.items = items
+        }
+
+        func delete(images: [ImageViewModel]) {
+            for image in images {
+                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject!
+                PHPhotoLibrary.shared().performChanges({ [self] in
+                    print("imageentity id:", image.image.id)
+                    PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+                }, completionHandler: { isDone, error in
+                    print(isDone ? "success+++" : error.debugDescription)
+                    if isDone {
+                        print(image, "삭제 완료!")
+                    }
+                })
+            }
         }
     }
 }
