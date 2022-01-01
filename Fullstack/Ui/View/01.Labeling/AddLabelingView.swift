@@ -3,6 +3,31 @@ import Combine
 import SwiftUI
 
 // MARK: - functions to give color for GUI Add Labeling View
+// inactive color
+func giveBorderColor(color: ColorSet) -> Color {
+    switch color {
+    case .YELLOW:
+        return Color(hex: "#E8C15D").opacity(0.15)
+    case .RED:
+        return Color(hex: "#C76761").opacity(0.19)
+    case .VIOLET:
+        return Color(hex: "#A06EE5").opacity(0.15)
+    case .BLUE:
+        return Color(hex: "#4CA6FF").opacity(0.15)
+    case .GREEN:
+        return Color(hex: "#3EA87A").opacity(0.15)
+    case .ORANGE:
+        return Color(hex: "#EC9147").opacity(0.15)
+    case .PINK:
+        return Color(hex: "#E089B").opacity(0.15)
+    case .CONBALT_BLUE:
+        return Color(hex: "#6565E5").opacity(0.15)
+    case .PEACOCK_GREEN:
+        return Color(hex: "#52CCCC").opacity(0.15)
+    case .GRAY:
+        return Color(hex: "#7B8399").opacity(0.15)
+    }
+}
 
 func giveLabelBackgroundColor(color: ColorSet) -> Color {
     switch color {
@@ -225,6 +250,7 @@ struct AddLabelingView: View {
                         if filters.count > 0 {
                             HStack {
                                 Text("추가한 라벨").foregroundColor(Color.PRIMARY_2)
+                                    .font(Font.B2_MEDIUM)
                                 Text("\(filters.count)").foregroundColor(Color.KEY)
                                     .font(.custom("Apple SD Gothic Neo", size: 14))
 
@@ -234,7 +260,7 @@ struct AddLabelingView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(filters, id: \.self) { filter in
-                                    Badge(name: filter.name, color: giveLabelBackgroundColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
+                                    Badge(name: filter.name, color: giveLabelBackgroundColor(color: filter.color), borderColor: giveBorderColor(color: filter.color), textColor: giveTextForegroundColor(color: filter.color), type: .removable {
                                         withAnimation {
                                             if let firstIndex = filters.firstIndex(of: filter) {
                                                 filters.remove(at: firstIndex)
@@ -305,12 +331,12 @@ struct AddLabelingView: View {
                     }) {
                         Image("navigation_back_btn")
                     }.offset(x: 20)
+                        .padding(.trailing, 72)
 
-                    Spacer(minLength: 100)
                     Text("스크린샷 라벨 추가")
                         .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
-                    Spacer(minLength: 30)
+                        .padding(.trailing, 24)
 
                     // 라벨 검색 버튼
                     Button(action: {

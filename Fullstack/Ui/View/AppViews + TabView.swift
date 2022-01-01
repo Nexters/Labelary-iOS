@@ -13,7 +13,7 @@ struct AppView: View {
     @ObservedObject var output = Output()
 
     init() {
-        UITabBar.appearance().barTintColor = UIColor(Color.DEPTH_4_BG)
+        UITabBar.appearance().barTintColor = UIColor(Color(hex: "#1B1D21"))
     }
 
     var body: some View {

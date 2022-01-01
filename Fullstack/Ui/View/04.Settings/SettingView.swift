@@ -40,7 +40,7 @@ struct SettingView: View {
                     .background(Color.DEPTH_4_BG)
 
                 Button(action: {
-                    guard let urlShare = URL(string: "https://developer.apple.com/xcode/swiftui/") else { return }
+                    guard let urlShare = URL(string: "https://apps.apple.com/kr/app/%EB%A0%88%EC%9D%B4%EB%B8%94%EB%9F%AC%EB%A6%AC/id1581267873?l=en") else { return }
                     let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
                     UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
                 }, label: {

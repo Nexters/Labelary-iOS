@@ -12,6 +12,7 @@ import SwiftUI
 struct Badge: View {
     var name: String
     var color: Color
+    var borderColor: Color // 새로 추가함
     var textColor: Color
     var type: BadgeType = .normal
     @State var showSelf: Bool = false
@@ -43,6 +44,7 @@ struct Badge: View {
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
             .background(color)
+            .border(borderColor)
             .cornerRadius(2)
         }
     }

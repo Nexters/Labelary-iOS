@@ -119,7 +119,7 @@ struct ScreenShotDetailLabelView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(viewmodel.selectedLabels, id: \.self) { item in
-                                Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
+                                Badge(name: item.name, color: giveLabelBackgroundColor(color: item.color), borderColor: giveBorderColor(color: item.color), textColor: giveTextForegroundColor(color: item.color), type: .removable {
                                     withAnimation {
                                         if let firstIndex = viewmodel.selectedLabels.firstIndex(of: item) {
                                             viewmodel.selectedLabels.remove(at: firstIndex)

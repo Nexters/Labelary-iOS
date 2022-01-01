@@ -182,6 +182,9 @@ struct ScreenShotDetailView: View {
         }
 
         func delete() {
+            print(imageViewModel.image)
+            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
+
             let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
 
             PHPhotoLibrary.shared().performChanges({ [self] in
@@ -194,8 +197,6 @@ struct ScreenShotDetailView: View {
                     print("삭제 완료!")
                 }
             })
-
-            
         }
     }
 }

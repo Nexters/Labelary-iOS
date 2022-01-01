@@ -71,17 +71,18 @@ struct MainLabelingView: View {
             VStack(alignment: .center) {
                 HStack {
                     Text("스크린샷 라벨링")
-                        .font(.system(size: 18, weight: .heavy))
+                        .font(Font.H3_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                     
                     Text("+\(self.viewModel.screenshots.count)")
+                        .padding(4)
                         .foregroundColor(Color.PRIMARY_1)
-                        .font(.system(size: 14))
-                        .frame(height: 21, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                        .font(Font.B2_MEDIUM)
+                        .frame(height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
                 }
-                Spacer(minLength: 40)
+                .padding(.bottom, 74)
                 ZStack {
                     Image("shadow")
                         .resizable()
@@ -133,7 +134,7 @@ struct MainLabelingView: View {
                                 Button(action: {
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
-                                   // print("image entity : ",needToLabelingData.imageData.first)
+                                    // print("image entity : ",needToLabelingData.imageData.first)
                             
                                 }, label: {
                                     Image("main_add_btn")
@@ -146,7 +147,7 @@ struct MainLabelingView: View {
                         self.reloadToken = UUID()
                     })
                     
-                    .offset(y: -3)
+                        .offset(y: -3)
                 }
                 .offset(y: -40)
             }

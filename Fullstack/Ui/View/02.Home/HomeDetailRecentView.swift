@@ -141,6 +141,8 @@ struct HomeDetailRecentView: View {
         @Published var isLoadingMore = false
         @Published var isEditing = false
         @Published var items: [ImageViewModel]
+        let cancelbag = CancelBag()
+        let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init(images: [ImageEntity]) {
             items = images.map { ImageViewModel(image: $0) }
@@ -152,7 +154,9 @@ struct HomeDetailRecentView: View {
 
         func delete(images: [ImageViewModel]) {
             for image in images {
-                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject!
+                deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
+
+                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject
                 PHPhotoLibrary.shared().performChanges({ [self] in
                     print("imageentity id:", image.image.id)
                     PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.

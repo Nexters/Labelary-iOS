@@ -39,6 +39,7 @@ struct CachedData: CachedDataSource {
     }
 
     func getAllImages() -> Observable<[ImageEntity]> {
+        let realm: Realm = try! Realm()
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
@@ -55,6 +56,7 @@ struct CachedData: CachedDataSource {
     }
 
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
+        let realm: Realm = try! Realm()
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
         var results: [ImageEntity] = []
         let labelImageQuery = realm.objects(LabelImageRealmModel.self)
@@ -81,6 +83,7 @@ struct CachedData: CachedDataSource {
 
     // search screenshot
     func getImages(labels: [LabelEntity]) -> Observable<[LabelImageEntity]> {
+        let realm: Realm = try! Realm()
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
         let set = Set(labelQuery)
         /*
@@ -98,6 +101,7 @@ struct CachedData: CachedDataSource {
     }
 
     func getBookmarkImages() -> Observable<[ImageEntity]> {
+        let realm: Realm = try! Realm()
         let query: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { $0.isBookmark }
         return Just(query).asObservable()
@@ -106,6 +110,7 @@ struct CachedData: CachedDataSource {
     }
 
     func getImage(id: String) -> Observable<ImageEntity?> {
+        let realm: Realm = try! Realm()
         let query: ImageRealmModel? = realm.objects(ImageRealmModel.self)
             .first { $0.id == id }
         return Just(query).asObservable()
@@ -114,6 +119,7 @@ struct CachedData: CachedDataSource {
     }
 
     func changeBookmark(isActive: Bool, image: ImageEntity) -> Observable<ImageEntity> {
+        let realm: Realm = try! Realm()
         do {
             try realm.write {
                 let check: ImageRealmModel? = realm.objects(ImageRealmModel.self)
@@ -145,6 +151,7 @@ struct CachedData: CachedDataSource {
 
     // 이미지들 라벨을 다른 라벨로 바꾸는 거임
     func changeFromLabelToLabel(images: [ImageEntity], fromLabel: LabelEntity, toLabel: LabelEntity) -> Observable<[LabelImageEntity]> {
+        let realm: Realm = try! Realm()
         let toLabelQuery = realm.objects(LabelRealmModel.self).filter { $0.id == toLabel.id }
         var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }} // 새로운 data
         try! realm.write {
@@ -168,6 +175,7 @@ struct CachedData: CachedDataSource {
     }
 
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]> {
+        let realm: Realm = try! Realm()
         var imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
@@ -232,6 +240,7 @@ struct CachedData: CachedDataSource {
     }
 
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]> {
+        let realm: Realm = try! Realm()
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.id }}
         let labelQuery: [LabelRealmModel] = realm.objects(LabelRealmModel.self)
@@ -289,18 +298,16 @@ struct CachedData: CachedDataSource {
 //    }
 
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
+        let realm: Realm = try! Realm()
         let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-            .filter { item in images.contains { $0.id == item.id }}
+            .filter { item in images.contains { $0.source == item.source }}
         let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
-            .filter { item in images.contains { $0.id == item.image?.id }}
-
+            .filter { item in images.contains { $0.source == item.image?.source }}
+        print("QQQ_imagequery:", imageQuery)
+        print("labelimageQUery:", labelImageQuery)
         try! realm.write {
-            if imageQuery.first?.source == nil {
-                realm.delete(imageQuery)
-            }
-            if labelImageQuery.count > 0 {
-                realm.delete(labelImageQuery)
-            }
+            realm.delete(labelImageQuery)
+            realm.delete(imageQuery)
         }
 
         return Just(imageQuery).asObservable()
