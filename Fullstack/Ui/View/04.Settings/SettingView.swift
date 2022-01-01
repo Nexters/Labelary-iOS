@@ -25,10 +25,10 @@ struct SettingView: View {
             Color.DEPTH_5.edgesIgnoringSafeArea(.bottom)
             VStack {
                 Button(action: {
-                    let url = URL(string: "itms://itunes.apple.com/de/app/x-gift/id839686104?mt=8&uo=4")
-                    if UIApplication.shared.canOpenURL(url!) {
-                        UIApplication.shared.openURL(url!)
-                    }
+
+                    guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1581267873?action=write-review")
+                            else { fatalError("Expected a valid URL") }
+                        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
                 }, label: {
                     Text("앱스토어에 리뷰쓰기")
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
