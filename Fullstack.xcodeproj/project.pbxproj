@@ -97,6 +97,7 @@
 		24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */; };
 		24F7C9BC27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */; };
 		24F7C9BE27474E8B007C0D49 /* LoadOldLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */; };
+		24F812382789CCC200F3EB56 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F812372789CCC200F3EB56 /* ViewRouter.swift */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
@@ -246,6 +247,7 @@
 		24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListEmptyStateView.swift; sourceTree = "<group>"; };
 		24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRecentlyLabeledImage.swift; sourceTree = "<group>"; };
 		24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadOldLabeledImage.swift; path = Fullstack/Domain/interactors/Usecase/LoadOldLabeledImage.swift; sourceTree = SOURCE_ROOT; };
+		24F812372789CCC200F3EB56 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		34507485FA39E33720954FC4 /* Pods-Fullstack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.debug.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.debug.xcconfig"; sourceTree = "<group>"; };
 		514A3FBCBD182BB8A82FE9B3 /* Pods_Fullstack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fullstack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5661457325D2D82400D057E1 /* Album_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_Components.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				5677677D25DFC69F00038DC6 /* OnboardingView.swift */,
+				24F812372789CCC200F3EB56 /* ViewRouter.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 				56C196AD25C2F2A500E441EC /* DomainError.swift in Sources */,
 				56A9860B26A4513A0088C80F /* CustomWidget.swift in Sources */,
 				56BD4D2625C97F6E008D2941 /* ImageRepositoryImpl.swift in Sources */,
+				24F812382789CCC200F3EB56 /* ViewRouter.swift in Sources */,
 				56C1968D25C1694D00E441EC /* LabelRealmModel.swift in Sources */,
 				24F7C9BC27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift in Sources */,
 				56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */,

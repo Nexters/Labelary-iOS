@@ -28,6 +28,7 @@ struct AppView: View {
             if !output.isFinishOnboarding {
                 OnboardingView(onFinished: {
                     output.isFinishOnboarding = true
+                   
                 })
             } else {
                 NavigationView {
@@ -71,11 +72,9 @@ struct AppView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { [self] _ in
-                        // print("ddddd")
                         onSplash = false
                     }
                 ).store(in: cancelbag)
         }
     }
 }
-
