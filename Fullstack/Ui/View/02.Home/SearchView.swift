@@ -60,8 +60,8 @@ struct SearchView: View {
                     )
 
                     if !self.viewmodel.isEditing {
-                        buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages, isRecently: true)
-                        buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages, isRecently: false)
+                        buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
+                        buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
                     }
                 }.onAppear(perform: viewmodel.onAppear)
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
@@ -103,7 +103,6 @@ struct SearchView: View {
                 Image("icon_arrow")
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
-       
 
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {

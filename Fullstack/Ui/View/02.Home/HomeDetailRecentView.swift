@@ -13,6 +13,7 @@ import SwiftUI
 struct HomeDetailRecentView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var output: Output
+    @State private var showingAlert = false
 
     let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
@@ -51,10 +52,7 @@ struct HomeDetailRecentView: View {
                         Image("ico_delete_active")
                             .padding(.top, 14)
                             .onTapGesture {
-                                print("++++++ +++++ output")
-                                print(self.output.items.filter { $0.status == .SELECTING })
-                                output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-                                output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                                self.showingAlert.toggle()
                             }
                     } else {
                         Text("선택")
@@ -83,7 +81,14 @@ struct HomeDetailRecentView: View {
                     }.padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                 }
                 Spacer()
+            }.alert(isPresented: $showingAlert) {
+                Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("레이블러리에서만 삭제되며 엘범에서는 삭제되지 않습니다."), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
+                    // 삭제 하기 로직
+                 //   output.delete(images: self.output.items.filter { $0.status == .SELECTING })
+                    output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                })
             }
+
         }.navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
     }

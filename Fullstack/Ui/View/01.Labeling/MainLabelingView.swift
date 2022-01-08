@@ -92,17 +92,15 @@ struct MainLabelingView: View {
                         CardStack(
                             direction: LeftRight.direction,
                             data: self.viewModel.screenshots,
-                            onSwipe: { _, direction in
+                            onSwipe: { data, direction in
                                 
                                 if direction == .right {
-                                    needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
+                                    needToLabelingData.imageData.append(data.image)
                                     self.isShowingAddLabelingView = true
                                 }
                                 
                                 if direction == .left {
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-                                    self.reloadToken = UUID()
-                                    self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
                                 }
 
                             },
@@ -113,9 +111,16 @@ struct MainLabelingView: View {
                             }
                         )
                         .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
-                        .environment(\.cardStackConfiguration, CardStackConfiguration(
-                            maxVisibleCards: 1, swipeThreshold: 0.2, cardOffset: 0, cardScale: 1
-                        ))
+                        .environment(
+                            \.cardStackConfiguration,
+                            CardStackConfiguration(
+                                maxVisibleCards: 1,
+                                swipeThreshold: 0,
+                                cardOffset: 0,
+                                cardScale: 1,
+                                animation: .default
+                            )
+                        )
                         .id(reloadToken)
                         .overlay(
                             HStack {
@@ -123,8 +128,9 @@ struct MainLabelingView: View {
                                 Button(action: {
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
+                                    print("reloadToken", self.reloadToken)
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
-                                
+                                    
                                 }, label: {
                                     Image("main_skip_btn")
                                 })
@@ -173,15 +179,6 @@ struct MainLabelingView: View {
         let cancelbag = CancelBag()
         
         init() {
-            loadLabelingData.get().sink(receiveCompletion: { _ in },
-                                        receiveValue: { [self] data in
-                                            self.unlabeledImages.append(contentsOf: data)
-                                            self.setImages(_unlabeledImages: unlabeledImages)
-                                            unlabeledImagesViewModel = unlabeledImages.map {
-                                                UnlabeledImageViewModel(image: $0)
-                                            }
-                                        
-                                        }).store(in: cancelbag)
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { [unowned self] status in
                 DispatchQueue.main.async {
                     [unowned self] in
