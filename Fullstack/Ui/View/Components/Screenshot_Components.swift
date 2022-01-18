@@ -104,8 +104,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-         
-            NavigationLink(destination: nextView) {
+            NavigationLink(destination: nextView, isActive: $isPresent) {
                 ImageView(viewModel: imageViewModel)
                     .cornerRadius(2)
                     .frame(width: self.width, height: self.height)
@@ -130,6 +129,9 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     }
             }
 
+            LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.9)]), startPoint: .center, endPoint: .bottom)
+                .cornerRadius(2)
+                .frame(width: self.width, height: self.height)
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
@@ -137,6 +139,8 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             Image("ico_label_small")
                 .padding(.leading, 30)
                 .padding(.bottom, 8)
+        }.onTapGesture {
+            isPresent = true
         }
     }
 }

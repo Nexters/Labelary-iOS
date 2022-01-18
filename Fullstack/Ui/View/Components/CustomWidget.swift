@@ -158,7 +158,7 @@ struct ImageView: View {
     var body: some View {
         Image(uiImage: uiImage ?? UIImage())
             .resizable()
-            // .aspectRatio(contentMode: .fit)
+            .aspectRatio(contentMode: .fit)
             .onAppear(perform: viewModel.reload)
             .onReceive(viewModel.$uiImage, perform: {
                // print("llloooo\($0?.size)")

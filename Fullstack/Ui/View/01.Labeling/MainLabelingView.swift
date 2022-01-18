@@ -111,16 +111,7 @@ struct MainLabelingView: View {
                             }
                         )
                         .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
-                        .environment(
-                            \.cardStackConfiguration,
-                            CardStackConfiguration(
-                                maxVisibleCards: 1,
-                                swipeThreshold: 0,
-                                cardOffset: 0,
-                                cardScale: 1,
-                                animation: .default
-                            )
-                        )
+                        .environment(\.cardStackConfiguration, .init(maxVisibleCards: 1, animation: .linear(duration: 0)))
                         .id(reloadToken)
                         .overlay(
                             HStack {
