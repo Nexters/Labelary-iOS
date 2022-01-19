@@ -17,7 +17,7 @@ struct AppView: View {
     }
 
     var body: some View {
-        if output.onSplash {
+        if Storage.isFirstTime() == true {
             VStack {
                 Text("스크린샷\n정리가 어렵다면")
                     .foregroundColor(Color.PRIMARY_1)
@@ -25,35 +25,28 @@ struct AppView: View {
                 output.endSplash()
             }
         } else {
-            if !output.isFinishOnboarding {
-                OnboardingView(onFinished: {
-                    output.isFinishOnboarding = true
-                   
+            NavigationView {
+                TabView(selection: $output.selection, content: {
+                    MainLabelingView()
+                        .tabItem {
+                            Image(output.selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
+                                .padding(.horizontal, -4)
+
+                        }.tag(0)
+
+                    SearchView()
+                        .tabItem {
+                            Image(output.selection == 1 ? "ico_home_on" : "ico_home_off")
+                                .padding(.horizontal, -4)
+                        }.tag(1)
+
+                    LabelView()
+                        .tabItem {
+                            Image(output.selection == 2 ? "ico_album_on" : "ico_album_off")
+                                .padding(.horizontal, -4)
+                        }.tag(2)
+
                 })
-            } else {
-                NavigationView {
-                    TabView(selection: $output.selection, content: {
-                        MainLabelingView()
-                            .tabItem {
-                                Image(output.selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
-                                    .padding(.horizontal, -4)
-
-                            }.tag(0)
-
-                        SearchView()
-                            .tabItem {
-                                Image(output.selection == 1 ? "ico_home_on" : "ico_home_off")
-                                    .padding(.horizontal, -4)
-                            }.tag(1)
-
-                        LabelView()
-                            .tabItem {
-                                Image(output.selection == 2 ? "ico_album_on" : "ico_album_off")
-                                    .padding(.horizontal, -4)
-                            }.tag(2)
-
-                    })
-                }
             }
         }
     }

@@ -135,6 +135,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
+                // .opacity(0.0)
 
             Image("ico_label_small")
                 .padding(.leading, 30)
