@@ -41,9 +41,11 @@ struct CachedData: CachedDataSource {
     func getAllImages() -> Observable<[ImageEntity]> {
         let realm: Realm = try! Realm()
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
-            let assets = PHAsset.fetchAssets(in: album, options: nil)
+            let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
             for index in 0 ..< assets.count {
                 results.append(assets.object(at: index).toEntity())
             }
@@ -67,6 +69,7 @@ struct CachedData: CachedDataSource {
                 results.append(assets.object(at: index).toEntity())
             }
         }
+        
 
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}

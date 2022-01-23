@@ -99,8 +99,10 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
     let nextView: NEXT_VIEW
     let width: CGFloat
     let height: CGFloat
+    @State var isLabeled = false
 
     @State var isPresent: Bool = false
+  //  @State var isLiked: Bool = false
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -132,14 +134,17 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.9)]), startPoint: .center, endPoint: .bottom)
                 .cornerRadius(2)
                 .frame(width: self.width, height: self.height)
+            
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
-                // .opacity(0.0)
+         //       .opacity(isLiked ? 1 : 0)
 
             Image("ico_label_small")
                 .padding(.leading, 30)
                 .padding(.bottom, 8)
+                .opacity(isLabeled ? 1 : 0)
+
         }.onTapGesture {
             isPresent = true
         }
