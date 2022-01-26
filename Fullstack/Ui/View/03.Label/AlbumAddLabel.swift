@@ -105,7 +105,7 @@ struct AlbumAddLabelView: View {
 
                 Button(action: {
                     // create label
-
+                    
                 }) {
                     ZStack {
                         Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
@@ -115,12 +115,12 @@ struct AlbumAddLabelView: View {
                                     createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
                                         .sink(receiveCompletion: { _ in
                                             print("complete create label")
-
+                                            
                                         }, receiveValue: { _ in
                                         }).store(in: cancelbag)
                                     
                                     // labelView reload
-                                   
+                                    
                                     
                                     onClickedBackBtn()
                                 }

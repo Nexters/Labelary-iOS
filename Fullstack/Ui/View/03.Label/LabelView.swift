@@ -14,15 +14,22 @@ class PassLabelData: ObservableObject {
 
 var passingLabelEntity = PassLabelData()
 
+class Trigger: ObservableObject {
+    @Published var isEmpty:Bool = true
+}
+
 struct LabelView: View {
     @ObservedObject var viewModel = ViewModel()
+    @State private var labels: [LabelEntity] = []
     @State private var pushView = false
     @State private var showEditLabelView = false
     @State private var showingPopover = false
     @State private var showingAlert = false
     @State private var showLabelAlbumView = false
-    @State private var show: Bool = false
+    @State private var showAlbumLabelView: Bool = false
     let cancelBag = CancelBag()
+    
+    
 
     var emptyView: some View {
         ZStack {
@@ -43,11 +50,11 @@ struct LabelView: View {
                 .foregroundColor(Color.PRIMARY_2)
 
                 Button(action: {
-                    self.show = true
+                    self.showAlbumLabelView = true
                 }, label: {
                     Image("create_label")
                 }).offset(y: 60)
-                    .sheet(isPresented: self.$show, content: {
+                    .sheet(isPresented: self.$showAlbumLabelView, content: {
                         AlbumAddLabelView()
                     })
 
@@ -124,7 +131,7 @@ struct LabelView: View {
 
     var body: some View {
         VStack {
-            if viewModel.labels.isEmpty {
+            if self.labels.isEmpty {
                 emptyView
             } else {
                 ZStack {
@@ -135,7 +142,9 @@ struct LabelView: View {
                     ShowEditLabelView()
                 }
             }
-        }
+        }.onAppear(perform: {
+            self.labels = viewModel.labels
+        })
     }
 
     @ViewBuilder

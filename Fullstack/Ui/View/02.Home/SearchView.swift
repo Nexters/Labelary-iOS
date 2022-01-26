@@ -80,15 +80,20 @@ struct SearchView: View {
                 Image("icon_arrow")
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
-
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack {
-                ForEach(models.indices, id: \.self) { i in
-                    let model = models[i]
-                    CScreenShotView(imageViewModel: model,
-                                    nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
-                }
-            }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
+        if models.count == 0 {
+            Image("SS_large_state")
+                .resizable()
+                .frame(width: 335, height: 195, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        } else {
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack {
+                    ForEach(models.indices, id: \.self) { i in
+                        let model = models[i]
+                        CScreenShotView(imageViewModel: model,
+                                        nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
+                    }
+                }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
+            }
         }
     }
 

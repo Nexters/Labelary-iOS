@@ -100,9 +100,9 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
     let width: CGFloat
     let height: CGFloat
     @State var isLabeled = false
-
     @State var isPresent: Bool = false
-  //  @State var isLiked: Bool = false
+    @State var isLiked: Bool = false
+    let viewModel = ViewModel()
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -134,11 +134,11 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.9)]), startPoint: .center, endPoint: .bottom)
                 .cornerRadius(2)
                 .frame(width: self.width, height: self.height)
-            
+
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
-         //       .opacity(isLiked ? 1 : 0)
+                .opacity(isLiked ? 1 : 0)
 
             Image("ico_label_small")
                 .padding(.leading, 30)
@@ -147,6 +147,29 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
 
         }.onTapGesture {
             isPresent = true
+        }
+        .onAppear(perform: {
+            if viewModel.countLabels(image: imageViewModel.image ) > 0 {
+                isLabeled = true
+            } else {
+                isLabeled = false
+            }
+        })
+    }
+
+    class ViewModel: ObservableObject {
+        // like 되었는가?
+        let cancelBag = CancelBag()
+        // label이 1개 이상 있는가 /?
+        let searchLabelByImage = SearchLabelByImage(labelImageRepository: LabelImageRepositoryImpl(cachedDataSource: CachedData()))
+
+        func countLabels(image: ImageEntity) -> Int {
+            var labels: [LabelEntity] = []
+            searchLabelByImage.get(param: image).sink(receiveCompletion: { _ in }, receiveValue: {
+                data in
+                labels.append(contentsOf: data.first?.labels ?? [])
+            }).store(in: cancelBag)
+            return labels.count
         }
     }
 }

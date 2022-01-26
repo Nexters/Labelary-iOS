@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AlbumListEmptyStateView: View {
     @State private var show: Bool = false
+    
     var body: some View {
         VStack {
             Spacer()

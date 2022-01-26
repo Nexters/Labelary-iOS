@@ -60,11 +60,13 @@ struct CachedData: CachedDataSource {
     func getUnLabeledImages() -> Observable<[ImageEntity]> {
         let realm: Realm = try! Realm()
         let screenShotAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil).firstObject
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         var results: [ImageEntity] = []
         let labelImageQuery = realm.objects(LabelImageRealmModel.self)
 
         if let album = screenShotAlbum {
-            let assets = PHAsset.fetchAssets(in: album, options: nil)
+            let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
             for index in 0 ..< assets.count {
                 results.append(assets.object(at: index).toEntity())
             }
@@ -306,8 +308,7 @@ struct CachedData: CachedDataSource {
             .filter { item in images.contains { $0.source == item.source }}
         let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
             .filter { item in images.contains { $0.source == item.image?.source }}
-        print("QQQ_imagequery:", imageQuery)
-        print("labelimageQUery:", labelImageQuery)
+     
         try! realm.write {
             realm.delete(labelImageQuery)
             realm.delete(imageQuery)

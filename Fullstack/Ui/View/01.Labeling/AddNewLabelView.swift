@@ -148,11 +148,9 @@ struct AddNewLabelView: View {
                                     createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
                                         .sink(receiveCompletion: { _ in
                                             print("complete create label")
-
+                                            onClickedBackBtn()
                                         }, receiveValue: { _ in
                                         }).store(in: cancelbag)
-
-                                    onClickedBackBtn()
                                 }
                             }
                     }
