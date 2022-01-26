@@ -101,7 +101,6 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
     let height: CGFloat
     @State var isLabeled = false
     @State var isPresent: Bool = false
-    @State var isLiked: Bool = false
     let viewModel = ViewModel()
 
     var body: some View {
@@ -138,7 +137,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
-                .opacity(isLiked ? 1 : 0)
+                .opacity(imageViewModel.image.isBookmark ? 1 : 0)
 
             Image("ico_label_small")
                 .padding(.leading, 30)
@@ -154,6 +153,8 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             } else {
                 isLabeled = false
             }
+            
+        
         })
     }
 
@@ -171,5 +172,6 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             }).store(in: cancelBag)
             return labels.count
         }
+        
     }
 }

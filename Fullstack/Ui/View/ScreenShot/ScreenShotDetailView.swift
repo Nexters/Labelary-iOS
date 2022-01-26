@@ -118,15 +118,16 @@ struct ScreenShotDetailView: View {
                 }
             }.edgesIgnoringSafeArea([.top, .bottom])
 
-        }.toast(isPresenting: $showToastOn, duration: 0.5) {
+        }.toast(isPresenting: viewmodel.$showDeleteToast, duration: 0.5) {
+            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")
+        }
+        .toast(isPresenting: $showToastOn, duration: 0.5) {
             AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
         .toast(isPresenting: $showToastOff, duration: 0.5) {
             AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
-        .toast(isPresenting: viewmodel.$showDeleteToast, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")
-        }
+
         .onTapGesture {
             viewmodel.isOnHover = !viewmodel.isOnHover
         }.navigationBarHidden(true)
