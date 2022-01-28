@@ -73,7 +73,6 @@ struct HomeDetailRecentView: View {
                     LazyVGrid(columns: columns) {
                         ForEach(output.items.indices, id: \.self) { index in
                             let screenshot = output.items[index]
-
                             CScreenShotView(imageViewModel: screenshot,
                                             nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
                                 .padding(.bottom, 8)
@@ -82,15 +81,19 @@ struct HomeDetailRecentView: View {
                 }
                 Spacer()
             }.alert(isPresented: $showingAlert) {
-                Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("스크린샷은 레이블러리와 앨범에서 모두 삭제됩니다."), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
+                Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("스크린샷은 레이블러리에서만 삭제되고 엘범애서는 삭제되지 않습니다. "), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
                     // 삭제 하기 로직
-                    output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-               //     output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                    //   output.delete(images: self.output.items.filter { $0.status == .SELECTING })
+                    output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
                 })
             }
 
         }.navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+        .onAppear(perform: {
+            output.refresh()
+            print("onAppear")
+        })
     }
 
     private func onChangeBookMark(entity: ImageEntity) {
@@ -146,8 +149,11 @@ struct HomeDetailRecentView: View {
         @Published var isLoadingMore = false
         @Published var isEditing = false
         @Published var items: [ImageViewModel]
+
         let cancelbag = CancelBag()
         let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+
+        let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
         init(images: [ImageEntity]) {
             items = images.map { ImageViewModel(image: $0) }
@@ -157,9 +163,29 @@ struct HomeDetailRecentView: View {
             self.items = items
         }
 
+        func refresh() {
+            loadSearchMainData.get()
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { data in
+                        self.items = data.recentlyImages.map { ImageViewModel(image: $0) }
+                    }
+                ).store(in: cancelbag)
+        }
+
         func delete(images: [ImageViewModel]) {
             for image in images {
                 deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
+
+                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject!
+
+                PHPhotoLibrary.shared().performChanges({ [self] in
+                    print("imageentity id:", image.image.id)
+                    PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+                }, completionHandler: { isDone, error in
+                    print(isDone ? "success+++" : error.debugDescription)
+
+                })
             }
         }
     }

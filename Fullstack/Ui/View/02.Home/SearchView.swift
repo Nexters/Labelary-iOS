@@ -63,7 +63,9 @@ struct SearchView: View {
                         buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
                         buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
                     }
-                }.onAppear(perform: viewmodel.onAppear)
+                }.onAppear(perform: {
+                    viewmodel.onAppear()
+                })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
         }
@@ -127,7 +129,7 @@ struct SearchView: View {
     class ViewModel: ObservableObject {
         @Published var recentlyImages: [ImageViewModel] = []
         @Published var bookmarImages: [ImageViewModel] = []
-        @Published var isEditing: Bool = false
+        @Published var isEditing: Bool = false // 이게 뭐지. 
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = []
         @Published var recentlySearchedLabels: [LabelEntity] = []
@@ -170,7 +172,7 @@ struct SearchView: View {
         }
 
         func onAppear() {
-           
+            
             cachedImages.forEach { entity in
                 
                 if entity.isBookmark {
@@ -190,7 +192,8 @@ struct SearchView: View {
                 }
             }
             cachedImages = []
-            
+           
+            print("this is onappear function ")
         }
     }
 }
