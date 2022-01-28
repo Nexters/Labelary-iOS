@@ -166,12 +166,13 @@ struct SearchView: View {
         }
 
         func onChangeBookMark(entity: ImageEntity) {
-            cachedImages.append(entity)
+            cachedImages.append(entity) 
         }
 
         func onAppear() {
-            print("onAppear\(cachedImages)")
+           
             cachedImages.forEach { entity in
+                
                 if entity.isBookmark {
                     if !bookmarImages.contains(where: { $0.image.id == entity.id }) {
                         if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {
@@ -189,6 +190,7 @@ struct SearchView: View {
                 }
             }
             cachedImages = []
+            
         }
     }
 }

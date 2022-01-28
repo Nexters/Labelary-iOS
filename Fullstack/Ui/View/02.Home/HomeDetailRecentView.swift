@@ -160,17 +160,6 @@ struct HomeDetailRecentView: View {
         func delete(images: [ImageViewModel]) {
             for image in images {
                 deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
-
-                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject
-                PHPhotoLibrary.shared().performChanges({ [self] in
-                    print("imageentity id:", image.image.id)
-                    PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
-                }, completionHandler: { isDone, error in
-                    print(isDone ? "success+++" : error.debugDescription)
-                    if isDone {
-                        print(image, "삭제 완료!")
-                    }
-                })
             }
         }
     }
