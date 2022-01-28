@@ -82,10 +82,10 @@ struct HomeDetailRecentView: View {
                 }
                 Spacer()
             }.alert(isPresented: $showingAlert) {
-                Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("레이블러리에서만 삭제되며 엘범에서는 삭제되지 않습니다."), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
+                Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("스크린샷은 레이블러리와 앨범에서 모두 삭제됩니다."), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
                     // 삭제 하기 로직
-                 //   output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-                    output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                    output.delete(images: self.output.items.filter { $0.status == .SELECTING })
+               //     output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
                 })
             }
 

@@ -111,6 +111,9 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     .frame(width: self.width, height: self.height)
             }
 
+            LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.9)]), startPoint: .center, endPoint: .bottom)
+                .cornerRadius(2)
+                .frame(width: self.width, height: self.height)
             switch imageViewModel.status {
             case .IDLE:
                 Group {}
@@ -130,9 +133,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     }
             }
 
-            LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.0), Color.black.opacity(0.9)]), startPoint: .center, endPoint: .bottom)
-                .cornerRadius(2)
-                .frame(width: self.width, height: self.height)
+            
 
             Image("ico_heart_small")
                 .padding(.leading, 8)
