@@ -33,7 +33,6 @@ struct SearchBarButton: View {
 struct SearchBar: View {
     @Binding var keyword: String
     @Binding var isEditing: Bool
-    //   @Binding var labels: [LabelEntity]
 
     var editingChanged: (Bool) -> () = { _ in }
     var commit: () -> () = {}
@@ -44,7 +43,6 @@ struct SearchBar: View {
                 placeholder: Text("라벨을 검색 해 보세요").foregroundColor(Color.PRIMARY_3),
                 text: $keyword,
                 commit: self.commit,
-                //  labels: $labels,
                 isEditing: $isEditing
             )
             .padding(10)
@@ -67,7 +65,7 @@ struct SearchBar: View {
                 }.padding(.horizontal, 9)
             )
 
-            if isEditing {
+            //  if isEditing {
 //                Text("취소")
 //                    .font(Font.B1_MEDIUM)
 //                    .foregroundColor(Color.PRIMARY_1)
@@ -76,7 +74,7 @@ struct SearchBar: View {
 //                        isEditing = false
 //                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 //                    }
-            }
+            //     }
         }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
 }

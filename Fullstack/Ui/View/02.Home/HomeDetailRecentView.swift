@@ -31,10 +31,13 @@ struct HomeDetailRecentView: View {
                         .padding(.leading, output.isEditing ? 20 : 20)
                         .onTapGesture {
                             if self.output.isEditing {
-                                self.output.isEditing = false
+                                output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+
                                 for i in output.items.indices {
                                     self.output.items[i].status = .IDLE
                                 }
+
+                                self.output.isEditing = false
                             } else {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
@@ -82,18 +85,19 @@ struct HomeDetailRecentView: View {
                 Spacer()
             }.alert(isPresented: $showingAlert) {
                 Alert(title: Text("스크린샷을 삭제하시겠어요?"), message: Text("스크린샷은 레이블러리에서만 삭제되고 엘범애서는 삭제되지 않습니다. "), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
-                    // 삭제 하기 로직
-                    //   output.delete(images: self.output.items.filter { $0.status == .SELECTING })
+                    output.delete(images: self.output.items.filter { $0.status == .SELECTING })
+                    output.refresh()
                     output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+
                 })
             }
 
         }.navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
-        .onAppear(perform: {
-            output.refresh()
-            print("onAppear")
-        })
+            .onAppear(perform: {
+                output.refresh()
+
+            })
     }
 
     private func onChangeBookMark(entity: ImageEntity) {
@@ -150,6 +154,8 @@ struct HomeDetailRecentView: View {
         @Published var isEditing = false
         @Published var items: [ImageViewModel]
 
+        @Published var cachedImages: [ImageEntity] = []
+
         let cancelbag = CancelBag()
         let deleteImages = DeleteImages(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
 
@@ -168,24 +174,30 @@ struct HomeDetailRecentView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { data in
-                        self.items = data.recentlyImages.map { ImageViewModel(image: $0) }
+                        self.cachedImages = data.recentlyImages
                     }
                 ).store(in: cancelbag)
         }
 
         func delete(images: [ImageViewModel]) {
             for image in images {
-                deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
-
                 let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject!
 
                 PHPhotoLibrary.shared().performChanges({ [self] in
                     print("imageentity id:", image.image.id)
-                    PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+                    PHAssetChangeRequest.deleteAssets([asset] as NSArray)
                 }, completionHandler: { isDone, error in
                     print(isDone ? "success+++" : error.debugDescription)
-
+                    self.refresh()
                 })
+            }
+        }
+
+        func deleteEntity(images: [ImageViewModel]) {
+            for image in images {
+                deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in
+
+                }).store(in: cancelbag)
             }
         }
     }

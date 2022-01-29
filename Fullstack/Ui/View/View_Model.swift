@@ -52,8 +52,6 @@ class UnlabeledImageViewModel: ObservableObject {
                     self.uiImage = result!
                 }
             })
-//            print("reload")
-//            self.uiImage = UIImage(named: "sc0")
         }
     }
 }
@@ -75,17 +73,13 @@ class ImageViewModel: ObservableObject {
         if asset == nil {
             self.uiImage = UIImage()
             print("reloadFail")
-            // 여기서 삭제를 하면 ?
 
         } else {
             PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth, height: asset!.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { result, _ in
                 if result != nil {
-                    //  print("reload\(result?.size)")
                     self.uiImage = result!
                 }
             })
-//            print("reload")
-//            self.uiImage = UIImage(named: "sc0")
         }
     }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0DC491A4F6FD19311BC5AF2D /* Pods_ShareSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */; };
+		24101FDA27A53FE200B18E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24101FD927A53FE200B18E40 /* Localizable.strings */; };
 		24155DAB2798611000EBE3DF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24155DAA2798611000EBE3DF /* Storage.swift */; };
 		241882DC25C95C8E00B062CF /* SearchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882DB25C95C8D00B062CF /* SearchLabelView.swift */; };
 		241882E625C95CC400B062CF /* AddNewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241882E525C95CC400B062CF /* AddNewLabelView.swift */; };
@@ -179,6 +180,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		24101FD927A53FE200B18E40 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		24155DAA2798611000EBE3DF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		241882DB25C95C8D00B062CF /* SearchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLabelView.swift; sourceTree = "<group>"; };
 		241882E525C95CC400B062CF /* AddNewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLabelView.swift; sourceTree = "<group>"; };
@@ -341,6 +343,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		24101FD827A53FC500B18E40 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				24101FD927A53FE200B18E40 /* Localizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		246159C425B2DCC100F6D730 = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +377,7 @@
 		246159CF25B2DCC100F6D730 /* Fullstack */ = {
 			isa = PBXGroup;
 			children = (
+				24101FD827A53FC500B18E40 /* Strings */,
 				24495BDC26E20D5F008295D8 /* FullstackDebug.entitlements */,
 				56C7912A2699A0690077367A /* GoogleService-Info.plist */,
 				56C1967E25C143F100E441EC /* Cache */,
@@ -814,6 +825,7 @@
 				246159D825B2DCC700F6D730 /* Preview Assets.xcassets in Resources */,
 				5677677925DFB79A00038DC6 /* splash_1.json in Resources */,
 				5677677825DFB79A00038DC6 /* splash_2.json in Resources */,
+				24101FDA27A53FE200B18E40 /* Localizable.strings in Resources */,
 				5677677725DFB79A00038DC6 /* splash_3.json in Resources */,
 				246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */,
 				56C7912B2699A0690077367A /* GoogleService-Info.plist in Resources */,

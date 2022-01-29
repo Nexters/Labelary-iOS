@@ -198,6 +198,7 @@ struct ScreenShotDetailView: View {
                     print("삭제 완료!")
                 }
             })
+            imageViewModel.status = .SELECTING
         }
     }
 }

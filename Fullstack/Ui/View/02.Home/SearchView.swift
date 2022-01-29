@@ -16,25 +16,23 @@ struct SearchView: View {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
             ScrollView {
                 VStack {
-                    if !self.viewmodel.isEditing {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text("홈")
-                                .font(Font.H1_BOLD)
-                                .foregroundColor(Color.PRIMARY_1)
-                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
-                            Spacer()
-                            NavigationLink(
-                                destination: SettingView(onFinished: {})
-                            ) {
-                                Image("ico_profile")
-                            }
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("홈")
+                            .font(Font.H1_BOLD)
+                            .foregroundColor(Color.PRIMARY_1)
+                            .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
+                        Spacer()
+                        NavigationLink(
+                            destination: SettingView(onFinished: {})
+                        ) {
+                            Image("ico_profile")
+                        }
 
-                        }.frame(minWidth: 0,
-                                maxWidth: .infinity,
-                                minHeight: 0,
-                                maxHeight: 60,
-                                alignment: .topLeading)
-                    }
+                    }.frame(minWidth: 0,
+                            maxWidth: .infinity,
+                            minHeight: 0,
+                            maxHeight: 60,
+                            alignment: .topLeading)
 
                     Button(action: {
                         self.show = true
@@ -59,12 +57,13 @@ struct SearchView: View {
                         }.padding(.horizontal, 9)
                     )
 
-                    if !self.viewmodel.isEditing {
-                        buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
-                        buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
-                    }
+                    buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
+                    buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
+
                 }.onAppear(perform: {
-                    viewmodel.onAppear()
+                    
+                    viewmodel.refresh()
+                    viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
                 })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
@@ -129,7 +128,7 @@ struct SearchView: View {
     class ViewModel: ObservableObject {
         @Published var recentlyImages: [ImageViewModel] = []
         @Published var bookmarImages: [ImageViewModel] = []
-        @Published var isEditing: Bool = false // 이게 뭐지. 
+
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = []
         @Published var recentlySearchedLabels: [LabelEntity] = []
@@ -168,13 +167,18 @@ struct SearchView: View {
         }
 
         func onChangeBookMark(entity: ImageEntity) {
-            cachedImages.append(entity) 
+            cachedImages.append(entity)
+        }
+
+        func changeItems(recentlyImages: [ImageViewModel], bookmarkedImages: [ImageViewModel]) {
+            self.recentlyImages = recentlyImages
+            bookmarImages = bookmarkedImages
         }
 
         func onAppear() {
-            
+            print("this is onappear function ")
             cachedImages.forEach { entity in
-                
+
                 if entity.isBookmark {
                     if !bookmarImages.contains(where: { $0.image.id == entity.id }) {
                         if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {
@@ -192,8 +196,6 @@ struct SearchView: View {
                 }
             }
             cachedImages = []
-           
-            print("this is onappear function ")
         }
     }
 }
