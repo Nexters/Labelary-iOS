@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchBarButton: View {
     var body: some View {
         HStack {
-            Text("스크린샷 검색 ")
+            Text("스크린샷 검색 ".localized())
         }
         .padding(10)
         .padding(.horizontal, 24)
@@ -40,7 +40,7 @@ struct SearchBar: View {
     var body: some View {
         HStack(alignment: .center) {
             CLabelSearchField(
-                placeholder: Text("라벨을 검색 해 보세요").foregroundColor(Color.PRIMARY_3),
+                placeholder: Text("라벨을 검색 해 보세요".localized()).foregroundColor(Color.PRIMARY_3),
                 text: $keyword,
                 commit: self.commit,
                 isEditing: $isEditing

@@ -30,7 +30,7 @@ struct SettingView: View {
                             else { fatalError("Expected a valid URL") }
                         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
                 }, label: {
-                    Text("앱스토어에 리뷰쓰기")
+                    Text("앱스토어에 리뷰쓰기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
                         .padding(.leading, 20)
                     Spacer()
@@ -44,7 +44,7 @@ struct SettingView: View {
                     let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
                     UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
                 }, label: {
-                    Text("친구에게 추천하기")
+                    Text("친구에게 추천하기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
                         .padding(.leading, 20)
                     Spacer()
@@ -62,7 +62,7 @@ struct SettingView: View {
                     }
 
                 }, label: {
-                    Text("이용방법 보기")
+                    Text("이용방법 보기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
                         .padding(.leading, 20)
                     Spacer()
@@ -74,7 +74,7 @@ struct SettingView: View {
                 Button(action: {
                     self.showDetail = true
                 }) {
-                    Text("빠른 라벨링 설정하기")
+                    Text("빠른 라벨링 설정하기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
                         .padding(.leading, 20)
                     Spacer()
@@ -91,7 +91,7 @@ struct SettingView: View {
                 Button(action: {
                     showMailView.toggle()
                 }, label: {
-                    Text("피드백 보내기")
+                    Text("피드백 보내기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1).padding(.leading, 20)
                     Spacer()
                     Image("ico_next")
@@ -112,11 +112,11 @@ struct SettingView: View {
                     self.showAlert = true
                 }, label: {
                     VStack(alignment: .leading) {
-                        Text("라벨 초기화하기")
+                        Text("라벨 초기화하기".localized())
                             .foregroundColor(Color.LABEL_RED_ACTIVE)
                             .font(Font.B1_MEDIUM)
                             .padding(.bottom, 0.5)
-                        Text("라벨 내역이 초기화되며, 스크린샷은 삭제되지 않습니다.")
+                        Text("라벨 내역이 초기화되며, 스크린샷은 삭제되지 않습니다.".localized())
                             .foregroundColor(Color.PRIMARY_2)
                             .font(Font.B2_REGULAR)
                     }.padding(.leading, 20)
@@ -127,7 +127,7 @@ struct SettingView: View {
                     .background(Color.DEPTH_4_BG)
                 Spacer()
             }.alert(isPresented: $showAlert) {
-                Alert(title: Text("라벨을 초기화하시겠어요?"), message: Text("라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다"), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("초기화"), action: {
+                Alert(title: Text("라벨을 초기화하시겠어요?".localized()), message: Text("라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다".localized()), primaryButton: .cancel(Text("취소".localized())), secondaryButton: .destructive(Text("초기화".localized()), action: {
                     try! realm.write {
                         realm.deleteAll()
                     }

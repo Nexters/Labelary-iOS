@@ -249,7 +249,7 @@ struct AddLabelingView: View {
                     VStack(alignment: .leading) {
                         if filters.count > 0 {
                             HStack {
-                                Text("추가한 라벨").foregroundColor(Color.PRIMARY_2)
+                                Text("추가한 라벨".localized()).foregroundColor(Color.PRIMARY_2)
                                     .font(Font.B2_MEDIUM)
                                 Text("\(filters.count)").foregroundColor(Color.KEY)
                                     .font(.custom("Apple SD Gothic Neo", size: 14))
@@ -301,7 +301,7 @@ struct AddLabelingView: View {
                             presentationMode.wrappedValue.dismiss()
 
                         }) {
-                            Text("확인").font(.custom("AppleSDGothicNeo-Bold", size: 16))
+                            Text("확인".localized()).font(.custom("AppleSDGothicNeo-Bold", size: 16))
                         }
                         .foregroundColor(Color.white)
                         .frame(width: 70, height: 52)
@@ -310,7 +310,7 @@ struct AddLabelingView: View {
                         .cornerRadius(2)
                         .offset(x: 69, y: 219)
                         .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
-                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.",
+                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.".localized(),
                                        style: .style(backgroundColor: Color.black.opacity(0.5),
                                                      titleColor: Color.PRIMARY_1,
                                                      titleFont: Font.B1_MEDIUM))
@@ -333,7 +333,7 @@ struct AddLabelingView: View {
                     }.offset(x: 20)
                         .padding(.trailing, 72)
 
-                    Text("스크린샷 라벨 추가")
+                    Text("스크린샷 라벨 추가".localized())
                         .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(.trailing, 24)

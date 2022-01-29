@@ -20,16 +20,16 @@ struct AlbumEditLabelView: View {
             Color.DEPTH_3.edgesIgnoringSafeArea(.all)
 
             VStack(alignment: .leading) {
-                Text("현재 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
+                Text("현재 라벨".localized()).font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
 
                 Text("\(passingLabelEntity.selectedLabel!.name)").font(Font.H3_MEDIUM)
                     .offset(y: 9.0)
 
-                Text("변경할 라벨").font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
+                Text("변경할 라벨".localized()).font(Font.B2_MEDIUM).foregroundColor(Color.PRIMARY_2)
                     .padding(.top, 40)
 
                 if !isSelected {
-                    Text("새 라벨을 선택해 주세요.")
+                    Text("새 라벨을 선택해 주세요.".localized())
                         .font(Font.H1_MEDIUM).foregroundColor(Color.PRIMARY_4)
                         .offset(y: 9.0)
                 } else {
@@ -39,7 +39,7 @@ struct AlbumEditLabelView: View {
                 }
 
                 HStack {
-                    Text("내 라벨").foregroundColor(Color.PRIMARY_2)
+                    Text("내 라벨".localized()).foregroundColor(Color.PRIMARY_2)
                     Text("\(viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                 }.font(Font.B2_MEDIUM)
                     .padding(.top, 80)
@@ -72,7 +72,7 @@ struct AlbumEditLabelView: View {
                     }) { Image("ico_cancel")
                     }
                     Spacer(minLength: 100)
-                    Text("스크린샷 라벨 변경").foregroundColor(Color.PRIMARY_1).font(Font.B1_BOLD)
+                    Text("스크린샷 라벨 변경".localized()).foregroundColor(Color.PRIMARY_1).font(Font.B1_BOLD)
                 },
 
                 trailing: HStack {
@@ -84,7 +84,7 @@ struct AlbumEditLabelView: View {
                         presentationMode.wrappedValue.dismiss()
                         passingImageEntity.selectedImages.removeAll()
                     }) {
-                        Text("완료").font(Font.B1_MEDIUM).foregroundColor(Color.KEY_ACTIVE)
+                        Text("완료".localized()).font(Font.B1_MEDIUM).foregroundColor(Color.KEY_ACTIVE)
                     }.disabled(!isSelected)
                 })
     }

@@ -37,7 +37,7 @@ struct SearchView: View {
                     Button(action: {
                         self.show = true
                     }) {
-                        Text("스크린샷 검색")
+                        Text("스크린샷 검색".localized())
                             .foregroundColor(Color.PRIMARY_2)
                         NavigationLink(
                             destination: SearchScreenshotView(),
@@ -57,8 +57,8 @@ struct SearchView: View {
                         }.padding(.horizontal, 9)
                     )
 
-                    buildRecentSection(title: "최근 순 스크린샷", models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
-                    buildLikeSection(title: "즐겨찾는 스크린샷", models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
+                    buildRecentSection(title: "최근 순 스크린샷".localized(), models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
+                    buildLikeSection(title: "즐겨찾는 스크린샷".localized(), models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
 
                 }.onAppear(perform: {
                     

@@ -71,7 +71,7 @@ struct EditAlbumView: View {
                             Image("btn_cancel")
                         })
 
-                        Text("\(selectedImages.count)개")
+                        Text("%d 개".localized(with: selectedImages.count, comment: " "))
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                             .opacity(selectedImages.count > 0 ? 1 : 0)
@@ -85,7 +85,7 @@ struct EditAlbumView: View {
                             presentationMode.wrappedValue.dismiss()
 
                         }, label: {
-                            Text("스크린샷 추가")
+                            Text("스크린샷 추가".localized())
                                 .font(Font.B1_BOLD)
                                 .foregroundColor(Color.KEY_ACTIVE)
                         })

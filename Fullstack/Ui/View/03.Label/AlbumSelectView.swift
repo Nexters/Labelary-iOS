@@ -48,7 +48,7 @@ struct AlbumSelectView: View {
                         passingImageEntity.selectedImages.removeAll()
                     }) { Image("ico_cancel") }
                     
-                    Text("\(selectedImages.count)개")
+                    Text("%d 개".localized(with: selectedImages.count, comment: " "))
                         .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                         .opacity(selectedImages.count > 0 ? 1 : 0)

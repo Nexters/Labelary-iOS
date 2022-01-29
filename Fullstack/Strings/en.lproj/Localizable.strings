@@ -1,0 +1,107 @@
+/* 
+  Localizable.strings
+  Fullstack
+
+  Created by 우민지 on 2022/01/29.
+  
+*/
+
+// localization English
+
+// 01. Labeling
+"라벨이 없습니다." = "No Labels";
+"라벨을 생성하여 스크린샷에" = "Create a new label";
+"라벨을 추가해보세요." = "and add the labels";
+"스크린샷 라벨링" = "Screenshot Labeling";
+"추가한 라벨" = "Added Label";
+"확인" = "OK";
+"스크린샷에 라벨이 추가되었습니다." = "Label was added to the screenshot";
+"스크린샷 라벨 추가" = "Add label to screenshot";
+"최근에 검색한 라벨" = "Recently searched labels";
+"내 라벨" = "Labels";
+"검색 결과" = "Result";
+"검색 결과가 없습니다." = "There is no result available";
+"라벨을 생성하여 스크린샷에" = "Create a label";
+"라벨을 추가해보세요." = "and add the label to screenshot";
+"라벨 생성하기" = "Create a Label";
+" 라벨을 검색해보세요" ="  Search the label";
+"취소" = "Cancel";
+"입력완료" = "OK";
+"라벨명" = "Label Name";
+"라벨명을 입력해주세요." = "Write the name of the label";
+"라벨 컬러 선택" = "Select the color of the label";
+"라벨 생성" = "Create";
+
+// 02. Home
+"스크린샷 검색 " = "Search screenshots";
+"라벨을 검색 해 보세요" = "Search the label";
+
+"최근 순 스크린샷" = "Recent screenshots";
+"즐겨찾는 스크린샷" = "Bookmarked screenshots";
+
+"최근 검색한 라벨" = "Recently searched labels";
+"라벨 목록" = "Label list";
+"검색결과" = "Result";
+"스크린샷 검색" = "Search screenshots";
+
+"편집" = "Edit";
+"스크린샷 검색 결과" = "Result";
+"검색한 스크린샷" = "Searched screenshots";
+
+"즐겨찾는 스크린샷" = "Bookmarked screenshots";
+"선택" = "Select";
+"스크린샷을 삭제하시겠어요?" = "Will you delete the screenshot?";
+"레이블러리와 엘범에서 모두 삭제됩니다." = "It will be deleted in  Labelary and your Photo Library";
+
+"최근 순 스크린샷" = "Recent screenshots";
+"취소" = "Dismiss";
+"삭제" = "Delete";
+
+ // 03 Label
+
+"라벨이 없습니다." = "No Labels yet.";
+"라벨을 생성하여 스크린샷에" = "Crate the label and";
+"라벨을 추가해보세요." = "Add the label to the screenshots";
+
+"라벨 생성" = "Create Label";
+
+"스크린샷이 없습니다." = "No screenshots yet.";
+"해당 라벨에 스크린샷을" = "Add the label";
+"추가해보세요." = "to your screenshots";
+
+"라벨 수정하기" = "Edit the label";
+"라벨 삭제하기" = "Delete the label";
+
+"라벨을 삭제하시겠어요?" = "Will you delete the label ?";
+"해당 라벨을 삭제해도\n 라벨이 추가된 스크린샷은 삭제되지 않습니다." = "Screenshots won't be deleted \n although you delete the label";
+"라벨" = "Label";
+
+"라벨 수정" = "Edit the label";
+
+"라벨명" = "Label Name";
+
+"최신순" = "Recent Order";
+"오래본순" = "Old Order";
+"자주본순" = "Order of Views";
+"%d 개" = "%d ";
+
+"현재 라벨" = "Current Label";
+"변경할 라벨" = "New Label";
+"새 라벨을 선택해 주세요." = "Select the new label";
+"스크린샷 라벨 변경" = "Edit the screenshot's labels";
+"완료" = "OK";
+
+// 04. Settings
+"앱스토어에 리뷰쓰기" = "Write the review at the App Store";
+"친구에게 추천하기" = "Recommend Labelary to friends";
+"이용방법 보기" = "Learn how to use";
+"빠른 라벨링 설정하기" = "Set the labeling shortcut";
+"피드백 보내기" = "Send feedback to Labelary Delveloper";
+"라벨 초기화하기" = "Initialize the labels";
+"라벨 내역이 초기화되며, 스크린샷은 삭제되지 않습니다." = "It will remove every label but the screenshots won't be deleted";
+"라벨을 초기화하시겠어요?" = "Will you initialize the labels?";
+
+"라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다"
+= "Label albums and labels will be deleted but the screenshots won't be deleted";
+"취소" = "Cancel";
+"초기화" = "Initialize";

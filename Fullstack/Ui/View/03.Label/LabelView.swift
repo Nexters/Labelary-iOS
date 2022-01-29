@@ -38,13 +38,13 @@ struct LabelView: View {
                 Spacer()
                 Image("ico_empty_album")
                     .padding(40)
-                Text("라벨이 없습니다.")
+                Text("라벨이 없습니다.".localized())
                     .font(Font.H3_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
                     .padding(14)
                 VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
-                    Text("라벨을 생성하여 스크린샷에")
-                    Text("라벨을 추가해보세요.")
+                    Text("라벨을 생성하여 스크린샷에".localized())
+                    Text("라벨을 추가해보세요.".localized())
                 }
                 .font(Font.B1_REGULAR)
                 .foregroundColor(Color.PRIMARY_2)
@@ -65,21 +65,21 @@ struct LabelView: View {
 
     var sheetView: some View {
         ActionSheetCard(isShowing: $showingPopover, items: [
-            ActionSheetCardItem(label: "라벨 수정하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
+            ActionSheetCardItem(label: "라벨 수정하기".localized(), labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
                 showEditLabelView.toggle()
                 passingLabelEntity.selectedLabel = viewModel.selectedLabel
 
             },
-            ActionSheetCardItem(label: "라벨 삭제하기", labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
+            ActionSheetCardItem(label: "라벨 삭제하기".localized(), labelFont: Font.B1_BOLD, foregroundColor: Color.white) {
                 showingAlert.toggle()
             }
         ],
         backgroundColor: Color.DEPTH_2)
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text("라벨을 삭제하시겠어요?"),
-                      message: Text("해당 라벨을 삭제해도\n 라벨이 추가된 스크린샷은 삭제되지 않습니다."),
-                      primaryButton: .default(Text("취소")),
-                      secondaryButton: .default(Text("삭제")) {
+                Alert(title: Text("라벨을 삭제하시겠어요?".localized()),
+                      message: Text("해당 라벨을 삭제해도\n 라벨이 추가된 스크린샷은 삭제되지 않습니다.".localized()),
+                      primaryButton: .default(Text("취소".localized())),
+                      secondaryButton: .default(Text("삭제".localized())) {
                           // 삭제 로직
 
                           viewModel.deleteLabel.get(param: viewModel.selectedLabel!)
@@ -94,7 +94,7 @@ struct LabelView: View {
         ScrollView {
             VStack {
                 HStack(alignment: .firstTextBaseline) {
-                    Text("라벨")
+                    Text("라벨".localized())
                         .font(Font.H1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))

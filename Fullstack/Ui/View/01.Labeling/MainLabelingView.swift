@@ -70,7 +70,7 @@ struct MainLabelingView: View {
         
             VStack(alignment: .center) {
                 HStack {
-                    Text("스크린샷 라벨링")
+                    Text("스크린샷 라벨링".localized())
                         .font(Font.H3_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                     

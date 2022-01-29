@@ -34,7 +34,7 @@ struct AlbumAddLabelView: View {
                     }.padding(.leading, 20)
 
                     HStack(alignment: .center) {
-                        Text("라벨 생성")
+                        Text("라벨 생성".localized())
                             .foregroundColor(Color.PRIMARY_1)
                             .font(.custom("Apple SD Gothic Neo", size: 16))
                             .fontWeight(.bold)
@@ -42,18 +42,18 @@ struct AlbumAddLabelView: View {
                 }.frame(height: 50)
 
                 VStack(alignment: .leading) {
-                    Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
+                    Text("라벨명".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
                         .foregroundColor(Color.PRIMARY_2)
                         .frame(width: 37, height: 20, alignment: .leading)
                         .padding(7)
 
-                    TextField("라벨명을 입력해주세요.", text: $text)
+                    TextField("라벨명을 입력해주세요.".localized(), text: $text)
                         .font(.custom("Apple SD Gothic Neo", size: 28))
                         .frame(width: 350, height: 40, alignment: .trailing)
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(7)
 
-                    Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                    Text("라벨 컬러 선택".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
                         .foregroundColor(Color.PRIMARY_2)
                         .frame(width: 81, height: 20, alignment: .leading)
                         .padding(7)

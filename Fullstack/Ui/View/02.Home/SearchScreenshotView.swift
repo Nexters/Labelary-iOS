@@ -42,7 +42,7 @@ struct SearchScreenshotView: View {
                 
                 if !viewmodel.isEditing {
                     VStack(alignment: .leading) {
-                        Text("최근 검색한 라벨")
+                        Text("최근 검색한 라벨".localized())
                             .font(Font.B2_MEDIUM)
                             .foregroundColor(Color.PRIMARY_2)
 
@@ -65,7 +65,7 @@ struct SearchScreenshotView: View {
                         }
 
                         HStack {
-                            Text("라벨 목록")
+                            Text("라벨 목록".localized())
                                 .font(Font.B2_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_2)
 
@@ -95,7 +95,7 @@ struct SearchScreenshotView: View {
                 } else {
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("검색결과")
+                            Text("검색결과".localized())
                                 .font(Font.B2_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_2)
 
@@ -147,7 +147,7 @@ struct SearchScreenshotView: View {
                         Image("ico_cancel")
                     })
                     Spacer(minLength: 120)
-                    Text("스크린샷 검색")
+                    Text("스크린샷 검색".localized())
                         .foregroundColor(Color.PRIMARY_1)
                         .font(Font.B1_REGULAR)
                     Spacer()

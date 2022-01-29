@@ -34,13 +34,13 @@ struct SearchResultView: View {
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
-                        Text("편집").foregroundColor(Color.KEY_ACTIVE)
+                        Text("편집".localized()).foregroundColor(Color.KEY_ACTIVE)
                     })
                         .padding(.trailing, 28)
                 }
 
                 HStack {
-                    Text("스크린샷 검색 결과").font(Font.B2_MEDIUM)
+                    Text("스크린샷 검색 결과".localized()).font(Font.B2_MEDIUM)
                         .foregroundColor(Color.PRIMARY_1)
                     Text("\(viewModel.screenshots.count)").foregroundColor(Color.KEY_ACTIVE).font(Font.B2_MEDIUM) // 결과에 해당하는 스크린샷 개수
                 }.padding([.leading, .top], 20)
@@ -64,7 +64,7 @@ struct SearchResultView: View {
                     Image("ico_cancel")
                 })
 
-                Text("검색한 스크린샷").padding(.leading, 20)
+                Text("검색한 스크린샷".localized()).padding(.leading, 20)
                     .font(Font.B1_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
             }

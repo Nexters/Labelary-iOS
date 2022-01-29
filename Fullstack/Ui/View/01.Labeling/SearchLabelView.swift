@@ -85,7 +85,7 @@ struct SearchLabelView: View {
             Color.DEPTH_5.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
                 if self.keyword.isEmpty {
-                    Text("최근에 검색한 라벨")
+                    Text("최근에 검색한 라벨".localized())
                         .font(Font.B2_MEDIUM)
                         .foregroundColor(Color.PRIMARY_2)
                     FlexibleView(data: output.labels.prefix(5), spacing: 8, alignment: HorizontalAlignment.leading) {
@@ -100,7 +100,7 @@ struct SearchLabelView: View {
                         }
                     }
                     HStack {
-                        Text("내 라벨")
+                        Text("내 라벨".localized())
                             .font(Font.B2_MEDIUM)
                             .foregroundColor(Color.PRIMARY_2)
                         Text("\(self.output.labels.count)").foregroundColor(Color.KEY_ACTIVE)
@@ -119,7 +119,7 @@ struct SearchLabelView: View {
                 } else {
                     if output.labels.filter { $0.name.contains(keyword) }.count > 0 {
                         HStack {
-                            Text("검색 결과")
+                            Text("검색 결과".localized())
                                 .font(.custom("Apple SD Gothic Neo", size: 14))
                                 .foregroundColor(Color.PRIMARY_2)
                             Text("\(output.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
@@ -147,16 +147,16 @@ struct SearchLabelView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
 
-                            Text("검색 결과가 없습니다.")
+                            Text("검색 결과가 없습니다.".localized())
                                 .font(Font.H3_BOLD)
                                 .foregroundColor(Color.PRIMARY_1)
                                 .padding(.top, 20)
 
-                            Text("라벨을 생성하여 스크린샷에")
+                            Text("라벨을 생성하여 스크린샷에".localized())
                                 .font(Font.B1_REGULAR)
                                 .foregroundColor(Color.PRIMARY_2)
                                 .padding(.top, 20)
-                            Text("라벨을 추가해보세요.")
+                            Text("라벨을 추가해보세요.".localized())
                                 .font(Font.B1_REGULAR)
                                 .foregroundColor(Color.PRIMARY_2)
 
@@ -164,7 +164,7 @@ struct SearchLabelView: View {
 
                             NavigationLink(
                                 destination: AddNewLabelView()) {
-                                    Text("라벨 생성하기")
+                                Text("라벨 생성하기".localized())
                                         .foregroundColor(Color.PRIMARY_1)
                                         .font(.system(size: 16, weight: .bold, design: .default))
                                         .frame(width: 160, height: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
@@ -181,7 +181,7 @@ struct SearchLabelView: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading:
                     HStack {
-                        SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요")
+                        SearchBarTextField(text: $keyword, placeholder: " 라벨을 검색해보세요".localized())
                             .frame(width: 240, height: 20)
                             .padding(10)
                             .padding(.horizontal, 25)

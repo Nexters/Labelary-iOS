@@ -35,7 +35,7 @@ struct LabelAlbumView: View {
                             secondOption = false
                             thirdOption = false
                         }) {
-                            LabelBadge(name: "최신순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(firstOption ? 1 : 0), textColor: firstOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
+                            LabelBadge(name: "최신순".localized(), color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(firstOption ? 1 : 0), textColor: firstOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
                                 .padding(.bottom, 8)
                         }.offset(x: 20)
@@ -46,7 +46,7 @@ struct LabelAlbumView: View {
                             thirdOption = false
 
                         }) {
-                            LabelBadge(name: "오래본순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(secondOption ? 1 : 0), textColor: secondOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
+                            LabelBadge(name: "오래본순".localized(), color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(secondOption ? 1 : 0), textColor: secondOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
                                 .padding(.bottom, 8)
                         }.offset(x: 20)
@@ -57,7 +57,7 @@ struct LabelAlbumView: View {
                             thirdOption = true
                             // 자주 본 순으로 정렬
                         }) {
-                            LabelBadge(name: "자주본순", color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(thirdOption ? 1 : 0), textColor: thirdOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
+                            LabelBadge(name: "자주본순".localized(), color: giveLabelBackgroundColor(color: passingLabelEntity.selectedLabel!.color).opacity(thirdOption ? 1 : 0), textColor: thirdOption ? giveTextForegroundColor(color: passingLabelEntity.selectedLabel!.color) : Color.PRIMARY_2)
                                 .font(Font.B2_MEDIUM)
                                 .padding(.bottom, 8)
                         }.offset(x: 20)
@@ -115,7 +115,7 @@ struct LabelAlbumView: View {
                         trailing:
                         HStack {
                             NavigationLink(destination: AlbumSelectView()) {
-                                Text("선택").font(Font.B1_REGULAR)
+                                Text("선택".localized()).font(Font.B1_REGULAR)
                                     .foregroundColor(giveActiveColor(color: passingLabelEntity.selectedLabel!.color))
                             }
                         })

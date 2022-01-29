@@ -20,13 +20,13 @@ struct AlbumEmptyView: View {
                 Spacer()
                 Image("ico_empty_screenshot")
                     .padding(40)
-                Text("스크린샷이 없습니다.")
+                Text("스크린샷이 없습니다.".localized())
                     .font(Font.H3_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
                     .padding(14)
                 VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/) {
-                    Text("해당 라벨에 스크린샷을")
-                    Text("추가해보세요.")
+                    Text("해당 라벨에 스크린샷을".localized())
+                    Text("추가해보세요.".localized())
                 }
                 .font(Font.B1_REGULAR)
                 .foregroundColor(Color.PRIMARY_2)
