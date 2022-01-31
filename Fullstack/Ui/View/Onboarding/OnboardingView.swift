@@ -11,9 +11,9 @@ import SwiftUI
 
 struct OnboardingView: View {
     let pages: [PageViewData] = [
-        PageViewData(source: "splash_1", title: "스크린샷에\n라벨을 추가해보세요.", description: "라벨별로 스크린샷을 볼 수 있어요.", buttonName: "다음"),
-        PageViewData(source: "splash_2", title: "앱 실행 없이 빠른\n라벨 추가가 가능해요!", description: "스크린샷 공유 팝업에서 실행하세요.", buttonName: "다음"),
-        PageViewData(source: "splash_3", title: "어딨더라?\n찾지 말고 검색하세요!", description: "라벨을 통해 쉽고 빠르게 스크린샷을 찾으세요.", buttonName: "완료")
+        PageViewData(source: "splash_1", title: "스크린샷에\n라벨을 추가해보세요.".localized(), description: "라벨별로 스크린샷을 볼 수 있어요.".localized(), buttonName: "다음".localized()),
+        PageViewData(source: "splash_2", title: "앱 실행 없이 빠른\n라벨 추가가 가능해요!".localized(), description: "스크린샷 공유 팝업에서 실행하세요.".localized(), buttonName: "다음".localized()),
+        PageViewData(source: "splash_3", title: "어딨더라?\n찾지 말고 검색하세요!".localized(), description: "라벨을 통해 쉽고 빠르게 스크린샷을 찾으세요.".localized(), buttonName: "완료".localized())
     ]
     @State private var index: Int = 0
     let onFinished: () -> Void

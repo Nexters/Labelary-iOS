@@ -84,7 +84,7 @@ struct HomeDetailRecentView: View {
                 }
                 Spacer()
             }.alert(isPresented: $showingAlert) {
-                Alert(title: Text("스크린샷을 삭제하시겠어요?".localized()), message: Text("스크린샷은 레이블러리와 엘범애서 모두 삭제됩니다. ".localized()), primaryButton: .default(Text("취소".localized())), secondaryButton: .destructive(Text("삭제".localized())) {
+                Alert(title: Text("스크린샷을 삭제하시겠어요?".localized()), message: Text("스크린샷은 레이블러리와 엘범애서 모두 삭제됩니다.".localized()), primaryButton: .default(Text("취소".localized())), secondaryButton: .destructive(Text("삭제".localized())) {
                     output.delete(images: self.output.items.filter { $0.status == .SELECTING })
                     output.refresh()
                     output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })

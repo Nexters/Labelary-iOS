@@ -50,7 +50,7 @@ struct ScreenShotDetailView: View {
                 if viewmodel.isOnHover {
                     HStack {
                         if viewmodel.getlabel(image: viewmodel.imageViewModel.image).isEmpty {
-                            Text("스크린샷에 추가된 라벨이 없습니다.")
+                            Text("스크린샷에 추가된 라벨이 없습니다.".localized())
                                 .font(Font.B1_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_3)
                                 .padding(.leading, 16)
@@ -77,7 +77,7 @@ struct ScreenShotDetailView: View {
                             destination: ScreenShotDetailLabelView(image: [viewmodel.imageViewModel.image]),
                             isActive: $showNextView
                         ) {
-                            Text("추가")
+                            Text("추가".localized())
                                 .font(Font.B2_MEDIUM)
                                 .foregroundColor(Color.KEY_ACTIVE)
                                 .padding(.leading, 6)
@@ -119,13 +119,13 @@ struct ScreenShotDetailView: View {
             }.edgesIgnoringSafeArea([.top, .bottom])
 
         }.toast(isPresenting: viewmodel.$showDeleteToast, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.")
+            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.".localized())
         }
         .toast(isPresenting: $showToastOn, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
+            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
         .toast(isPresenting: $showToastOff, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.", style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
+            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
         }
 
         .onTapGesture {
@@ -157,7 +157,7 @@ struct ScreenShotDetailView: View {
         init(imageViewModel: ImageViewModel, onChangeBookmark: @escaping (ImageEntity) -> Void) {
             self.imageViewModel = imageViewModel
             self.onChangeBookmark = onChangeBookmark
-            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+            dateFormatter.dateFormat = "yyyy. MM. dd"
             createdAt = dateFormatter.string(from: imageViewModel.image.createdAt ?? Date())
         }
 

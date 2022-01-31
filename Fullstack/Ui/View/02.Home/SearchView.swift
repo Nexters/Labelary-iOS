@@ -17,7 +17,7 @@ struct SearchView: View {
             ScrollView {
                 VStack {
                     HStack(alignment: .firstTextBaseline) {
-                        Text("홈")
+                        Text("홈".localized())
                             .font(Font.H1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
                             .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
@@ -61,7 +61,6 @@ struct SearchView: View {
                     buildLikeSection(title: "즐겨찾는 스크린샷".localized(), models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
 
                 }.onAppear(perform: {
-                    
                     viewmodel.refresh()
                     viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
                 })
@@ -82,9 +81,19 @@ struct SearchView: View {
             }
         }.padding(EdgeInsets(top: 30, leading: 20, bottom: 0, trailing: 14))
         if models.count == 0 {
-            Image("SS_large_state")
-                .resizable()
-                .frame(width: 335, height: 195, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+            ZStack(alignment: .center) {
+                Image("SS_large_state")
+                    .resizable()
+                    .frame(width: 335, height: 195, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                VStack {
+                    Image("ico_heart_empty")
+                        .resizable()
+                        .frame(width: 24, height: 22, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                    Text("스크린샷을\n 즐겨찾기 해보세요.".localized())
+                        .font(Font.B2_MEDIUM)
+                        .foregroundColor(Color.PRIMARY_4)
+                }
+            }
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {

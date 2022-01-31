@@ -19,7 +19,7 @@ struct AppView: View {
     var body: some View {
         if Storage.isFirstTime() == true {
             VStack {
-                Text("스크린샷\n정리가 어렵다면")
+                Text("스크린샷\n정리가 어렵다면".localized())
                     .foregroundColor(Color.PRIMARY_1)
             }.onAppear {
                 output.endSplash()

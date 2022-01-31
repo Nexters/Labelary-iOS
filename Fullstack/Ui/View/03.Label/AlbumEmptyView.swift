@@ -35,7 +35,18 @@ struct AlbumEmptyView: View {
                     self.show = true
                 }, label: {
                     ZStack {
-                        Image("add_screenshot_btn")
+                       
+                        Button(action: {
+                            self.show = true
+                        }, label: {
+                            Text("라벨 생성하기".localized())
+                                .frame(minHeight: 54, maxHeight: 54, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                .font(Font.B1_BOLD)
+                                .foregroundColor(Color.PRIMARY_1)
+                                .background(Color.KEY_ACTIVE)
+                                .cornerRadius(4.0)
+                        })
+                        
                         NavigationLink(
                             destination: EditAlbumView(), // 스크린샷 선택 화면으로 이동해야 한다 !!!!!! 중요중요
                             isActive: $show

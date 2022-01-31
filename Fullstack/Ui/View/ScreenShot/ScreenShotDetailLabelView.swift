@@ -23,7 +23,7 @@ struct ScreenShotDetailLabelView: View {
 
                 if self.viewmodel.keyword.isEmpty {
                     HStack {
-                        Text("라벨 목록").font(Font.B2_MEDIUM)
+                        Text("라벨 목록".localized()).font(Font.B2_MEDIUM)
                             .foregroundColor(Color.PRIMARY_2)
                         Text("\(viewmodel.labels.count)")
                             .font(Font.B2_MEDIUM)
@@ -55,7 +55,7 @@ struct ScreenShotDetailLabelView: View {
                     if (viewmodel.labels.filter { label in label.name.contains(viewmodel.keyword) }.count) > 0 {
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("검색 결과")
+                                Text("검색 결과".localized())
                                     .font(Font.B2_MEDIUM)
                                     .foregroundColor(Color.PRIMARY_2)
                                 Text("\(viewmodel.labels.filter { label in label.name.contains(viewmodel.keyword) }.count)")
@@ -67,7 +67,7 @@ struct ScreenShotDetailLabelView: View {
                         }.frame(maxWidth: .infinity, alignment: .leading)
                     } else {
                         VStack(alignment: .leading) {
-                            Text("검색결과가 없습니다 ")
+                            Text("검색결과가 없습니다 ".localized())
                                 .font(Font.B2_MEDIUM)
                                 .foregroundColor(Color.PRIMARY_2)
                                 .padding([.bottom, .leading], 20)
@@ -78,7 +78,7 @@ struct ScreenShotDetailLabelView: View {
                                     .offset(x: 8)
 
                                 NavigationLink(destination: AddNewLabelView(), isActive: $showAddLabelView) {
-                                    Text("생성")
+                                    Text("생성".localized())
                                         .onTapGesture {
                                             self.showAddLabelView = true
                                         }
@@ -109,7 +109,7 @@ struct ScreenShotDetailLabelView: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("추가한 라벨")
+                        Text("추가한 라벨".localized())
                             .font(Font.B2_MEDIUM)
                             .foregroundColor(Color.PRIMARY_2)
                         Text("\(viewmodel.selectedLabels.count)")
@@ -143,7 +143,7 @@ struct ScreenShotDetailLabelView: View {
                         Image("ico_cancel")
                     })
                     Spacer(minLength: 100)
-                    Text("스크린샷 라벨 편집")
+                    Text("스크린샷 라벨 편집".localized())
                         .foregroundColor(Color.PRIMARY_1)
                         .font(Font.B1_REGULAR)
                     Spacer()
@@ -154,7 +154,7 @@ struct ScreenShotDetailLabelView: View {
                         viewmodel.requestLabeling.get(param: RequestLabeling.Param(labels: viewmodel.selectedLabels, images: self.image)).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: viewmodel.cancelbag)
 
                     }, label: {
-                        Text("완료")
+                        Text("완료".localized())
                             .foregroundColor(Color.KEY_ACTIVE)
                             .font(Font.B1_MEDIUM)
                     })

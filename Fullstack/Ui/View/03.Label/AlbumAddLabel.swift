@@ -42,9 +42,9 @@ struct AlbumAddLabelView: View {
                 }.frame(height: 50)
 
                 VStack(alignment: .leading) {
-                    Text("라벨명".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
+                    Text("라벨명".localized()).font(.custom("Apple SD Gothic Neo", size: 14))
                         .foregroundColor(Color.PRIMARY_2)
-                        .frame(width: 37, height: 20, alignment: .leading)
+                        .frame(height: 20, alignment: .leading)
                         .padding(7)
 
                     TextField("라벨명을 입력해주세요.".localized(), text: $text)
@@ -53,9 +53,9 @@ struct AlbumAddLabelView: View {
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(7)
 
-                    Text("라벨 컬러 선택".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
+                    Text("라벨 컬러 선택".localized()).font(.custom("Apple SD Gothic Neo", size: 14))
                         .foregroundColor(Color.PRIMARY_2)
-                        .frame(width: 81, height: 20, alignment: .leading)
+                        .frame(height: 20, alignment: .leading)
                         .padding(7)
                 }
                 HStack(alignment: .center) {
@@ -108,24 +108,25 @@ struct AlbumAddLabelView: View {
                     
                 }) {
                     ZStack {
-                        Image(self.isSelected ? "Label_add_complete_active" : "Label_add_complete_default")
-                            .frame(width: 335, height: 54, alignment: .center).padding([.leading, .trailing], 18)
-                            .onTapGesture {
-                                if self.isSelected {
-                                    createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
-                                        .sink(receiveCompletion: { _ in
-                                            print("complete create label")
-                                            
-                                        }, receiveValue: { _ in
-                                        }).store(in: cancelbag)
-                                    
-                                    // labelView reload
-                                    
-                                    
-                                    onClickedBackBtn()
-                                }
-                                
+                        Button(action: {
+                            if self.isSelected {
+                                createLabel.get(param: CreateLabel.RequestData(text: text, color: color))
+                                    .sink(receiveCompletion: { _ in
+                                        print("complete create label")
+
+                                    }, receiveValue: { _ in
+                                    }).store(in: cancelbag)
+
+                                onClickedBackBtn()
                             }
+                        }, label: {
+                            Text("라벨 추가 완료".localized())
+                                .frame(minWidth: 376, maxWidth: 376, minHeight: 54, maxHeight: 54, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                .font(Font.B1_BOLD)
+                                .foregroundColor(self.isSelected ? Color.PRIMARY_1 : Color.PRIMARY_3)
+                                .background(self.isSelected ? Color.KEY_ACTIVE : Color.KEY_INACTIVE)
+                                .cornerRadius(4.0)
+                        })
                     }
                 }
             }
