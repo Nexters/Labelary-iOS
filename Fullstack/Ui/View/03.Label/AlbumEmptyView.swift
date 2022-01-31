@@ -40,7 +40,7 @@ struct AlbumEmptyView: View {
                             self.show = true
                         }, label: {
                             Text("라벨 생성하기".localized())
-                                .frame(minHeight: 54, maxHeight: 54, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                .frame(minWidth: 160, maxWidth: 160, minHeight: 48, maxHeight: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                                 .font(Font.B1_BOLD)
                                 .foregroundColor(Color.PRIMARY_1)
                                 .background(Color.KEY_ACTIVE)

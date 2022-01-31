@@ -58,7 +58,6 @@ struct ScreenShotDetailView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(viewmodel.getlabel(image: viewmodel.imageViewModel.image).indices, id: \.self) { i in
-                                        // let label = viewmodel.imageViewModel.image.labels[i]
                                         let label = viewmodel.getlabel(image: viewmodel.imageViewModel.image)[i]
                                         Text(label.name)
                                             .padding(EdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 12))
@@ -89,6 +88,7 @@ struct ScreenShotDetailView: View {
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.delete()
+                            viewmodel.deleteEntity()
                         }
                         Spacer()
                         if viewmodel.imageViewModel.image.isBookmark {
@@ -183,9 +183,6 @@ struct ScreenShotDetailView: View {
         }
 
         func delete() {
-            print(imageViewModel.image)
-            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
-
             let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
 
             PHPhotoLibrary.shared().performChanges({ [self] in
@@ -199,6 +196,11 @@ struct ScreenShotDetailView: View {
                 }
             })
             imageViewModel.status = .SELECTING
+        }
+        
+        
+        func deleteEntity() {
+            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
         }
     }
 }

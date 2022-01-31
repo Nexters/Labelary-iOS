@@ -26,11 +26,11 @@
 "라벨이 없습니다." = "No Labels";
 "라벨을 생성하여 스크린샷에" = "Create a new label";
 "라벨을 추가해보세요." = "and add the labels";
-"스크린샷 라벨링" = "Screenshot Labeling";
+"스크린샷 라벨링" = "Screenshots";
 "추가한 라벨" = "Added Label";
 "확인" = "OK";
 "스크린샷에 라벨이 추가되었습니다." = "Label was added to the screenshot";
-"스크린샷 라벨 추가" = "Add Label";
+"스크린샷 라벨 추가" = "Screenshot Labeling";
 "최근에 검색한 라벨" = "Recently searched labels";
 "내 라벨" = "Labels";
 "검색 결과" = "Result";
@@ -79,7 +79,7 @@
  // 03 Label
 
 "라벨이 없습니다." = "No Labels yet.";
-"라벨을 생성하여 스크린샷에" = "Crate the label and";
+"라벨을 생성하여 스크린샷에" = "Create the label and";
 "라벨을 추가해보세요." = "Add the label to the screenshots";
 
 "라벨 생성" = "Create Label";
@@ -122,7 +122,7 @@
 
 "라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다"
 = "Label albums and labels will be deleted but the screenshots won't be deleted";
-"취소" = "Cancel";
+"취소" = "Dismiss";
 "초기화" = "Initialize";
 
 // ScreenShot
@@ -144,5 +144,5 @@
 
 
 // Empty view
-"라벨 생성하기" = "Create Label";
+"라벨 생성하기" = "Create a Label";
 "스크린샷을\n 즐겨찾기 해보세요." = "Bookmark the screenshots.";

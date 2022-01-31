@@ -331,7 +331,7 @@ struct AddLabelingView: View {
                     }) {
                         Image("navigation_back_btn")
                     }.offset(x: 20)
-                        .padding(.trailing, 72)
+                        .padding(.trailing, 62)
 
                     Text("스크린샷 라벨 추가".localized())
                         .font(Font.B1_BOLD)

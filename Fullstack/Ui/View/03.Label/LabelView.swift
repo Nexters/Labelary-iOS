@@ -15,7 +15,7 @@ class PassLabelData: ObservableObject {
 var passingLabelEntity = PassLabelData()
 
 class Trigger: ObservableObject {
-    @Published var isEmpty:Bool = true
+    @Published var isEmpty: Bool = true
 }
 
 struct LabelView: View {
@@ -28,8 +28,6 @@ struct LabelView: View {
     @State private var showLabelAlbumView = false
     @State private var showAlbumLabelView: Bool = false
     let cancelBag = CancelBag()
-    
-    
 
     var emptyView: some View {
         ZStack {
@@ -52,7 +50,12 @@ struct LabelView: View {
                 Button(action: {
                     self.showAlbumLabelView = true
                 }, label: {
-                    Image("create_label")
+                    Text("라벨 생성하기".localized())
+                        .frame(minWidth: 160, maxWidth: 160, minHeight: 48, maxHeight: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                        .font(Font.B1_BOLD)
+                        .foregroundColor(Color.PRIMARY_1)
+                        .background(Color.KEY_ACTIVE)
+                        .cornerRadius(4.0)
                 }).offset(y: 60)
                     .sheet(isPresented: self.$showAlbumLabelView, content: {
                         AlbumAddLabelView()

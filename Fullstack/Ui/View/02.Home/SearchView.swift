@@ -62,7 +62,8 @@ struct SearchView: View {
 
                 }.onAppear(perform: {
                     viewmodel.refresh()
-                    viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
+//                    viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
+
                 })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
@@ -98,6 +99,7 @@ struct SearchView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(models.indices, id: \.self) { i in
+
                         let model = models[i]
                         CScreenShotView(imageViewModel: model,
                                         nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
@@ -140,28 +142,16 @@ struct SearchView: View {
 
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = []
-        @Published var recentlySearchedLabels: [LabelEntity] = []
+  
         @Published var selectedLabels: [LabelEntity] = []
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-        let loadSearchLabelData = LoadSearchLabelData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 최근 검색한 라벨
-        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 모든 라벨들을 로드
-
+  
         let cancelbag = CancelBag()
 
         var cachedImages: [ImageEntity] = []
 
         init() {
             refresh()
-            loadLabelingSelectData.get().sink(receiveCompletion: {
-                _ in
-            }, receiveValue: {
-                data in
-                self.labels = data
-            }).store(in: cancelbag)
-
-            loadSearchLabelData.get().sink(receiveCompletion: { _ in }, receiveValue: { data in
-                self.recentlySearchedLabels = data.recentlySearchedLabels
-            }).store(in: cancelbag)
         }
 
         func refresh() {
@@ -185,7 +175,7 @@ struct SearchView: View {
         }
 
         func onAppear() {
-            print("this is onappear function ")
+      
             cachedImages.forEach { entity in
 
                 if entity.isBookmark {

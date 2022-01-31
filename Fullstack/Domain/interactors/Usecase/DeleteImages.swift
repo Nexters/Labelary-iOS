@@ -14,13 +14,17 @@ struct DeleteImages: Usecase {
 
     let imageRepository: ImageRepository
 
-    func get(param: Param) -> Observable<Result> {
-        return Just(param)
-            .map{_ in []}
-            .receive(on: DispatchQueue.global())
-            .flatMap { _ in imageRepository.deleteImages(images: param) }
-            .receive(on: DispatchQueue.main)
-            .asObservable()
-            .eraseToAnyPublisher()
+//    func get(param: Param) -> Observable<Result> {
+//        return Just(param)
+//            .map{_ in []}
+//            .receive(on: DispatchQueue.global())
+//            .flatMap { _ in imageRepository.deleteImages(images: param) }
+//            .receive(on: DispatchQueue.main)
+//            .asObservable()
+//            .eraseToAnyPublisher()
+//    }
+    func get(param: [ImageEntity]) -> Observable<[String]> {
+        
+        return imageRepository.deleteImages(images: param)
     }
 }

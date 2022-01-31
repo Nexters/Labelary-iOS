@@ -71,7 +71,6 @@ struct CachedData: CachedDataSource {
                 results.append(assets.object(at: index).toEntity())
             }
         }
-        
 
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
@@ -91,11 +90,6 @@ struct CachedData: CachedDataSource {
         let realm: Realm = try! Realm()
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
         let set = Set(labelQuery)
-        /*
-             let query = realm.objects(LabelImageRealmModel.self).filter {
-                 item in item.labels.allSatisfy { label in labels.contains { $0.id == label.id } }
-             } // 합집합
-         */
 
         let query = realm.objects(LabelImageRealmModel.self).filter {
             set.isSubset(of: Set($0.labels))
@@ -304,14 +298,19 @@ struct CachedData: CachedDataSource {
 
     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
         let realm: Realm = try! Realm()
-        let imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-            .filter { item in images.contains { $0.source == item.source }}
-        let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
-            .filter { item in images.contains { $0.source == item.image?.source }}
-     
+        var imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
+            .filter { item in images.contains { $0.id == item.id }}
+
+        var labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
+            .filter { item in images.contains { $0.id == item.image?.id }}
+
         try! realm.write {
-            realm.delete(labelImageQuery)
-            realm.delete(imageQuery)
+            if labelImageQuery != nil {
+                realm.delete(labelImageQuery)
+               
+            } else {
+                realm.delete(imageQuery)
+            }
         }
 
         return Just(imageQuery).asObservable()

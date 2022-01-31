@@ -85,9 +85,11 @@ struct HomeDetailRecentView: View {
                 Spacer()
             }.alert(isPresented: $showingAlert) {
                 Alert(title: Text("스크린샷을 삭제하시겠어요?".localized()), message: Text("스크린샷은 레이블러리와 엘범애서 모두 삭제됩니다.".localized()), primaryButton: .default(Text("취소".localized())), secondaryButton: .destructive(Text("삭제".localized())) {
+                    output.deleteEntity(images: self.output.items.filter { $0.status == .SELECTING})
                     output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-                    output.refresh()
+
                     output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                 
 
                 })
             }
@@ -181,22 +183,24 @@ struct HomeDetailRecentView: View {
 
         func delete(images: [ImageViewModel]) {
             for image in images {
-                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject!
+                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject
 
                 PHPhotoLibrary.shared().performChanges({ [self] in
                     print("imageentity id:", image.image.id)
                     PHAssetChangeRequest.deleteAssets([asset] as NSArray)
                 }, completionHandler: { isDone, error in
                     print(isDone ? "success+++" : error.debugDescription)
-                    self.refresh()
+                  
                 })
             }
         }
 
         func deleteEntity(images: [ImageViewModel]) {
             for image in images {
-                deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in
-
+                deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in
+                    print("Delete Entity done ! ")
+                }, receiveValue: { data in
+                    print("+++++++ delete Entity +++++", data)
                 }).store(in: cancelbag)
             }
         }
