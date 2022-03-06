@@ -62,7 +62,8 @@ struct SearchView: View {
 
                 }.onAppear(perform: {
                     viewmodel.refresh()
-//                    viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
+                    viewmodel.onAppear()
+                    //   viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
 
                 })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
@@ -99,7 +100,6 @@ struct SearchView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(models.indices, id: \.self) { i in
-
                         let model = models[i]
                         CScreenShotView(imageViewModel: model,
                                         nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
@@ -137,15 +137,15 @@ struct SearchView: View {
     }
 
     class ViewModel: ObservableObject {
-        @Published var recentlyImages: [ImageViewModel] = []
+        @Published var recentlyImages: [ImageViewModel] = [] // model
         @Published var bookmarImages: [ImageViewModel] = []
 
         @Published var keyword: String = ""
         @Published var labels: [LabelEntity] = []
-  
+
         @Published var selectedLabels: [LabelEntity] = []
         let loadSearchMainData = LoadSearchMainData(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
-  
+
         let cancelbag = CancelBag()
 
         var cachedImages: [ImageEntity] = []
@@ -159,6 +159,7 @@ struct SearchView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { data in
+
                         self.recentlyImages = data.recentlyImages.map { ImageViewModel(image: $0) }
                         self.bookmarImages = data.bookmarkedImages.map { ImageViewModel(image: $0) }
                     }
@@ -175,7 +176,6 @@ struct SearchView: View {
         }
 
         func onAppear() {
-      
             cachedImages.forEach { entity in
 
                 if entity.isBookmark {

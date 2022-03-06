@@ -43,7 +43,6 @@ class UnlabeledImageViewModel: ObservableObject {
         if asset == nil {
             self.uiImage = UIImage()
             // delete 하면 ??
-
             print("reloadFail")
         } else {
             PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: asset!.pixelWidth/10, height: asset!.pixelHeight/10), contentMode: .aspectFit, options: options, resultHandler: { result, _ in

@@ -47,9 +47,12 @@ struct CachedData: CachedDataSource {
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
             for index in 0 ..< assets.count {
-                results.append(assets.object(at: index).toEntity())
+                if assets.object(at: index) != nil { // 여기 바꿔봄 
+                    results.append(assets.object(at: index).toEntity())
+                }
             }
         }
+        // source 가 삭제된 경우 거르기 !!
 
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}
@@ -179,9 +182,6 @@ struct CachedData: CachedDataSource {
         let labelQuery = realm.objects(LabelRealmModel.self).filter { item in labels.contains { $0.id == item.id }}
 
         var labelImageQuery = realm.objects(LabelImageRealmModel.self).filter { item in images.contains { $0.id == item.image?.id }}
-        print("image entity count : ", images.count)
-        print("imageQuery count:", imageQuery.count)
-        print("labelImageQuery count : ", labelImageQuery.count)
 
         if imageQuery.count == 0 {
             try! realm.write {
@@ -198,7 +198,6 @@ struct CachedData: CachedDataSource {
         }
 
         imageQuery = realm.objects(ImageRealmModel.self).filter { item in images.contains { $0.id == item.id }}
-        print("imageQuery2222 count:", imageQuery.count)
 
         if labelImageQuery.isEmpty {
             try! realm.write {
@@ -307,7 +306,7 @@ struct CachedData: CachedDataSource {
         try! realm.write {
             if labelImageQuery != nil {
                 realm.delete(labelImageQuery)
-               
+
             } else {
                 realm.delete(imageQuery)
             }

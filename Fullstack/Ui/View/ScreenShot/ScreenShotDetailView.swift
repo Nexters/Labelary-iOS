@@ -118,20 +118,23 @@ struct ScreenShotDetailView: View {
                 }
             }.edgesIgnoringSafeArea([.top, .bottom])
 
-        }.toast(isPresenting: viewmodel.$showDeleteToast, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.".localized())
-        }
-        .toast(isPresenting: $showToastOn, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
-        }
-        .toast(isPresenting: $showToastOff, duration: 0.5) {
-            AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
-        }
+        }.onAppear(perform: {
+            print("Image Entity 정보 :", viewmodel.imageViewModel.image)
+        })
+            .toast(isPresenting: viewmodel.$showDeleteToast, duration: 0.5) {
+                AlertToast(displayMode: .alert, type: .regular, subTitle: "스크린샷이 삭제되었습니다.".localized())
+            }
+            .toast(isPresenting: $showToastOn, duration: 0.5) {
+                AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n추가되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
+            }
+            .toast(isPresenting: $showToastOff, duration: 0.5) {
+                AlertToast(displayMode: .alert, type: .image("ico_heart-1", .DEPTH_1), subTitle: "즐겨찾기에서\n삭제되었습니다.".localized(), style: .style(backgroundColor: Color(hex: "B3000000"), subTitleColor: Color.PRIMARY_1, subTitleFont: Font.B1_REGULAR))
+            }
 
-        .onTapGesture {
-            viewmodel.isOnHover = !viewmodel.isOnHover
-        }.navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+            .onTapGesture {
+                viewmodel.isOnHover = !viewmodel.isOnHover
+            }.navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
     }
 
     class ViewModel: ObservableObject {
@@ -197,8 +200,7 @@ struct ScreenShotDetailView: View {
             })
             imageViewModel.status = .SELECTING
         }
-        
-        
+
         func deleteEntity() {
             deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
         }

@@ -31,6 +31,7 @@ struct HomeDetailView: View {
                         .padding(.leading, output.isEditing ? 18 : 20)
                         .onTapGesture {
                             if self.output.isEditing {
+                                output.refresh()
                                 output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
 
                                 for i in output.items.indices {
@@ -86,10 +87,9 @@ struct HomeDetailView: View {
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("스크린샷을 삭제하시겠어요?".localized()), message: Text("스크린샷은 레이블러리와 엘범애서 모두 삭제됩니다.".localized()), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
-        
                     output.deleteEntity(images: self.output.items.filter { $0.status == .SELECTING })
                     output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-                    output.changeItems(items: self.output.items.filter { $0.status != .SELECTING })
+                
                 })
             }
         }.navigationBarBackButtonHidden(true)
@@ -176,13 +176,10 @@ struct HomeDetailView: View {
                     PHAssetChangeRequest.deleteAssets([asset] as NSArray)
                 }, completionHandler: { isDone, error in
                     print(isDone ? "success+++" : error.debugDescription)
-                  
+
                 })
             }
         }
-
-   
-
 
         func deleteEntity(images: [ImageViewModel]) {
             for image in images {

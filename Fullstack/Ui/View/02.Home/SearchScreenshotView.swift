@@ -165,6 +165,7 @@ struct SearchScreenshotView: View {
         // 최근 검색한 라벨
         let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData())) // 모든 라벨들을 로드
         let cancelbag = CancelBag()
+        
 
         init() {
             loadLabelingSelectData.get().sink(receiveCompletion: {
