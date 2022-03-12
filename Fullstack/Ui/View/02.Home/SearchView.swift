@@ -63,8 +63,6 @@ struct SearchView: View {
                 }.onAppear(perform: {
                     viewmodel.refresh()
                     viewmodel.onAppear()
-                    //   viewmodel.changeItems(recentlyImages: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, bookmarkedImages: viewmodel.bookmarImages.filter { $0.status != .SELECTING })
-
                 })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
@@ -159,11 +157,14 @@ struct SearchView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { data in
-
+                        
                         self.recentlyImages = data.recentlyImages.map { ImageViewModel(image: $0) }
                         self.bookmarImages = data.bookmarkedImages.map { ImageViewModel(image: $0) }
                     }
                 ).store(in: cancelbag)
+            
+            self.recentlyImages = recentlyImages.filter { $0.image.isAvailable == true }
+            self.bookmarImages = bookmarImages.filter { $0.image.isAvailable == true }
         }
 
         func onChangeBookMark(entity: ImageEntity) {
@@ -177,7 +178,7 @@ struct SearchView: View {
 
         func onAppear() {
             cachedImages.forEach { entity in
-
+                
                 if entity.isBookmark {
                     if !bookmarImages.contains(where: { $0.image.id == entity.id }) {
                         if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {

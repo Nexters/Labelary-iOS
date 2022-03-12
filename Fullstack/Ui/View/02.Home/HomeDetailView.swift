@@ -2,7 +2,6 @@
 //  HomeDetail.swift
 //  Fullstack
 //
-//  Created by 김범준 on 2021/02/15.
 //
 
 import Foundation
@@ -87,9 +86,9 @@ struct HomeDetailView: View {
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("스크린샷을 삭제하시겠어요?".localized()), message: Text("스크린샷은 레이블러리와 엘범애서 모두 삭제됩니다.".localized()), primaryButton: .default(Text("취소")), secondaryButton: .destructive(Text("삭제")) {
+                    //    output.delete(images: self.output.items.filter { $0.status == .SELECTING })
                     output.deleteEntity(images: self.output.items.filter { $0.status == .SELECTING })
-                    output.delete(images: self.output.items.filter { $0.status == .SELECTING })
-                
+
                 })
             }
         }.navigationBarBackButtonHidden(true)
@@ -167,6 +166,7 @@ struct HomeDetailView: View {
             }).store(in: cancelBag)
         }
 
+        // Photo 라이브러리에서 삭제하는 로직
         func delete(images: [ImageViewModel]) {
             for image in images {
                 let asset = PHAsset.fetchAssets(withLocalIdentifiers: [image.image.source], options: nil).firstObject
@@ -183,8 +183,8 @@ struct HomeDetailView: View {
 
         func deleteEntity(images: [ImageViewModel]) {
             for image in images {
+                image.image.isAvailable = false
                 deleteImages.get(param: [image.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in
-
                 }).store(in: cancelBag)
             }
         }

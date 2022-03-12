@@ -32,7 +32,8 @@ protocol CachedDataSource {
     func requestLabeling(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[LabelImageEntity]>
 
     func deleteLabel(labels: [LabelEntity], images: [ImageEntity]) -> Observable<[String]>
-    func deleteImages(images: [ImageEntity]) -> Observable<[String]>
+    func deleteImages(images: [ImageEntity]) -> Observable<[ImageEntity]>
+   // func deleteImages(images: [ImageEntity]) -> Observable<[String]>
 
     func isExistOnRealm(image: ImageEntity) -> Observable<Bool>
     func createImageRealModel(image: ImageEntity) -> Observable<ImageEntity?>

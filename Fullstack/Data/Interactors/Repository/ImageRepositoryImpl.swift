@@ -46,7 +46,12 @@ struct ImageRepositoryImpl: ImageRepository {
         return cachedDataSource.deleteLabel(labels: labels, images: images)
     }
     
-    func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
+//    func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
+//        return cachedDataSource.deleteImages(images: images)
+//    }
+
+    
+    func deleteImages(images: [ImageEntity]) -> Observable<[ImageEntity]> {
         return cachedDataSource.deleteImages(images: images)
     }
     

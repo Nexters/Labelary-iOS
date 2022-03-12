@@ -87,8 +87,8 @@ struct ScreenShotDetailView: View {
                     //      ZStack {}.frame(width: .infinity, height: 0.5).background(Color.PRIMARY_2)
                     HStack {
                         Image("ico_delete_active").onTapGesture {
-                            viewmodel.delete()
                             viewmodel.deleteEntity()
+                         //   viewmodel.delete()
                         }
                         Spacer()
                         if viewmodel.imageViewModel.image.isBookmark {
@@ -185,25 +185,31 @@ struct ScreenShotDetailView: View {
                 }).store(in: cancelbag)
         }
 
-        func delete() {
-            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject!
-
-            PHPhotoLibrary.shared().performChanges({ [self] in
-                print("imageentity id:", imageViewModel.image.id)
-                PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
-            }, completionHandler: { isDone, error in
-                print(isDone ? "success+++" : error.debugDescription)
-                if isDone {
-                    self.showDeleteToast = true
-                    print("삭제 완료!")
-                }
-            })
-            imageViewModel.status = .SELECTING
-        }
-
         func deleteEntity() {
-            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: cancelbag)
+            deleteImages.get(param: [imageViewModel.image]).sink(receiveCompletion: { _ in
+            }, receiveValue: { _ in }).store(in: cancelbag)
         }
+        
+        func delete() {
+            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [imageViewModel.image.source], options: nil).firstObject ?? nil
+            if asset != nil {
+                PHPhotoLibrary.shared().performChanges({ [self] in
+                    print("imageentity id:", imageViewModel.image.id)
+                    PHAssetChangeRequest.deleteAssets([asset] as NSArray) // 배열에 담아서 NSArray로 바꿔줘야 합니다. 정확히는 NSFastEnumerator를 상속받은 클래스면 됩니다.
+                }, completionHandler: { isDone, error in
+                    print(isDone ? "success+++" : error.debugDescription)
+                    if isDone {
+                        self.showDeleteToast = true
+                        print("삭제 완료!")
+                    }
+                })
+            } else {
+                deleteEntity()
+            }
+          
+        }
+
+        
     }
 }
 

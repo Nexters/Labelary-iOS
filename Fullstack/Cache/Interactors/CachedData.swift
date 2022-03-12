@@ -2,8 +2,6 @@
 //  RealmDataSource.swift
 //  Fullstack
 //
-//  Created by 김범준 on 2021/01/27.
-//
 
 import Combine
 import Foundation
@@ -46,10 +44,9 @@ struct CachedData: CachedDataSource {
         var results: [ImageEntity] = []
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
+
             for index in 0 ..< assets.count {
-                if assets.object(at: index) != nil { // 여기 바꿔봄 
-                    results.append(assets.object(at: index).toEntity())
-                }
+                results.append(assets.object(at: index).toEntity())
             }
         }
         // source 가 삭제된 경우 거르기 !!
@@ -295,27 +292,81 @@ struct CachedData: CachedDataSource {
 //            }.eraseToAnyPublisher()
 //    }
 
-    func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
-        let realm: Realm = try! Realm()
-        var imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
-            .filter { item in images.contains { $0.id == item.id }}
+    /*
+     func deleteImages(images: [ImageEntity]) -> Observable<[String]> {
+         let realm: Realm = try! Realm()
+         var imageQuery: [ImageRealmModel] = realm.objects(ImageRealmModel.self)
+             .filter { item in images.contains { $0.id == item.id }}
 
-        var labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
+         var labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
+             .filter { item in images.contains { $0.id == item.image?.id }}
+
+         do {
+             try realm.write {
+                 if labelImageQuery.count > 0 {
+                     realm.delete(labelImageQuery)
+                 }
+
+                 for image in imageQuery {
+                     image.isAvailable = false
+                 }
+             }
+         } catch let err {
+             print(err)
+         }
+
+         imageQuery = realm.objects(ImageRealmModel.self)
+             .filter { item in images.contains { $0.id == item.id }}
+
+         return Just(imageQuery).asObservable()
+             .map { _ in
+                 imageQuery.mapNotNull { $0.id }
+             }.eraseToAnyPublisher()
+     }
+
+     */
+
+    func deleteImages(images: [ImageEntity]) -> Observable<[ImageEntity]> {
+        let realm: Realm = try! Realm()
+
+        let labelImageQuery: [LabelImageRealmModel] = realm.objects(LabelImageRealmModel.self)
             .filter { item in images.contains { $0.id == item.image?.id }}
 
-        try! realm.write {
-            if labelImageQuery != nil {
-                realm.delete(labelImageQuery)
-
+        for img in images {
+            let imgQuery: ImageRealmModel? = realm.object(ofType: ImageRealmModel.self, forPrimaryKey: img.id)
+            if imgQuery == nil {
+                try! realm.write {
+                    let model = ImageRealmModel()
+                    model.id = img.id
+                    model.source = img.source
+                    model.isAvailable = false
+                    realm.add(model)
+                }
             } else {
-                realm.delete(imageQuery)
+                try! realm.write {
+                    imgQuery!.isAvailable = false
+                }
             }
         }
 
+        do {
+            try realm.write {
+                if labelImageQuery.count > 0 {
+                    realm.delete(labelImageQuery)
+                }
+            }
+        } catch let err {
+            print(err)
+        }
+
+        let imageQuery = realm.objects(ImageRealmModel.self)
+            .filter { item in images.contains { $0.id == item.id }}
+
         return Just(imageQuery).asObservable()
             .map { _ in
-                imageQuery.mapNotNull { $0.id }
-            }.eraseToAnyPublisher()
+                imageQuery.mapNotNull { $0.convertToEntity() }
+            }
+            .eraseToAnyPublisher()
     }
 
     func isExistOnRealm(image: ImageEntity) -> Observable<Bool> {

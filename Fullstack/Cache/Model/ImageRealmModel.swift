@@ -13,6 +13,7 @@ class ImageRealmModel: Object {
     @objc dynamic var source: String?
 
     @objc dynamic var isBookmark: Bool = false
+    @objc dynamic var isAvailable: Bool = true
 
     override static func primaryKey() -> String {
         return "id"
@@ -29,6 +30,7 @@ extension ImageRealmModel {
             source: source,
             id: self.id,
             isBookmark: self.isBookmark,
+            isAvailable: self.isAvailable,
             isCached: true
         )
     }

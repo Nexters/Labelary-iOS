@@ -13,6 +13,7 @@ struct ImageEntity: Entity {
     let source: String
     var id: String
     var isBookmark: Bool = false
+    var isAvailable: Bool = true
     var isCached: Bool = false
     var createdAt: Date?
 
@@ -34,6 +35,7 @@ extension PHAsset {
             source: localIdentifier,
             id: localIdentifier,
             isBookmark: false,
+            isAvailable: true,
             createdAt: creationDate 
         )
     }
