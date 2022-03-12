@@ -88,7 +88,7 @@ struct ScreenShotDetailView: View {
                     HStack {
                         Image("ico_delete_active").onTapGesture {
                             viewmodel.deleteEntity()
-                         //   viewmodel.delete()
+                            viewmodel.delete()
                         }
                         Spacer()
                         if viewmodel.imageViewModel.image.isBookmark {
