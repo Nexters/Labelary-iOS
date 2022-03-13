@@ -67,7 +67,6 @@ struct MainLabelingView: View {
     var body: some View {
         ZStack {
             Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-        
             VStack(alignment: .center) {
                 HStack {
                     Text("스크린샷 라벨링".localized())
@@ -81,8 +80,8 @@ struct MainLabelingView: View {
                         .frame(height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(2.0)
-                }
-                .padding(.bottom, 74)
+                }.offset(y: -30)
+                
                 ZStack {
                     Image("shadow")
                         .resizable()
@@ -110,7 +109,7 @@ struct MainLabelingView: View {
                                     .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                             }
                         )
-                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
+                        //     .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .environment(\.cardStackConfiguration, .init(maxVisibleCards: 1, animation: .linear(duration: 0)))
                         .id(reloadToken)
                         .overlay(
@@ -124,6 +123,9 @@ struct MainLabelingView: View {
                                     
                                 }, label: {
                                     Image("main_skip_btn")
+                                        .resizable()
+                                        .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                        
                                 })
                                 Spacer(minLength: 150)
                             
@@ -131,22 +133,22 @@ struct MainLabelingView: View {
                                 Button(action: {
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
-                                    // print("image entity : ",needToLabelingData.imageData.first)
-                            
+                                   
                                 }, label: {
                                     Image("main_add_btn")
+                                        .resizable()
+                                        .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                                 })
-                                
-                            }.padding(40)
-                                .offset(y: 150)
+                            }
+                            .offset(y: 210)
                         )
                     }.onAppear(perform: {
                         self.reloadToken = UUID()
                     })
-                    
-                        .offset(y: -3)
-                }
-                .offset(y: -40)
+                }.padding(.top, 40)
+                    .padding(.leading, 63)
+                    .padding(.trailing, 64)
+                    .padding(.bottom, 57)
             }
             
             NavigationLink(
