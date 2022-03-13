@@ -24,17 +24,17 @@ struct CardViewWithShadow: View {
                 ZStack {
                     CardView(photo: photo)
                         .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
-
+                    
                     Image("shadow_blue")
                         .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
-                        .opacity(direction == .right ? 0.6 : 0)
+                        .frame(width: UIScreen.screenWidth * 0.72, height: UIScreen.screenHeight * 0.62)
+                        .opacity(direction == .right ? 0.8 : 0)
                 }
 
                 Image("shadow_red")
                     .resizable()
-                    .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
-                    .opacity(direction == .left ? 0.6 : 0)
+                    .frame(width: UIScreen.screenWidth * 0.72, height: UIScreen.screenHeight * 0.62)
+                    .opacity(direction == .left ? 0.8 : 0)
             }
 
             .animation(.default)
