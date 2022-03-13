@@ -5,11 +5,11 @@
 //  Created by 우민지 on 2021/02/14.
 //
 
-import RealmSwift
 import MobileCoreServices
+import Realm
+import RealmSwift
 import SwiftUI
 import UIKit
-
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
@@ -29,18 +29,46 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        accessMainRealm()
         if shareExtension.dismiss {
             print("dismiss share extension ")
             let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
             navigationItem.setLeftBarButton(itemCancel, animated: true)
         }
     }
-    
+
     // MARK: - Realm
-    func accessMainRealm(){
-        
+
+    func shareRealm() {
+        print(#function)
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack")?.appendingPathComponent("shared.realm")
+        let sharedConfig = Realm.Configuration(fileURL: directory)
+        if let bundleURL = Bundle.main.url(forResource: "bundle", withExtension: "realm") {
+            if !FileManager.default.fileExists(atPath: directory!.path) {
+                try! FileManager.default.copyItem(at: bundleURL, to: sharedConfig.fileURL!)
+                print(sharedConfig.fileURL!)
+            } else {
+                print("file exist")
+            }
+        }
+        print("========================")
     }
-    
+
+    func inLibraryFolder(fileName: String) -> URL {
+        let libraryUserDomain = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
+        let makeFileURL = URL(fileURLWithPath: libraryUserDomain[0], isDirectory: true)
+        return makeFileURL.appendingPathComponent(fileName)
+    }
+
+    func accessMainRealm() {
+        print(#function)
+        let config = Realm.Configuration(fileURL: inLibraryFolder(fileName: "main.realm"))
+        let realm = try! Realm(configuration: config)
+        let labels = realm.objects(LabelRealmModel.self)
+        print("Labels in DB: =\(labels.count)")
+        print(config.fileURL!)
+    }
+
     // MARK: - Get Image file from share extension
 
     func getImage() {
