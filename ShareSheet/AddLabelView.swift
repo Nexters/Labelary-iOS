@@ -72,16 +72,17 @@ struct AddLabelView: View {
         ZStack {
             Color.DEPTH_5.ignoresSafeArea(edges: .all)
             VStack(alignment: .leading) {
-                Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
-                    .frame(width: 37, height: 20, alignment: .leading)
+                Text("라벨명".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
+                    .frame(height: 20, alignment: .leading)
+                    .foregroundColor(Color.PRIMARY_2)
                     .padding(7)
 
-                FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
+                FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.".localized())
                     .frame(width: 350, height: 40, alignment: .trailing)
                     .foregroundColor(Color.PRIMARY_4)
                     .padding(7)
 
-                Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                Text("라벨 컬러 선택".localized()).font(.custom("Apple SD Gothic Neo", size: 12))
                     .foregroundColor(Color.PRIMARY_2)
                     .frame(width: 81, height: 20, alignment: .leading)
                     .padding(7)

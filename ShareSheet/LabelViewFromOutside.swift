@@ -120,18 +120,18 @@ struct LabelViewFromOutside: View {
                             Spacer(minLength: 40)
                             if self.keyword.isEmpty {
                                 HStack {
-                                    Text("내 라벨").font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                    Text("내 라벨".localized()).font(Font.system(size: 14)).foregroundColor(Color.secondary)
                                     Text(" \(self.viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                                 }.padding(.leading, 20)
                             } else {
                                 if self.viewModel.labels.filter { $0.name.contains(keyword) }.count > 0 {
                                     HStack {
-                                        Text("검색 결과").font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                        Text("검색 결과".localized()).font(Font.system(size: 14)).foregroundColor(Color.secondary)
                                         Text("\(self.viewModel.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
                                     }
                                 } else {
                                     VStack(alignment: .leading) {
-                                        Text("검색결과가 없습니다 ")
+                                        Text("검색결과가 없습니다 ".localized())
                                             .font(Font.system(size: 14)).foregroundColor(Color.secondary)
                                             .padding(.leading, 20)
                                         Spacer(minLength: 10)
@@ -139,7 +139,7 @@ struct LabelViewFromOutside: View {
                                         HStack {
                                             Text("\(keyword)").font(Font.system(size: 16)).foregroundColor(Color.secondary).offset(x: 8)
                                             NavigationLink(destination: AddLabelView(), isActive: $showAddLabelView) {
-                                                Text("생성")
+                                                Text("생성".localized())
                                                     .onTapGesture {
                                                         self.showAddLabelView = true
                                                     }
@@ -171,7 +171,7 @@ struct LabelViewFromOutside: View {
                     }
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("추가한 라벨")
+                            Text("추가한 라벨".localized())
                             Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
                         }.padding([.leading, .top], 20)
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -194,7 +194,7 @@ struct LabelViewFromOutside: View {
                         .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                         .opacity(selectedLabels.count > 0 ? 1 : 0)
                 }
-                .navigationBarTitle(Text("스크린샷 라벨 추가"), displayMode: .inline)
+                .navigationBarTitle(Text("스크린샷 라벨 추가".localized()), displayMode: .inline)
                 .navigationBarItems(leading:
                     Button(action: {
                         self.shareExtension.dismiss = true
@@ -206,7 +206,7 @@ struct LabelViewFromOutside: View {
 
                         print("완료버튼 작동")
                     }, label: {
-                        Text("완료").font(Font.system(size: 16))
+                        Text("완료".localized()).font(Font.system(size: 16))
                             .foregroundColor(Color.KEY_ACTIVE)
                     }))
             }

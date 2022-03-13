@@ -99,6 +99,8 @@
 		24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9B92746A626007C0D49 /* AlbumListEmptyStateView.swift */; };
 		24F7C9BC27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BB27474E6A007C0D49 /* LoadRecentlyLabeledImage.swift */; };
 		24F7C9BE27474E8B007C0D49 /* LoadOldLabeledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7C9BD27474E8B007C0D49 /* LoadOldLabeledImage.swift */; };
+		24F7D54427DE18F700DF9965 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24101FE027A541B600B18E40 /* String+.swift */; };
+		24F7D54527DE18FA00DF9965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24101FDE27A5413E00B18E40 /* Localizable.strings */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
 		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
@@ -844,6 +846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				248CE63925F7624300FA7892 /* Assets.xcassets in Resources */,
+				24F7D54527DE18FA00DF9965 /* Localizable.strings in Resources */,
 				56C7912C2699A0690077367A /* GoogleService-Info.plist in Resources */,
 				2475AB2725D8FABD0086B24D /* MainInterface.storyboard in Resources */,
 			);
@@ -1036,6 +1039,7 @@
 				24943BEC2730FA4A006C9705 /* LabelImageRepository.swift in Sources */,
 				24B0EDD526DDC70400FE599B /* CachedDataSource.swift in Sources */,
 				24EFFDAE27DC9B65002ED27B /* LabelImageRepositoryImpl.swift in Sources */,
+				24F7D54427DE18F700DF9965 /* String+.swift in Sources */,
 				24534FEB266F71BE00E77669 /* Typography.swift in Sources */,
 				24EFFDAD27DC9B61002ED27B /* ImageRepositoryImpl.swift in Sources */,
 				24943BEB2730FA3C006C9705 /* LabelImage.swift in Sources */,

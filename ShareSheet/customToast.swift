@@ -15,7 +15,7 @@ struct customToast: View {
             Spacer()
             HStack(alignment: .center) {
                 Spacer()
-                Text("스크린샷에 라벨이 추가되었습니다. ")
+                Text("스크린샷에 라벨이 추가되었습니다. ".localized())
                     .foregroundColor(Color.DEPTH_3)
                     .font(Font.B2_MEDIUM)
 
@@ -24,7 +24,7 @@ struct customToast: View {
                     print("앱으로 이동하기")
 
                 }, label: {
-                    Text("보기")
+                    Text("보기".localized())
                 }).foregroundColor(Color.KEY_ACTIVE)
                     .font(Font.B1_BOLD)
                 Spacer()
