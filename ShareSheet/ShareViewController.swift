@@ -5,6 +5,7 @@
 //  Created by 우민지 on 2021/02/14.
 //
 
+import RealmSwift
 import MobileCoreServices
 import SwiftUI
 import UIKit
@@ -34,7 +35,12 @@ class ShareViewController: UIViewController {
             navigationItem.setLeftBarButton(itemCancel, animated: true)
         }
     }
-
+    
+    // MARK: - Realm
+    func accessMainRealm(){
+        
+    }
+    
     // MARK: - Get Image file from share extension
 
     func getImage() {

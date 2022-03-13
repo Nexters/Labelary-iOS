@@ -12,16 +12,11 @@ target 'Fullstack' do
   pod "Resolver"
   pod 'Firebase/Analytics'
   pod 'AlertToast'
-end
 
 target 'ShareSheet' do
-  use_frameworks!
-  pod 'RealmSwift', '~> 10.5.1'
-  pod 'OpenCombine', '~> 0.12.0'
-  pod 'OpenCombineDispatch', '~> 0.12.0'
-  pod 'OpenCombineFoundation', '~> 0.12.0'
+  inherit! :search_paths
 end
-
+end
 post_install do |installer|
  installer.pods_project.targets.each do |target|
   target.build_configurations.each do |config|
