@@ -28,13 +28,13 @@ struct CardViewWithShadow: View {
                     Image("shadow_blue")
                         .resizable()
                         .frame(width: UIScreen.screenWidth * 0.72, height: UIScreen.screenHeight * 0.62)
-                        .opacity(direction == .right ? 0.8 : 0)
+                        .opacity(direction == .right ? 0.7 : 0)
                 }
 
                 Image("shadow_red")
                     .resizable()
                     .frame(width: UIScreen.screenWidth * 0.72, height: UIScreen.screenHeight * 0.62)
-                    .opacity(direction == .left ? 0.8 : 0)
+                    .opacity(direction == .left ? 0.7 : 0)
             }
 
             .animation(.default)
