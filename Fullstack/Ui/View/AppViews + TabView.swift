@@ -46,7 +46,8 @@ struct AppView: View {
                         }.tag(2)
 
                 })
-            }
+            }.statusBar(hidden: false)
+            .preferredColorScheme(.dark)
         }
     }
 
