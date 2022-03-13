@@ -133,8 +133,6 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                     }
             }
 
-            
-
             Image("ico_heart_small")
                 .padding(.leading, 8)
                 .padding(.bottom, 8)
@@ -146,16 +144,19 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
                 .opacity(isLabeled ? 1 : 0)
 
         }.onTapGesture {
-            isPresent = true
+            if imageViewModel.status == .EDITING {
+                imageViewModel.status = .SELECTING
+            } else {
+                isPresent = true
+            }
         }
         .onAppear(perform: {
-            if viewModel.countLabels(image: imageViewModel.image ) > 0 {
+            if viewModel.countLabels(image: imageViewModel.image) > 0 {
                 isLabeled = true
             } else {
                 isLabeled = false
             }
-            
-        
+
         })
     }
 
@@ -173,6 +174,5 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             }).store(in: cancelBag)
             return labels.count
         }
-        
     }
 }

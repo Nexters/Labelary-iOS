@@ -103,6 +103,7 @@ struct PageView: View {
                     .font(Font.H2_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
                     .padding(.leading, 40)
+                    .padding(.top, 26)
                 Text(viewData.description)
                     .font(Font.B2_REGULAR)
                     .foregroundColor(Color.PRIMARY_2)

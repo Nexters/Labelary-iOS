@@ -69,63 +69,67 @@ struct AddLabelView: View {
     @State var isSelected: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
-                .frame(width: 37, height: 20, alignment: .leading)
-                .padding(7)
+        ZStack {
+            Color.DEPTH_5.ignoresSafeArea(edges: .all)
+            VStack(alignment: .leading) {
+                Text("라벨명").font(.custom("Apple SD Gothic Neo", size: 12))
+                    .frame(width: 37, height: 20, alignment: .leading)
+                    .padding(7)
 
-            FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
-                .frame(width: 350, height: 40, alignment: .trailing)
-                .foregroundColor(.white)
-                .padding(7)
+                FirstResponderTextField(text: $text, placeholder: "라벨명을 입력해주세요.")
+                    .frame(width: 350, height: 40, alignment: .trailing)
+                    .foregroundColor(Color.PRIMARY_4)
+                    .padding(7)
 
-            Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
-                .frame(width: 81, height: 20, alignment: .leading)
-                .padding(7)
+                Text("라벨 컬러 선택").font(.custom("Apple SD Gothic Neo", size: 12))
+                    .foregroundColor(Color.PRIMARY_2)
+                    .frame(width: 81, height: 20, alignment: .leading)
+                    .padding(7)
 
-            HStack(alignment: .center) {
-                VStack {
-                    // ForEach 부하걸리니까 수정해야함
-                    ForEach(0 ..< labelButtons.count / 2) {
-                        button in
+                HStack(alignment: .center) {
+                    VStack {
+                        // ForEach 부하걸리니까 수정해야함
+                        ForEach(0 ..< labelButtons.count / 2) {
+                            button in
 
-                        Button(action: {
-                            self.selectedIndex = button
-                            self.isSelected = true
+                            Button(action: {
+                                self.selectedIndex = button
+                                self.isSelected = true
 
-                        }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
+                            }) {
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
 
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
                             }
+                            .padding([.top, .leading], 10)
                         }
-                        .padding([.top, .leading], 10)
+                    }
+
+                    VStack {
+                        ForEach(5 ..< labelButtons.count) {
+                            button in
+
+                            Button(action: {
+                                self.selectedIndex = button
+                                print(button)
+                                self.isSelected = true
+                            }) {
+                                if selectedIndex == button {
+                                    Image("Label_middle_Selected_\(self.labelButtons[button])")
+
+                                } else {
+                                    Image("Label_middle_dark_\(self.labelButtons[button])")
+                                }
+                            }
+                            .padding([.top, .leading], 10)
+                        }
                     }
                 }
-
-                VStack {
-                    ForEach(5 ..< labelButtons.count) {
-                        button in
-
-                        Button(action: {
-                            self.selectedIndex = button
-                            print(button)
-                            self.isSelected = true
-                        }) {
-                            if selectedIndex == button {
-                                Image("Label_middle_Selected_\(self.labelButtons[button])")
-
-                            } else {
-                                Image("Label_middle_dark_\(self.labelButtons[button])")
-                            }
-                        }
-                        .padding([.top, .leading], 10)
-                    }
-                }
+                Spacer()
             }
-            Spacer()
         }
     }
 }

@@ -103,7 +103,9 @@ struct SearchView: View {
                                         nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                     }
                 }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
-            }
+            }.onAppear(perform: {
+                viewmodel.refresh()
+            })
         }
     }
 
@@ -127,7 +129,9 @@ struct SearchView: View {
                                     nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: model, onChangeBookmark: viewmodel.onChangeBookMark), onChangeBookMark: viewmodel.onChangeBookMark, onDeleteImage: onDeleteImage), width: 90, height: 195)
                 }
             }.padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 0))
-        }
+        }.onAppear(perform: {
+            viewmodel.refresh()
+        })
     }
 
     private func onDeleteImage(id: String) {
@@ -157,14 +161,14 @@ struct SearchView: View {
                 .sink(
                     receiveCompletion: { _ in },
                     receiveValue: { data in
-                        
+
                         self.recentlyImages = data.recentlyImages.map { ImageViewModel(image: $0) }
                         self.bookmarImages = data.bookmarkedImages.map { ImageViewModel(image: $0) }
                     }
                 ).store(in: cancelbag)
-            
-            self.recentlyImages = recentlyImages.filter { $0.image.isAvailable == true }
-            self.bookmarImages = bookmarImages.filter { $0.image.isAvailable == true }
+
+            recentlyImages = recentlyImages.filter { $0.image.isAvailable == true }
+            bookmarImages = bookmarImages.filter { $0.image.isAvailable == true }
         }
 
         func onChangeBookMark(entity: ImageEntity) {
@@ -178,7 +182,7 @@ struct SearchView: View {
 
         func onAppear() {
             cachedImages.forEach { entity in
-                
+
                 if entity.isBookmark {
                     if !bookmarImages.contains(where: { $0.image.id == entity.id }) {
                         if let item = recentlyImages.first(where: { $0.image.id == entity.id }) {

@@ -15,7 +15,7 @@ class Storage {
             print("first time to launch")
             return true
         } else {
-            print("THis is Not the first time to launch")
+            print("This is Not the first time to launch")
             return false
         }
     }

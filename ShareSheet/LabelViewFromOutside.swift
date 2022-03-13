@@ -9,6 +9,8 @@ import Combine
 import MobileCoreServices
 import SwiftUI
 import UIKit
+import Realm
+import RealmSwift
 
 func giveLabelBackgroundColor(color: String) -> Color {
     switch color {
@@ -213,6 +215,9 @@ struct LabelViewFromOutside: View {
     }
 
     class ViewModel: ObservableObject {
+        
+        var config = Realm.Configuration()
+        
         @Published var labels: [LabelEntity] = []
 
 //        let cancelBag = CancelBag()

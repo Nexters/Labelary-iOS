@@ -9,7 +9,6 @@ import MobileCoreServices
 import SwiftUI
 import UIKit
 
-let defaults = UserDefaults(suiteName: "group.labelery")
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
