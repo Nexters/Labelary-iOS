@@ -10,8 +10,8 @@ target 'Fullstack' do
   pod 'RealmSwift', '~> 10.5.1'
   pod 'lottie-ios'
   pod "Resolver"
-  pod 'Firebase/Analytics'
   pod 'AlertToast'
+  pod 'Rudder'
 
 target 'ShareSheet' do
   inherit! :search_paths
