@@ -12,6 +12,8 @@ target 'Fullstack' do
   pod "Resolver"
   pod 'AlertToast'
   pod 'Rudder'
+  pod "PostHog", "~> 1.1"
+  pod 'AvoInspector'
   pod 'Firebase/Analytics'
 target 'ShareSheet' do
   inherit! :search_paths

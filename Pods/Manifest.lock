@@ -1,5 +1,7 @@
 PODS:
   - AlertToast (1.3.7)
+  - AvoInspector (1.2.6):
+    - IosAnalyticsDebugger (~> 1.2.3)
   - Firebase/Analytics (8.14.0):
     - Firebase/Core
   - Firebase/Core (8.14.0):
@@ -82,6 +84,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
+  - IosAnalyticsDebugger (1.2.3)
   - lottie-ios (3.1.9)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -93,6 +96,7 @@ PODS:
     - OpenCombine (>= 0.10.2)
   - OpenCombineFoundation (0.12.0):
     - OpenCombine (>= 0.10.2)
+  - PostHog (1.4.4)
   - PromisesObjC (2.0.0)
   - Realm (10.5.1):
     - Realm/Headers (= 10.5.1)
@@ -105,11 +109,13 @@ PODS:
 
 DEPENDENCIES:
   - AlertToast
+  - AvoInspector
   - Firebase/Analytics
   - lottie-ios
   - OpenCombine (~> 0.12.0)
   - OpenCombineDispatch (~> 0.12.0)
   - OpenCombineFoundation (~> 0.12.0)
+  - PostHog (~> 1.1)
   - RealmSwift (~> 10.5.1)
   - Resolver
   - Rudder
@@ -118,6 +124,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AlertToast
+    - AvoInspector
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -126,11 +133,13 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - IosAnalyticsDebugger
     - lottie-ios
     - nanopb
     - OpenCombine
     - OpenCombineDispatch
     - OpenCombineFoundation
+    - PostHog
     - PromisesObjC
     - Realm
     - RealmSwift
@@ -140,6 +149,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AlertToast: 8c9d5efb2df6ea728b32b62bce99d876ec3e5393
+  AvoInspector: d39dd025d43e1e399bf0ec04bdf1aff596063f73
   Firebase: 7e8fe528c161b9271d365217a74c16aaf834578e
   FirebaseAnalytics: 2fc3876e2eb347673ad2f35e249ae7b15d6c88f5
   FirebaseCore: b84a44ee7ba999e0f9f76d198a9c7f60a797b848
@@ -148,11 +158,13 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 71156240babd3cc6ced03e0d54816f01a880c730
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  IosAnalyticsDebugger: 9d4854b61b845c5c5f66fba99a8b3edace1386d0
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenCombine: a8c52f249bc3c7e2bd5ffb75e8653e57a8e33d27
   OpenCombineDispatch: 68ed85ae5255d558a14434a802f65fb833b50d39
   OpenCombineFoundation: b279f27ca5a5a165f0c06e2beb266fc068967bb8
+  PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
@@ -160,6 +172,6 @@ SPEC CHECKSUMS:
   Rudder: 557cc105d77f365821d78403b1abacfd2e3018de
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
 
-PODFILE CHECKSUM: 32c4fdbb52a8ece2ba195f555714eb11fdafc156
+PODFILE CHECKSUM: 5e32f6136791e72b4f803ac98ac3fc2ab1b86f63
 
 COCOAPODS: 1.11.3
