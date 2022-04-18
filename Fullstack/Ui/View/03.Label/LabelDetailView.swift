@@ -127,7 +127,9 @@ struct LabelDetailView: View {
                             .foregroundColor(Color.PRIMARY_1)
                         Spacer()
                     })
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[03.Label]LabelDetailView")
+        })
     }
 
     func onClickedBackBtn() {

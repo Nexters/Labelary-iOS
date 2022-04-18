@@ -68,7 +68,7 @@ struct SearchView: View {
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
         }.onAppear(perform: {
-            posthog?.capture("[02.Home]TabBarTouched")
+            posthog?.capture("[02.Home]SearchView")
         })
     }
 

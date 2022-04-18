@@ -132,7 +132,9 @@ struct AlbumAddLabelView: View {
             }
             Spacer()
                 .navigationBarBackButtonHidden(true)
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[03.Label]AlbumAddLabel")
+        })
     }
 
     func onClickedBackBtn() {

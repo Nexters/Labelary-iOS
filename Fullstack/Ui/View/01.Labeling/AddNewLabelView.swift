@@ -178,7 +178,9 @@ struct AddNewLabelView: View {
                             .foregroundColor(Color.PRIMARY_1)
                         Spacer()
                     })
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[01.Labeling]AddNewLabelView")
+        })
     }
 
     func onClickedBackBtn() {

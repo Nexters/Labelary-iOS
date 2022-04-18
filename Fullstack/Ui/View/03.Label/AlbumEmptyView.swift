@@ -70,6 +70,8 @@ struct AlbumEmptyView: View {
                             .foregroundColor(Color.PRIMARY_1)
                     }
                 )
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[03.Label]AlbumEmptyView")
+        })
     }
 }

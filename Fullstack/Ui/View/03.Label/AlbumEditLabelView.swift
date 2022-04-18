@@ -87,6 +87,9 @@ struct AlbumEditLabelView: View {
                         Text("완료".localized()).font(Font.B1_MEDIUM).foregroundColor(Color.KEY_ACTIVE)
                     }.disabled(!isSelected)
                 })
+            .onAppear(perform: {
+                posthog?.capture("[03.Label]AlbumEditLabelView")
+            })
     }
 
     class ViewModel: ObservableObject {

@@ -93,6 +93,9 @@ struct HomeDetailView: View {
             }
         }.navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+            .onAppear(perform: {
+                posthog?.capture("[02.Home]SearchResultView")
+            })
     }
 
     private func onChangeBookMark(entity: ImageEntity) {

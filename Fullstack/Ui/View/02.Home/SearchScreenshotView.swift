@@ -154,6 +154,9 @@ struct SearchScreenshotView: View {
                     Spacer()
                 }
             )
+            .onAppear(perform: {
+                posthog?.capture("[02.Home]SearchScreenshotView")
+            })
     }
 
     class ViewModel: ObservableObject {

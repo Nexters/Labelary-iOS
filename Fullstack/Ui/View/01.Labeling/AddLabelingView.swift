@@ -378,7 +378,9 @@ struct AddLabelingView: View {
                         output.labels = data
                     }).store(in: cancelBag)
             })
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[01.Labeling]AddLabelingView")
+        })
     }
 
     class Output: ObservableObject {

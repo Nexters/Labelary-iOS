@@ -150,6 +150,7 @@ struct ShowEditLabelView: View {
             Spacer()
 
         }.onAppear(perform: {
+            posthog?.capture("[03.Label]ShowEditLabelView")
             self.text = passingLabelEntity.selectedLabel?.name ?? ""
         })
     }

@@ -69,6 +69,9 @@ struct SearchResultView: View {
                     .foregroundColor(Color.PRIMARY_1)
             }
             )
+            .onAppear(perform: {
+                posthog?.capture("[02.Home]SearchResultView")
+            })
     }
 
     private func onDeleteImage(id: String) {

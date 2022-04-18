@@ -159,7 +159,7 @@ struct MainLabelingView: View {
                 isActive: $isShowingAddLabelingView
             ) {}
         }.onAppear(perform: {
-            posthog?.capture("[01.Labeling]TabBarTouched")
+            posthog?.capture("[01.Labeling]MainLabelingView")
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
         })
     }

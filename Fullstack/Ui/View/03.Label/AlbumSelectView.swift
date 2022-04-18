@@ -39,7 +39,11 @@ struct AlbumSelectView: View {
                     }
                 }
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .onAppear(perform: {
+            posthog?.capture("[03.Label]AlbumSelectView")
+        })
+        .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                 HStack {
                     // Cancel Button
