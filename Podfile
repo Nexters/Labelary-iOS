@@ -12,7 +12,7 @@ target 'Fullstack' do
   pod "Resolver"
   pod 'AlertToast'
   pod 'Rudder'
-
+  pod 'Firebase/Analytics'
 target 'ShareSheet' do
   inherit! :search_paths
 end
