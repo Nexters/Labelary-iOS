@@ -95,10 +95,12 @@ struct MainLabelingView: View {
                                 
                                 if direction == .right {
                                     needToLabelingData.imageData.append(data.image)
+                                    posthog?.capture("Swipe Right")
                                     self.isShowingAddLabelingView = true
                                 }
                                 
                                 if direction == .left {
+                                    posthog?.capture("Swipe Left")
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                 }
 
@@ -109,16 +111,16 @@ struct MainLabelingView: View {
                                     .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                             }
                         )
-                        //     .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                         .environment(\.cardStackConfiguration, .init(maxVisibleCards: 1, animation: .linear(duration: 0)))
                         .id(reloadToken)
                         .overlay(
                             HStack {
                                 // Left Button
                                 Button(action: {
+                                    posthog?.capture("Pressed Skip Button")
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
-                                    print("reloadToken", self.reloadToken)
+                               
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
                                     
                                 }, label: {
@@ -131,6 +133,7 @@ struct MainLabelingView: View {
                             
                                 // Right Button
                                 Button(action: {
+                                    posthog?.capture("Pressed Select Button")
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                    
@@ -156,6 +159,7 @@ struct MainLabelingView: View {
                 isActive: $isShowingAddLabelingView
             ) {}
         }.onAppear(perform: {
+            posthog?.capture("[01.Labeling]TabBarTouched")
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
         })
     }
@@ -220,11 +224,5 @@ struct MainLabelingView: View {
             }
         }
         
-        // 왼쪽 버튼 눌렀을 때
-        /*
-         func hash(into hasher: inout Hasher) {
-             hasher.combine(screenshots)
-         }
-         */
     }
 }

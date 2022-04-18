@@ -65,16 +65,6 @@ struct SearchBar: View {
                 }.padding(.horizontal, 9)
             )
 
-            //  if isEditing {
-//                Text("취소")
-//                    .font(Font.B1_MEDIUM)
-//                    .foregroundColor(Color.PRIMARY_1)
-//                    .padding(.leading, 12)
-//                    .onTapGesture {
-//                        isEditing = false
-//                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//                    }
-            //     }
         }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
 }

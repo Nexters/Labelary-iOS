@@ -147,6 +147,7 @@ struct LabelView: View {
             }
         }.onAppear(perform: {
             self.labels = viewModel.labels
+            posthog?.capture("[03.Album]TabBarTouched")
         })
     }
 

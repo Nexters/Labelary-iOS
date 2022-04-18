@@ -36,6 +36,7 @@ struct SearchView: View {
 
                     Button(action: {
                         self.show = true
+                        posthog?.capture("[02.Home] Search screenshot button touched")
                     }) {
                         Text("스크린샷 검색".localized())
                             .foregroundColor(Color.PRIMARY_2)
@@ -66,7 +67,9 @@ struct SearchView: View {
                 })
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
-        }
+        }.onAppear(perform: {
+            posthog?.capture("[02.Home]TabBarTouched")
+        })
     }
 
     @ViewBuilder

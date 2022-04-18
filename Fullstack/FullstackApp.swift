@@ -37,7 +37,7 @@ struct FullstackApp: App {
         RSClient.getInstance(WRITE_KEY, config: builder.build()) // RSClient automatically track the events
         RSClient.sharedInstance()?.optOut(true)
         RSClient.sharedInstance()?.track("test_user_id", properties: [
-            "uuid": UIDevice.current.identifierForVendor!.uuidString
+            "user": UIDevice.current.identifierForVendor!.uuidString
         ])
         
         // -------------------- PostHog -----------------------

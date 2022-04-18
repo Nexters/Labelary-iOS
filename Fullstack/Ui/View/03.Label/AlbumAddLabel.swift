@@ -105,7 +105,7 @@ struct AlbumAddLabelView: View {
 
                 Button(action: {
                     // create label
-                    
+                    posthog?.capture("[03.Album]CreateLabel")
                 }) {
                     ZStack {
                         Button(action: {
