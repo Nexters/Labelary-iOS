@@ -149,7 +149,9 @@ struct AddNewLabelView: View {
 
                                     }, receiveValue: { _ in
                                     }).store(in: cancelbag)
-
+                                
+                                // log
+                                avo?.createLabel(labelName: text, labelColor: color.rawValue)
                                 onClickedBackBtn()
                             }
                         }, label: {
@@ -178,9 +180,7 @@ struct AddNewLabelView: View {
                             .foregroundColor(Color.PRIMARY_1)
                         Spacer()
                     })
-        }.onAppear(perform: {
-//            posthog?.capture("[01.Labeling]AddNewLabelView")
-        })
+        }
     }
 
     func onClickedBackBtn() {

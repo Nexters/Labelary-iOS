@@ -80,7 +80,6 @@ struct AlbumEditLabelView: View {
                         viewModel.selectedLabel = selectedLabel
                         viewModel.changeLabelOnImage.get(param: ChangeFromLabelToLabel.RequestData(images: passingImageEntity.selectedImages, fromLabel: passingLabelEntity.selectedLabel!, toLabel: viewModel.selectedLabel!)).sink(receiveCompletion: { _ in }, receiveValue: { _ in
                         }).store(in: viewModel.cancelBag)
-//                        posthog?.capture("[03.Album] ScreenShot Label Edited")
                         presentationMode.wrappedValue.dismiss()
                         passingImageEntity.selectedImages.removeAll()
                     }) {
@@ -88,7 +87,6 @@ struct AlbumEditLabelView: View {
                     }.disabled(!isSelected)
                 })
             .onAppear(perform: {
-//                posthog?.capture("[03.Label]AlbumEditLabelView")
             })
     }
 

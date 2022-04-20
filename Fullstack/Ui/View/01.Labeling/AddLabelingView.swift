@@ -295,11 +295,8 @@ struct AddLabelingView: View {
                                 needToLabelingData.labelData.removeAll()
 
                             }, receiveValue: { _ in
-                                //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
-                            
-//                            posthog?.capture("[01.Labeling] LabelingScreenshot", properties: ["selected_label_cnt": self.output.selectedLabels.count])
-                            
+                            avo?.screenshotLabeling() // log 
                             self.presentingToast = true
                             presentationMode.wrappedValue.dismiss()
 
@@ -328,7 +325,6 @@ struct AddLabelingView: View {
                 HStack {
                     // 뒤로가기버튼
                     Button(action: {
-//                        posthog?.capture("[01.Labeling] CancelLabeling")
                         
                         self.onClickedBackBtn()
                         needToLabelingData.imageData.removeAll() // 초기화해주기
@@ -378,9 +374,7 @@ struct AddLabelingView: View {
                         output.labels = data
                     }).store(in: cancelBag)
             })
-        }.onAppear(perform: {
-//            posthog?.capture("[01.Labeling]AddLabelingView")
-        })
+        }
     }
 
     class Output: ObservableObject {
