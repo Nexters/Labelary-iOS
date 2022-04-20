@@ -31,7 +31,7 @@ struct AlbumGridItem: View {
             })
             self.isSelected ? Image("btn_check_active").offset(x: -10, y: 10) : Image("btn_check").offset(x: -10, y: 10)
         }.onAppear(perform: {
-//            posthog?.capture("[03.Label]EditAlbumView")
+
         })
     }
 }

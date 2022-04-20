@@ -152,7 +152,9 @@ struct SettingView: View {
                         .padding(.leading, -12)
                 }
             )
-        }
+        }.onAppear(perform: {
+            avo?.settingView()
+        })
     }
 }
 

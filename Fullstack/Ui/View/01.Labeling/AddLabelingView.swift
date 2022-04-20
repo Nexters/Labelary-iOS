@@ -229,7 +229,7 @@ struct AddLabelingView: View {
     var backBtn: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
-//            posthog?.capture("[01.Labeling] navigation_back_btn")
+            
         }) {
             HStack {
                 Image("navigation_back_btn")

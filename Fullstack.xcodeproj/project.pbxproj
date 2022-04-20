@@ -102,7 +102,6 @@
 		24F7D54427DE18F700DF9965 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24101FE027A541B600B18E40 /* String+.swift */; };
 		24F7D54527DE18FA00DF9965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24101FDE27A5413E00B18E40 /* Localizable.strings */; };
 		5661459625DA3E5E00D057E1 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5661459525DA3E5E00D057E1 /* HomeDetailView.swift */; };
-		567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567766D325DC1C2C00038DC6 /* HexColor.swift */; };
 		5677670625DEC05C00038DC6 /* ScreenShotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */; };
 		5677671225DF854D00038DC6 /* View_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5677671125DF854D00038DC6 /* View_Model.swift */; };
 		5677677725DFB79A00038DC6 /* splash_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 5677677425DFB79A00038DC6 /* splash_3.json */; };
@@ -262,7 +261,6 @@
 		5661457325D2D82400D057E1 /* Album_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album_Components.swift; sourceTree = "<group>"; };
 		5661457725D2D84400D057E1 /* Label_Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label_Components.swift; sourceTree = "<group>"; };
 		5661459525DA3E5E00D057E1 /* HomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailView.swift; sourceTree = "<group>"; };
-		567766D325DC1C2C00038DC6 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
 		5677670525DEC05C00038DC6 /* ScreenShotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotDetailView.swift; sourceTree = "<group>"; };
 		5677671125DF854D00038DC6 /* View_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View_Model.swift; sourceTree = "<group>"; };
 		5677677425DFB79A00038DC6 /* splash_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_3.json; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 				567766D725DC1C4000038DC6 /* Components */,
 				2464AD2925BA623500BE3492 /* AppViews + TabView.swift */,
 				56BD4D2C25C9AF07008D2941 /* Typography.swift */,
-				567766D325DC1C2C00038DC6 /* HexColor.swift */,
 				5677677C25DFC69500038DC6 /* Onboarding */,
 				2464AD3025BA63F300BE3492 /* 01.Labeling */,
 				2464AD3125BA640500BE3492 /* 02.Home */,
@@ -973,7 +970,6 @@
 				24E0316F26F7165500319C5A /* CustomActionSheet.swift in Sources */,
 				56D1B66F25BFE215008EEF2F /* CancelBag.swift in Sources */,
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
-				567766D425DC1C2C00038DC6 /* HexColor.swift in Sources */,
 				24BB719327352238002FCF28 /* LoadAlbumData.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
 				249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */,

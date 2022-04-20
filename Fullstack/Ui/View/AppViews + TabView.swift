@@ -30,7 +30,6 @@ struct AppView: View {
                         .tabItem {
                             Image(output.selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
                                 .padding(.horizontal, -4)
-
                         }.tag(0)
 
                     SearchView()

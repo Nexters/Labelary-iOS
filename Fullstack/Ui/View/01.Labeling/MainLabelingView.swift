@@ -96,13 +96,11 @@ struct MainLabelingView: View {
                                 
                                 if direction == .right {
                                     needToLabelingData.imageData.append(data.image)
-//                                    posthog?.capture("PostHog-SwipeRight")
                                     avo?.swipeRight()
                                     self.isShowingAddLabelingView = true
                                 }
                                 
                                 if direction == .left {
-//                                    posthog?.capture("PostHog-SwipeLeft")
                                     avo?.swipeLeft()
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                 }
@@ -120,7 +118,7 @@ struct MainLabelingView: View {
                             HStack {
                                 // Left Button
                                 Button(action: {
-//                                    posthog?.capture("SkipButton")
+                                    avo?.skipButton()
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
@@ -129,13 +127,12 @@ struct MainLabelingView: View {
                                     Image("main_skip_btn")
                                         .resizable()
                                         .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                        
                                 })
                                 Spacer(minLength: 150)
                             
                                 // Right Button
                                 Button(action: {
-//                                    posthog?.capture("Pressed Select Button")
+                                    avo?.selectButton()
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                    
@@ -160,10 +157,8 @@ struct MainLabelingView: View {
                 isActive: $isShowingAddLabelingView
             ) {}
         }.onAppear(perform: {
-//            posthog?.capture("[01.Labeling]MainLabelingView")
+            avo?.mainLabelingView()
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-
-           
         })
     }
 
