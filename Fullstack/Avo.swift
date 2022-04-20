@@ -177,7 +177,7 @@ private struct AvoInvoke {
                     }
                 })
                 let payload: [String: Any] = [
-                    "ac": "2ZObu4NvsvWfU02FxPQw",
+                    "ac": "SwlixzGtCB8IGNo0Ihnt",
                     "br": "master",
                     "en": "dev",
                     "ev": eventId,
@@ -217,7 +217,7 @@ private struct AvoInvoke {
         if (samplingRate > 0) {
             if (drand48() < samplingRate) {
                 let payload: [String: Any] = [
-                    "ac": "2ZObu4NvsvWfU02FxPQw",
+                    "ac": "SwlixzGtCB8IGNo0Ihnt",
                     "br": "master",
                     "en": "dev",
                     "ty": type,
@@ -263,10 +263,11 @@ public protocol AvoProtocol {
     
      - parameters:
        - labelName: name of label
+       - labelColor: color of label
     
      - SeeAlso: [CreateLabel](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/ZvwSL1YEPb)
      */
-    func createLabel(labelName: String);
+    func createLabel(labelName: String, labelColor: String);
     
     /**
      DeleteLabel: delete the label
@@ -299,18 +300,67 @@ public protocol AvoProtocol {
     func resetLabels(labelCnt: Int);
     
     /**
-     SwipeRight: No description
+     SwipeRight: User swipe the screenshots to right on MainLabelingView
     
      - SeeAlso: [SwipeRight](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/mEMk_OnSYu)
      */
     func swipeRight();
     
     /**
-     SwipeLeft: No description
+     SwipeLeft: User swipe the screenshots to the left on MainLabelingView
     
      - SeeAlso: [SwipeLeft](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/s_T8JSaCCf)
      */
     func swipeLeft();
+    
+    /**
+     MainLabelingView: TabBar1 MainLabelingView
+    
+     - SeeAlso: [MainLabelingView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/-ngQK87QFF)
+     */
+    func mainLabelingView();
+    
+    /**
+     HomeView: TabBar2 HomeView
+    
+     - SeeAlso: [HomeView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/R4h1Xtm1Oh)
+     */
+    func homeView();
+    
+    /**
+     SettingView: Settings View
+    
+     - SeeAlso: [SettingView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/kQxuLrymfA)
+     */
+    func settingView();
+    
+    /**
+     LabelAlbumView: TabBar3 LabelView
+    
+     - SeeAlso: [LabelAlbumView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/7L_CxPH87C)
+     */
+    func labelAlbumView();
+    
+    /**
+     ScreenshotLabeling: labeling the screenshots
+    
+     - SeeAlso: [ScreenshotLabeling](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/9_Dh-CMg9H)
+     */
+    func screenshotLabeling();
+    
+    /**
+     SkipButton: skip button touched on MainLabelingView
+    
+     - SeeAlso: [SkipButton](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/EIx3tKnrRD)
+     */
+    func skipButton();
+    
+    /**
+     SelectButton: select button touched on MainLabelingView
+    
+     - SeeAlso: [SelectButton](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/lSrDDToAwV)
+     */
+    func selectButton();
     
 }
 
@@ -439,21 +489,23 @@ public class Avo: AvoProtocol {
     
      - parameters:
        - labelName: name of label
+       - labelColor: color of label
     
      - SeeAlso: [CreateLabel](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/ZvwSL1YEPb)
      */
-    public func createLabel(labelName: String) {
+    public func createLabel(labelName: String, labelColor: String) {
         // assert properties
         if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
             let messages: [AvoAssertMessage] = []
             // debug console in Avo
             if !__NOOP__ {
-                AvoInvoke.invoke("ZvwSL1YEPb", "d39196f7b4663a1f916a54d6f904d6ecd2e264520a23cd4af0c05dcfdfb43060", messages)
+                AvoInvoke.invoke("ZvwSL1YEPb", "8b7ba95d5152ac2b95b37656835bf467e934674d59b648dad87b71ab5bdd2213", messages)
             }
             if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
                 // Avo mobile debugger
                 let event_props: Array<Dictionary<String, String>> = [
-                  ["id" : "-YLt7x6xcv", "name" : "label_name", "value" : String(describing:labelName)]]
+                  ["id" : "-YLt7x6xcv", "name" : "label_name", "value" : String(describing:labelName)],
+                  ["id" : "aAVoOSE9s", "name" : "label_color", "value" : String(describing:labelColor)]]
                 let user_props: Array<Dictionary<String, String>> = []
                 var debugger_messages: Array<Dictionary<String, String>> = []
                 for message in messages {
@@ -472,6 +524,7 @@ public class Avo: AvoProtocol {
         if __ENV__ != .prod {
             var avoLogEventProperties: [String: Any?] = [:]
             avoLogEventProperties["label_name"] = labelName
+            avoLogEventProperties["label_color"] = labelColor
             let avoLogUserProperties: [String: Any] = [:]
             InternalAvoLogger.logEventSent(__ENV__, avoLogger, "CreateLabel", avoLogEventProperties, avoLogUserProperties)
         }
@@ -482,8 +535,9 @@ public class Avo: AvoProtocol {
                 if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
                     var inspectorEventProperties: [String: Any] = [:]
                     inspectorEventProperties["label_name"] = labelName
+                    inspectorEventProperties["label_color"] = labelColor
                     inspectorEventProperties["avoFunctionEventId"] = "ZvwSL1YEPb"
-                    inspectorEventProperties["avoFunctionEventHash"] = "d39196f7b4663a1f916a54d6f904d6ecd2e264520a23cd4af0c05dcfdfb43060"
+                    inspectorEventProperties["avoFunctionEventHash"] = "8b7ba95d5152ac2b95b37656835bf467e934674d59b648dad87b71ab5bdd2213"
                     self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"CreateLabel", with:inspectorEventProperties)
                 } else {
                     let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
@@ -493,11 +547,13 @@ public class Avo: AvoProtocol {
             // destination PostHog
             var postHogEventProperties: [String: Any] = [:]
             postHogEventProperties["label_name"] = labelName
+            postHogEventProperties["label_color"] = labelColor
             postHog.logEvent(eventName: "CreateLabel", eventProperties: postHogEventProperties)
             
             // destination RudderStack
             var rudderStackEventProperties: [String: Any] = [:]
             rudderStackEventProperties["label_name"] = labelName
+            rudderStackEventProperties["label_color"] = labelColor
             rudderStack.logEvent(eventName: "CreateLabel", eventProperties: rudderStackEventProperties)
         }
     }
@@ -707,7 +763,7 @@ public class Avo: AvoProtocol {
     }
     
     /**
-     SwipeRight: No description
+     SwipeRight: User swipe the screenshots to right on MainLabelingView
     
      - SeeAlso: [SwipeRight](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/mEMk_OnSYu)
      */
@@ -767,7 +823,7 @@ public class Avo: AvoProtocol {
     }
     
     /**
-     SwipeLeft: No description
+     SwipeLeft: User swipe the screenshots to the left on MainLabelingView
     
      - SeeAlso: [SwipeLeft](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/s_T8JSaCCf)
      */
@@ -826,8 +882,428 @@ public class Avo: AvoProtocol {
         }
     }
     
+    /**
+     MainLabelingView: TabBar1 MainLabelingView
+    
+     - SeeAlso: [MainLabelingView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/-ngQK87QFF)
+     */
+    public func mainLabelingView() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("-ngQK87QFF", "d5636186289e3261b797bc40bbb006a14bfe9358d69165437127eef750f021a8", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "MainLabelingView", eventId: "-ngQK87QFF", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "MainLabelingView", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "-ngQK87QFF"
+                    inspectorEventProperties["avoFunctionEventHash"] = "d5636186289e3261b797bc40bbb006a14bfe9358d69165437127eef750f021a8"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"MainLabelingView", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "MainLabelingView", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "MainLabelingView", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     HomeView: TabBar2 HomeView
+    
+     - SeeAlso: [HomeView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/R4h1Xtm1Oh)
+     */
+    public func homeView() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("R4h1Xtm1Oh", "74a29e1f881a51648e5fec4986211dc6f33c53a5778797369b328c8441159f65", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "HomeView", eventId: "R4h1Xtm1Oh", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "HomeView", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "R4h1Xtm1Oh"
+                    inspectorEventProperties["avoFunctionEventHash"] = "74a29e1f881a51648e5fec4986211dc6f33c53a5778797369b328c8441159f65"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"HomeView", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "HomeView", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "HomeView", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     SettingView: Settings View
+    
+     - SeeAlso: [SettingView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/kQxuLrymfA)
+     */
+    public func settingView() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("kQxuLrymfA", "0e4b0daf71c2d3eb1ff47feaf36a6c6bdbe068b22b2914294de2680cab417c9d", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "SettingView", eventId: "kQxuLrymfA", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "SettingView", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "kQxuLrymfA"
+                    inspectorEventProperties["avoFunctionEventHash"] = "0e4b0daf71c2d3eb1ff47feaf36a6c6bdbe068b22b2914294de2680cab417c9d"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"SettingView", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "SettingView", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "SettingView", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     LabelAlbumView: TabBar3 LabelView
+    
+     - SeeAlso: [LabelAlbumView](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/7L_CxPH87C)
+     */
+    public func labelAlbumView() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("7L_CxPH87C", "f8417aa1c8223b24dc50b917afb8bd4c44f18d384306b3fa9bde5112935388cc", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "LabelAlbumView", eventId: "7L_CxPH87C", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "LabelAlbumView", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "7L_CxPH87C"
+                    inspectorEventProperties["avoFunctionEventHash"] = "f8417aa1c8223b24dc50b917afb8bd4c44f18d384306b3fa9bde5112935388cc"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"LabelAlbumView", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "LabelAlbumView", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "LabelAlbumView", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     ScreenshotLabeling: labeling the screenshots
+    
+     - SeeAlso: [ScreenshotLabeling](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/9_Dh-CMg9H)
+     */
+    public func screenshotLabeling() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("9_Dh-CMg9H", "3962e7206bae02b1c441f69f07e998609f05c516e336e090d0b025c8ebb62c77", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "ScreenshotLabeling", eventId: "9_Dh-CMg9H", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "ScreenshotLabeling", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "9_Dh-CMg9H"
+                    inspectorEventProperties["avoFunctionEventHash"] = "3962e7206bae02b1c441f69f07e998609f05c516e336e090d0b025c8ebb62c77"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"ScreenshotLabeling", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "ScreenshotLabeling", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "ScreenshotLabeling", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     SkipButton: skip button touched on MainLabelingView
+    
+     - SeeAlso: [SkipButton](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/EIx3tKnrRD)
+     */
+    public func skipButton() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("EIx3tKnrRD", "f34c175b375721344191b32403233988abbdbce83642d037e338e20c191a386c", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "SkipButton", eventId: "EIx3tKnrRD", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "SkipButton", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "EIx3tKnrRD"
+                    inspectorEventProperties["avoFunctionEventHash"] = "f34c175b375721344191b32403233988abbdbce83642d037e338e20c191a386c"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"SkipButton", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "SkipButton", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "SkipButton", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
+    /**
+     SelectButton: select button touched on MainLabelingView
+    
+     - SeeAlso: [SelectButton](https://www.avo.app/schemas/M4rnD9FTAhZjl2fTnXLN/events/lSrDDToAwV)
+     */
+    public func selectButton() {
+        // assert properties
+        if __ENV__ != .prod || __MOBILE_DEBUGGER_ENABLED__() {
+            let messages: [AvoAssertMessage] = []
+            // debug console in Avo
+            if !__NOOP__ {
+                AvoInvoke.invoke("lSrDDToAwV", "e624dc2f7e9c26868b89f9d77a91e66f570804f6e98a590f1bc89506459af3eb", messages)
+            }
+            if __ENV__ != .prod && __DEBUGGER__ != nil || __ENV__ == .prod && __MOBILE_DEBUGGER_ENABLED__() {
+                // Avo mobile debugger
+                let event_props: Array<Dictionary<String, String>> = []
+                let user_props: Array<Dictionary<String, String>> = []
+                var debugger_messages: Array<Dictionary<String, String>> = []
+                for message in messages {
+                  switch message {
+                    case .expectedMax(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMax", "propertyId": propertyId, "message": message.getMessage()])
+                    case .expectedMin(let propertyId, _):
+                      debugger_messages.append(["tag": "expectedMin", "propertyId": propertyId, "message": message.getMessage()])
+                  }
+                }
+                
+                __MOBILE_DEBUGGER_POST_EVENT__(name: "SelectButton", eventId: "lSrDDToAwV", eventProps: event_props, userProps: user_props, messages: debugger_messages)
+            }
+        }
+        
+        if __ENV__ != .prod {
+            let avoLogEventProperties: [String: Any] = [:]
+            let avoLogUserProperties: [String: Any] = [:]
+            InternalAvoLogger.logEventSent(__ENV__, avoLogger, "SelectButton", avoLogEventProperties, avoLogUserProperties)
+        }
+        
+        if !__NOOP__ {
+            if self.__INSPECTOR__ != nil {
+                let trackSchemaFromEventSelector = Selector(("avoFunctionTrackSchemaFromEvent:eventParams:"))
+                if self.__INSPECTOR__?.responds(to: trackSchemaFromEventSelector) == true {
+                    var inspectorEventProperties: [String: Any] = [:]
+                    inspectorEventProperties["avoFunctionEventId"] = "lSrDDToAwV"
+                    inspectorEventProperties["avoFunctionEventHash"] = "e624dc2f7e9c26868b89f9d77a91e66f570804f6e98a590f1bc89506459af3eb"
+                    self.__INSPECTOR__?.perform(trackSchemaFromEventSelector, with:"SelectButton", with:inspectorEventProperties)
+                } else {
+                    let errorMesage = "Included Avo Inspector version does not support the latest features used in Avo functions. Please update your Avo Inspector to the latest version."
+                    InternalAvoLogger.logError(__ENV__, avoLogger, errorMesage)
+                }
+            }
+            // destination PostHog
+            let postHogEventProperties: [String: Any] = [:]
+            postHog.logEvent(eventName: "SelectButton", eventProperties: postHogEventProperties)
+            
+            // destination RudderStack
+            let rudderStackEventProperties: [String: Any] = [:]
+            rudderStack.logEvent(eventName: "SelectButton", eventProperties: rudderStackEventProperties)
+        }
+    }
+    
 }
 
 // AVOMODULEMAP:"avo"
-// AVOEVENTMAP:["createLabel","deleteLabel","loadApp","resetLabels","swipeRight","swipeLeft"]
+// AVOEVENTMAP:["createLabel","deleteLabel","loadApp","resetLabels","swipeRight","swipeLeft","mainLabelingView","homeView","settingView","labelAlbumView","screenshotLabeling","skipButton","selectButton"]
 
