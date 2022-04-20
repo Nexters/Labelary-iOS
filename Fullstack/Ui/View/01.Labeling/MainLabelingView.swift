@@ -60,6 +60,7 @@ class PresentToast: ObservableObject {
 var presentToast = PresentToast()
 
 struct MainLabelingView: View {
+    
     @State private var isShowingAddLabelingView = false
     @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
@@ -95,12 +96,14 @@ struct MainLabelingView: View {
                                 
                                 if direction == .right {
                                     needToLabelingData.imageData.append(data.image)
-                                    posthog?.capture("Swipe Right")
+//                                    posthog?.capture("PostHog-SwipeRight")
+                                    avo?.swipeRight()
                                     self.isShowingAddLabelingView = true
                                 }
                                 
                                 if direction == .left {
-                                    posthog?.capture("Swipe Left")
+//                                    posthog?.capture("PostHog-SwipeLeft")
+                                    avo?.swipeLeft()
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                 }
 
@@ -117,10 +120,9 @@ struct MainLabelingView: View {
                             HStack {
                                 // Left Button
                                 Button(action: {
-                                    posthog?.capture("Pressed Skip Button")
+//                                    posthog?.capture("SkipButton")
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
-                               
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
                                     
                                 }, label: {
@@ -133,7 +135,7 @@ struct MainLabelingView: View {
                             
                                 // Right Button
                                 Button(action: {
-                                    posthog?.capture("Pressed Select Button")
+//                                    posthog?.capture("Pressed Select Button")
                                     needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
                                     self.isShowingAddLabelingView = true
                                    
@@ -153,14 +155,15 @@ struct MainLabelingView: View {
                     .padding(.trailing, 64)
                     .padding(.bottom, 57)
             }
-            
             NavigationLink(
                 destination: AddLabelingView(),
                 isActive: $isShowingAddLabelingView
             ) {}
         }.onAppear(perform: {
-            posthog?.capture("[01.Labeling]MainLabelingView")
+//            posthog?.capture("[01.Labeling]MainLabelingView")
             needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+
+           
         })
     }
 
@@ -194,14 +197,12 @@ struct MainLabelingView: View {
             case .authorized:
                 refresh()
             case .denied:
-                print("앨범 접근 권한 허용 필요 ")
-            case .notDetermined:
-                break
-            case .restricted:
+                print("Album : denied")
                 break
             case .limited:
+                print("Album : limited authorization granted ")
                 break
-            @unknown default:
+            default:
                 break
             }
         }
@@ -209,7 +210,8 @@ struct MainLabelingView: View {
         func refresh() {
             loadLabelingData.get().sink(receiveCompletion: { _ in },
                                         receiveValue: { [self] data in
-                                            self.unlabeledImages.append(contentsOf: data)
+                self.unlabeledImages = data
+                                           // self.unlabeledImages.append(contentsOf: data)
                                             self.setImages(_unlabeledImages: unlabeledImages)
                                             unlabeledImagesViewModel = unlabeledImages.map {
                                                 UnlabeledImageViewModel(image: $0)

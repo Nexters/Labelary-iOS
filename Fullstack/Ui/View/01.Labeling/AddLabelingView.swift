@@ -229,7 +229,7 @@ struct AddLabelingView: View {
     var backBtn: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
-            posthog?.capture("[01.Labeling] navigation_back_btn")
+//            posthog?.capture("[01.Labeling] navigation_back_btn")
         }) {
             HStack {
                 Image("navigation_back_btn")
@@ -298,9 +298,8 @@ struct AddLabelingView: View {
                                 //  print("이미지 라벨링 데이터", $0)
                             }).store(in: cancelBag)
                             
-                            posthog?.capture("[01.Labeling] LabelingScreenshot", properties: ["label_name": self.output.selectedLabels.first?.name,
-                                                                                                            "label_color": self.output.selectedLabels.first?.color,
-                                                                                                            "selcted_label": self.output.selectedLabels.count])
+//                            posthog?.capture("[01.Labeling] LabelingScreenshot", properties: ["selected_label_cnt": self.output.selectedLabels.count])
+                            
                             self.presentingToast = true
                             presentationMode.wrappedValue.dismiss()
 
@@ -329,7 +328,8 @@ struct AddLabelingView: View {
                 HStack {
                     // 뒤로가기버튼
                     Button(action: {
-                        posthog?.capture("[01.Labeling] CancelLabeling")
+//                        posthog?.capture("[01.Labeling] CancelLabeling")
+                        
                         self.onClickedBackBtn()
                         needToLabelingData.imageData.removeAll() // 초기화해주기
                         needToLabelingData.labelData.removeAll()
@@ -379,7 +379,7 @@ struct AddLabelingView: View {
                     }).store(in: cancelBag)
             })
         }.onAppear(perform: {
-            posthog?.capture("[01.Labeling]AddLabelingView")
+//            posthog?.capture("[01.Labeling]AddLabelingView")
         })
     }
 

@@ -28,7 +28,7 @@ struct AlbumListEmptyStateView: View {
 
             Button(action: {
                 self.show = true
-                posthog?.capture("[03.Album] ShowCreateLabelView")
+//                posthog?.capture("[03.Album] ShowCreateLabelView")
             }, label: {
                 Text("라벨 생성하기".localized())
                     .frame(minWidth: 160, maxWidth: 160, minHeight: 48, maxHeight: 48, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
@@ -44,7 +44,7 @@ struct AlbumListEmptyStateView: View {
             Spacer().frame(height: 269)
         }.background(Color.black)
             .onAppear(perform: {
-                posthog?.capture("[03.Label]AlbumListEmptyStateView")
+//                posthog?.capture("[03.Label]AlbumListEmptyStateView")
             })
     }
 }

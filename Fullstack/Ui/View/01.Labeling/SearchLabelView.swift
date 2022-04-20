@@ -210,7 +210,7 @@ struct SearchLabelView: View {
                     }.padding(5)
                 )
         }.onAppear(perform: {
-            posthog?.capture("[01.Labeling]SearchLabelView")
+//            posthog?.capture("[01.Labeling]SearchLabelView")
         })
     }
 

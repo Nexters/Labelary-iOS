@@ -41,7 +41,7 @@ struct AlbumSelectView: View {
             }
         }
         .onAppear(perform: {
-            posthog?.capture("[03.Label]AlbumSelectView")
+//            posthog?.capture("[03.Label]AlbumSelectView")
         })
         .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:

@@ -95,7 +95,7 @@ struct HomeDetailRecentView: View {
             .navigationBarHidden(true)
             .onAppear(perform: {
                 output.refresh()
-                posthog?.capture("[02.Home]SearchResultView")
+//                posthog?.capture("[02.Home]SearchResultView")
             })
     }
 

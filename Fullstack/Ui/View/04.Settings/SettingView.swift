@@ -29,7 +29,7 @@ struct SettingView: View {
                     guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1581267873?action=write-review")
                             else { fatalError("Expected a valid URL") }
                         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
-                    posthog?.capture("[04.Settings] WriteReviewOnAppStore", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
+//                    posthog?.capture("[04.Settings] WriteReviewOnAppStore", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
                 }, label: {
                     Text("앱스토어에 리뷰쓰기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
@@ -44,7 +44,7 @@ struct SettingView: View {
                     guard let urlShare = URL(string: "https://apps.apple.com/kr/app/%EB%A0%88%EC%9D%B4%EB%B8%94%EB%9F%AC%EB%A6%AC/id1581267873?l=en") else { return }
                     let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
                     UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
-                    posthog?.capture("[04.Settings] RecommendLabelary", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
+//                    posthog?.capture("[04.Settings] RecommendLabelary", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
                 }, label: {
                     Text("친구에게 추천하기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
@@ -92,7 +92,7 @@ struct SettingView: View {
 
                 Button(action: {
                     showMailView.toggle()
-                    posthog?.capture("[04.Settings] View Feedback Page", properties: ["user":UIDevice.current.identifierForVendor!.uuidString])
+//                    posthog?.capture("[04.Settings] View Feedback Page", properties: ["user":UIDevice.current.identifierForVendor!.uuidString])
                 }, label: {
                     Text("피드백 보내기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1).padding(.leading, 20)
@@ -132,9 +132,7 @@ struct SettingView: View {
             }.alert(isPresented: $showAlert) {
                 Alert(title: Text("라벨을 초기화하시겠어요?".localized()), message: Text("라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다".localized()), primaryButton: .cancel(Text("취소".localized())), secondaryButton: .destructive(Text("초기화".localized()), action: {
                     
-                    // property : reset 할 때 당시의 생성된 label의 개수
-                    posthog?.capture("[04.Settings] ResetLabels", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
-                    
+                    avo?.resetLabels(labelCnt: realm.objects(LabelRealmModel.self).count)
                     try! realm.write {
                         realm.deleteAll()
                     }

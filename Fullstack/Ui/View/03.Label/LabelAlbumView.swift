@@ -122,7 +122,7 @@ struct LabelAlbumView: View {
 
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .onAppear(perform: {
-                    posthog?.capture("[03.Label]LabelAlbumView")
+//                    posthog?.capture("[03.Label]LabelAlbumView")
                 })
         }
     }

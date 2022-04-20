@@ -70,7 +70,7 @@ struct SearchResultView: View {
             }
             )
             .onAppear(perform: {
-                posthog?.capture("[02.Home]SearchResultView")
+//                posthog?.capture("[02.Home]SearchResultView")
             })
     }
 

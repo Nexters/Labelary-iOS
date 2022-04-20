@@ -128,7 +128,7 @@ struct SearchScreenshotView: View {
                 Spacer(minLength: 20)
                 Button(action: {
                     // 검색 결과 화면으로 이동
-                    posthog?.capture("[02.Home] Show Result View Button touched")
+//                    posthog?.capture("[02.Home] Show Result View Button touched")
                     searchSelectedLabels.selectedLabels.removeAll()
                     searchSelectedLabels.selectedLabels.append(contentsOf: viewmodel.selectedLabels)
                     self.showResultView = true
@@ -155,7 +155,7 @@ struct SearchScreenshotView: View {
                 }
             )
             .onAppear(perform: {
-                posthog?.capture("[02.Home]SearchScreenshotView")
+//                posthog?.capture("[02.Home]SearchScreenshotView")
             })
     }
 

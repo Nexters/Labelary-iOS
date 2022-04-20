@@ -128,7 +128,7 @@ struct LabelDetailView: View {
                         Spacer()
                     })
         }.onAppear(perform: {
-            posthog?.capture("[03.Label]LabelDetailView")
+          //  posthog?.capture("[03.Label]LabelDetailView")
         })
     }
 

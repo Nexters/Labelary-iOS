@@ -71,7 +71,7 @@ struct AlbumEmptyView: View {
                     }
                 )
         }.onAppear(perform: {
-            posthog?.capture("[03.Label]AlbumEmptyView")
+//            posthog?.capture("[03.Label]AlbumEmptyView")
         })
     }
 }

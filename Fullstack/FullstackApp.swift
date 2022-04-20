@@ -15,16 +15,15 @@ import AvoInspector
 let configuration = PHGPostHogConfiguration(apiKey: "phc_vJsSkb5CwpU1ODV2qtE36IhKUqrNErQaXPhXirRtKT2", host: "https://app.posthog.com")
 let posthog = PHGPostHog.shared()
 
-// var avo:Avo?
+var avo:Avo?
 let avoInspector = AvoInspector(apiKey: "PXSDmMdhEjkWGSAyaJAq", env: AvoInspectorEnv.dev)
-
 
 @main
 struct FullstackApp: App {
     let DATA_PLANE_URL = URL(string: "https://enumaminjhpy.dataplane.rudderstack.com")!
     let WRITE_KEY = "27f1RPyf43JsLVZ5FGGAphtlSJ3"
- //   let rudderStackDest = RudderStackDestination()
-    
+    let rudderStackDest = RudderDestination()
+    let postHogDest = PostHogDestination()
     var body: some Scene {
         WindowGroup {
             AppView()
@@ -33,27 +32,19 @@ struct FullstackApp: App {
 
     init() {
         //-------------------- RudderStack -----------------------
-        let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneURL(DATA_PLANE_URL)
-        RSClient.getInstance(WRITE_KEY, config: builder.build()) // RSClient automatically track the events
-        RSClient.sharedInstance()?.optOut(true)
-        RSClient.sharedInstance()?.track("test_user_id", properties: [
-            "user": UIDevice.current.identifierForVendor!.uuidString
-        ])
+//        let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneURL(DATA_PLANE_URL)
+//        RSClient.getInstance(WRITE_KEY, config: builder.build()) // RSClient automatically track the events
         
         // -------------------- PostHog -----------------------
-        configuration.captureApplicationLifecycleEvents = true;
-     //   configuration.recordScreenViews = true;
-        
-        PHGPostHog.setup(with: configuration)
-        let posthog = PHGPostHog.shared()
-        // PostHog event capture
-        posthog?.capture("Load the Application", properties: ["user":UIDevice.current.identifierForVendor!.uuidString])
-        
+//        configuration.captureApplicationLifecycleEvents = true;
+//     //   configuration.recordScreenViews = true;
+//
+//        PHGPostHog.setup(with: configuration)
+//        let posthog = PHGPostHog.shared()
+
         // ---------------------- Avo --------------------------
-     //   avo = Avo(env: .dev, rudderStackDestination: rudderStackDest)
-     //   avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
-        
-        avoInspector.trackSchema(fromEvent: "LoadApp", eventParams: ["uuid": "\(UIDevice.current.identifierForVendor!.uuidString)"])
+        avo = Avo(env: .dev, postHogDestination: postHogDest, rudderStackDestination: rudderStackDest)
+        avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
       
     }
 }

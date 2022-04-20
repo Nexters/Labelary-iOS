@@ -42,14 +42,19 @@ struct CachedData: CachedDataSource {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         var results: [ImageEntity] = []
+        
+        
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
 
-            for index in 0 ..< assets.count {
-                results.append(assets.object(at: index).toEntity())
+            // 비동기 처리 - 과연 필요한가 
+            
+            DispatchQueue.main.async {
+                for index in 0 ..< assets.count {
+                    results.append(assets.object(at: index).toEntity())
+                }
             }
         }
-        // source 가 삭제된 경우 거르기 !!
 
         return Just(realm.objects(ImageRealmModel.self))
             .map { results in results.mapNotNull { $0.convertToEntity() }}

@@ -179,7 +179,7 @@ struct AddNewLabelView: View {
                         Spacer()
                     })
         }.onAppear(perform: {
-            posthog?.capture("[01.Labeling]AddNewLabelView")
+//            posthog?.capture("[01.Labeling]AddNewLabelView")
         })
     }
 
