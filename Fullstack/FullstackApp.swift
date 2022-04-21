@@ -12,16 +12,14 @@ import Rudder
 import AvoInspector
 
 
-let configuration = PHGPostHogConfiguration(apiKey: "phc_vJsSkb5CwpU1ODV2qtE36IhKUqrNErQaXPhXirRtKT2", host: "https://app.posthog.com")
-let posthog = PHGPostHog.shared()
+//let configuration = PHGPostHogConfiguration(apiKey: "phc_vJsSkb5CwpU1ODV2qtE36IhKUqrNErQaXPhXirRtKT2", host: "https://app.posthog.com")
+//let posthog = PHGPostHog.shared()
 
 var avo:Avo?
 let avoInspector = AvoInspector(apiKey: "PXSDmMdhEjkWGSAyaJAq", env: AvoInspectorEnv.dev)
 
 @main
 struct FullstackApp: App {
-    let DATA_PLANE_URL = URL(string: "https://enumaminjhpy.dataplane.rudderstack.com")!
-    let WRITE_KEY = "27f1RPyf43JsLVZ5FGGAphtlSJ3"
     let rudderStackDest = RudderDestination()
     let postHogDest = PostHogDestination()
     var body: some Scene {

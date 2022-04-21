@@ -37,7 +37,7 @@ struct CardViewWithShadow: View {
                     .opacity(direction == .left ? 0.7 : 0)
             }
 
-            .animation(.default)
+           // .animation(.default)
         }
     }
 }
@@ -175,12 +175,15 @@ struct MainLabelingView: View {
         let cancelbag = CancelBag()
         
         init() {
+            // 비동기 방식
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { [unowned self] status in
                 DispatchQueue.main.async {
                     [unowned self] in
                     showUI(for: status)
                 }
             }
+           
+            
         }
         
         func passBtnAction() {
@@ -193,13 +196,13 @@ struct MainLabelingView: View {
             case .authorized:
                 refresh()
             case .denied:
+                refresh()
                 print("Album : denied")
-                break
             case .limited:
+                refresh()
                 print("Album : limited authorization granted ")
-                break
             default:
-                break
+                print("Album : default")
             }
         }
         

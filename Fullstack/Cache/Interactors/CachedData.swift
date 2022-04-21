@@ -47,13 +47,10 @@ struct CachedData: CachedDataSource {
         if let album = screenShotAlbum {
             let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
 
-            // 비동기 처리 - 과연 필요한가 
-            
-            DispatchQueue.main.async {
                 for index in 0 ..< assets.count {
                     results.append(assets.object(at: index).toEntity())
                 }
-            }
+            
         }
 
         return Just(realm.objects(ImageRealmModel.self))
