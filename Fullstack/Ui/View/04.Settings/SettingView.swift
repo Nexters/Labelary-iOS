@@ -29,7 +29,7 @@ struct SettingView: View {
                     guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1581267873?action=write-review")
                             else { fatalError("Expected a valid URL") }
                         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
-//                    posthog?.capture("[04.Settings] WriteReviewOnAppStore", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
+
                 }, label: {
                     Text("앱스토어에 리뷰쓰기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
@@ -44,7 +44,6 @@ struct SettingView: View {
                     guard let urlShare = URL(string: "https://apps.apple.com/kr/app/%EB%A0%88%EC%9D%B4%EB%B8%94%EB%9F%AC%EB%A6%AC/id1581267873?l=en") else { return }
                     let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
                     UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
-//                    posthog?.capture("[04.Settings] RecommendLabelary", properties: ["label_cnt":realm.objects(LabelRealmModel.self).count])
                 }, label: {
                     Text("친구에게 추천하기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
@@ -92,7 +91,6 @@ struct SettingView: View {
 
                 Button(action: {
                     showMailView.toggle()
-//                    posthog?.capture("[04.Settings] View Feedback Page", properties: ["user":UIDevice.current.identifierForVendor!.uuidString])
                 }, label: {
                     Text("피드백 보내기".localized())
                         .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1).padding(.leading, 20)

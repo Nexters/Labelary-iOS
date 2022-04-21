@@ -116,13 +116,13 @@ struct MainLabelingView: View {
                         .id(reloadToken)
                         .overlay(
                             HStack {
+                                if (self.viewModel.screenshots.count > 0) {
                                 // Left Button
                                 Button(action: {
                                     avo?.skipButton()
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                     self.reloadToken = UUID()
                                     self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
-                                    
                                 }, label: {
                                     Image("main_skip_btn")
                                         .resizable()
@@ -141,8 +141,9 @@ struct MainLabelingView: View {
                                         .resizable()
                                         .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                                 })
-                            }
-                            .offset(y: 210)
+                                }
+                            }.offset(y: 210)
+                            
                         )
                     }.onAppear(perform: {
                         self.reloadToken = UUID()

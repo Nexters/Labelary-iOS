@@ -100,9 +100,10 @@ struct PageView: View {
                 LottieView(filename: viewData.source)
                     .frame(minWidth: 375, maxWidth: 375, minHeight: 472, maxHeight: 472, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
                 Text(viewData.title)
+                    .padding(.leading, 40)
+                    .frame(width: .infinity, height: 68)
                     .font(Font.H2_BOLD)
                     .foregroundColor(Color.PRIMARY_1)
-                    .padding(.leading, 40)
                     .padding(.top, 26)
                 Text(viewData.description)
                     .font(Font.B2_REGULAR)
@@ -120,10 +121,11 @@ struct PageView: View {
                         .background(Color.KEY_ACTIVE)
                         .cornerRadius(4.0)
                 })
-                    .padding(.top, 52)
                     .padding(.leading, 40)
                     .padding(.trailing, 40)
                 Spacer()
+                    .padding(.bottom, 40)
+       
             }
         }
     }
