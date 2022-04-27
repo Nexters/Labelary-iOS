@@ -81,7 +81,8 @@ private class EmptyAvoLogger: AvoLogger {
 }
 
 private struct InternalAvoLogger {
-    private init() {}
+    private init() {
+    }
 
     static func logEventSent(
       _ env: AvoEnv,

@@ -41,7 +41,7 @@ struct FullstackApp: App {
 //        let posthog = PHGPostHog.shared()
 
         // ---------------------- Avo --------------------------
-        avo = Avo(env: .dev, postHogDestination: postHogDest, rudderStackDestination: rudderStackDest)
+        avo = Avo(env: .prod, postHogDestination: postHogDest, rudderStackDestination: rudderStackDest)
         avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
       
     }
