@@ -320,52 +320,51 @@ struct AddLabelingView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(trailing:
-
+            .navigationBarItems(leading:
+            ZStack {
                 HStack {
                     // 뒤로가기버튼
                     Button(action: {
-                        
                         self.onClickedBackBtn()
                         needToLabelingData.imageData.removeAll() // 초기화해주기
                         needToLabelingData.labelData.removeAll()
                     }) {
                         Image("navigation_back_btn")
-                    }.offset(x: -20)
-              
-
-                    Text("스크린샷 라벨 추가".localized())
-                        .font(Font.B1_BOLD)
-                        .foregroundColor(Color.PRIMARY_1)
-                     
-                    
-
-                    // 라벨 검색 버튼
-                    Button(action: {
-                        showSearchLabelView = true
-                    }) {
-                        ZStack {
-                            NavigationLink(
-                                destination: SearchLabelView(),
-                                isActive: $showSearchLabelView
-                            ) {}.isDetailLink(false)
-                            Image("navigation_bar_search_btn")
-                        }
-                    }.offset(x: 10)
-
-                    Button(action: {
-                        self.model.pushed = true
-                    }) {
-                        ZStack {
-                            NavigationLink(
-                                destination: AddNewLabelView(),
-                                isActive: $model.pushed
-                            ) {}.isDetailLink(false)
-                            Image("navigation_bar_plus_btn")
-                        }
                     }
-                
+                    Spacer()
+                    Text("스크린샷 라벨 추가".localized())
+                            .font(Font.B1_BOLD)
+                            .foregroundColor(Color.PRIMARY_1)
                 }
+            }, trailing:
+                                    
+           HStack {
+                // 라벨 검색 버튼
+                Button(action: {
+                    showSearchLabelView = true
+                }) {
+                    ZStack {
+                        NavigationLink(
+                            destination: SearchLabelView(),
+                            isActive: $showSearchLabelView
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_search_btn")
+                    }
+                }
+                Button(action: {
+                    self.model.pushed = true
+                }) {
+                    ZStack {
+                        NavigationLink(
+                            destination: AddNewLabelView(),
+                            isActive: $model.pushed
+                        ) {}.isDetailLink(false)
+                        Image("navigation_bar_plus_btn")
+                    }
+                }
+            
+            
+            }
             )
             .onAppear(perform: {
                 let cancelBag = CancelBag()
