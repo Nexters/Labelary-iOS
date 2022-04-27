@@ -331,13 +331,14 @@ struct AddLabelingView: View {
                         needToLabelingData.labelData.removeAll()
                     }) {
                         Image("navigation_back_btn")
-                    }.offset(x: 20)
-                        .padding(.trailing, 62)
+                    }.offset(x: -20)
+              
 
                     Text("스크린샷 라벨 추가".localized())
                         .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
-                        .padding(.trailing, 24)
+                     
+                    
 
                     // 라벨 검색 버튼
                     Button(action: {
@@ -350,7 +351,7 @@ struct AddLabelingView: View {
                             ) {}.isDetailLink(false)
                             Image("navigation_bar_search_btn")
                         }
-                    }
+                    }.offset(x: 10)
 
                     Button(action: {
                         self.model.pushed = true
@@ -363,6 +364,7 @@ struct AddLabelingView: View {
                             Image("navigation_bar_plus_btn")
                         }
                     }
+                
                 }
             )
             .onAppear(perform: {

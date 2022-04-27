@@ -17,6 +17,7 @@ class RudderDestination: AvoCustomDestination {
        
         let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneUrl(DATA_PLANE_URL)
         RSClient.getInstance(WRITE_KEY, config: builder.build())
+        RSClient.sharedInstance()?.optOut(true)
     }
     
     func logEvent(eventName: String, eventProperties: [String : Any]) {

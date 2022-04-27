@@ -56,21 +56,21 @@ struct SettingView: View {
                     .padding(.bottom, 20)
                     .padding(.top, -9)
 
-                Button(action: {
-                    let url = URL(string: "https://www.notion.so/bf4b20126ab64757856abfcb9db9c66d")
-                    if UIApplication.shared.canOpenURL(url!) {
-                        UIApplication.shared.openURL(url!)
-                    }
-
-                }, label: {
-                    Text("이용방법 보기".localized())
-                        .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
-                        .padding(.leading, 20)
-                    Spacer()
-                    Image("ico_next")
-                        .padding(.trailing, 20)
-                }).frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
-                    .background(Color.DEPTH_4_BG)
+//                Button(action: {
+//                    let url = URL(string: "https://www.notion.so/bf4b20126ab64757856abfcb9db9c66d")
+//                    if UIApplication.shared.canOpenURL(url!) {
+//                        UIApplication.shared.openURL(url!)
+//                    }
+//
+//                }, label: {
+//                    Text("이용방법 보기".localized())
+//                        .font(Font.B1_MEDIUM).foregroundColor(Color.PRIMARY_1)
+//                        .padding(.leading, 20)
+//                    Spacer()
+//                    Image("ico_next")
+//                        .padding(.trailing, 20)
+//                }).frame(width: UIScreen.main.bounds.width, height: 80, alignment: .leading)
+//                    .background(Color.DEPTH_4_BG)
 
                 Button(action: {
                     self.showDetail = true

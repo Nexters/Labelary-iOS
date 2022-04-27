@@ -17,13 +17,14 @@ struct AppView: View {
     }
 
     var body: some View {
-        if Storage.isFirstTime() {
-            VStack {
-                OnboardingView(onFinished: {
-                    output.endSplash()
-                })
-            }
-        } else {
+//        if Storage.isFirstTime() {
+//            VStack {
+//                OnboardingView(onFinished: {
+//                    output.endSplash()
+//                })
+//            }
+//        } else {
+//        }
             NavigationView {
                 TabView(selection: $output.selection, content: {
                     MainLabelingView()
@@ -47,7 +48,7 @@ struct AppView: View {
                 })
             }.statusBar(hidden: false)
             .preferredColorScheme(.dark)
-        }
+        
     }
 
     class Output: ObservableObject {

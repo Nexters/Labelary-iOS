@@ -196,7 +196,7 @@ struct MainLabelingView: View {
             case .authorized:
                 refresh()
             case .denied:
-                refresh()
+             //   refresh()
                 print("Album : denied")
             case .limited:
                 refresh()

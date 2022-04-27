@@ -29,7 +29,7 @@ struct FullstackApp: App {
     }
 
     init() {
-        //-------------------- RudderStack -----------------------
+//        //-------------------- RudderStack -----------------------
 //        let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneURL(DATA_PLANE_URL)
 //        RSClient.getInstance(WRITE_KEY, config: builder.build()) // RSClient automatically track the events
         
