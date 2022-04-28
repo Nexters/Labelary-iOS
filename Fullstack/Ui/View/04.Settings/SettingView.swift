@@ -130,7 +130,7 @@ struct SettingView: View {
             }.alert(isPresented: $showAlert) {
                 Alert(title: Text("라벨을 초기화하시겠어요?".localized()), message: Text("라벨 엘범과 라벨링 내역이 삭제되며\n 스크린샷은 삭제되지 않습니다".localized()), primaryButton: .cancel(Text("취소".localized())), secondaryButton: .destructive(Text("초기화".localized()), action: {
                     
-                    avo?.resetLabels(labelCnt: realm.objects(LabelRealmModel.self).count)
+                 //   avo?.resetLabels(labelCnt: realm.objects(LabelRealmModel.self).count)
                     try! realm.write {
                         realm.deleteAll()
                     }

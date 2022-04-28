@@ -156,8 +156,8 @@
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
-		A8A21B9A280F34B700AAC408 /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B99280F34B700AAC408 /* Avo.swift */; };
 		A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B9B280F4B4100AAC408 /* Request.swift */; };
+		A8C53C14281B09B10071EB04 /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C53C13281B09B00071EB04 /* Avo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,8 +318,8 @@
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
 		A8A21B97280F348600AAC408 /* RudderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudderDestination.swift; sourceTree = "<group>"; };
-		A8A21B99280F34B700AAC408 /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Avo.swift; path = Fullstack/Avo.swift; sourceTree = SOURCE_ROOT; };
 		A8A21B9B280F4B4100AAC408 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Fullstack/Request.swift; sourceTree = SOURCE_ROOT; };
+		A8C53C13281B09B00071EB04 /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avo.swift; sourceTree = SOURCE_ROOT; };
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -738,7 +738,7 @@
 		A8A21B96280F347100AAC408 /* LogData */ = {
 			isa = PBXGroup;
 			children = (
-				A8A21B99280F34B700AAC408 /* Avo.swift */,
+				A8C53C13281B09B00071EB04 /* Avo.swift */,
 				A8A21B97280F348600AAC408 /* RudderDestination.swift */,
 				A89F6A2428107D9E00854647 /* PostHogDestination.swift */,
 			);
@@ -938,7 +938,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5677671225DF854D00038DC6 /* View_Model.swift in Sources */,
-				A8A21B9A280F34B700AAC408 /* Avo.swift in Sources */,
+				A8C53C14281B09B10071EB04 /* Avo.swift in Sources */,
 				56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */,
 				56D1B67725BFE215008EEF2F /* Publisher+.swift in Sources */,
 				24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */,
@@ -1254,7 +1254,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.08;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"c++\"",
@@ -1339,7 +1339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.08;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"c++\"",
@@ -1419,7 +1419,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.08;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1442,7 +1442,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.08;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nexters.Fullstack.Share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -1,0 +1,24 @@
+{
+  "avo": {
+    "version": 2
+  },
+  "schema": {
+    "id": "M4rnD9FTAhZjl2fTnXLN",
+    "name": "Enuma's Tracking Plan"
+  },
+  "branch": {
+    "id": "master",
+    "name": "main"
+  },
+  "sources": [
+    {
+      "id": "jm_s8y9kL",
+      "name": "iOS - Swift",
+      "path": "Avo.swift",
+      "actionId": "aXY22rPacIOA75s6M1m3",
+      "branchId": "master",
+      "updatedAt": "2022-04-28T20:13:44.930Z"
+    }
+  ],
+  "force": false
+}

@@ -11,10 +11,6 @@ import PostHog
 import Rudder
 import AvoInspector
 
-
-//let configuration = PHGPostHogConfiguration(apiKey: "phc_vJsSkb5CwpU1ODV2qtE36IhKUqrNErQaXPhXirRtKT2", host: "https://app.posthog.com")
-//let posthog = PHGPostHog.shared()
-
 var avo:Avo?
 let avoInspector = AvoInspector(apiKey: "PXSDmMdhEjkWGSAyaJAq", env: AvoInspectorEnv.dev)
 
@@ -29,19 +25,8 @@ struct FullstackApp: App {
     }
 
     init() {
-//        //-------------------- RudderStack -----------------------
-//        let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneURL(DATA_PLANE_URL)
-//        RSClient.getInstance(WRITE_KEY, config: builder.build()) // RSClient automatically track the events
-        
-        // -------------------- PostHog -----------------------
-//        configuration.captureApplicationLifecycleEvents = true;
-//     //   configuration.recordScreenViews = true;
-//
-//        PHGPostHog.setup(with: configuration)
-//        let posthog = PHGPostHog.shared()
-
         // ---------------------- Avo --------------------------
-        avo = Avo(env: .prod, postHogDestination: postHogDest, rudderStackDestination: rudderStackDest)
+        avo = Avo(env: .prod, rudderStackDestination: rudderStackDest)
         avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
       
     }

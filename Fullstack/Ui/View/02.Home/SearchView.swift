@@ -67,7 +67,9 @@ struct SearchView: View {
             }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                 .navigationBarHidden(true)
         }.onAppear(perform: {
-            avo?.homeView()
+            
+            
+            avo?.homeView(labelList: [])
         })
     }
 

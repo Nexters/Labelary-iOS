@@ -289,6 +289,12 @@ struct AddLabelingView: View {
                             let cancelBag = CancelBag()
                             self.output.selectedLabels = filters
                             needToLabelingData.labelData = self.output.selectedLabels
+                            // log data
+                            var avoLabelList = [Avo.LabelList]()
+        
+                            for data in output.selectedLabels {
+                                avoLabelList.append(Avo.LabelList.init(labelEntity: Avo.LabelEntity(labelName: data.name, labelColor: data.color.rawValue)))
+                            }
 
                             requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
                                 needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
@@ -296,7 +302,11 @@ struct AddLabelingView: View {
 
                             }, receiveValue: { _ in
                             }).store(in: cancelBag)
-                            avo?.screenshotLabeling() // log 
+                            
+                            
+                            avo?.screenshotLabeling(labelList: avoLabelList)
+                            
+                            
                             self.presentingToast = true
                             presentationMode.wrappedValue.dismiss()
 
