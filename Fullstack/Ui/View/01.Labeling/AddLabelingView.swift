@@ -303,9 +303,8 @@ struct AddLabelingView: View {
                             }, receiveValue: { _ in
                             }).store(in: cancelBag)
                             
-                            
+                            print(avoLabelList)
                             avo?.screenshotLabeling(labelList: avoLabelList)
-                            
                             
                             self.presentingToast = true
                             presentationMode.wrappedValue.dismiss()

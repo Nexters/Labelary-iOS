@@ -68,6 +68,7 @@ struct SearchView: View {
                 .navigationBarHidden(true)
         }.onAppear(perform: {
             
+            // avo HomeView + LabelList
             
             avo?.homeView(labelList: [])
         })

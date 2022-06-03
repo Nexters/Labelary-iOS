@@ -11,13 +11,15 @@ import PostHog
 import Rudder
 import AvoInspector
 
+
 var avo:Avo?
 let avoInspector = AvoInspector(apiKey: "PXSDmMdhEjkWGSAyaJAq", env: AvoInspectorEnv.dev)
 
 @main
 struct FullstackApp: App {
     let rudderStackDest = RudderDestination()
-    let postHogDest = PostHogDestination()
+    
+    
     var body: some Scene {
         WindowGroup {
             AppView()
@@ -28,7 +30,6 @@ struct FullstackApp: App {
         // ---------------------- Avo --------------------------
         avo = Avo(env: .prod, rudderStackDestination: rudderStackDest)
         avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
-      
     }
 }
 

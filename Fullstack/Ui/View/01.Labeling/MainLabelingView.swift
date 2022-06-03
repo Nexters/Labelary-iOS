@@ -3,6 +3,7 @@ import CardStack
 import PhotosUI
 import RealmSwift
 import SwiftUI
+import Rudder
  
 struct CardView: View {
     var photo: ImageHasher
@@ -102,6 +103,7 @@ struct MainLabelingView: View {
                                 
                                 if direction == .left {
                                     avo?.swipeLeft()
+                                    RSClient.sharedInstance()?.track("SWIPE_LEFT")
                                     needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
                                 }
 
