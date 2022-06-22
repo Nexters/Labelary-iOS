@@ -154,6 +154,7 @@
 		56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68A25C05203008EEF2F /* RequestLabeling.swift */; };
 		56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */; };
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
+		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
 		A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B9B280F4B4100AAC408 /* Request.swift */; };
@@ -316,6 +317,7 @@
 		6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
+		A897AE2B285D366D00377446 /* EnumaDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumaDestination.swift; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
 		A8A21B97280F348600AAC408 /* RudderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudderDestination.swift; sourceTree = "<group>"; };
 		A8A21B9B280F4B4100AAC408 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Fullstack/Request.swift; sourceTree = SOURCE_ROOT; };
@@ -739,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				A8C53C13281B09B00071EB04 /* Avo.swift */,
+				A897AE2B285D366D00377446 /* EnumaDestination.swift */,
 				A8A21B97280F348600AAC408 /* RudderDestination.swift */,
 				A89F6A2428107D9E00854647 /* PostHogDestination.swift */,
 			);
@@ -1028,6 +1031,7 @@
 				247A637826E33E9D00E0A43B /* UIScreen.swift in Sources */,
 				2464AD2A25BA623500BE3492 /* AppViews + TabView.swift in Sources */,
 				24943BE42730F30D006C9705 /* LoadLabeledImageData.swift in Sources */,
+				A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */,
 				56A9860A26A4513A0088C80F /* Screenshot_Components.swift in Sources */,
 				56D1B65525BD7BAC008EEF2F /* LoadLabelingData.swift in Sources */,
 				56BD4D2325C97F65008D2941 /* LabelRepositoryImpl.swift in Sources */,
