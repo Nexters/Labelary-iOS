@@ -157,8 +157,8 @@
 		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
-		A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B9B280F4B4100AAC408 /* Request.swift */; };
 		A8C53C14281B09B10071EB04 /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C53C13281B09B00071EB04 /* Avo.swift */; };
+		A8DD93112864EB33005F5DD8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DD93102864EB33005F5DD8 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,8 +320,8 @@
 		A897AE2B285D366D00377446 /* EnumaDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumaDestination.swift; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
 		A8A21B97280F348600AAC408 /* RudderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudderDestination.swift; sourceTree = "<group>"; };
-		A8A21B9B280F4B4100AAC408 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Fullstack/Request.swift; sourceTree = SOURCE_ROOT; };
 		A8C53C13281B09B00071EB04 /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avo.swift; sourceTree = SOURCE_ROOT; };
+		A8DD93102864EB33005F5DD8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -654,7 +654,7 @@
 		56D1B62225BD6CA8008EEF2F /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				A8A21B9B280F4B4100AAC408 /* Request.swift */,
+				A8DD93122864EB3E005F5DD8 /* NetworkManager */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -746,6 +746,14 @@
 				A89F6A2428107D9E00854647 /* PostHogDestination.swift */,
 			);
 			path = LogData;
+			sourceTree = "<group>";
+		};
+		A8DD93122864EB3E005F5DD8 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				A8DD93102864EB33005F5DD8 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		C70C3EE485C3D48D8335E43D /* Pods */ = {
@@ -947,7 +955,6 @@
 				24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */,
 				24806B2626F99B8B00D5CF7A /* ShowEditLabelView.swift in Sources */,
 				2491674126F80DB4004C6F46 /* DeleteLabelFromImage.swift in Sources */,
-				A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */,
 				56D1B68825C05155008EEF2F /* CreateLabel.swift in Sources */,
 				56D1B67325BFE215008EEF2F /* ScreenLoadingType.swift in Sources */,
 				249E81DE25DB6FF100423791 /* SizeReader.swift in Sources */,
@@ -1019,6 +1026,7 @@
 				24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */,
 				243C3D5C273CE52F00785F78 /* SearchLabelByImage.swift in Sources */,
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
+				A8DD93112864EB33005F5DD8 /* NetworkManager.swift in Sources */,
 				2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
 				24A314B02753C114006C43D3 /* SearchScreenshotView.swift in Sources */,

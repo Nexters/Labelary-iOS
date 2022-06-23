@@ -13,11 +13,11 @@ import Foundation
 class EnumaDestination: AvoCustomDestination {
     
     func make(env: AvoEnv, apiKey: String) {
-        // Learn how to get DATA_PLANE_URL and WRITE_KEY here
-       
-//        let builder: RSConfigBuilder = RSConfigBuilder().withDataPlaneUrl(DATA_PLANE_URL)
-//        RSClient.getInstance(WRITE_KEY, config: builder.build())
-//        RSClient.sharedInstance()?.optOut(false)
+       // send request
+        let url = URL(string: "https://")!
+        var request = URLRequest(url: url)
+        
+        
     }
     
     func logEvent(eventName: String, eventProperties: [String : Any]) {
