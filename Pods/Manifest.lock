@@ -86,6 +86,9 @@ PODS:
     - GoogleUtilities/Logger
   - IosAnalyticsDebugger (1.2.3)
   - lottie-ios (3.1.9)
+  - Mixpanel-swift (3.3.0):
+    - Mixpanel-swift/Complete (= 3.3.0)
+  - Mixpanel-swift/Complete (3.3.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -96,7 +99,6 @@ PODS:
     - OpenCombine (>= 0.10.2)
   - OpenCombineFoundation (0.12.0):
     - OpenCombine (>= 0.10.2)
-  - PostHog (1.4.4)
   - PromisesObjC (2.0.0)
   - Realm (10.5.1):
     - Realm/Headers (= 10.5.1)
@@ -104,7 +106,6 @@ PODS:
   - RealmSwift (10.5.1):
     - Realm (= 10.5.1)
   - Resolver (1.4.0)
-  - Rudder (1.5.2)
   - SwiftUICardStack (0.0.5)
 
 DEPENDENCIES:
@@ -112,13 +113,12 @@ DEPENDENCIES:
   - AvoInspector
   - Firebase/Analytics
   - lottie-ios
+  - Mixpanel-swift
   - OpenCombine (~> 0.12.0)
   - OpenCombineDispatch (~> 0.12.0)
   - OpenCombineFoundation (~> 0.12.0)
-  - PostHog (~> 1.1)
   - RealmSwift (~> 10.5.1)
   - Resolver
-  - Rudder
   - SwiftUICardStack
 
 SPEC REPOS:
@@ -135,16 +135,15 @@ SPEC REPOS:
     - GoogleUtilities
     - IosAnalyticsDebugger
     - lottie-ios
+    - Mixpanel-swift
     - nanopb
     - OpenCombine
     - OpenCombineDispatch
     - OpenCombineFoundation
-    - PostHog
     - PromisesObjC
     - Realm
     - RealmSwift
     - Resolver
-    - Rudder
     - SwiftUICardStack
 
 SPEC CHECKSUMS:
@@ -160,18 +159,17 @@ SPEC CHECKSUMS:
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   IosAnalyticsDebugger: 9d4854b61b845c5c5f66fba99a8b3edace1386d0
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
+  Mixpanel-swift: 6ffe368bcfc3b538f540f31372bc798afd90c1ad
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenCombine: a8c52f249bc3c7e2bd5ffb75e8653e57a8e33d27
   OpenCombineDispatch: 68ed85ae5255d558a14434a802f65fb833b50d39
   OpenCombineFoundation: b279f27ca5a5a165f0c06e2beb266fc068967bb8
-  PostHog: 4b6321b521569092d4ef3a02238d9435dbaeb99f
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
   RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
   Resolver: 9371a9c561477b2ff76408114fa3ba7e94d17afe
-  Rudder: 557cc105d77f365821d78403b1abacfd2e3018de
   SwiftUICardStack: 61238438719132abd9190208728b447bff3d1333
 
-PODFILE CHECKSUM: 5e32f6136791e72b4f803ac98ac3fc2ab1b86f63
+PODFILE CHECKSUM: 0e752d9503ee89644a8c4494b7a2543291236c7e
 
 COCOAPODS: 1.11.3

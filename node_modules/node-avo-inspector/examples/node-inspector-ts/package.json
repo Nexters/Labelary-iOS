@@ -1,0 +1,18 @@
+{
+  "name": "node-inspector-ts-example",
+  "version": "1.0.0",
+  "description": "example app for avo inspector on node",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Avo (https://www.avo.app)",
+  "license": "MIT",
+  "dependencies": {
+    "node-avo-inspector": "file:../../"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
+}

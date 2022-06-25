@@ -7,9 +7,8 @@
 
 import SwiftUI
 import UIKit
-import PostHog
-import Rudder
 import AvoInspector
+import Mixpanel
 
 
 var avo:Avo?
@@ -17,8 +16,7 @@ let avoInspector = AvoInspector(apiKey: "PXSDmMdhEjkWGSAyaJAq", env: AvoInspecto
 
 @main
 struct FullstackApp: App {
-    let rudderStackDest = RudderDestination()
-    
+    let mixPanelDest = MixpanelDestination()
     
     var body: some Scene {
         WindowGroup {
@@ -27,9 +25,11 @@ struct FullstackApp: App {
     }
 
     init() {
+   
+        Mixpanel.initialize(token: "c176143d8dbfdecf761efc91300def66")
         // ---------------------- Avo --------------------------
-        avo = Avo(env: .prod, rudderStackDestination: rudderStackDest)
-        avo?.loadApp(uuid: "\(UIDevice.current.identifierForVendor!.uuidString)")
+        avo = Avo(env: .dev, mixpanelDestination: mixPanelDest )
+        avo?.loadApp(deviceId: "\(UIDevice.current.identifierForVendor!.uuidString)")
     }
 }
 

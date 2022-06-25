@@ -11,10 +11,9 @@ target 'Fullstack' do
   pod 'lottie-ios'
   pod "Resolver"
   pod 'AlertToast'
-  pod 'Rudder'
-  pod "PostHog", "~> 1.1"
   pod 'AvoInspector'
   pod 'Firebase/Analytics'
+  pod 'Mixpanel-swift'
 target 'ShareSheet' do
   inherit! :search_paths
 end

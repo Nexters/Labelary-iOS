@@ -154,11 +154,12 @@
 		56D1B68B25C05203008EEF2F /* RequestLabeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68A25C05203008EEF2F /* RequestLabeling.swift */; };
 		56D1B68E25C0540D008EEF2F /* LoadSearchMainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B68D25C0540D008EEF2F /* LoadSearchMainData.swift */; };
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
+		7C9A29212866DE88006A07BE /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9A29202866DE88006A07BE /* Avo.swift */; };
+		7C9A29262866E4F9006A07BE /* MixpanelDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9A29252866E4F9006A07BE /* MixpanelDestination.swift */; };
 		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
 		A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B9B280F4B4100AAC408 /* Request.swift */; };
-		A8C53C14281B09B10071EB04 /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C53C13281B09B00071EB04 /* Avo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -316,12 +317,13 @@
 		56E1235626C8F6DD00A85986 /* CardStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F0247E8E976355B8211EA47 /* Pods_ShareSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
+		7C9A29202866DE88006A07BE /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Avo.swift; path = Fullstack/Avo.swift; sourceTree = SOURCE_ROOT; };
+		7C9A29252866E4F9006A07BE /* MixpanelDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelDestination.swift; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
 		A897AE2B285D366D00377446 /* EnumaDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumaDestination.swift; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
 		A8A21B97280F348600AAC408 /* RudderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudderDestination.swift; sourceTree = "<group>"; };
 		A8A21B9B280F4B4100AAC408 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Fullstack/Request.swift; sourceTree = SOURCE_ROOT; };
-		A8C53C13281B09B00071EB04 /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avo.swift; sourceTree = SOURCE_ROOT; };
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -740,10 +742,11 @@
 		A8A21B96280F347100AAC408 /* LogData */ = {
 			isa = PBXGroup;
 			children = (
-				A8C53C13281B09B00071EB04 /* Avo.swift */,
+				7C9A29202866DE88006A07BE /* Avo.swift */,
 				A897AE2B285D366D00377446 /* EnumaDestination.swift */,
 				A8A21B97280F348600AAC408 /* RudderDestination.swift */,
 				A89F6A2428107D9E00854647 /* PostHogDestination.swift */,
+				7C9A29252866E4F9006A07BE /* MixpanelDestination.swift */,
 			);
 			path = LogData;
 			sourceTree = "<group>";
@@ -941,7 +944,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5677671225DF854D00038DC6 /* View_Model.swift in Sources */,
-				A8C53C14281B09B10071EB04 /* Avo.swift in Sources */,
 				56C1966A25C1393F00E441EC /* SearchImageByLabel.swift in Sources */,
 				56D1B67725BFE215008EEF2F /* Publisher+.swift in Sources */,
 				24F7C9BA2746A626007C0D49 /* AlbumListEmptyStateView.swift in Sources */,
@@ -955,6 +957,7 @@
 				56D1B64D25BD7922008EEF2F /* LabelRepository.swift in Sources */,
 				2491A88D26845861006451D0 /* DefaultView.swift in Sources */,
 				246159EB25B2DEC100F6D730 /* Model.swift in Sources */,
+				7C9A29212866DE88006A07BE /* Avo.swift in Sources */,
 				56D1B62F25BD71C8008EEF2F /* Usecase.swift in Sources */,
 				56C1966D25C13AD300E441EC /* SearchResult.swift in Sources */,
 				56C196AD25C2F2A500E441EC /* DomainError.swift in Sources */,
@@ -975,6 +978,7 @@
 				56D1B67A25BFE215008EEF2F /* Bindable.swift in Sources */,
 				24BB719327352238002FCF28 /* LoadAlbumData.swift in Sources */,
 				56D1B68225C0502C008EEF2F /* VO.swift in Sources */,
+				7C9A29262866E4F9006A07BE /* MixpanelDestination.swift in Sources */,
 				249FCCAC26A803F6003E59B2 /* RealmCollection+.swift in Sources */,
 				56D1B64625BD7680008EEF2F /* Color.swift in Sources */,
 				247386F9274A6E4300C533E6 /* DeleteImageFromLabel.swift in Sources */,

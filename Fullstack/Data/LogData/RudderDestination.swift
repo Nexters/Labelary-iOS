@@ -6,8 +6,10 @@
 //
 
 import Foundation
-import Rudder
+// import Rudder
 
+
+/*
 let DATA_PLANE_URL = "https://enumaminjhpy.dataplane.rudderstack.com"
 let WRITE_KEY = "27f1RPyf43JsLVZ5FGGAphtlSJ3"
 
@@ -50,3 +52,4 @@ class RudderDestination: AvoCustomDestination {
         RSClient.sharedInstance()?.reset()
     }
 }
+*/

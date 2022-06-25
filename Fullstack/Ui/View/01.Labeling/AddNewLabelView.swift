@@ -151,7 +151,7 @@ struct AddNewLabelView: View {
                                     }).store(in: cancelbag)
                                 
                                 // log
-                                avo?.createLabel(labelName: text, labelColor: color.rawValue)
+                                avo?.createLabel(nameOfLabel: text, color: color.rawValue)
                                 onClickedBackBtn()
                             }
                         }, label: {

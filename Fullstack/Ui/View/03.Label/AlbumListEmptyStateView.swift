@@ -44,7 +44,6 @@ struct AlbumListEmptyStateView: View {
             Spacer().frame(height: 269)
         }.background(Color.black)
             .onAppear(perform: {
-//                posthog?.capture("[03.Label]AlbumListEmptyStateView")
             })
     }
 }

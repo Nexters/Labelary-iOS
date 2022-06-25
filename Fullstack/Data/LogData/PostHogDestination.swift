@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import PostHog
-
+// import PostHog
+/*
 class PostHogDestination: AvoCustomDestination {
     func make(env: AvoEnv, apiKey: String) {
 //        // `host` is optional if you use PostHog Cloud (app.posthog.com)
@@ -46,3 +46,4 @@ class PostHogDestination: AvoCustomDestination {
         
     }
 }
+*/

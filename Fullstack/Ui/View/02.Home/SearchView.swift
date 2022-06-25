@@ -70,7 +70,7 @@ struct SearchView: View {
             
             // avo HomeView + LabelList
             
-            avo?.homeView(labelList: [])
+          //  avo?.homeView(listOfLabelentity: [])
         })
     }
 

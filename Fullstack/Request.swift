@@ -7,6 +7,7 @@
 
 import Foundation
 
+// RudderStack self hosting 코드 
 func urlRequest() {
     var semaphore = DispatchSemaphore(value: 0)
     var request = URLRequest(url: URL(string: "https://enumaminjhpy.dataplane.rudderstack.com")!,timeoutInterval: Double.infinity)
