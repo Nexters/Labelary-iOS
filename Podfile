@@ -14,6 +14,7 @@ target 'Fullstack' do
   pod 'AvoInspector'
   pod 'Firebase/Analytics'
   pod 'Mixpanel-swift'
+  pod 'SwiftFormat/CLI'
 target 'ShareSheet' do
   inherit! :search_paths
 end

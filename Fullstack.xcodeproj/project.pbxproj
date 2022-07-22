@@ -159,7 +159,6 @@
 		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -753,7 +752,6 @@
 		A8DD93122864EB3E005F5DD8 /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
-				A8DD93102864EB33005F5DD8 /* NetworkManager.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -1029,7 +1027,6 @@
 				24E0316126F6B83200319C5A /* LabelAlbumView.swift in Sources */,
 				243C3D5C273CE52F00785F78 /* SearchLabelByImage.swift in Sources */,
 				56D1B67625BFE215008EEF2F /* GenericSubscriber.swift in Sources */,
-				A8DD93112864EB33005F5DD8 /* NetworkManager.swift in Sources */,
 				2420BB8A272ECCB500541863 /* LabelImage.swift in Sources */,
 				56D1B63325BD7313008EEF2F /* ImageRepository.swift in Sources */,
 				24A314B02753C114006C43D3 /* SearchScreenshotView.swift in Sources */,

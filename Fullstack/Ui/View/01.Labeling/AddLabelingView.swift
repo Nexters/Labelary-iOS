@@ -329,7 +329,6 @@ struct AddLabelingView: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
-            ZStack {
                 HStack {
                     // 뒤로가기버튼
                     Button(action: {
@@ -338,27 +337,31 @@ struct AddLabelingView: View {
                         needToLabelingData.labelData.removeAll()
                     }) {
                         Image("navigation_back_btn")
-                    }
-                    Spacer()
+                    }.padding(.trailing, 76)
+                    
                     Text("스크린샷 라벨 추가".localized())
                             .font(Font.B1_BOLD)
                             .foregroundColor(Color.PRIMARY_1)
+                            .padding(.trailing, 24)
+                
                 }
-            }, trailing:
+            , trailing:
+                                    HStack {
                                     
-           HStack {
-                // 라벨 검색 버튼
-                Button(action: {
-                    showSearchLabelView = true
-                }) {
-                    ZStack {
-                        NavigationLink(
-                            destination: SearchLabelView(),
-                            isActive: $showSearchLabelView
-                        ) {}.isDetailLink(false)
-                        Image("navigation_bar_search_btn")
-                    }
-                }
+           
+                                    // 라벨 검색 버튼
+                    Button(action: {
+                        showSearchLabelView = true
+                            }) {
+                                    ZStack {
+                                            NavigationLink(
+                                                destination: SearchLabelView(),
+                                                isActive: $showSearchLabelView
+                                            ) {}.isDetailLink(false)
+                                            Image("navigation_bar_search_btn")
+                                    }
+                    }.padding(.trailing, 1)
+                                
                 Button(action: {
                     self.model.pushed = true
                 }) {
@@ -370,9 +373,8 @@ struct AddLabelingView: View {
                         Image("navigation_bar_plus_btn")
                     }
                 }
-            
-            
             }
+            
             )
             .onAppear(perform: {
                 let cancelBag = CancelBag()
