@@ -4,10 +4,10 @@ platform :ios, '14.6'
 target 'Fullstack' do
   use_frameworks!
   pod "SwiftUICardStack"
+  pod 'RealmSwift', '~> 10.5.1'
   pod 'OpenCombine', '~> 0.12.0'
   pod 'OpenCombineDispatch', '~> 0.12.0'
   pod 'OpenCombineFoundation', '~> 0.12.0'
-  pod 'RealmSwift', '~> 10.5.1'
   pod 'lottie-ios'
   pod "Resolver"
   pod 'AlertToast'
