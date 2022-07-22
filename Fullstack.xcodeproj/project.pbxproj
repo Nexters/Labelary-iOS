@@ -159,12 +159,7 @@
 		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
-<<<<<<< HEAD
-		A8A21B9C280F4B4100AAC408 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B9B280F4B4100AAC408 /* Request.swift */; };
-=======
-		A8C53C14281B09B10071EB04 /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C53C13281B09B00071EB04 /* Avo.swift */; };
-		A8DD93112864EB33005F5DD8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DD93102864EB33005F5DD8 /* NetworkManager.swift */; };
->>>>>>> edfdf64a996b1716edbbe4c84701e3225d9e01bc
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -328,12 +323,6 @@
 		A897AE2B285D366D00377446 /* EnumaDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumaDestination.swift; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
 		A8A21B97280F348600AAC408 /* RudderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudderDestination.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		A8A21B9B280F4B4100AAC408 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Fullstack/Request.swift; sourceTree = SOURCE_ROOT; };
-=======
-		A8C53C13281B09B00071EB04 /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avo.swift; sourceTree = SOURCE_ROOT; };
-		A8DD93102864EB33005F5DD8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
->>>>>>> edfdf64a996b1716edbbe4c84701e3225d9e01bc
 		E1DF03D6F8FFE419F3019AF9 /* Pods-ShareSheet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.debug.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
