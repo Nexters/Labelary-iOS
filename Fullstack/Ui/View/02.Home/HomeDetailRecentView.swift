@@ -16,9 +16,9 @@ struct HomeDetailRecentView: View {
     @State private var showingAlert = false
 
     let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0)
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
 
     init(images: [ImageEntity]) {
