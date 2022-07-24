@@ -3,6 +3,7 @@ import Combine
 import SwiftUI
 
 // MARK: - functions to give color for GUI Add Labeling View
+
 // inactive color
 func giveBorderColor(color: ColorSet) -> Color {
     switch color {
@@ -229,7 +230,7 @@ struct AddLabelingView: View {
     var backBtn: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
-            
+
         }) {
             HStack {
                 Image("navigation_back_btn")
@@ -241,6 +242,7 @@ struct AddLabelingView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
+
             VStack {
                 // MARK: - List of Badge Views of selected labels
 
@@ -271,59 +273,51 @@ struct AddLabelingView: View {
                                 }
                             }
                         }.padding(15)
-                    }
 
-                    // MARK: - List of the Labels
+                        // MARK: - List of the Labels
 
-                    ZStack {
-                        ScrollView(.vertical, showsIndicators: false) {
-                            LazyVStack {
-                                ForEach(output.labels, id: \.self) { label in
-                                    LabelRowItemView(label: label,
-                                                     selectedLabels: $filters)
+                        HStack {
+                            ScrollView(.vertical, showsIndicators: false) {
+                                LazyVStack {
+                                    ForEach(output.labels, id: \.self) { label in
+                                        LabelRowItemView(label: label,
+                                                         selectedLabels: $filters)
+                                    }
                                 }
+                            }.background(Color.red)
+
+                            Button(action: {
+                                let cancelBag = CancelBag()
+                                self.output.selectedLabels = filters
+                                needToLabelingData.labelData = self.output.selectedLabels
+                                // log data
+
+                                requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
+                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+                                    needToLabelingData.labelData.removeAll()
+
+                                }, receiveValue: { _ in
+                                }).store(in: cancelBag)
+
+                                self.presentingToast = true
+                                presentationMode.wrappedValue.dismiss()
+
+                            }) {
+                                Text("확인".localized()).font(.custom("AppleSDGothicNeo-Bold", size: 16))
                             }
+                            .foregroundColor(Color.white)
+                            .frame(width: 70, height: 52)
+                            .background(Color(red: 56/255, green: 124/255, blue: 255/255))
+                            .cornerRadius(2)
+                            .padding(.trailing, 20)
+                            .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
+                                AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.".localized(),
+                                           style: .style(backgroundColor: Color.black.opacity(0.5),
+                                                         titleColor: Color.PRIMARY_1,
+                                                         titleFont: Font.B1_MEDIUM))
+                            })
+                            .opacity(filters.count > 0 ? 1 : 0)
                         }
-
-                        Button(action: {
-                            let cancelBag = CancelBag()
-                            self.output.selectedLabels = filters
-                            needToLabelingData.labelData = self.output.selectedLabels
-                            // log data
-//                            var avoLabelList = [Avo.labelEntity(<#T##self: Avo##Avo#>)]
-        
-//                            for data in output.selectedLabels {
-//                                avoLabelList.append(Avo.LabelList.init(labelEntity: Avo.LabelEntity(labelName: data.name, labelColor: data.color.rawValue)))
-//                            }
-
-                            requestLabeling.get(param: RequestLabeling.RequestData(labels: needToLabelingData.labelData, images: needToLabelingData.imageData)).sink(receiveCompletion: { _ in
-                                needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-                                needToLabelingData.labelData.removeAll()
-
-                            }, receiveValue: { _ in
-                            }).store(in: cancelBag)
-                     
-                      //      avo?.screenshotLabeling(labelList: avoLabelList)
-                      
-                            self.presentingToast = true
-                            presentationMode.wrappedValue.dismiss()
-
-                        }) {
-                            Text("확인".localized()).font(.custom("AppleSDGothicNeo-Bold", size: 16))
-                        }
-                        .foregroundColor(Color.white)
-                        .frame(width: 70, height: 52)
-                        .background(Color(red: 56/255, green: 124/255, blue: 255/255))
-                        .padding(21)
-                        .cornerRadius(2)
-                     //   .offset(x: 69, y: 219)
-                        .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
-                            AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.".localized(),
-                                       style: .style(backgroundColor: Color.black.opacity(0.5),
-                                                     titleColor: Color.PRIMARY_1,
-                                                     titleFont: Font.B1_MEDIUM))
-                        })
-                        .opacity(filters.count > 0 ? 1 : 0)
                     }
                 }
             }
@@ -338,44 +332,39 @@ struct AddLabelingView: View {
                     }) {
                         Image("navigation_back_btn")
                     }.padding(.trailing, 76)
-                    
+
                     Text("스크린샷 라벨 추가".localized())
-                            .font(Font.B1_BOLD)
-                            .foregroundColor(Color.PRIMARY_1)
-                            .padding(.trailing, 24)
-                
-                }
-            , trailing:
-                                    HStack {
-                                    
-           
-                                    // 라벨 검색 버튼
+                        .font(Font.B1_BOLD)
+                        .foregroundColor(Color.PRIMARY_1)
+                        .padding(.trailing, 24)
+
+                },
+                trailing:
+                HStack {
                     Button(action: {
                         showSearchLabelView = true
-                            }) {
-                                    ZStack {
-                                            NavigationLink(
-                                                destination: SearchLabelView(),
-                                                isActive: $showSearchLabelView
-                                            ) {}.isDetailLink(false)
-                                            Image("navigation_bar_search_btn")
-                                    }
+                    }) {
+                        ZStack {
+                            NavigationLink(
+                                destination: SearchLabelView(),
+                                isActive: $showSearchLabelView
+                            ) {}.isDetailLink(false)
+                            Image("navigation_bar_search_btn")
+                        }
                     }.padding(.trailing, 1)
-                                
-                Button(action: {
-                    self.model.pushed = true
-                }) {
-                    ZStack {
-                        NavigationLink(
-                            destination: AddNewLabelView(),
-                            isActive: $model.pushed
-                        ) {}.isDetailLink(false)
-                        Image("navigation_bar_plus_btn")
+
+                    Button(action: {
+                        self.model.pushed = true
+                    }) {
+                        ZStack {
+                            NavigationLink(
+                                destination: AddNewLabelView(),
+                                isActive: $model.pushed
+                            ) {}.isDetailLink(false)
+                            Image("navigation_bar_plus_btn")
+                        }
                     }
-                }
-            }
-            
-            )
+                })
             .onAppear(perform: {
                 let cancelBag = CancelBag()
                 loadLabelingSelectData.get()
