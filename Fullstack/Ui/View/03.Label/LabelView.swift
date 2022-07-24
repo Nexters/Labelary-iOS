@@ -106,7 +106,7 @@ struct LabelView: View {
                     NavigationLink(destination: LabelDetailView(), label: {
                         Image("ico_add_album")
                     })
-                        .padding(EdgeInsets(top: 24, leading: 0, bottom: 0, trailing: 16))
+                    .padding(EdgeInsets(top: 24, leading: 0, bottom: 0, trailing: 16))
                 }.frame(minWidth: 0,
                         maxWidth: .infinity,
                         minHeight: 60,
@@ -133,23 +133,24 @@ struct LabelView: View {
     }
 
     var body: some View {
-        VStack {
-            if self.labels.isEmpty {
-                emptyView
-            } else {
-                ZStack {
-                    content
-                    sheetView
-                    NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
-                }.sheet(isPresented: self.$showEditLabelView) {
-                    ShowEditLabelView()
+        NavigationView {
+            VStack {
+                if self.labels.isEmpty {
+                    emptyView
+                } else {
+                    ZStack {
+                        content
+                        sheetView
+                        NavigationLink(destination: LabelAlbumView(), isActive: $showLabelAlbumView, label: {})
+                    }.sheet(isPresented: self.$showEditLabelView) {
+                        ShowEditLabelView()
+                    }
                 }
-            }
-        }.onAppear(perform: {
-            self.labels = viewModel.labels
-            
-//            posthog?.capture("[03.Album]LabelView")
-        })
+            }.onAppear(perform: {
+                self.labels = viewModel.labels
+
+            })
+        }
     }
 
     @ViewBuilder
@@ -177,8 +178,8 @@ struct LabelView: View {
                                 showingPopover = true
                             }
                     })
-                        .padding(.leading, 115)
-                        .padding(.bottom, 115)
+                    .padding(.leading, 115)
+                    .padding(.bottom, 115)
 
                 }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center).background(Color.DEPTH_3)
             } else {
@@ -203,8 +204,8 @@ struct LabelView: View {
                                 showingPopover = true
                             }
                     })
-                        .padding(.leading, 115)
-                        .padding(.bottom, 115)
+                    .padding(.leading, 115)
+                    .padding(.bottom, 115)
 
                 }.frame(minWidth: 160, maxWidth: 160, minHeight: 160, maxHeight: 160, alignment: .center)
             }

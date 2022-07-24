@@ -12,66 +12,67 @@ struct SearchView: View {
     @State private var show = false
 
     var body: some View {
-        ZStack {
-            Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-            ScrollView {
-                VStack {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("홈".localized())
-                            .font(Font.H1_BOLD)
-                            .foregroundColor(Color.PRIMARY_1)
-                            .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
-                        Spacer()
-                        NavigationLink(
-                            destination: SettingView(onFinished: {})
-                        ) {
-                            Image("ico_profile")
-                        }
-
-                    }.frame(minWidth: 0,
-                            maxWidth: .infinity,
-                            minHeight: 0,
-                            maxHeight: 60,
-                            alignment: .topLeading)
-
-                    Button(action: {
-                        self.show = true
-                    }) {
-                        Text("스크린샷 검색".localized())
-                            .foregroundColor(Color.PRIMARY_2)
-                        NavigationLink(
-                            destination: SearchScreenshotView(),
-                            isActive: $show
-                        ) {}
-                    }
-                    .frame(width: 360, height: 40, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                    .background(Color.DEPTH_3)
-                    .cornerRadius(4)
-                    .foregroundColor(Color.PRIMARY_2)
-                    .font(Font.B1_REGULAR)
-                    .overlay(
-                        HStack {
-                            Image("Icon_search")
-                                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+        NavigationView {
+            ZStack {
+                Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+                ScrollView {
+                    VStack {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("홈".localized())
+                                .font(Font.H1_BOLD)
+                                .foregroundColor(Color.PRIMARY_1)
+                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 0, trailing: 0))
                             Spacer()
-                        }.padding(.horizontal, 9)
-                    )
+                            NavigationLink(
+                                destination: SettingView(onFinished: {})
+                            ) {
+                                Image("ico_profile")
+                            }
 
-                    buildRecentSection(title: "최근 순 스크린샷".localized(), models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
-                    buildLikeSection(title: "즐겨찾는 스크린샷".localized(), models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
+                        }.frame(minWidth: 0,
+                                maxWidth: .infinity,
+                                minHeight: 0,
+                                maxHeight: 60,
+                                alignment: .topLeading)
 
-                }.onAppear(perform: {
-                    viewmodel.refresh()
-                    viewmodel.onAppear()
-                })
-            }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
-                .navigationBarHidden(true)
-        }.onAppear(perform: {
-            
-            // avo HomeView + LabelList
-            
-          //  avo?.homeView(listOfLabelentity: [])
-        })
+                        Button(action: {
+                            self.show = true
+                        }) {
+                            Text("스크린샷 검색".localized())
+                                .foregroundColor(Color.PRIMARY_2)
+                            NavigationLink(
+                                destination: SearchScreenshotView(),
+                                isActive: $show
+                            ) {}
+                        }
+                        .frame(width: 360, height: 40, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                        .background(Color.DEPTH_3)
+                        .cornerRadius(4)
+                        .foregroundColor(Color.PRIMARY_2)
+                        .font(Font.B1_REGULAR)
+                        .overlay(
+                            HStack {
+                                Image("Icon_search")
+                                    .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                Spacer()
+                            }.padding(.horizontal, 9)
+                        )
+
+                        buildRecentSection(title: "최근 순 스크린샷".localized(), models: viewmodel.recentlyImages.filter { $0.status != .SELECTING }, isRecently: true)
+                        buildLikeSection(title: "즐겨찾는 스크린샷".localized(), models: viewmodel.bookmarImages.filter { $0.status != .SELECTING }, isRecently: false)
+
+                    }.onAppear(perform: {
+                        viewmodel.refresh()
+                        viewmodel.onAppear()
+                    })
+                }.background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
+                    .navigationBarHidden(true)
+            }.onAppear(perform: {
+                // avo HomeView + LabelList
+
+                //  avo?.homeView(listOfLabelentity: [])
+            })
+        }
     }
 
     @ViewBuilder
