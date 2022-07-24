@@ -15,7 +15,11 @@ struct HomeDetailRecentView: View {
     @ObservedObject var output: Output
     @State private var showingAlert = false
 
-    let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 0),
+        GridItem(.flexible(), spacing: 0),
+        GridItem(.flexible(), spacing: 0)
+    ]
 
     init(images: [ImageEntity]) {
         output = Output(images: images)
@@ -73,14 +77,15 @@ struct HomeDetailRecentView: View {
                     .frame(minHeight: 60)
                 Spacer()
                 ScrollView {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 5) {
                         ForEach(output.items.indices, id: \.self) { index in
                             let screenshot = output.items[index]
                             CScreenShotView(imageViewModel: screenshot,
-                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 102, height: 221)
-                                .padding(.bottom, 8)
+                                            nextView: ScreenShotDetailView(viewmodel: ScreenShotDetailView.ViewModel(imageViewModel: screenshot, onChangeBookmark: onChangeBookMark), onChangeBookMark: onChangeBookMark, onDeleteImage: onDeleteImage), width: 110, height: 236)
+                                .padding(.leading, 2)
                         }
-                    }.padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                    }.padding(.leading, 20)
+                        .padding(.trailing, 20)
                 }
                 Spacer()
             }.alert(isPresented: $showingAlert) {
