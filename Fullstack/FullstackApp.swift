@@ -28,7 +28,7 @@ struct FullstackApp: App {
    
         Mixpanel.initialize(token: "c176143d8dbfdecf761efc91300def66")
         // ---------------------- Avo --------------------------
-        avo = Avo(env: .dev, mixpanelDestination: mixPanelDest )
+        avo = Avo(env: .prod, mixpanelDestination: mixPanelDest )
         avo?.loadApp(deviceId: "\(UIDevice.current.identifierForVendor!.uuidString)")
     }
 }
