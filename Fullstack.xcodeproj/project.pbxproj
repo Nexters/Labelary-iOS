@@ -156,6 +156,9 @@
 		56D1B69125C05713008EEF2F /* LoadSearchLabelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B69025C05713008EEF2F /* LoadSearchLabelData.swift */; };
 		7C9A29212866DE88006A07BE /* Avo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9A29202866DE88006A07BE /* Avo.swift */; };
 		7C9A29262866E4F9006A07BE /* MixpanelDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9A29252866E4F9006A07BE /* MixpanelDestination.swift */; };
+		A856F476288DB70900918DC5 /* splash_ios_1.json in Resources */ = {isa = PBXBuildFile; fileRef = A856F475288DB70900918DC5 /* splash_ios_1.json */; };
+		A856F478288DB71400918DC5 /* splash_ios_2.json in Resources */ = {isa = PBXBuildFile; fileRef = A856F477288DB71400918DC5 /* splash_ios_2.json */; };
+		A856F47A288DB71C00918DC5 /* splash_ios_3.json in Resources */ = {isa = PBXBuildFile; fileRef = A856F479288DB71C00918DC5 /* splash_ios_3.json */; };
 		A897AE2C285D366D00377446 /* EnumaDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897AE2B285D366D00377446 /* EnumaDestination.swift */; };
 		A89F6A2528107D9E00854647 /* PostHogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F6A2428107D9E00854647 /* PostHogDestination.swift */; };
 		A8A21B98280F348600AAC408 /* RudderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A21B97280F348600AAC408 /* RudderDestination.swift */; };
@@ -318,6 +321,9 @@
 		7A049645DC44E6825C307A7A /* Pods-ShareSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareSheet.release.xcconfig"; path = "Target Support Files/Pods-ShareSheet/Pods-ShareSheet.release.xcconfig"; sourceTree = "<group>"; };
 		7C9A29202866DE88006A07BE /* Avo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Avo.swift; path = Fullstack/Avo.swift; sourceTree = SOURCE_ROOT; };
 		7C9A29252866E4F9006A07BE /* MixpanelDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelDestination.swift; sourceTree = "<group>"; };
+		A856F475288DB70900918DC5 /* splash_ios_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = splash_ios_1.json; path = "../Downloads/온보딩_220725/splash_ios_1.json"; sourceTree = "<group>"; };
+		A856F477288DB71400918DC5 /* splash_ios_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = splash_ios_2.json; path = "../Downloads/온보딩_220725/splash_ios_2.json"; sourceTree = "<group>"; };
+		A856F479288DB71C00918DC5 /* splash_ios_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = splash_ios_3.json; path = "../Downloads/온보딩_220725/splash_ios_3.json"; sourceTree = "<group>"; };
 		A87FA1D93C25C8F20C888CEF /* Pods-Fullstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fullstack.release.xcconfig"; path = "Target Support Files/Pods-Fullstack/Pods-Fullstack.release.xcconfig"; sourceTree = "<group>"; };
 		A897AE2B285D366D00377446 /* EnumaDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumaDestination.swift; sourceTree = "<group>"; };
 		A89F6A2428107D9E00854647 /* PostHogDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogDestination.swift; sourceTree = "<group>"; };
@@ -367,6 +373,9 @@
 		246159C425B2DCC100F6D730 = {
 			isa = PBXGroup;
 			children = (
+				A856F475288DB70900918DC5 /* splash_ios_1.json */,
+				A856F477288DB71400918DC5 /* splash_ios_2.json */,
+				A856F479288DB71C00918DC5 /* splash_ios_3.json */,
 				5677677625DFB79A00038DC6 /* splash_1.json */,
 				5677677525DFB79A00038DC6 /* splash_2.json */,
 				5677677425DFB79A00038DC6 /* splash_3.json */,
@@ -856,12 +865,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A856F47A288DB71C00918DC5 /* splash_ios_3.json in Resources */,
+				A856F478288DB71400918DC5 /* splash_ios_2.json in Resources */,
 				246159D825B2DCC700F6D730 /* Preview Assets.xcassets in Resources */,
 				5677677925DFB79A00038DC6 /* splash_1.json in Resources */,
 				5677677825DFB79A00038DC6 /* splash_2.json in Resources */,
 				24101FDC27A5413E00B18E40 /* Localizable.strings in Resources */,
 				5677677725DFB79A00038DC6 /* splash_3.json in Resources */,
 				246159D525B2DCC700F6D730 /* Assets.xcassets in Resources */,
+				A856F476288DB70900918DC5 /* splash_ios_1.json in Resources */,
 				56C7912B2699A0690077367A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,28 +27,28 @@ struct AppView: View {
 //        }
 
         // TabView bug fix
+  
+            TabView(selection: $output.selection, content: {
+                MainLabelingView()
+                    .tabItem {
+                        Image(output.selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
+                            .padding(.horizontal, -4)
+                    }.tag(0)
 
-        TabView(selection: $output.selection, content: {
-            MainLabelingView()
-                .tabItem {
-                    Image(output.selection == 0 ? "ico_labeling_on" : "ico_labeling_off")
-                        .padding(.horizontal, -4)
-                }.tag(0)
+                SearchView()
+                    .tabItem {
+                        Image(output.selection == 1 ? "ico_home_on" : "ico_home_off")
+                            .padding(.horizontal, -4)
+                    }.tag(1)
 
-            SearchView()
-                .tabItem {
-                    Image(output.selection == 1 ? "ico_home_on" : "ico_home_off")
-                        .padding(.horizontal, -4)
-                }.tag(1)
+                LabelView()
+                    .tabItem {
+                        Image(output.selection == 2 ? "ico_album_on" : "ico_album_off")
+                            .padding(.horizontal, -4)
+                    }.tag(2)
 
-            LabelView()
-                .tabItem {
-                    Image(output.selection == 2 ? "ico_album_on" : "ico_album_off")
-                        .padding(.horizontal, -4)
-                }.tag(2)
-
-        })
-
+            })
+        
         .preferredColorScheme(.dark)
     }
 

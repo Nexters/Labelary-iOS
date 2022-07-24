@@ -95,6 +95,7 @@ struct AlbumScreenShotView<NEXT_VIEW: View>: View {
 // 02. Search
 
 struct CScreenShotView<NEXT_VIEW: View>: View {
+    @State private var tabBar:UITabBar?
     @ObservedObject var imageViewModel: ImageViewModel
     let nextView: NEXT_VIEW
     let width: CGFloat
@@ -151,6 +152,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             }
         }
         .onAppear(perform: {
+            
             if viewModel.countLabels(image: imageViewModel.image) > 0 {
                 isLabeled = true
             } else {
@@ -158,6 +160,7 @@ struct CScreenShotView<NEXT_VIEW: View>: View {
             }
 
         })
+      //  .allowFullScreenOverlays()
     }
 
     class ViewModel: ObservableObject {
