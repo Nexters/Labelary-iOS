@@ -38,7 +38,7 @@ struct CardViewWithShadow: View {
                     .opacity(direction == .left ? 0.7 : 0)
             }
 
-           // .animation(.default)
+            // .animation(.default)
         }
     }
 }
@@ -61,107 +61,108 @@ class PresentToast: ObservableObject {
 var presentToast = PresentToast()
 
 struct MainLabelingView: View {
-    
     @State private var isShowingAddLabelingView = false
     @State var reloadToken = UUID()
     @ObservedObject var viewModel = ViewModel()
 
     var body: some View {
-        ZStack {
-            Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .center) {
-                HStack {
-                    Text("스크린샷 라벨링".localized())
-                        .font(Font.H3_BOLD)
-                        .foregroundColor(Color.PRIMARY_1)
+        NavigationView {
+            ZStack {
+                Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all)
+                VStack(alignment: .center) {
+                    HStack {
+                        Text("스크린샷 라벨링".localized())
+                            .font(Font.H3_BOLD)
+                            .foregroundColor(Color.PRIMARY_1)
                     
-                    Text("+\(self.viewModel.screenshots.count)")
-                        .padding(4)
-                        .foregroundColor(Color.PRIMARY_1)
-                        .font(Font.B2_MEDIUM)
-                        .frame(height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                        .background(Color.KEY_ACTIVE)
-                        .cornerRadius(2.0)
-                }.offset(y: -30)
+                        Text("+\(self.viewModel.screenshots.count)")
+                            .padding(4)
+                            .foregroundColor(Color.PRIMARY_1)
+                            .font(Font.B2_MEDIUM)
+                            .frame(height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                            .background(Color.KEY_ACTIVE)
+                            .cornerRadius(2.0)
+                    }.padding(.top, 30)
                 
-                ZStack {
-                    Image("shadow")
-                        .resizable()
-                        .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
-                        .offset(x: 25)
-                    HStack(alignment: .center) {
-                        CardStack(
-                            direction: LeftRight.direction,
-                            data: self.viewModel.screenshots,
-                            onSwipe: { data, direction in
+                    ZStack {
+                        Image("shadow")
+                            .resizable()
+                            .frame(width: UIScreen.screenWidth * 0.71, height: UIScreen.screenHeight * 0.6)
+                            .offset(x: 25)
+                        HStack(alignment: .center) {
+                            CardStack(
+                                direction: LeftRight.direction,
+                                data: self.viewModel.screenshots,
+                                onSwipe: { data, direction in
                                 
-                                if direction == .right {
-                                    needToLabelingData.imageData.append(data.image)
-                                    avo?.swipeRight()
-                                    self.isShowingAddLabelingView = true
-                                }
+                                    if direction == .right {
+                                        needToLabelingData.imageData.append(data.image)
+                                        avo?.swipeRight()
+                                        self.isShowingAddLabelingView = true
+                                    }
                                 
-                                if direction == .left {
-                                    avo?.swipeLeft()
-                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-                                }
+                                    if direction == .left {
+                                        avo?.swipeLeft()
+                                        needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+                                    }
 
-                            },
-                            content: { photo, direction, _ in
+                                },
+                                content: { photo, direction, _ in
                                
-                                CardViewWithShadow(photo: photo, direction: direction)
-                                    .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
-                            }
-                        )
-                        .environment(\.cardStackConfiguration, .init(maxVisibleCards: 1, animation: .linear(duration: 0)))
-                        .id(reloadToken)
-                        .overlay(
-                            HStack {
-                                if (self.viewModel.screenshots.count > 0) {
-                                // Left Button
-                                Button(action: {
-                                    avo?.skipButton()
-                                    needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-                                    self.reloadToken = UUID()
-                                    self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
-                                }, label: {
-                                    Image("main_skip_btn")
-                                        .resizable()
-                                        .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                })
-                                Spacer(minLength: 150)
-                            
-                                // Right Button
-                                Button(action: {
-                                    avo?.selectButton()
-                                    needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
-                                    self.isShowingAddLabelingView = true
-                                   
-                                }, label: {
-                                    Image("main_add_btn")
-                                        .resizable()
-                                        .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                                })
+                                    CardViewWithShadow(photo: photo, direction: direction)
+                                        .frame(width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.58)
                                 }
-                            }.offset(y: 210)
+                            )
+                            .environment(\.cardStackConfiguration, .init(maxVisibleCards: 1, animation: .linear(duration: 0)))
+                            .id(reloadToken)
+                            .overlay(
+                                HStack {
+                                    if self.viewModel.screenshots.count > 0 {
+                                        // Left Button
+                                        Button(action: {
+                                            avo?.skipButton()
+                                            needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+                                            self.reloadToken = UUID()
+                                            self.viewModel.screenshots = self.viewModel.screenshots.shuffled()
+                                        }, label: {
+                                            Image("main_skip_btn")
+                                                .resizable()
+                                                .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                        })
+                                        Spacer(minLength: 150)
                             
-                        )
-                    }.onAppear(perform: {
-                        self.reloadToken = UUID()
-                    })
-                }.padding(.top, 40)
-                    .padding(.leading, 63)
-                    .padding(.trailing, 64)
-                    .padding(.bottom, 57)
-            }
-            NavigationLink(
-                destination: AddLabelingView(),
-                isActive: $isShowingAddLabelingView
-            ) {}
-        }.onAppear(perform: {
-            avo?.mainLabelingView()
-            needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
-        })
+                                        // Right Button
+                                        Button(action: {
+                                            avo?.selectButton()
+                                            needToLabelingData.imageData.append(viewModel.screenshots.first!.image)
+                                            self.isShowingAddLabelingView = true
+                                   
+                                        }, label: {
+                                            Image("main_add_btn")
+                                                .resizable()
+                                                .frame(width: 115, height: 70, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                                        })
+                                    }
+                                }.offset(y: 210)
+                            )
+                        }.onAppear(perform: {
+                            self.reloadToken = UUID()
+                        })
+                    }.padding(.top, 40)
+                        .padding(.leading, 63)
+                        .padding(.trailing, 64)
+                        .padding(.bottom, 57)
+                }
+            
+                NavigationLink(
+                    destination: AddLabelingView(),
+                    isActive: $isShowingAddLabelingView
+                ) {}
+            }.onAppear(perform: {
+                avo?.mainLabelingView()
+                needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
+            })
+        }
     }
 
     class ViewModel: ObservableObject {
@@ -183,8 +184,6 @@ struct MainLabelingView: View {
                     showUI(for: status)
                 }
             }
-           
-            
         }
         
         func passBtnAction() {
@@ -197,7 +196,7 @@ struct MainLabelingView: View {
             case .authorized:
                 refresh()
             case .denied:
-             //   refresh()
+                //   refresh()
                 print("Album : denied")
             case .limited:
                 refresh()
@@ -210,8 +209,8 @@ struct MainLabelingView: View {
         func refresh() {
             loadLabelingData.get().sink(receiveCompletion: { _ in },
                                         receiveValue: { [self] data in
-                self.unlabeledImages = data
-                                           // self.unlabeledImages.append(contentsOf: data)
+                                            self.unlabeledImages = data
+                                            // self.unlabeledImages.append(contentsOf: data)
                                             self.setImages(_unlabeledImages: unlabeledImages)
                                             unlabeledImagesViewModel = unlabeledImages.map {
                                                 UnlabeledImageViewModel(image: $0)
@@ -225,6 +224,5 @@ struct MainLabelingView: View {
                 ImageHasher(imageEntity: $0)
             }
         }
-        
     }
 }

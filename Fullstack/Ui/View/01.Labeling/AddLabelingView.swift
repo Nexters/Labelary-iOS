@@ -309,8 +309,8 @@ struct AddLabelingView: View {
                             .frame(width: 70, height: 52)
                             .background(Color(red: 56/255, green: 124/255, blue: 255/255))
                             .cornerRadius(2)
-                            .padding(.trailing, 20)
                             .padding(.top, 440)
+                            .padding(.trailing, 20)
                             .toast(isPresenting: $presentingToast, duration: 2, tapToDismiss: true, alert: {
                                 AlertToast(displayMode: .alert, type: .regular, title: "스크린샷에 라벨이 추가되었습니다.".localized(),
                                            style: .style(backgroundColor: Color.black.opacity(0.5),
