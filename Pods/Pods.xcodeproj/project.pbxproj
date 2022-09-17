@@ -491,7 +491,7 @@
 		7F125B6F57700E5FCFC9900F5A807AF3 /* GULAppDelegateSwizzler_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F2A9CD1ED215459EA81988AC6E929496 /* GULAppDelegateSwizzler_Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7FB67D9AFF90048AF2BD860CF02654D5 /* EventsListScreenViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 069117451A9962B4D8C6592DE06DAA1F /* EventsListScreenViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE35A87B589B7E1617BEBD1BF587CCA /* FIRHeartbeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B5776B94238DC16897265C52C7A566 /* FIRHeartbeatInfo.m */; };
-		8003C03314812BDAF70255ED4D38FBB7 /* IosAnalyticsDebugger-IosAnalyticsDebugger in Resources */ = {isa = PBXBuildFile; fileRef = 40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger-IosAnalyticsDebugger */; };
+		8003C03314812BDAF70255ED4D38FBB7 /* IosAnalyticsDebugger.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger.bundle */; };
 		803F1A77CFB925B13E9D6C425B17E782 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B856C7AAACD168717C8040675F0EF7E /* Foundation.framework */; };
 		80A30AA5CE74872880E012BE433F7D98 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F4699B2DA5BD7ABA2F0C5C8FBA7881 /* URLSession.swift */; };
 		80E384F0C8E0200B2D0AA67F51E90317 /* RLMPushClient.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6F5A3C32273EEBE7C00F1F3960F120 /* RLMPushClient.h */; };
@@ -1675,7 +1675,7 @@
 		3F82E4900D4A71A3D93D5ADFF55F4730 /* FloatValueProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FloatValueProvider.swift; path = "lottie-swift/src/Public/DynamicProperties/ValueProviders/FloatValueProvider.swift"; sourceTree = "<group>"; };
 		3F986B27A96829528F6CD89E4B66F8FA /* GoogleAppMeasurement-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "GoogleAppMeasurement-xcframeworks.sh"; sourceTree = "<group>"; };
 		4035763364A36EC36396BC61CC6078E0 /* RLMListBase.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMListBase.mm; path = Realm/RLMListBase.mm; sourceTree = "<group>"; };
-		40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger-IosAnalyticsDebugger */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "IosAnalyticsDebugger-IosAnalyticsDebugger"; path = IosAnalyticsDebugger.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IosAnalyticsDebugger.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AC07385345CA951FB429DB34631435 /* SwiftFormat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftFormat.debug.xcconfig; sourceTree = "<group>"; };
 		417F49B480936C9B16C22477B193D743 /* GDTCOREndpoints.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCOREndpoints.h; path = GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCOREndpoints.h; sourceTree = "<group>"; };
 		419206C5226909064333339606AB7949 /* FIRInstallationsSingleOperationPromiseCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstallationsSingleOperationPromiseCache.h; path = FirebaseInstallations/Source/Library/InstallationsIDController/FIRInstallationsSingleOperationPromiseCache.h; sourceTree = "<group>"; };
@@ -3392,7 +3392,7 @@
 				856B5CD56F194FAD26EA91620B66D614 /* GoogleDataTransport */,
 				B43874C6CBB50E7134FBEC24BABFE14F /* GoogleUtilities */,
 				0C781FF4C976452E11FAAB65E0F34882 /* IosAnalyticsDebugger */,
-				40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger-IosAnalyticsDebugger */,
+				40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger.bundle */,
 				51BA97E8B5085EFFB47BC9C0B785CEA7 /* lottie-ios */,
 				3106651F608FF9E872964798302D36DE /* Mixpanel-swift */,
 				06FC5C9CF96D60C50FCD47D339C91951 /* nanopb */,
@@ -4967,7 +4967,7 @@
 			);
 			name = "IosAnalyticsDebugger-IosAnalyticsDebugger";
 			productName = IosAnalyticsDebugger;
-			productReference = 40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger-IosAnalyticsDebugger */;
+			productReference = 40A518219D7B25B888EEA71F5CCA8248 /* IosAnalyticsDebugger.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -5033,7 +5033,7 @@
 				97CFEE37CCAE3FF52D5E0697576045E6 /* EventsListScreenViewController.xib in Resources */,
 				C64802F35813DA38C41B7865FC4AD328 /* EventTableViewCell.xib in Resources */,
 				89258B7E71633F4163D466B476D9E85D /* EventTableViewSecondaryCell.xib in Resources */,
-				8003C03314812BDAF70255ED4D38FBB7 /* IosAnalyticsDebugger-IosAnalyticsDebugger in Resources */,
+				8003C03314812BDAF70255ED4D38FBB7 /* IosAnalyticsDebugger.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7682,6 +7682,7 @@
 			baseConfigurationReference = A114F8A3051D6079DC0B3D94DD4F5F25 /* IosAnalyticsDebugger.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/IosAnalyticsDebugger";
+				DEVELOPMENT_TEAM = L88FL78593;
 				IBSC_MODULE = IosAnalyticsDebugger;
 				INFOPLIST_FILE = "Target Support Files/IosAnalyticsDebugger/ResourceBundle-IosAnalyticsDebugger-IosAnalyticsDebugger-Info.plist";
 				PRODUCT_NAME = IosAnalyticsDebugger;
@@ -7731,6 +7732,7 @@
 			baseConfigurationReference = F221F340E66178178179D3B0C638AF61 /* IosAnalyticsDebugger.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/IosAnalyticsDebugger";
+				DEVELOPMENT_TEAM = L88FL78593;
 				IBSC_MODULE = IosAnalyticsDebugger;
 				INFOPLIST_FILE = "Target Support Files/IosAnalyticsDebugger/ResourceBundle-IosAnalyticsDebugger-IosAnalyticsDebugger-Info.plist";
 				PRODUCT_NAME = IosAnalyticsDebugger;

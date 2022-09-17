@@ -29,7 +29,8 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        accessMainRealm()
+        accessMainRealm() // realm 확인하기
+        shareRealm()
         if shareExtension.dismiss {
             print("dismiss share extension ")
             let itemCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction))
@@ -39,20 +40,6 @@ class ShareViewController: UIViewController {
 
     // MARK: - Realm
 
-    func shareRealm() {
-        print(#function)
-        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack")?.appendingPathComponent("shared.realm")
-        let sharedConfig = Realm.Configuration(fileURL: directory)
-        if let bundleURL = Bundle.main.url(forResource: "bundle", withExtension: "realm") {
-            if !FileManager.default.fileExists(atPath: directory!.path) {
-                try! FileManager.default.copyItem(at: bundleURL, to: sharedConfig.fileURL!)
-                print(sharedConfig.fileURL!)
-            } else {
-                print("file exist")
-            }
-        }
-        print("========================")
-    }
 
     func inLibraryFolder(fileName: String) -> URL {
         let libraryUserDomain = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
@@ -67,8 +54,21 @@ class ShareViewController: UIViewController {
         let labels = realm.objects(LabelRealmModel.self)
         print("Labels in DB: =\(labels.count)")
         print(config.fileURL!)
+        print("======================")
     }
 
+    func shareRealm() {
+        print(#function)
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack.shareExtension.ShareSheet")?.appendingPathComponent("shared.realm")
+        let sharedConfig = Realm.Configuration(fileURL: directory)
+        if let bundleURL = Bundle.main.url(forResource: "bundle", withExtension: "realm") {
+            try! FileManager.default.copyItem(at: bundleURL, to: sharedConfig.fileURL!)
+            print(sharedConfig.fileURL!)
+        } else {
+            print("file exist")
+        }
+        
+    }
     // MARK: - Get Image file from share extension
 
     func getImage() {

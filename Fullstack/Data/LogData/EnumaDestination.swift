@@ -7,8 +7,6 @@
 
 import Foundation
 
-// Enuma 서버로 보내기 
-// s3://db-c5e7e752e52cde5cc368075ac9f808f2-s3-root-bucket/oregon-prod/1327323773818177/
 
 class EnumaDestination: AvoCustomDestination {
     // apiKey 필요 x
