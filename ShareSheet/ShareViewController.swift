@@ -49,7 +49,7 @@ class ShareViewController: UIViewController {
 
     func accessMainRealm() {
         print(#function)
-        let config = Realm.Configuration(fileURL: inLibraryFolder(fileName: "main.realm"))
+        let config = Realm.Configuration(fileURL: inLibraryFolder(fileName: "default.realm"))
         let realm = try! Realm(configuration: config)
         let labels = realm.objects(LabelRealmModel.self)
         print("Labels in DB: =\(labels.count)")
@@ -59,15 +59,19 @@ class ShareViewController: UIViewController {
 
     func shareRealm() {
         print(#function)
-        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack.shareExtension.ShareSheet")?.appendingPathComponent("shared.realm")
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack")?.appendingPathComponent("default.realm")
         let sharedConfig = Realm.Configuration(fileURL: directory)
         if let bundleURL = Bundle.main.url(forResource: "bundle", withExtension: "realm") {
             try! FileManager.default.copyItem(at: bundleURL, to: sharedConfig.fileURL!)
             print(sharedConfig.fileURL!)
         } else {
+            print(sharedConfig.fileURL!)
             print("file exist")
         }
         
+        let realm = try! Realm(configuration: sharedConfig)
+        let labels = realm.objects(LabelRealmModel.self)
+        print("shared.realm -> Labels in DB = \(labels.count)")
     }
     // MARK: - Get Image file from share extension
 

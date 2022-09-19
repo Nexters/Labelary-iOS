@@ -86,8 +86,4 @@ struct ShareSheetSearchBarView: View {
     }
 }
 
-struct ShareSheetSearchBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShareSheetSearchBarView(text: .constant(""))
-    }
-}
+

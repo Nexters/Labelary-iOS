@@ -159,6 +159,9 @@ struct MainLabelingView: View {
                     isActive: $isShowingAddLabelingView
                 ) {}
             }.onAppear(perform: {
+                print("realm 위치 ====\n")
+                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                
                 avo?.mainLabelingView()
                 needToLabelingData.imageData.removeAll() // 여기서 초기화해주기
             })
