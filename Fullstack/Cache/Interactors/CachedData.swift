@@ -11,9 +11,7 @@ import RealmSwift
 let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack")?.appendingPathComponent("default.realm")
 let cachedConfig = Realm.Configuration(fileURL: directory)
 struct CachedData: CachedDataSource {
-    
     let realm = try! Realm(configuration: cachedConfig)
-    
     
     func createLabel(name: String, color: ColorSet) -> Observable<LabelEntity> {
         var id = ""

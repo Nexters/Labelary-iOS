@@ -29,7 +29,6 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        accessMainRealm() // realm 확인하기
         shareRealm()
         if shareExtension.dismiss {
             print("dismiss share extension ")

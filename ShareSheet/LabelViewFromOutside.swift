@@ -88,7 +88,6 @@ struct LabelViewFromOutside: View {
         self.sharedImage = sharedImage
 
         loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-
             self.viewModel.labels = data
             print(data)
         }).store(in: cancelBag)
@@ -171,7 +170,8 @@ struct LabelViewFromOutside: View {
                     }
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("추가한 라벨".localized())
+                            Text("추가한 라벨".localized()).foregroundColor(Color.PRIMARY_2)
+                                .font(Font.B2_MEDIUM)
                             Text("\(selectedLabels.count)").foregroundColor(Color.KEY_ACTIVE)
                         }.padding([.leading, .top], 20)
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -194,13 +194,19 @@ struct LabelViewFromOutside: View {
                         .background(Color.DEPTH_4_BG.edgesIgnoringSafeArea(.all))
                         .opacity(selectedLabels.count > 0 ? 1 : 0)
                 }
-                .navigationBarTitle(Text("스크린샷 라벨 추가".localized()), displayMode: .inline)
                 .navigationBarItems(leading:
+                HStack {
                     Button(action: {
                         self.shareExtension.dismiss = true
                     }, label: {
                         Image("btn_cancel")
-                    }),
+                    }).padding(.trailing, 76)
+                    
+                    Text("스크린샷 라벨 추가".localized())
+                        .font(Font.B1_BOLD)
+                        .foregroundColor(Color.PRIMARY_1)
+                        .padding(.trailing, 24)
+                },
                     trailing: Button(action: {
                         self.showToast = true
 

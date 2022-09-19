@@ -338,7 +338,6 @@ struct AddLabelingView: View {
                         .font(Font.B1_BOLD)
                         .foregroundColor(Color.PRIMARY_1)
                         .padding(.trailing, 24)
-
                 },
                 trailing:
                 HStack {
