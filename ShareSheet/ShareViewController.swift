@@ -10,6 +10,7 @@ import Realm
 import RealmSwift
 import SwiftUI
 import UIKit
+import Photos
 
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
@@ -70,22 +71,30 @@ class ShareViewController: UIViewController {
         
         let realm = try! Realm(configuration: sharedConfig)
         let labels = realm.objects(LabelRealmModel.self)
+        
         print("shared.realm -> Labels in DB = \(labels.count)")
     }
     // MARK: - Get Image file from share extension
 
     func getImage() {
+        
+        // localIdentifier
+        
         if let inputItem = extensionContext!.inputItems.first as? NSExtensionItem {
             if let itemProvider = inputItem.attachments?.first as? NSItemProvider {
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeData as String) {
+                    
+
                     itemProvider.loadItem(forTypeIdentifier: kUTTypeData as String, options: [:]) { [self]
                         data, _ in
-
+                        
+                    
                         var image: UIImage?
-
+                        
+                        
                         if let someURL = data as? URL {
                             image = UIImage(contentsOfFile: someURL.path)
-
+                            
                             if let someImage = image {
                                 self.sharedImage.imageData = someImage
                             } else {

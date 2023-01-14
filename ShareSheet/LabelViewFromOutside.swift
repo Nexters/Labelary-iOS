@@ -12,60 +12,6 @@ import UIKit
 import Realm
 import RealmSwift
 
-func giveLabelBackgroundColor(color: String) -> Color {
-    switch color {
-    case "Yellow":
-        return Color(red: 232/255, green: 194/255, blue: 93/255).opacity(0.15)
-    case "Red":
-        return Color(red: 199/255, green: 103/255, blue: 97/255).opacity(0.15)
-    case "Violet":
-        return Color(red: 160/255, green: 110/255, blue: 229/255).opacity(0.15)
-    case "Blue":
-        return Color(red: 76/255, green: 166/255, blue: 255/255).opacity(0.15)
-    case "Green":
-        return Color(red: 62/255, green: 168/255, blue: 122/255).opacity(0.15)
-    case "Orange":
-        return Color(red: 236/255, green: 145/255, blue: 71/255).opacity(0.15)
-    case "Pink":
-        return Color(red: 224/255, green: 137/255, blue: 181/255).opacity(0.15)
-    case "Cobalt_Blue":
-        return Color(red: 101/255, green: 101/255, blue: 229/255).opacity(0.15)
-    case "Peacock_Green":
-        return Color(red: 82/255, green: 204/255, blue: 204/255).opacity(0.15)
-    case "Gray":
-        return Color(red: 123/255, green: 131/255, blue: 153/255).opacity(0.15)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255).opacity(0.15)
-    }
-}
-
-func giveTextForegroundColor(color: String) -> Color {
-    switch color {
-    case "Yellow":
-        return Color(red: 255/255, green: 226/255, blue: 153/255)
-    case "Red":
-        return Color(red: 255/255, green: 167/255, blue: 153/255)
-    case "Violet":
-        return Color(red: 217/255, green: 194/255, blue: 255/255)
-    case "Blue":
-        return Color(red: 178/255, green: 217/255, blue: 255/255)
-    case "Green":
-        return Color(red: 177/255, green: 229/255, blue: 207/255)
-    case "Orange":
-        return Color(red: 255/255, green: 203/255, blue: 161/255)
-    case "Pink":
-        return Color(red: 255/255, green: 199/255, blue: 227/255)
-    case "Cobalt_Blue":
-        return Color(red: 191/255, green: 191/255, blue: 255/255)
-    case "Peacock_Green":
-        return Color(red: 161/255, green: 229/255, blue: 229/255)
-    case "Gray":
-        return Color(red: 204/255, green: 218/255, blue: 255/255)
-    default:
-        return Color(red: 255/255, green: 255/255, blue: 255/255)
-    }
-}
-
 class ShareExtensionViewObservable: ObservableObject {
     @Published var dismiss: Bool = false
 }
@@ -76,7 +22,7 @@ struct LabelViewFromOutside: View {
     @State private var numberOfMyLables: Int = 0
     @State var selectedLabels: [LabelEntity] = []
     @State var showAddLabelView: Bool = false
-
+    
     @ObservedObject var viewModel = ViewModel()
     @ObservedObject var sharedImage: model
     @ObservedObject var shareExtension = ShareExtensionViewObservable()
@@ -86,11 +32,11 @@ struct LabelViewFromOutside: View {
 
     init(sharedImage: model) {
         self.sharedImage = sharedImage
-
-        loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-            self.viewModel.labels = data
-            print(data)
-        }).store(in: cancelBag)
+        // 여기서 image 를 imageEntity로 만들어주는 ? 것이 필요한뎅..
+//        loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
+//            self.viewModel.labels = data
+//            print(data)
+//        }).store(in: cancelBag)
     }
 
     @State var showToast = false
@@ -119,13 +65,13 @@ struct LabelViewFromOutside: View {
                             Spacer(minLength: 40)
                             if self.keyword.isEmpty {
                                 HStack {
-                                    Text("내 라벨".localized()).font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                    Text("내 라벨".localized()).font(Font.system(size: 14)).foregroundColor(Color.PRIMARY_2)
                                     Text(" \(self.viewModel.labels.count)").foregroundColor(Color.KEY_ACTIVE)
                                 }.padding(.leading, 20)
                             } else {
                                 if self.viewModel.labels.filter { $0.name.contains(keyword) }.count > 0 {
                                     HStack {
-                                        Text("검색 결과".localized()).font(Font.system(size: 14)).foregroundColor(Color.secondary)
+                                        Text("검색 결과".localized()).font(Font.system(size: 14)).foregroundColor(Color.PRIMARY_2)
                                         Text("\(self.viewModel.labels.filter { $0.name.contains(keyword) }.count)").foregroundColor(Color.KEY_ACTIVE)
                                     }
                                 } else {
@@ -208,9 +154,10 @@ struct LabelViewFromOutside: View {
                         .padding(.trailing, 24)
                 },
                     trailing: Button(action: {
+                        
+                    viewModel.requestLabeling.get(param: RequestLabeling.Param(labels: selectedLabels, images: viewModel.images))
                         self.showToast = true
-
-                        print("완료버튼 작동")
+                        
                     }, label: {
                         Text("완료".localized()).font(Font.system(size: 16))
                             .foregroundColor(Color.KEY_ACTIVE)
@@ -225,24 +172,40 @@ struct LabelViewFromOutside: View {
         var config = Realm.Configuration()
         
         @Published var labels: [LabelEntity] = []
-
-//        let cancelBag = CancelBag()
-//
-//        let loadLabelingSelectData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
-//
-//        init()
-//        {
-//            refresh()
-//        }
-//
-//        func refresh() {
-//            loadLabelingSelectData.get().sink(receiveCompletion: { _ in }, receiveValue: { [self] data in
-//
-//                self.labels = data
-//                print(data)
-//            }).store(in: cancelBag)
-//        }
-
+        @Published var images: [ImageEntity] = []
+        let cancelBag = CancelBag()
+        let requestLabeling = RequestLabeling(imageRepository: ImageRepositoryImpl(cachedDataSource: CachedData()))
+        let loadLabelData = LoadLabelingSelectData(labelRepository: LabelingRepositoryImpl(cachedDataSource: CachedData()))
+        
+        init() {
+            loadLabelData.get().sink(receiveCompletion: {
+                _ in
+            }, receiveValue: { data in
+                self.labels = data
+            }).store(in: cancelBag)
+        }
+        
+        func shareRealm() {
+            print(#function)
+            let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Fullstack")?.appendingPathComponent("default.realm")
+            let sharedConfig = Realm.Configuration(fileURL: directory)
+            if let bundleURL = Bundle.main.url(forResource: "bundle", withExtension: "realm") {
+                try! FileManager.default.copyItem(at: bundleURL, to: sharedConfig.fileURL!)
+                print(sharedConfig.fileURL!)
+            } else {
+                print(sharedConfig.fileURL!)
+                print("file exist")
+            }
+            
+            let realm = try! Realm(configuration: sharedConfig)
+            let labels = realm.objects(LabelRealmModel.self) // labelRealmModel -> LabelEntity로 묶어주어야 함 
+            
+            
+        }
+        
+        
+        
+        
         func colorSetToString(color: ColorSet) -> String {
             switch color {
             case .YELLOW:

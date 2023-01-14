@@ -11,7 +11,6 @@ import RealmSwift
 class LabelImageRealmModel: Object {
     @objc dynamic var id: String = UUID().uuidString
     @objc dynamic var image: ImageRealmModel?
-
     dynamic var labels: List<LabelRealmModel> = List()
     @objc dynamic var createdAt: Date?
     dynamic var lastSearchedAt: Date?

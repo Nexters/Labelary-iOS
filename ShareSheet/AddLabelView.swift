@@ -89,7 +89,7 @@ struct AddLabelView: View {
 
                 HStack(alignment: .center) {
                     VStack {
-                        // ForEach 부하걸리니까 수정해야함
+                        
                         ForEach(0 ..< labelButtons.count / 2) {
                             button in
 
