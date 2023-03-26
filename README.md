@@ -1,6 +1,7 @@
 
 <h3 align="center"> Team  Full Stack iOS Repository</h3>
-![labelary_png](https://user-images.githubusercontent.com/41604678/227776845-4de5c22c-cd58-4130-ad72-86fb8f9fb526.png)
+
+![labelary_png](https://user-images.githubusercontent.com/41604678/227777029-4d1ab0bd-9fe2-4643-b9c8-e3826a7f4d48.png)
 
 
 ## - What is Labelary ?
