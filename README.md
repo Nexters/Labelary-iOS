@@ -11,10 +11,10 @@
 <h3> What is Labelary ? </h3>
 Labelary helps the user manage the filed up screenshots by label.
 
-
 Labeling the screenshots by FILP and find the screenshots by searching with the labels!  
 Make your own screenshot album and manage the screenshots by the labels.  
+Meet Labelary at [AppStore](https://apps.apple.com/kr/app/%EB%A0%88%EC%9D%B4%EB%B8%94%EB%9F%AC%EB%A6%AC/id1581267873?l=en)
 <br>
-<br>
+
 - Tech Stack : Swift, SwiftUI, Combine, RealmDB
 - Design Pattern : MVVM  
